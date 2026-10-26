@@ -1,0 +1,10 @@
+import fs from 'node:fs';import path from 'node:path';import sharp from 'sharp';
+const dir='public/assets';fs.mkdirSync('design-assets/originals',{recursive:true});let before=0,after=0;
+for(const file of fs.readdirSync(dir).filter(f=>/\.(png|jpg)$/.test(f))){const source=path.join(dir,file);before+=fs.statSync(source).size;const dest=path.join(dir,file.replace(/\.(png|jpg)$/,'.webp'));const data=await sharp(source).resize({width:file==='hero.png'?1536:1000,withoutEnlargement:true}).webp({quality:86,effort:5}).toBuffer();fs.writeFileSync(dest,data);after+=data.length;fs.renameSync(source,path.join('design-assets/originals',file));}
+for(const file of fs.readdirSync('src').filter(f=>/\.(tsx|ts)$/.test(f))){const p='src/'+file;let s=fs.readFileSync(p,'utf8');s=s.replace(/\/assets\/([^'"\s]+)\.(png|jpg)/g,'/assets/$1.webp').replace('`/assets/${n}.jpg`','`/assets/${n}.webp`');fs.writeFileSync(p,s)}
+console.log(JSON.stringify({before,after,saved:Math.round((before-after)/Math.max(1,before)*100)+'%'}));
+fs.mkdirSync('public/fonts',{recursive:true});
+const r=await fetch('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=DM+Serif+Display:ital@0;1&display=swap',{headers:{'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'}});
+let css=await r.text();const urls=[...new Set([...css.matchAll(/url\((https:\/\/fonts[^)]+)\)/g)].map(m=>m[1]))];for(let i=0;i<urls.length;i++){const url=urls[i],res=await fetch(url);if(!res.ok)throw new Error('Font download failed');const filename=`font-${i}.woff2`;fs.writeFileSync('public/fonts/'+filename,Buffer.from(await res.arrayBuffer()));css=css.replaceAll(url,'/fonts/'+filename)}fs.writeFileSync('src/fonts.css',css);
+let styles=fs.readFileSync('src/styles.css','utf8');fs.writeFileSync('src/styles.css',"@import url('./fonts.css');\n"+styles);
+let html=fs.readFileSync('index.html','utf8');html=html.replace(/<link rel="preconnect"[^>]+\/>/g,'').replace(/<link href="https:\/\/fonts.googleapis.com[^>]+\/>/g,'');fs.writeFileSync('index.html',html);console.log('Bundled '+urls.length+' font subsets.');

@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /account
+Disallow: /checkout
+Disallow: /cart
+Disallow: /login
+Disallow: /register
+Disallow: /order-success
+Disallow: /track
+Sitemap: https://nirbhor-organic-commerce.palerain64.chatgpt.site/sitemap.xml

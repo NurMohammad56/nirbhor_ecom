@@ -1,0 +1,10 @@
+node_modules/
+dist/
+artifacts/
+test-results/
+playwright-report/
+design-assets/originals/
+*.tsbuildinfo
+.openai/*.local.*
+.DS_Store
+*.log

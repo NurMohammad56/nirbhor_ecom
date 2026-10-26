@@ -61,7 +61,7 @@ export function useSeo() {
     meta(
       "og:image",
       new URL(
-        product?.image || experience?.heroImage || "/assets/brand-hero-v2.webp",
+        product?.image || experience?.heroImage || "/assets/brand-world-v3.webp",
         location.origin,
       ).href,
       true,

@@ -1,36 +1,26 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  ArrowRight,
   ArrowUpRight,
-  ChevronLeft,
-  ChevronRight,
-  Pause,
-  Play,
   PackageCheck,
   ShieldCheck,
   Truck,
   HeartHandshake,
-  Check,
-  MoveUpRight,
 } from "lucide-react";
 import { useStore } from "./store";
-import { Button, ProductCard, SectionTitle } from "./ui";
+import { Button, ProductCard } from "./ui";
 import {
   categoryForDepartment,
   departments,
   experienceForDepartment,
 } from "./departments";
 import { brandBanners } from "./department-state";
+import CinematicHero from "./CinematicHero";
+import { Botanical } from "./SceneMotion";
 
 export default function BrandHome() {
   const { products, categories, banners, content } = useStore();
-  const [slide, setSlide] = useState(0),
-    [paused, setPaused] = useState(false),
-    [stopped, setStopped] = useState(
-      () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-    ),
-    [edit, setEdit] = useState("all");
+  const [edit, setEdit] = useState("all");
   const slides = banners
     .filter(
       (b) =>
@@ -39,15 +29,6 @@ export default function BrandHome() {
         (!b.end || new Date(b.end) >= new Date()),
     )
     .sort((a, b) => a.order - b.order);
-  const current = slides[slide % Math.max(1, slides.length)] || brandBanners[0];
-  useEffect(() => {
-    if (paused || stopped || slides.length < 2) return;
-    const interval = setInterval(
-      () => setSlide((s) => (s + 1) % slides.length),
-      9000,
-    );
-    return () => clearInterval(interval);
-  }, [paused, stopped, slides.length]);
   const visibleDepartments = departments.filter((d) => {
     const c = categoryForDepartment(d, categories);
     return c?.active && experienceForDepartment(d, categories).enabled;
@@ -70,121 +51,7 @@ export default function BrandHome() {
           .slice(0, 4);
   return (
     <main className="brand-home">
-      <section
-        className="brand-hero-wrap container"
-        aria-label="Welcome to Nirbhor"
-      >
-        <div className="brand-preline">
-          <span>THOUGHTFUL FINDS. EVERYDAY CONFIDENCE.</span>
-          <Link to="/about">
-            A name to feel at home with. <ArrowUpRight size={13} />
-          </Link>
-        </div>
-        <div
-          className={`brand-hero brand-hero-slide-${slide % Math.max(1, slides.length)}`}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-        >
-          <div className="brand-hero-copy" key={current.id + "-copy"}>
-            <span className="brand-eyebrow">
-              <span />
-              EVERYDAY, WELL CHOSEN.
-            </span>
-            <h1>
-              {current.title.split("\n").map((line, i) => (
-                <span key={i}>{line}</span>
-              ))}
-            </h1>
-            <p>{current.subtitle}</p>
-            <div className="brand-hero-actions">
-              <Button to={current.link}>
-                {current.cta}
-                <ArrowUpRight size={17} />
-              </Button>
-              <Link to="/offers" className="brand-underlined">
-                A little extra for you <ArrowRight size={15} />
-              </Link>
-            </div>
-            <div className="brand-hero-note">
-              <ShieldCheck size={17} />
-              <span>Clear details. Thoughtful choices. A familiar name.</span>
-            </div>
-          </div>
-          <div className="brand-hero-visual" key={current.id + "-image"}>
-            <img
-              src={current.image}
-              alt={
-                slide % Math.max(1, slides.length) === 0
-                  ? "A considered selection of honey, skincare, cotton clothing and ceramic homeware"
-                  : current.title.replace("\n", " ")
-              }
-              fetchPriority="high"
-            />
-            <div className="brand-image-caption">
-              <span className="caption-dot" />
-              <span>FOR EVERY SIDE OF YOUR EVERYDAY</span>
-              <ArrowUpRight size={16} />
-            </div>
-            <span className="brand-photo-number">
-              N /{" "}
-              {String((slide % Math.max(1, slides.length)) + 1).padStart(
-                2,
-                "0",
-              )}
-            </span>
-          </div>
-          <div className="brand-carousel-controls">
-            <button
-              className="icon-btn"
-              aria-label={
-                stopped ? "Play hero carousel" : "Pause hero carousel"
-              }
-              aria-pressed={stopped}
-              onClick={() => setStopped(!stopped)}
-            >
-              {stopped ? <Play size={12} /> : <Pause size={12} />}
-            </button>
-            <div className="brand-slide-dots">
-              {slides.map((b, i) => (
-                <button
-                  key={b.id}
-                  aria-label={`Go to slide ${i + 1}`}
-                  aria-current={slide % slides.length === i}
-                  className={slide % slides.length === i ? "active" : ""}
-                  onClick={() => setSlide(i)}
-                />
-              ))}
-            </div>
-            <span>
-              {String((slide % Math.max(1, slides.length)) + 1).padStart(
-                2,
-                "0",
-              )}{" "}
-              <i>/ {String(Math.max(1, slides.length)).padStart(2, "0")}</i>
-            </span>
-            <div>
-              <button
-                className="icon-btn"
-                aria-label="Previous slide"
-                disabled={slides.length < 2}
-                onClick={() =>
-                  setSlide((s) => (s - 1 + slides.length) % slides.length)
-                }
-              >
-                <ChevronLeft size={15} />
-              </button>
-              <button
-                className="icon-btn"
-                aria-label="Next slide"
-                disabled={slides.length < 2}
-                onClick={() => setSlide((s) => (s + 1) % slides.length)}
-              >
-                <ChevronRight size={15} />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CinematicHero slides={slides.length ? slides : brandBanners} collections={visibleDepartments} />
       <div className="brand-services container">
         {[
           {
@@ -320,11 +187,12 @@ export default function BrandHome() {
           ))}
         </div>
       </section>
-      <section className="brand-story-wrap">
+      <section className="brand-story-wrap botanical-stage">
+        <Botanical kind="dry" className="story-botanical" />
         <div className="container brand-story">
           <div className="brand-story-image">
             <img
-              src="/assets/brand-story-v2.webp"
+              src="/assets/brand-story-v3.webp"
               alt="Carefully wrapping selected everyday products at the Nirbhor packing table"
               loading="lazy"
             />
@@ -375,7 +243,8 @@ export default function BrandHome() {
           </div>
         </div>
       </section>
-      <section className="container brand-closing">
+      <section className="container brand-closing botanical-stage">
+        <Botanical className="closing-botanical" />
         <span className="brand-eyebrow">GOOD THINGS. A FAMILIAR NAME.</span>
         <h2>
           A little more considered.

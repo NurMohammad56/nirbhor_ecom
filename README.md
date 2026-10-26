@@ -89,3 +89,9 @@ To reset the demo, clear this origin's site data in your browser. To preserve it
 - `src/DepartmentExperiencesAdmin.tsx`, `src/departments.css` — category experience editing and design
 
 See [ASSETS.md](ASSETS.md) for image creation prompts and image / font sources.
+
+## Immersive visual update (V3)
+
+The home hero now uses a full-width photographic carousel with crossfades, a pausable progress indicator and four direct department links. Each department has a full-width image hero with white copy and gentle scroll motion; Beauty includes a floating unbranded serum. Motion respects reduced-motion preferences and the carousel pauses when hovered, focused, offscreen or in a hidden tab. Header and admin typography, borders and contrast are stronger.
+
+The V3 storage migration updates only known demo image references and the former Nirbhor brand on Beauty/Clothing products. Custom supplier brands, uploaded images, prices, category copy, cart and customer data are preserved. Beauty and clothing use ?Imported collection? until actual supplier information is added. Generated photography is presentation material for this frontend, not a representation of verified commercial stock. Exact prompts and files: `design-assets/V3-PROMPTS.md`.

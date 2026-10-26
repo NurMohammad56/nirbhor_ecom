@@ -1,0 +1,296 @@
+/* Immersive editorial scenes: photography stays behind the shopping controls. */
+.brand-site-header .header-main { height: 96px; gap: 25px; }
+.brand-nav { gap: 25px; margin-left: 8px; }
+.brand-nav > a, .brand-nav > button { font-size: 14px; font-weight: 500; }
+.brand-header-search { max-width: 255px; }
+.brand-header-search input, .brand-header-search input::placeholder { font-size: 13px; }
+.brand-announcement .announcement-center, .brand-announcement .container > span:first-child { font-size: 12px; }
+.brand-announcement a { font-size: 12px; }
+.brand-mega { top: 96px; }
+.brand-mega-column strong { font-size: 15px; }
+.brand-mega-column > a:not(:first-child) { font-size: 13px; color: #55614c; }
+.department-subnav a, .department-subnav .department-back-link { font-size: 12px; }
+
+.cinematic-shell { position: relative; width: 100%; max-width: none; margin: 0; padding: 0; --scene-shift: 0px; }
+.brand-hero.cinematic-hero { display: flex; align-items: center; min-height: 650px; height: min(740px, 79svh); position: relative; isolation: isolate; overflow: hidden; padding: 100px 0 150px; background: #242e21; color: #fff; }
+.cinema-scene-stack, .cinema-scene, .cinema-shade { position: absolute; inset: 0; z-index: -2; }
+.cinema-scene { opacity: 0; transition: opacity 1.4s ease; overflow: hidden; }
+.cinema-scene.is-active { opacity: 1; }
+.cinema-scene img { width: 100%; height: 100%; object-fit: cover; object-position: center 55%; transform: scale(1.06) translateY(var(--scene-shift)); }
+.cinema-scene.is-active img { animation: cinema-breathe 17s ease-in-out infinite alternate; }
+.cinema-shade { z-index: -1; background: linear-gradient(90deg, #0b1812d9 0%, #0b18128c 33%, #0b18120a 72%), linear-gradient(0deg, #0c1513b0, transparent 24%, transparent 80%, #0c15135e); }
+.cinema-topline { position: absolute; top: 31px; inset-inline: 0; display: flex; align-items: center; justify-content: space-between; font-size: 10px; letter-spacing: 2px; color: #f2f0e4dd; }
+.cinematic-hero .brand-hero-copy { padding: 38px 0 0; animation: cinema-copy-in .85s ease both; }
+.cinematic-hero .brand-eyebrow { color: #e0d8ac; font-size: 11px; letter-spacing: 2.2px; margin-bottom: 26px; }
+.cinematic-hero .brand-eyebrow > span { background: #d5be7e; box-shadow: 0 0 0 5px #e4d6b41a; }
+.cinematic-hero .brand-hero-copy h1 { font-size: clamp(64px, 6.65vw, 104px); line-height: 1.01; letter-spacing: -2.8px; color: #fffdf5; text-shadow: 0 3px 25px #0d170c20; max-width: 800px; }
+.cinematic-hero .brand-hero-copy > p { color: #f1f0e4e8; font-size: 16px; line-height: 1.8; max-width: 410px; margin-top: 24px; }
+.cinematic-hero .brand-hero-actions { margin-top: 29px; gap: 27px; }
+.cinematic-hero .brand-hero-actions > .btn, .immersive-department .department-hero-copy .btn { background: #f7f3e7; border: 1px solid #f7f3e7; color: #213c2d; min-height: 52px; font-size: 14px; border-radius: 2px; padding-inline: 24px; gap: 28px; box-shadow: 0 4px 24px #0a130c0d; }
+.cinematic-hero .brand-hero-actions > .btn:hover, .immersive-department .department-hero-copy .btn:hover { background: #e3d4aa; border-color: #e3d4aa; transform: translateY(-2px); }
+.cinematic-hero .brand-underlined { color: #fff7e3; border-color: #f7f3e77a; font-size: 13px; }
+.cinema-bottom { position: absolute; bottom: 34px; inset-inline: 0; display: flex; justify-content: space-between; align-items: flex-end; }
+.cinema-scroll { display: flex; align-items: center; gap: 16px; font-size: 9px; line-height: 1.8; letter-spacing: 1.6px; color: #f4efe2; }
+.cinema-scroll > svg { box-sizing: content-box; padding: 13px; border: 1px solid #ffffff5c; border-radius: 50%; }
+.cinematic-hero .brand-carousel-controls { position: static; gap: 17px; color: #fff9e7; font-size: 12px; }
+.cinematic-hero .brand-carousel-controls > .icon-btn, .cinematic-hero .brand-carousel-controls > div:last-child > .icon-btn { height: 40px; width: 40px; color: #fff9e7; background: #ffffff0a; border: 1px solid #ffffff5c; backdrop-filter: blur(10px); }
+.cinematic-hero .brand-carousel-controls .icon-btn:hover { background: #ffffff29; }
+.cinematic-hero .brand-carousel-controls > span { font-size: 12px; font-variant-numeric: tabular-nums; }
+.cinematic-hero .brand-carousel-controls i { color: #f0e7cd99; }
+.cinematic-hero .brand-slide-dots { gap: 5px; }
+.cinematic-hero .brand-slide-dots button { width: 35px; height: 36px; position: relative; border-radius: 0; background: transparent; }
+.cinematic-hero .brand-slide-dots button::before, .cinematic-hero .brand-slide-dots button > span { content: ""; position: absolute; left: 0; top: 17px; width: 100%; height: 2px; background: #ffffff4d; }
+.cinematic-hero .brand-slide-dots button.active > span { transform-origin: left; background: #eee0b5; animation: scene-progress 8.5s linear both; }
+.motion-paused .brand-slide-dots button.active > span, .motion-paused .cinema-scene.is-active img { animation-play-state: paused; }
+.cinema-worlds { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); background: #263e32; color: #f8f4e8; padding-inline: max(30px, calc((100% - 1280px) / 2)); }
+.cinema-worlds > a { min-height: 102px; padding: 24px 24px 24px 20px; display: grid; grid-template-columns: 22px 1fr 20px; gap: 5px 12px; align-items: center; border-left: 1px solid #ffffff26; transition: background .3s; }
+.cinema-worlds > a:last-child { border-right: 1px solid #ffffff26; }
+.cinema-worlds > a:hover { background: #ffffff0d; }
+.cinema-worlds > a > span { font-size: 10px; color: #c6c4a4; align-self: start; padding-top: 5px; }
+.cinema-worlds strong { font-family: var(--serif); font-size: 24px; font-weight: 400; letter-spacing: -.3px; }
+.cinema-worlds small { grid-column: 2; font-size: 11px; color: #d7dece; line-height: 1.6; }
+.cinema-worlds svg { grid-column: 3; grid-row: 1 / 3; color: #d8c697; }
+
+.immersive-department { padding: 0; position: relative; isolation: isolate; overflow: hidden; background: #27372b; --scene-shift: 0px; }
+.immersive-department > .container { position: relative; z-index: 2; }
+.department-immersive-media, .department-hero-shade { position: absolute; inset: 0; z-index: -2; }
+.department-immersive-media { transform: translateY(var(--scene-shift)) scale(1.06); }
+.department-immersive-media > img { width: 100%; height: 100%; object-fit: cover; object-position: center; animation: department-pan 24s ease-in-out infinite alternate; }
+.department-hero-shade { z-index: -1; background: linear-gradient(90deg, #091e16de, #091e1680 37%, #091e1600 77%), linear-gradient(0deg, #0d1b1799, transparent 30%); }
+.department-beauty .department-hero-shade { background: linear-gradient(90deg, #260e21e6, #260e217d 43%, #260e2105 80%), linear-gradient(0deg, #240d1d8f, transparent 30%); }
+.department-fashion .department-hero-shade { background: linear-gradient(90deg, #171b19e6, #171b1980 40%, transparent 78%), linear-gradient(0deg, #111a167d, transparent 35%); }
+.department-home-living .department-hero-shade { background: linear-gradient(90deg, #291b11ed, #291b1180 40%, transparent 80%), linear-gradient(0deg, #291b1180, transparent 35%); }
+.immersive-department .department-breadcrumb { padding-top: 27px; margin-bottom: 0; font-size: 12px; color: #fff5e3c9; }
+.immersive-department .department-breadcrumb > a { color: #fff5e3; opacity: 1; }
+.immersive-department .department-hero { display: flex; align-items: center; min-height: 610px; height: min(680px, 74svh); padding: 50px 0 65px; position: relative; gap: 0; }
+.immersive-department .department-hero-copy { position: relative; z-index: 3; padding: 0; max-width: 630px; animation: cinema-copy-in .9s ease both; }
+.immersive-department .department-hero-copy > .brand-eyebrow { color: #f4dfb0; opacity: 1; font-size: 11px; letter-spacing: 2px; margin-bottom: 27px; }
+.immersive-department .department-hero-copy h1 { font-size: clamp(58px, 5.7vw, 86px); color: #fffdf6; line-height: 1.04; letter-spacing: -2px; }
+.immersive-department .department-hero-copy > p { color: #fff5e4e6; font-size: 16px; line-height: 1.85; max-width: 395px; margin-top: 25px; }
+.immersive-department .department-hero-copy > div { gap: 24px; margin-top: 28px; }
+.immersive-department .department-hero-copy .brand-underlined { color: #fff7e7; font-size: 13px; opacity: 1; }
+.immersive-department .department-signature { color: #fff5de; opacity: .8; margin-top: 30px; font-size: 13px; }
+.department-scene-footer { display: flex; justify-content: space-between; align-items: center; gap: 30px; padding-bottom: 27px; color: #f6f1e3; font-size: 10px; letter-spacing: 1.7px; }
+.department-scene-footer > a { display: flex; align-items: center; gap: 17px; }
+.department-scene-footer > a > span { font-size: 22px; line-height: 1; }
+.serum-orbit { position: absolute; right: 5%; bottom: 4%; width: 190px; transform: translateY(calc(var(--scene-shift) * -1.25)); pointer-events: none; }
+.serum-orbit img { width: 100%; filter: drop-shadow(14px 23px 20px #16041380); animation: serum-drift 7s ease-in-out infinite; }
+.serum-orbit > span { display: block; text-align: center; font-size: 8px; letter-spacing: 2.2px; color: #fff3e5cc; margin-top: -12px; }
+
+.botanical-stage { position: relative; }
+.botanical { position: absolute; pointer-events: none; user-select: none; width: 230px; max-width: none; z-index: 1; object-fit: contain; transform-origin: 75% 95%; animation: botanical-sway 11s ease-in-out infinite alternate; }
+.hero-botanical { bottom: -74px; right: -65px; width: 330px; opacity: .85; z-index: 1; filter: drop-shadow(0 7px 20px #0004); }
+.botanical-stage { overflow: clip; }
+.story-botanical { right: -75px; top: -65px; width: 285px; opacity: .63; z-index: 0; }
+.brand-story { position: relative; z-index: 1; }
+.closing-botanical { left: -60px; bottom: 4%; width: 265px; opacity: .6; transform: rotate(40deg); }
+.editorial-botanical { right: -80px; bottom: -70px; width: 240px; opacity: .35; z-index: 0; }
+.department-faq { position: relative; z-index: 1; }
+
+/* Comfortable type and a little more colour outside the scenes. */
+.brand-services { margin-top: 0; padding-block: 29px; }
+.brand-services b { font-size: 13px; color: #354a38; }
+.brand-services small { font-size: 12px; color: #63705c; line-height: 1.65; }
+.brand-services > div > svg { color: #62774f; }
+.brand-eyebrow { font-size: 10px; color: #657357; }
+.brand-section-heading h2 { font-size: clamp(34px, 3.4vw, 49px); }
+.brand-section-heading > div > p, .brand-section-heading > p { font-size: 14px; color: #626e59; }
+.brand-section-heading .brand-underlined, .brand-underlined { font-size: 13px; }
+.brand-department-caption > .brand-eyebrow { font-size: 10px; color: var(--card-accent); }
+.brand-department-caption p { font-size: 13px; color: #62705c; }
+.brand-department-image img { transition: transform 1.2s cubic-bezier(.2,.65,.3,1); }
+.brand-department-card:hover .brand-department-image img { transform: scale(1.06); }
+.brand-edit-tabs > button { font-size: 13px; }
+.brand-edit-tabs { max-width: 100%; width: auto; margin-right: 0; }
+.brand-story-copy > p { font-size: 14px; color: #5c6b52; line-height: 1.9; }
+.brand-principles h3 { font-size: 14px; color: #364a30; }
+.brand-principles p { font-size: 12px; color: #5c6a52; }
+.brand-story-copy > .brand-underlined { font-size: 13px; color: #3e5933; }
+.brand-closing > p { font-size: 14px; color: #5c6c50; }
+.brand-closing > .btn { font-size: 13px; min-height: 49px; }
+.department-features > span, .department-features > a { font-size: 12px; color: var(--department-ink); opacity: .85; }
+.department-collection-card footer > div > p { font-size: 12px; }
+.department-editorial > div:nth-child(2) > p { font-size: 14px; color: var(--department-ink); opacity: .8; }
+.department-editorial-details > span { font-size: 12px; opacity: .9; }
+.department-editorial .brand-underlined, .department-faq .brand-underlined { font-size: 13px; opacity: 1; }
+.department-faq > div:first-child > p { font-size: 14px; color: var(--department-ink); opacity: .8; }
+.department-faq .faq-list summary { font-size: 15px; }
+.department-faq .faq-list details > p { font-size: 13px; color: var(--department-ink); opacity: .85; }
+.product-card .product-name { font-size: 15px; }
+.product-card .product-meta { font-size: 12px; }
+
+/* Admin retains its green identity with stronger labels, borders and status colours. */
+.admin-app { background: #f1f4ef; color: #263e30; }
+.admin-sidebar, .admin-sidebar-bottom { background: #173e30; }
+.admin-nav-group > a { font-size: 14px; min-height: 41px; color: #d0dfcf; }
+.admin-nav-group > span { font-size: 11px; color: #a6c2a3; }
+.admin-nav-group > a.active { background: #386348; color: #fffdf0; box-shadow: inset 3px 0 #d9cb8b; }
+.admin-nav-group > a > svg { color: #b4d1aa; }
+.workspace-picker b, .admin-profile b, .visit-store { font-size: 13px; color: #eff5e7; }
+.workspace-picker div > span, .admin-profile small { color: #b7ceb0; }
+.admin-title h1 { font-size: 35px; color: #20392a; }
+.admin-title p { font-size: 14px; color: #53654d; }
+.admin-title .eyebrow { color: #526746; font-size: 11px; }
+.admin-title-actions > .btn, .admin-title-actions > select { font-size: 13px; min-height: 42px; }
+.admin-panel, .stat-card { background: #fffefb; border-color: #cfdac5; box-shadow: 0 3px 13px #1d3a241f; }
+.admin-overview-notice { color: #48623b; border-color: #c5d3b4; background: #e6efdc; font-size: 13px; }
+.admin-overview-notice b, .admin-overview-notice > a { color: #36552b; }
+.stat-card > div { font-size: 13px; color: #526746; }
+.stat-card > strong { color: #24412d; font-size: 32px; }
+.stat-card > small { color: #526b42; font-size: 12px; }
+.admin-app .panel-header h2, .admin-app .panel-header h3 { font-size: 17px; color: #29442d; }
+.admin-app .panel-header p { font-size: 12px; color: #53694a; }
+.admin-panel .field { color: #465e3a; font-size: 13px; }
+.admin-panel .field > input, .admin-panel .field > textarea, .admin-panel .field > select { border-color: #b9c9ac; background: #fff; font-size: 14px; color: #2f4432; }
+.admin-app .field input::placeholder, .admin-app .field textarea::placeholder { color: #71806a; }
+.admin-table th { background: #eaf0e2; color: #455f39; font-size: 12px; border-bottom-color: #c9d6bd; }
+.admin-table td { color: #3b5234; font-size: 13px; border-color: #dce4d5; padding-block: 16px; }
+.admin-table td > small, .admin-table td small { font-size: 12px; color: #607452; }
+.admin-app .badge, .admin-topbar .badge { color: #36582a; background: #e7efdc; font-size: 12px; border: 1px solid #c8d8b8; }
+.admin-app .badge.warm { color: #875224; background: #fff0db; border-color: #e8c99e; }
+.admin-app .badge.neutral { color: #566249; background: #edf0e9; border-color: #d4ddcc; }
+.admin-topbar { border-bottom-color: #cfdac4; }
+.admin-topbar > div, .admin-topbar .text-link, .admin-topbar .icon-btn { color: #526d42; }
+.chart-bar-column > div.highlight { background: #496e3b; }
+.chart-bar-column > div { background: #bdcfa6; }
+.chart-legend, .chart-y, .chart-bar-column > span { color: #536b43; font-size: 11px; }
+.admin-app .table-toolbar input, .admin-app .table-toolbar select, .admin-app .toolbar input, .admin-app .toolbar select { border-color: #b9c9ac; font-size: 13px; }
+.stat-card p { color: #586e4c; font-size: 11px; }
+.stat-card p > span { color: #42652c; font-size: 12px; }
+.pulse-score b { color: #446235; }
+.pulse-score small { font-size: 12px; color: #587147; }
+.store-pulse > a, .store-pulse > a > b { font-size: 13px; color: #506b40; }
+.pulse-pixel > .small, .pulse-pixel p, .pulse-pixel .text-link { font-size: 12px; color: #566f45; }
+.admin-panel .panel-header > .text-link { font-size: 12px; color: #496a37; }
+.admin-app .muted, .admin-app .form-note { color: #5b6d50; }
+.brand-mobile-nav > a, .brand-mobile-nav .mobile-department-link b { font-size: 17px; }
+
+@keyframes cinema-breathe { from { transform: scale(1.06) translateY(var(--scene-shift)); } to { transform: scale(1.13) translateY(var(--scene-shift)); } }
+@keyframes department-pan { from { transform: scale(1.01) translateX(0); } to { transform: scale(1.05) translateX(-.6%); } }
+@keyframes cinema-copy-in { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scene-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes serum-drift { 0%,100% { transform: translateY(0) rotate(-7deg); } 50% { transform: translateY(-16px) rotate(1deg); } }
+@keyframes botanical-sway { from { rotate: -2deg; } to { rotate: 3deg; } }
+
+@media (min-width: 1700px) { .cinematic-hero .brand-hero-copy, .cinema-topline, .cinema-bottom { max-width: 1440px; } }
+@media (max-width: 1200px) {
+  .brand-site-header .header-main { gap: 20px; }
+  .brand-nav { gap: 18px; margin-left: 0; }
+  .brand-nav > a, .brand-nav > button { font-size: 13px; }
+  .brand-header-search { max-width: 210px; min-width: 130px; }
+  .brand-announcement .container > span:first-child { font-size: 10px; }
+  .cinema-worlds { padding-inline: 20px; }
+  .cinema-worlds > a { padding-inline: 14px; gap: 6px; }
+  .cinema-worlds strong { font-size: 22px; }
+  .cinema-worlds small { font-size: 10px; }
+  .immersive-department .department-hero { min-height: 585px; }
+}
+@media (max-width: 1000px) {
+  .brand-site-header .header-main { height: 84px; }
+  .brand-mega { top: 84px; }
+  .brand-header-search { max-width: 190px; }
+  .brand-nav { gap: 15px; }
+  .brand-logo-lockup .wordmark { font-size: 27px; }
+  .cinematic-hero .brand-hero-copy h1 { font-size: 76px; }
+  .cinema-scene img { object-position: 60% center; }
+  .cinema-worlds small { display: none; }
+  .cinema-worlds > a { min-height: 82px; }
+  .cinema-worlds svg { grid-row: 1; }
+  .immersive-department .department-hero-copy h1 { font-size: 69px; }
+  .serum-orbit { width: 145px; right: 1%; }
+}
+@media (max-width: 800px) {
+  .brand-site-header .header-main { height: 80px; gap: 16px; }
+  .brand-nav { display: none; }
+  .brand-header-search { max-width: none; }
+  .brand-announcement .announcement-center { font-size: 11px; }
+  .cinematic-hero .brand-hero-copy h1 { font-size: 68px; }
+  .brand-hero.cinematic-hero { min-height: 650px; height: 76svh; padding-block: 100px 135px; }
+  .cinema-shade { background: linear-gradient(90deg,#101f16d4,#101f1670 55%,#101f1620),linear-gradient(0deg,#0c1713c9,transparent 42%); }
+  .cinema-topline { top: 25px; font-size: 9px; }
+  .cinema-topline > span:last-child { display: none; }
+  .cinema-worlds { grid-template-columns: repeat(2, minmax(0,1fr)); padding: 0; }
+  .cinema-worlds > a { min-height: 82px; padding: 20px 25px; border-bottom: 1px solid #ffffff26; }
+  .cinema-worlds > a:nth-child(even) { border-right: 0; }
+  .cinematic-hero .brand-hero-copy > p { max-width: 380px; font-size: 15px; }
+  .cinema-bottom { bottom: 27px; }
+  .cinema-scroll > span { display: none; }
+  .immersive-department .department-hero { min-height: 615px; height: auto; padding-block: 65px 80px; }
+  .immersive-department .department-hero-copy h1 { font-size: 65px; }
+  .immersive-department .department-hero-copy > p { font-size: 15px; max-width: 370px; }
+  .department-immersive-media > img { object-position: 64% center; }
+  .serum-orbit { width: 125px; bottom: 2%; right: -12px; opacity: .85; }
+  .department-scene-footer { font-size: 8px; gap: 15px; }
+  .department-scene-footer > span { max-width: 190px; line-height: 1.7; }
+  .hero-botanical { width: 230px; bottom: -45px; right: -70px; }
+  .brand-services { gap: 22px; padding-block: 25px; }
+  .story-botanical { width: 190px; }
+  .closing-botanical { width: 170px; left: -65px; bottom: 0; }
+}
+@media (max-width: 520px) {
+  .brand-site-header .header-main { height: 76px; gap: 12px; }
+  .brand-logo-lockup .wordmark { font-size: 28px; }
+  .brand-logo-department { font-size: 14px; }
+  .brand-site-header .header-actions { gap: 3px; }
+  .brand-mobile-panel nav > a { font-size: 17px; }
+  .brand-hero.cinematic-hero { min-height: 675px; height: calc(100svh - 105px); max-height: 820px; padding-block: 170px 115px; align-items: flex-end; }
+  .cinema-scene img { object-position: 63% 30%; }
+  .cinema-shade { background: linear-gradient(0deg,#0c1814f5 1%,#0c1814d9 25%,#0c181469 65%,#0c181417),linear-gradient(90deg,#0c181440,transparent); }
+  .cinematic-hero .brand-hero-copy { padding-block: 0 25px; }
+  .cinematic-hero .brand-hero-copy h1 { font-size: clamp(49px,13.8vw,70px); letter-spacing: -1.9px; line-height: 1.02; }
+  .cinematic-hero .brand-eyebrow { font-size: 9px; letter-spacing: 1.7px; margin-bottom: 20px; }
+  .cinematic-hero .brand-hero-copy > p { font-size: 14px; line-height: 1.8; max-width: 315px; margin-top: 19px; }
+  .cinematic-hero .brand-hero-actions { gap: 18px; margin-top: 24px; }
+  .cinematic-hero .brand-hero-actions > .btn { font-size: 13px; padding-inline: 18px; min-height: 50px; gap: 16px; }
+  .cinematic-hero .brand-hero-actions > .brand-underlined { font-size: 12px; }
+  .cinema-bottom { bottom: 22px; }
+  .cinema-scroll > svg { padding: 10px; }
+  .cinematic-hero .brand-carousel-controls { gap: 9px; }
+  .cinematic-hero .brand-carousel-controls > div:last-child { gap: 4px; margin-left: 0; }
+  .cinematic-hero .brand-carousel-controls > .icon-btn, .cinematic-hero .brand-carousel-controls > div:last-child > .icon-btn { height: 36px; width: 36px; }
+  .cinematic-hero .brand-slide-dots button { width: 21px; }
+  .cinematic-hero .brand-carousel-controls > span { font-size: 10px; }
+  .cinema-worlds > a { padding: 20px 19px; gap: 8px; grid-template-columns: 17px 1fr 17px; min-height: 80px; }
+  .cinema-worlds strong { font-size: 22px; }
+  .cinema-worlds > a > span { font-size: 9px; }
+  .immersive-department .department-breadcrumb { padding-top: 22px; font-size: 11px; }
+  .immersive-department .department-hero { min-height: 640px; padding: 200px 0 55px; align-items: flex-end; }
+  .immersive-department .department-hero-copy h1 { font-size: clamp(46px,12.3vw,62px); line-height: 1.04; letter-spacing: -1.7px; }
+  .immersive-department .department-hero-copy > .brand-eyebrow { font-size: 9px; letter-spacing: 1.5px; margin-bottom: 20px; }
+  .immersive-department .department-hero-copy > p { font-size: 14px; line-height: 1.75; max-width: 315px; margin-top: 19px; }
+  .immersive-department .department-hero-copy > div { gap: 19px; margin-top: 25px; }
+  .immersive-department .department-hero-copy .btn { font-size: 13px; padding-inline: 18px; gap: 17px; }
+  .immersive-department .department-hero-copy .brand-underlined { font-size: 12px; }
+  .immersive-department .department-signature { margin-top: 25px; font-size: 12px; }
+  .department-hero-shade, .department-beauty .department-hero-shade, .department-fashion .department-hero-shade, .department-home-living .department-hero-shade { background: linear-gradient(0deg,#101711f5 0%,#101711db 28%,#1017115e 67%,#10171120); }
+  .department-beauty .department-hero-shade { background: linear-gradient(0deg,#270d23fa,#270d23d9 30%,#270d2340 80%); }
+  .department-home-living .department-hero-shade { background: linear-gradient(0deg,#291b11fa,#291b11db 30%,#291b1140 80%); }
+  .department-immersive-media > img { object-position: 66% top; }
+  .department-fashion .department-immersive-media > img { object-position: 70% top; }
+  .department-scene-footer { padding-bottom: 22px; font-size: 8px; letter-spacing: 1px; }
+  .department-scene-footer > a { gap: 7px; }
+  .serum-orbit { top: 17px; bottom: auto; right: 4px; width: 105px; }
+  .serum-orbit > span { font-size: 6px; margin-top: -8px; }
+  .hero-botanical { width: 165px; right: -60px; bottom: -40px; opacity: .5; }
+  .brand-services b { font-size: 12px; }
+  .brand-services small { font-size: 11px; }
+  .brand-services { column-gap: 17px; row-gap: 25px; }
+  .brand-services > div { gap: 10px; }
+  .brand-services > div > svg { width: 23px; flex-shrink: 0; }
+  .brand-section { padding-block: 55px; }
+  .brand-section-heading h2 { font-size: 34px; }
+  .brand-department-caption p { font-size: 12px; }
+  .brand-story-copy > p { font-size: 14px; }
+  .brand-closing > h2 { font-size: 35px; position: relative; z-index: 2; }
+  .brand-closing > p { font-size: 13px; }
+  .admin-title h1 { font-size: 29px; }
+  .admin-title p { font-size: 13px; }
+  .admin-title-actions > .btn { font-size: 12px; }
+  .stat-card > strong { font-size: 27px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cinema-scene, .cinema-scene img, .brand-hero-copy, .department-immersive-media, .department-immersive-media img, .serum-orbit, .serum-orbit img, .botanical, .brand-slide-dots button.active > span { animation: none !important; transition: none !important; }
+  .cinema-scene img { transform: none; }
+  .department-immersive-media, .serum-orbit { transform: none; }
+  .cinematic-hero .brand-slide-dots button.active > span { transform: scaleX(1); }
+}

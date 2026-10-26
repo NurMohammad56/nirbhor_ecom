@@ -32,7 +32,7 @@ export function About() {
           <p>For your pantry, your wardrobe, your rituals, and your home.</p>
         </div>
         <img
-          src="/assets/brand-hero-v2.webp"
+          src="/assets/brand-world-v3.webp"
           alt="A thoughtful selection of pantry, beauty, clothing and home essentials"
         />
       </section>

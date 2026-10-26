@@ -17,6 +17,7 @@ import {
   departmentShopHref,
 } from "./departments";
 import { Badge, Button, Empty, ProductCard } from "./ui";
+import { Botanical, useSceneMotion } from "./SceneMotion";
 
 const questions: Record<string, [string, string][]> = {
   organic: [
@@ -77,6 +78,7 @@ const questions: Record<string, [string, string][]> = {
   ],
 };
 export default function DepartmentLanding({ slug }: { slug?: string }) {
+  const sceneRef = useSceneMotion();
   const params = useParams();
   const { products, categories } = useStore();
   const d = departments.find((d) => d.slug === (slug || params.department));
@@ -117,7 +119,11 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
           : Armchair;
   return (
     <main className={`department-landing department-${d.slug}`}>
-      <section className="department-hero-shell">
+      <section ref={sceneRef} className="department-hero-shell immersive-department">
+        <div className="department-immersive-media" aria-hidden="true">
+          <img src={exp.heroImage} alt="" fetchPriority="high" />
+        </div>
+        <div className="department-hero-shade" />
         <div className="container">
           <nav className="department-breadcrumb" aria-label="Breadcrumb">
             <Link to="/">Nirbhor</Link>
@@ -150,19 +156,11 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
                 NIRBHOR <i>{d.name}</i>
               </span>
             </div>
-            <div className="department-hero-image">
-              <img
-                src={exp.heroImage}
-                alt={`The Nirbhor ${d.name} collection`}
-                fetchPriority="high"
-              />
-              <div className="department-photo-caption">
-                <span>{d.eyebrow}</span>
-                <ArrowUpRight size={16} />
-              </div>
-            </div>
+            {d.slug === "beauty" && <div className="serum-orbit" aria-hidden="true"><img src="/assets/serum-float-v3.webp" alt="" /><span>THE DAILY RITUAL</span></div>}
           </div>
+          <div className="department-scene-footer"><span>{d.eyebrow}</span><a href="#department-collections">SCROLL TO DISCOVER <span>↓</span></a></div>
         </div>
+        {(d.slug === "organic" || d.slug === "home-living") && <Botanical kind={d.slug === "organic" ? "leaf" : "dry"} className="hero-botanical" />}
       </section>
       <div className="container department-features">
         {d.features.map((text) => (
@@ -258,7 +256,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
           </div>
         </div>
       </section>
-      <section className="container brand-section department-editorial">
+      <section className="container brand-section department-editorial botanical-stage">
         <div className="department-editorial-image">
           <img
             src={d.storyImage}
@@ -307,7 +305,8 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
           </Link>
         </div>
       </section>
-      <section className="department-faq-section">
+      <section className="department-faq-section botanical-stage">
+        <Botanical kind={d.slug === "organic" ? "leaf" : "dry"} className="editorial-botanical" />
         <div className="container brand-section department-faq">
           <div>
             <span className="brand-eyebrow">A LITTLE CLARITY</span>

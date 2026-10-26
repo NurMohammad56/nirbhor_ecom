@@ -1,5 +1,7 @@
 # Visual assets
 
+The current immersive design uses thirteen V3 assets: five panoramic scenes, three transparent botanical/serum cutouts, four unbranded product photos, and a corrected packing photograph. See [V3-PROMPTS.md](design-assets/V3-PROMPTS.md) for every exact prompt and final filename. These supersede V2 beauty/clothing branding. Own-brand organic food and shipping packaging retain NIRBHOR; imported beauty and clothing do not.
+
 The multi-category prototype adds nine generated assets for the main hero, Beauty, Fashion, Home, brand packing story and sample products. Their exact prompts, filenames and generation mode are in [V2-PROMPTS.md](design-assets/V2-PROMPTS.md). Final images are served from `public/assets/*-v2.webp`; the selected originals remain in `design-assets/originals/`.
 
 Final website assets are stored in **public/assets/** as WebP images. The selected generated originals are also retained locally in **design-assets/originals/**. Built-in **image_gen** was used; no API key or fallback CLI was used.

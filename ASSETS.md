@@ -1,5 +1,7 @@
 # Visual assets
 
+The current Bengali interface retains the immersive framing and uses five refreshed V4 hero masters. Actual dimensions, output paths and exact built-in imagegen editing prompt are documented in [V4-QUALITY.md](design-assets/V4-QUALITY.md). No zoom-out or artificial resolution claim is applied. Local Bengali font faces and their OFL licenses are bundled in `public/fonts/`.
+
 The current immersive design uses thirteen V3 assets: five panoramic scenes, three transparent botanical/serum cutouts, four unbranded product photos, and a corrected packing photograph. See [V3-PROMPTS.md](design-assets/V3-PROMPTS.md) for every exact prompt and final filename. These supersede V2 beauty/clothing branding. Own-brand organic food and shipping packaging retain NIRBHOR; imported beauty and clothing do not.
 
 The multi-category prototype adds nine generated assets for the main hero, Beauty, Fashion, Home, brand packing story and sample products. Their exact prompts, filenames and generation mode are in [V2-PROMPTS.md](design-assets/V2-PROMPTS.md). Final images are served from `public/assets/*-v2.webp`; the selected originals remain in `design-assets/originals/`.

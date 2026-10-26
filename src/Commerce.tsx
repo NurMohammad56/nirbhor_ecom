@@ -1,3 +1,4 @@
+import { bnNode, latinDigits, searchText } from "./bn";
 import { useUpdateOrder } from "./inventory-actions";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
@@ -103,20 +104,20 @@ function CouponField({
     [error, setError] = useState("");
   return (
     <div className="coupon-field">
-      {code ? (
+      {bnNode(code ? (
         <div className="coupon-applied">
           <Check size={15} />
           <span>
-            {code}{" "}
-            {couponError(
+            {bnNode(code)}{bnNode(" ")}
+            {bnNode(couponError(
               coupons.find((c) => c.code === code),
               subtotal,
             )
               ? "· Not eligible yet"
-              : "applied"}
+              : "applied")}
           </span>
           <button
-            aria-label="Remove coupon"
+            aria-label={bnNode("Remove coupon")}
             onClick={() => {
               setCode("");
               setInput("");
@@ -129,8 +130,8 @@ function CouponField({
         <>
           <div className="coupon-input">
             <input
-              aria-label="Discount code"
-              placeholder="A little code for a little extra"
+              aria-label={bnNode("Discount code")}
+              placeholder={bnNode("A little code for a little extra")}
               value={input}
               onChange={(e) => {
                 setInput(e.target.value);
@@ -151,17 +152,15 @@ function CouponField({
                 setError("");
                 toast("A little extra goodness — code applied.");
               }}
-            >
-              Apply
-            </button>
+            >{bnNode("Apply")}</button>
           </div>
-          {error && (
+          {bnNode(error && (
             <span className="field-error" role="alert">
-              {error}
+              {bnNode(error)}
             </span>
-          )}
+          ))}
         </>
-      )}
+      ))}
     </div>
   );
 }
@@ -190,70 +189,68 @@ function OrderSummary({
     : cartTotals(items, products, settings, zone, coupon);
   return (
     <div className="order-summary">
-      <h3>A little look at your order.</h3>
+      <h3>{bnNode("A little look at your order.")}</h3>
       <div className="summary-products">
-        {items.map((item, i) => {
+        {bnNode(items.map((item, i) => {
           const p = products.find((p) => p.id === item.id);
           return (
             p && (
               <div key={i}>
                 <div className="summary-product-img">
-                  <img src={p.image} alt={p.name} />
-                  <span>{item.quantity}</span>
+                  <img src={p.image} alt={bnNode(p.name)} />
+                  <span>{bnNode(item.quantity)}</span>
                 </div>
                 <div>
-                  <b>{p.name}</b>
-                  <small>{item.variant}</small>
+                  <b>{bnNode(p.name)}</b>
+                  <small>{bnNode(item.variant)}</small>
                 </div>
                 <strong>
-                  {money(
+                  {bnNode(money(
                     (item.unitPrice ?? itemPrice(p, item.variant)) *
                       item.quantity,
-                  )}
+                  ))}
                 </strong>
               </div>
             )
           );
-        })}
+        }))}
       </div>
-      {children}
+      {bnNode(children)}
       <div className="summary-breakdown">
         <div className="summary-line">
-          <span>Subtotal</span>
-          <b>{money(t.subtotal)}</b>
+          <span>{bnNode("Subtotal")}</span>
+          <b>{bnNode(money(t.subtotal))}</b>
         </div>
-        {t.discount > 0 && (
+        {bnNode(t.discount > 0 && (
           <div className="summary-line green">
-            <span>A little saving</span>
-            <b>− {money(t.discount)}</b>
+            <span>{bnNode("A little saving")}</span>
+            <b>{bnNode("− ")}{bnNode(money(t.discount))}</b>
           </div>
-        )}
+        ))}
         <div className="summary-line">
-          <span>Delivery</span>
+          <span>{bnNode("Delivery")}</span>
           <b>
-            {t.shipping ? (
+            {bnNode(t.shipping ? (
               money(t.shipping)
             ) : (
-              <span className="green">On us</span>
-            )}
+              <span className="green">{bnNode("On us")}</span>
+            ))}
           </b>
         </div>
-        {t.tax > 0 && (
+        {bnNode(t.tax > 0 && (
           <div className="summary-line">
-            <span>Tax ({settings.tax}%)</span>
-            <b>{money(t.tax)}</b>
+            <span>{bnNode("Tax (")}{bnNode(settings.tax)}{bnNode("%)")}</span>
+            <b>{bnNode(money(t.tax))}</b>
           </div>
-        )}
+        ))}
         <div className="summary-total">
-          <span>
-            Total <small>BDT</small>
+          <span>{bnNode("Total ")}<small>{bnNode("BDT")}</small>
           </span>
-          <b data-testid="order-total">{money(t.total)}</b>
+          <b data-testid="order-total">{bnNode(money(t.total))}</b>
         </div>
       </div>
       <span className="secure-note">
-        <ShieldCheck size={15} /> Thoughtfully packed. Securely checked out.
-      </span>
+        <ShieldCheck size={15} />{bnNode(" Thoughtfully packed. Securely checked out.")}</span>
     </div>
   );
 }
@@ -269,24 +266,21 @@ export function Cart() {
       <Breadcrumb items={[{ label: "Your bag" }]} />
       <SectionTitle
         eyebrow="A FEW GOOD CHOICES"
-        title="Your little bag of goodness."
+        title={bnNode("Your little bag of goodness.")}
         link="/shop"
         label="Keep exploring"
       />
-      {cart.length ? (
+      {bnNode(cart.length ? (
         <div className="cart-layout">
           <div>
             <div className="shipping-progress cart-shipping">
               <Truck size={20} />
               <span>
-                {subtotal >= settings.freeShipping ? (
+                {bnNode(subtotal >= settings.freeShipping ? (
                   "A little extra: your delivery is on us."
                 ) : (
-                  <>
-                    You’re <b>{money(settings.freeShipping - subtotal)}</b> away
-                    from free delivery.
-                  </>
-                )}
+                  <>{bnNode("You’re ")}<b>{bnNode(money(settings.freeShipping - subtotal))}</b>{bnNode(" away from free delivery.")}</>
+                ))}
               </span>
               <progress
                 max={settings.freeShipping}
@@ -294,24 +288,24 @@ export function Cart() {
               />
             </div>
             <div className="cart-table-header">
-              <span>Your good finds</span>
-              <span>Quantity</span>
-              <span>Total</span>
+              <span>{bnNode("Your good finds")}</span>
+              <span>{bnNode("Quantity")}</span>
+              <span>{bnNode("Total")}</span>
             </div>
-            {cart.map((item, i) => {
+            {bnNode(cart.map((item, i) => {
               const p = products.find((p) => p.id === item.id);
               return (
                 p && (
                   <article className="cart-row" key={p.id + item.variant}>
                     <Link className="cart-image" to={`/product/${p.id}`}>
-                      <img src={p.image} alt={p.name} />
+                      <img src={p.image} alt={bnNode(p.name)} />
                     </Link>
                     <div className="cart-item-details">
                       <Link to={`/product/${p.id}`}>
-                        <h3>{p.name}</h3>
+                        <h3>{bnNode(p.name)}</h3>
                       </Link>
                       <select
-                        aria-label={`Variant for ${p.name}`}
+                        aria-label={bnNode(`Variant for ${p.name}`)}
                         value={item.variant}
                         onChange={(e) =>
                           setCart((x) =>
@@ -323,17 +317,17 @@ export function Cart() {
                           )
                         }
                       >
-                        {productVariants(p).map((v) => (
+                        {bnNode(productVariants(p).map((v) => (
                           <option
                             key={v.label}
                             value={v.label}
                             disabled={!v.stock}
                           >
-                            {v.label} · {money(v.price)}
+                            {bnNode(v.label)}{bnNode(" · ")}{bnNode(money(v.price))}
                           </option>
-                        ))}
+                        )))}
                       </select>
-                      <span>{money(itemPrice(p, item.variant))}</span>
+                      <span>{bnNode(money(itemPrice(p, item.variant)))}</span>
                       <div className="cart-item-actions">
                         <button
                           onClick={() => {
@@ -341,22 +335,16 @@ export function Cart() {
                             setCart((x) => x.filter((_, j) => j !== i));
                             s.toast("Saved for a little later");
                           }}
-                        >
-                          Save for later
-                        </button>
+                        >{bnNode("Save for later")}</button>
                         <button
                           onClick={() =>
                             setCart((x) => x.filter((_, j) => j !== i))
                           }
-                        >
-                          Remove
-                        </button>
+                        >{bnNode("Remove")}</button>
                       </div>
-                      {item.quantity * variantUnits(item.variant) > p.stock && (
-                        <span className="field-error">
-                          Only {p.stock} units are currently available.
-                        </span>
-                      )}
+                      {bnNode(item.quantity * variantUnits(item.variant) > p.stock && (
+                        <span className="field-error">{bnNode("Only ")}{bnNode(p.stock)}{bnNode(" units are currently available.")}</span>
+                      ))}
                     </div>
                     <Quantity
                       value={item.quantity}
@@ -374,30 +362,27 @@ export function Cart() {
                       }
                     />
                     <strong>
-                      {money(
+                      {bnNode(money(
                         (item.unitPrice ?? itemPrice(p, item.variant)) *
                           item.quantity,
-                      )}
+                      ))}
                     </strong>
                   </article>
                 )
               );
-            })}
+            }))}
             <Link to="/shop" className="text-link cart-continue">
-              <ArrowLeft size={16} /> A little more exploring
-            </Link>
+              <ArrowLeft size={16} />{bnNode(" A little more exploring")}</Link>
             <div className="cart-delivery">
-              <h3>Where is the goodness going?</h3>
-              <label className="field">
-                Estimate your delivery
-                <select value={zone} onChange={(e) => setZone(e.target.value)}>
-                  <option>Dhaka</option>
-                  <option>Outside Dhaka</option>
+              <h3>{bnNode("Where is the goodness going?")}</h3>
+              <label className="field">{bnNode("Estimate your delivery")}<select value={zone} onChange={(e) => setZone(e.target.value)}>
+                  <option value={"Dhaka"}>{bnNode("Dhaka")}</option>
+                  <option value={"Outside Dhaka"}>{bnNode("Outside Dhaka")}</option>
                 </select>
               </label>
               <p className="small muted">
-                {zone === "Dhaka" ? "1–2" : "3–5"} working days ·{" "}
-                {t.shipping ? money(t.shipping) : "Free delivery"}
+                {bnNode(zone === "Dhaka" ? "1–2" : "3–5")}{bnNode(" working days ·")}{bnNode(" ")}
+                {bnNode(t.shipping ? money(t.shipping) : "Free delivery")}
               </p>
             </div>
           </div>
@@ -405,32 +390,29 @@ export function Cart() {
             <OrderSummary items={cart} zone={zone} coupon={coupon}>
               <CouponField subtotal={subtotal} code={code} setCode={setCode} />
             </OrderSummary>
-            <Button className="full" to="/checkout">
-              Continue to checkout <ArrowRight size={17} />
+            <Button className="full" to="/checkout">{bnNode("Continue to checkout ")}<ArrowRight size={17} />
             </Button>
             <span className="secure-note">
-              <LockKeyhole size={14} /> Cash on delivery available
-            </span>
+              <LockKeyhole size={14} />{bnNode(" Cash on delivery available")}</span>
           </div>
         </div>
       ) : (
         <Empty
-          title="A little empty, for now."
+          title={bnNode("A little empty, for now.")}
           text="There’s something good waiting for your pantry, home, or everyday."
           action={
-            <Button to="/shop">
-              Explore the shop <ArrowRight size={17} />
+            <Button to="/shop">{bnNode("Explore the shop ")}<ArrowRight size={17} />
             </Button>
           }
         />
-      )}
+      ))}
       <section className="section">
         <SectionTitle
           eyebrow="A LITTLE SOMETHING ELSE?"
-          title="Good company for your good finds."
+          title={bnNode("Good company for your good finds.")}
         />
         <div className="product-grid four">
-          {products
+          {bnNode(products
             .filter(
               (p) =>
                 p.stock > 0 &&
@@ -440,7 +422,7 @@ export function Cart() {
             .slice(0, 4)
             .map((p) => (
               <ProductCard key={p.id} product={p} />
-            ))}
+            )))}
         </div>
       </section>
     </main>
@@ -467,11 +449,10 @@ export function Checkout() {
     return (
       <main className="container page-space">
         <Empty
-          title="Your checkout is waiting for a little goodness."
+          title={bnNode("Your checkout is waiting for a little goodness.")}
           text="Add something to your bag to begin."
           action={
-            <Button to="/shop">
-              Explore the shop <ArrowRight size={16} />
+            <Button to="/shop">{bnNode("Explore the shop ")}<ArrowRight size={16} />
             </Button>
           }
         />
@@ -481,38 +462,28 @@ export function Checkout() {
     <main className="container page-space checkout-page">
       <div className="checkout-top">
         <Link to="/cart" className="text-link">
-          <ArrowLeft size={15} /> Back to your bag
-        </Link>
+          <ArrowLeft size={15} />{bnNode(" Back to your bag")}</Link>
         <span>
-          <LockKeyhole size={14} /> SECURE CHECKOUT
-        </span>
+          <LockKeyhole size={14} />{bnNode(" SECURE CHECKOUT")}</span>
       </div>
       <div className="checkout-layout">
         <div>
-          <span className="eyebrow">ALMOST AT YOUR DOORSTEP</span>
-          <h1>
-            A few details.
-            <br />A little goodness on its way.
-          </h1>
+          <span className="eyebrow">{bnNode("ALMOST AT YOUR DOORSTEP")}</span>
+          <h1>{bnNode("A few details.")}<br />{bnNode("A little goodness on its way.")}</h1>
           <div className="checkout-steps">
             <span className="active">
-              <b>1</b>Your details
-            </span>
+              <b>{bnNode("1")}</b>{bnNode("Your details")}</span>
             <ChevronRight size={14} />
             <span>
-              <b>2</b>Order confirmation
-            </span>
+              <b>{bnNode("2")}</b>{bnNode("Order confirmation")}</span>
           </div>
-          {!profile.loggedIn && (
+          {bnNode(!profile.loggedIn && (
             <div className="checkout-login">
               <UserRound size={19} />
-              <span>
-                Already part of the family?{" "}
-                <Link to="/login?next=/checkout">Sign in</Link> for saved
-                details.
-              </span>
+              <span>{bnNode("Already part of the family?")}{bnNode(" ")}
+                <Link to="/login?next=/checkout">{bnNode("Sign in")}</Link>{bnNode(" for saved details.")}</span>
             </div>
-          )}
+          ))}
           <form
             id="checkout-form"
             className="form-stack"
@@ -526,7 +497,7 @@ export function Checkout() {
                 return;
               }
               const f = new FormData(e.currentTarget);
-              const phone = String(f.get("phone")).replace(/\s/g, "");
+              const phone = latinDigits(String(f.get("phone"))).replace(/\s/g, "");
               if (!/^(?:\+?88)?01[3-9]\d{8}$/.test(phone)) {
                 setError("Please enter a valid Bangladesh mobile number.");
                 return;
@@ -565,52 +536,43 @@ export function Checkout() {
           >
             <section className="checkout-block">
               <h3>
-                <span>01</span> How can we reach you?
-              </h3>
+                <span>{bnNode("01")}</span>{bnNode(" How can we reach you?")}</h3>
               <div className="form-grid">
-                <label className="field">
-                  Full name
-                  <input
+                <label className="field">{bnNode("Full name")}<input
                     required
                     name="name"
                     autoComplete="name"
-                    placeholder="Your full name"
+                    placeholder={bnNode("Your full name")}
                     defaultValue={profile.name}
                   />
                 </label>
-                <label className="field">
-                  Mobile number
-                  <input
+                <label className="field">{bnNode("Mobile number")}<input
                     name="phone"
                     type="tel"
                     autoComplete="tel"
                     required
                     pattern="(?:\+?88)?01[3-9][0-9]{8}"
-                    title="Enter a valid Bangladesh mobile number"
-                    placeholder="01XXXXXXXXX"
+                    title={bnNode("Enter a valid Bangladesh mobile number")}
+                    placeholder={bnNode("01XXXXXXXXX")}
                     defaultValue={profile.phone}
                   />
                 </label>
               </div>
-              <label className="field">
-                Email address <span className="muted">(optional)</span>
+              <label className="field">{bnNode("Email address ")}<span className="muted">{bnNode("(optional)")}</span>
                 <input
                   name="email"
                   type="email"
                   autoComplete="email"
-                  placeholder="For a little order update"
+                  placeholder={bnNode("For a little order update")}
                   defaultValue={profile.email}
                 />
               </label>
             </section>
             <section className="checkout-block">
               <h3>
-                <span>02</span> Where should we bring the goodness?
-              </h3>
-              {profile.loggedIn && addresses.length > 0 && (
-                <label className="field">
-                  Use a saved address
-                  <select
+                <span>{bnNode("02")}</span>{bnNode(" Where should we bring the goodness?")}</h3>
+              {bnNode(profile.loggedIn && addresses.length > 0 && (
+                <label className="field">{bnNode("Use a saved address")}<select
                     value={saved}
                     onChange={(e) => {
                       setSaved(e.target.value);
@@ -618,18 +580,16 @@ export function Checkout() {
                       if (a) setZone(a.zone);
                     }}
                   >
-                    <option value="">Enter a new address</option>
-                    {addresses.map((a) => (
+                    <option value="">{bnNode("Enter a new address")}</option>
+                    {bnNode(addresses.map((a) => (
                       <option key={a.id} value={a.id}>
-                        {a.label} — {a.address}
+                        {bnNode(a.label)}{bnNode(" — ")}{bnNode(a.address)}
                       </option>
-                    ))}
+                    )))}
                   </select>
                 </label>
-              )}
-              <label className="field">
-                Full delivery address
-                <textarea
+              ))}
+              <label className="field">{bnNode("Full delivery address")}<textarea
                   key={saved}
                   name="address"
                   autoComplete="street-address"
@@ -637,38 +597,31 @@ export function Checkout() {
                   minLength={10}
                   rows={3}
                   defaultValue={selectedAddress?.address}
-                  placeholder="House / flat, road, area, district and postal code"
+                  placeholder={bnNode("House / flat, road, area, district and postal code")}
                 />
               </label>
-              <label className="field">
-                Delivery zone
-                <select value={zone} onChange={(e) => setZone(e.target.value)}>
-                  <option>Dhaka</option>
-                  <option>Outside Dhaka</option>
+              <label className="field">{bnNode("Delivery zone")}<select value={zone} onChange={(e) => setZone(e.target.value)}>
+                  <option value={"Dhaka"}>{bnNode("Dhaka")}</option>
+                  <option value={"Outside Dhaka"}>{bnNode("Outside Dhaka")}</option>
                 </select>
               </label>
               <div className="delivery-option">
                 <Truck size={21} />
                 <span>
-                  <b>Standard delivery</b>
+                  <b>{bnNode("Standard delivery")}</b>
                   <small>
-                    {zone === "Dhaka" ? "1–2" : "3–5"} working days · Carefully
-                    packed
-                  </small>
+                    {bnNode(zone === "Dhaka" ? "1–2" : "3–5")}{bnNode(" working days · Carefully packed")}</small>
                 </span>
-                <b>{t.shipping ? money(t.shipping) : "Free"}</b>
+                <b>{bnNode(t.shipping ? money(t.shipping) : "Free")}</b>
               </div>
-              {profile.loggedIn && !saved && (
+              {bnNode(profile.loggedIn && !saved && (
                 <label className="check-label">
-                  <input name="save-address" type="checkbox" />
-                  Save this address for next time
-                </label>
-              )}
+                  <input name="save-address" type="checkbox" />{bnNode("Save this address for next time")}</label>
+              ))}
             </section>
             <section className="checkout-block">
               <h3>
-                <span>03</span> A simple way to pay.
-              </h3>
+                <span>{bnNode("03")}</span>{bnNode(" A simple way to pay.")}</h3>
               <label
                 className={`payment-option ${payment === "Cash on delivery" ? "selected" : ""}`}
               >
@@ -680,8 +633,8 @@ export function Checkout() {
                   disabled={!settings.cod}
                 />
                 <span>
-                  <b>Cash on delivery</b>
-                  <small>Pay when your little goodness arrives.</small>
+                  <b>{bnNode("Cash on delivery")}</b>
+                  <small>{bnNode("Pay when your little goodness arrives.")}</small>
                 </span>
                 <ShoppingBag size={22} />
               </label>
@@ -696,46 +649,40 @@ export function Checkout() {
                   disabled={!settings.online}
                 />
                 <span>
-                  <b>Card / mobile banking</b>
+                  <b>{bnNode("Card / mobile banking")}</b>
                   <small>
-                    {settings.online
+                    {bnNode(settings.online
                       ? "Payment preview — saved as unpaid, no charge is made."
-                      : "Available when the payment gateway is connected."}
+                      : "Available when the payment gateway is connected.")}
                   </small>
                 </span>
                 <CreditCard size={22} />
               </label>
             </section>
-            <label className="field">
-              A note for us <span className="muted">(optional)</span>
+            <label className="field">{bnNode("A note for us ")}<span className="muted">{bnNode("(optional)")}</span>
               <textarea
                 name="note"
                 rows={2}
-                placeholder="Anything that would make your delivery a little easier?"
+                placeholder={bnNode("Anything that would make your delivery a little easier?")}
               />
             </label>
             <label className="check-label terms-label">
               <input type="checkbox" required />
-              <span>
-                I agree to the <Link to="/page/terms">terms & conditions</Link>{" "}
-                and <Link to="/page/privacy">privacy policy</Link>.
-              </span>
+              <span>{bnNode("I agree to the ")}<Link to="/page/terms">{bnNode("terms & conditions")}</Link>{bnNode(" ")}{bnNode("and ")}<Link to="/page/privacy">{bnNode("privacy policy")}</Link>{bnNode(".")}</span>
             </label>
-            {error && (
+            {bnNode(error && (
               <p className="field-error" role="alert">
-                {error}
+                {bnNode(error)}
               </p>
-            )}
+            ))}
             <Button type="submit" className="full" disabled={submitting}>
-              {submitting
+              {bnNode(submitting
                 ? "Placing your order…"
-                : `Place order · ${money(t.total)}`}
+                : `Place order · ${money(t.total)}`)}
               <ArrowRight size={17} />
             </Button>
             <p className="preview-note">
-              <Leaf size={14} /> Frontend preview: your order stays in this
-              browser. No charge or real delivery is made.
-            </p>
+              <Leaf size={14} />{bnNode(" Frontend preview: your order stays in this browser. No charge or real delivery is made.")}</p>
           </form>
         </div>
         <aside className="checkout-sidebar">
@@ -745,16 +692,11 @@ export function Checkout() {
           <div className="checkout-promise">
             <Leaf size={21} />
             <div>
-              <b>A little care, all the way.</b>
-              <p>
-                Honest products. Thoughtful packing.
-                <br />
-                Real people, here to help.
-              </p>
+              <b>{bnNode("A little care, all the way.")}</b>
+              <p>{bnNode("Honest products. Thoughtful packing.")}<br />{bnNode("Real people, here to help.")}</p>
             </div>
           </div>
-          <Link to="/contact" className="text-link">
-            Need a little help? <ArrowUpRight size={14} />
+          <Link to="/contact" className="text-link">{bnNode("Need a little help? ")}<ArrowUpRight size={14} />
           </Link>
         </aside>
       </div>
@@ -769,9 +711,9 @@ export function OrderSuccess() {
     return (
       <main className="container page-space">
         <Empty
-          title="We couldn’t find that order."
+          title={bnNode("We couldn’t find that order.")}
           text="Please check your order number."
-          action={<Button to="/track">Track an order</Button>}
+          action={<Button to="/track">{bnNode("Track an order")}</Button>}
         />
       </main>
     );
@@ -780,49 +722,39 @@ export function OrderSuccess() {
       <span className="success-icon">
         <Check size={33} strokeWidth={1.5} />
       </span>
-      <span className="eyebrow">A LITTLE GOODNESS IS ON ITS WAY</span>
-      <h1>Good choice, {order.customer.split(" ")[0]}.</h1>
-      <p>
-        Your order <b>#{order.id}</b> has been received in this frontend
-        preview.
-        <br />
-        You can explore its details and delivery timeline below.
-      </p>
+      <span className="eyebrow">{bnNode("A LITTLE GOODNESS IS ON ITS WAY")}</span>
+      <h1>{bnNode("Good choice, ")}{bnNode(order.customer.split(" ")[0])}{bnNode(".")}</h1>
+      <p>{bnNode("Your order ")}<b>{bnNode("#")}{bnNode(order.id)}</b>{bnNode(" has been received in this frontend preview.")}<br />{bnNode("You can explore its details and delivery timeline below.")}</p>
       <div className="success-details">
         <div>
-          <span>ORDER NUMBER</span>
-          <b>#{order.id}</b>
+          <span>{bnNode("ORDER NUMBER")}</span>
+          <b>{bnNode("#")}{bnNode(order.id)}</b>
         </div>
         <div>
-          <span>ORDER TOTAL</span>
-          <b>{money(order.total)}</b>
+          <span>{bnNode("ORDER TOTAL")}</span>
+          <b>{bnNode(money(order.total))}</b>
         </div>
         <div>
-          <span>PAYMENT METHOD</span>
-          <b>{order.payment}</b>
+          <span>{bnNode("PAYMENT METHOD")}</span>
+          <b>{bnNode(order.payment)}</b>
         </div>
         <div>
-          <span>ESTIMATED DELIVERY</span>
-          <b>{order.zone === "Dhaka" ? "1–2" : "3–5"} working days</b>
+          <span>{bnNode("ESTIMATED DELIVERY")}</span>
+          <b>{bnNode(order.zone === "Dhaka" ? "1–2" : "3–5")}{bnNode(" working days")}</b>
         </div>
       </div>
       <div className="success-actions">
         <Button
           to={`/track?order=${order.id}&phone=${encodeURIComponent(order.phone)}`}
-        >
-          Follow your little delivery <Truck size={17} />
+        >{bnNode("Follow your little delivery ")}<Truck size={17} />
         </Button>
-        <Button variant="outline" to="/shop">
-          A little more exploring <ArrowRight size={17} />
+        <Button variant="outline" to="/shop">{bnNode("A little more exploring ")}<ArrowRight size={17} />
         </Button>
       </div>
       <div className="success-order">
         <OrderSummary items={order.items} zone={order.zone} order={order} />
       </div>
-      <p className="small muted">
-        Your order is saved locally. Confirmation calls and delivery
-        notifications will be connected with the backend.
-      </p>
+      <p className="small muted">{bnNode("Your order is saved locally. Confirmation calls and delivery notifications will be connected with the backend.")}</p>
     </main>
   );
 }
@@ -830,15 +762,15 @@ export function OrderTimeline({ order }: { order: Order }) {
   const current = statusSteps.indexOf(order.status);
   return (
     <div className="order-timeline">
-      {["Cancelled", "Returned", "Return requested", "Refunded"].includes(
+      {bnNode(["Cancelled", "Returned", "Return requested", "Refunded"].includes(
         order.status,
       ) ? (
         <div className="timeline-special">
-          <Badge tone="warm">{order.status}</Badge>
+          <Badge tone="warm">{bnNode(order.status)}</Badge>
           <p>
-            {order.status === "Return requested"
+            {bnNode(order.status === "Return requested"
               ? "We have received your return request. Our team will review the details."
-              : "This order has been closed. Contact us if you need a little help."}
+              : "This order has been closed. Contact us if you need a little help.")}
           </p>
         </div>
       ) : (
@@ -848,19 +780,19 @@ export function OrderTimeline({ order }: { order: Order }) {
             className={`${i <= current ? "done" : ""} ${i === current ? "current" : ""}`}
           >
             <span>
-              {i < current ? (
+              {bnNode(i < current ? (
                 <Check size={14} />
               ) : i === current ? (
                 <span className="timeline-dot" />
               ) : (
                 i + 1
-              )}
+              ))}
             </span>
             <div>
-              <b>{step === "Placed" ? "Order placed" : step}</b>
+              <b>{bnNode(step === "Placed" ? "Order placed" : step)}</b>
               <small>
-                {i === 0
-                  ? new Date(order.date).toLocaleDateString("en-GB", {
+                {bnNode(i === 0
+                  ? new Date(order.date).toLocaleDateString("bn-BD", {
                       day: "numeric",
                       month: "long",
                       year: "numeric",
@@ -869,12 +801,12 @@ export function OrderTimeline({ order }: { order: Order }) {
                     ? "Your order is here right now"
                     : i < current
                       ? "Completed"
-                      : "Up next"}
+                      : "Up next")}
               </small>
             </div>
           </div>
         ))
-      )}
+      ))}
     </div>
   );
 }
@@ -893,9 +825,9 @@ export function TrackOrder() {
     <main className="container page-space tracking-page">
       <Breadcrumb items={[{ label: "Track your order" }]} />
       <div className="tracking-intro">
-        <span className="eyebrow">FROM OUR HANDS TO YOUR HOME</span>
-        <h1>Follow your little delivery.</h1>
-        <p>A little update on the goodness you’re waiting for.</p>
+        <span className="eyebrow">{bnNode("FROM OUR HANDS TO YOUR HOME")}</span>
+        <h1>{bnNode("Follow your little delivery.")}</h1>
+        <p>{bnNode("A little update on the goodness you’re waiting for.")}</p>
       </div>
       <form
         className="tracking-form"
@@ -906,7 +838,7 @@ export function TrackOrder() {
               o.id.toLowerCase() ===
                 orderId.trim().replace("#", "").toLowerCase() &&
               o.phone.replace(/\D/g, "").slice(-11) ===
-                phone.replace(/\D/g, "").slice(-11),
+                latinDigits(phone).replace(/\D/g, "").slice(-11),
           );
           setFound(result);
           setError(
@@ -916,34 +848,29 @@ export function TrackOrder() {
           );
         }}
       >
-        <label className="field">
-          Order number
-          <input
-            placeholder="e.g. NBR-4821"
+        <label className="field">{bnNode("Order number")}<input
+            placeholder={bnNode("e.g. NBR-4821")}
             value={orderId}
             onChange={(e) => setOrderId(e.target.value)}
             required
           />
         </label>
-        <label className="field">
-          Delivery mobile number
-          <input
-            placeholder="01XXXXXXXXX"
+        <label className="field">{bnNode("Delivery mobile number")}<input
+            placeholder={bnNode("01XXXXXXXXX")}
             type="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             required
           />
         </label>
-        <Button type="submit">
-          Find my order <ArrowRight size={16} />
+        <Button type="submit">{bnNode("Find my order ")}<ArrowRight size={16} />
         </Button>
       </form>
-      {error && (
+      {bnNode(error && (
         <p className="field-error center" role="alert">
-          {error}
+          {bnNode(error)}
         </p>
-      )}
+      ))}
       <button
         className="demo-track text-button"
         onClick={() => {
@@ -952,58 +879,55 @@ export function TrackOrder() {
           setFound(orders.find((o) => o.id === "NBR-4819"));
           setError("");
         }}
-      >
-        Explore a sample delivery
-      </button>
-      {order && (
+      >{bnNode("Explore a sample delivery")}</button>
+      {bnNode(order && (
         <div className="tracking-result">
           <div className="tracking-result-head">
             <div>
-              <span className="eyebrow">YOUR LITTLE GOODNESS</span>
-              <h2>Order #{order.id}</h2>
+              <span className="eyebrow">{bnNode("YOUR LITTLE GOODNESS")}</span>
+              <h2>{bnNode("Order #")}{bnNode(order.id)}</h2>
             </div>
-            <Badge>{order.status}</Badge>
+            <Badge>{bnNode(order.status)}</Badge>
           </div>
           <div className="tracking-result-grid">
             <div>
               <OrderTimeline order={order} />
             </div>
             <div className="tracking-info">
-              <h3>Delivered with a little care.</h3>
+              <h3>{bnNode("Delivered with a little care.")}</h3>
               <p>
-                {order.customer}
+                {bnNode(order.customer)}
                 <br />
-                {order.address}
+                {bnNode(order.address)}
               </p>
               <dl>
                 <div>
-                  <dt>Courier</dt>
-                  <dd>{order.courier}</dd>
+                  <dt>{bnNode("Courier")}</dt>
+                  <dd>{bnNode(order.courier)}</dd>
                 </div>
                 <div>
-                  <dt>Tracking ID</dt>
-                  <dd>{order.tracking || "Assigned after dispatch"}</dd>
+                  <dt>{bnNode("Tracking ID")}</dt>
+                  <dd>{bnNode(order.tracking || "Assigned after dispatch")}</dd>
                 </div>
                 <div>
-                  <dt>Estimated delivery</dt>
-                  <dd>{order.zone === "Dhaka" ? "1–2" : "3–5"} working days</dd>
+                  <dt>{bnNode("Estimated delivery")}</dt>
+                  <dd>{bnNode(order.zone === "Dhaka" ? "1–2" : "3–5")}{bnNode(" working days")}</dd>
                 </div>
                 <div>
-                  <dt>Payment</dt>
-                  <dd>{order.payment}</dd>
+                  <dt>{bnNode("Payment")}</dt>
+                  <dd>{bnNode(order.payment)}</dd>
                 </div>
                 <div>
-                  <dt>Order total</dt>
-                  <dd>{money(order.total)}</dd>
+                  <dt>{bnNode("Order total")}</dt>
+                  <dd>{bnNode(money(order.total))}</dd>
                 </div>
               </dl>
-              <Link className="text-link" to="/contact">
-                Need a little help? <ArrowUpRight size={14} />
+              <Link className="text-link" to="/contact">{bnNode("Need a little help? ")}<ArrowUpRight size={14} />
               </Link>
             </div>
           </div>
         </div>
-      )}
+      ))}
     </main>
   );
 }
@@ -1041,83 +965,71 @@ export function Auth() {
   return (
     <main className="auth-layout">
       <div className="auth-image">
-        <img src="/assets/hero.webp" alt="Nirbhor raw honey, nuts and dates" />
+        <img src="/assets/hero.webp" alt={bnNode("Nirbhor raw honey, nuts and dates")} />
         <div>
           <Leaf size={28} />
-          <h2>
-            A little goodness.
-            <br />A place to call yours.
-          </h2>
-          <p>
-            Your favourites, thoughtful updates, and all your good choices in
-            one place.
-          </p>
+          <h2>{bnNode("A little goodness.")}<br />{bnNode("A place to call yours.")}</h2>
+          <p>{bnNode("Your favourites, thoughtful updates, and all your good choices in one place.")}</p>
         </div>
       </div>
       <div className="auth-form-container">
         <Link to="/" className="text-link">
-          <ArrowLeft size={15} /> Back to the good stuff
-        </Link>
-        <span className="eyebrow">YOUR LITTLE CORNER OF NIRBHOR</span>
+          <ArrowLeft size={15} />{bnNode(" Back to the good stuff")}</Link>
+        <span className="eyebrow">{bnNode("YOUR LITTLE CORNER OF NIRBHOR")}</span>
         <h1>
-          {mode === "register"
+          {bnNode(mode === "register"
             ? "Good to have you here."
             : mode === "forgot"
               ? "A little fresh start."
-              : "Welcome back."}
+              : "Welcome back.")}
         </h1>
         <p>
-          {mode === "register"
+          {bnNode(mode === "register"
             ? "Make room for a little more goodness."
             : mode === "forgot"
               ? "Enter your email to preview the password reset flow."
-              : "Your everyday good is right where you left it."}
+              : "Your everyday good is right where you left it.")}
         </p>
-        {sent ? (
+        {bnNode(sent ? (
           <div className="auth-sent">
             <Mail size={35} />
             <h2>
-              {mode === "forgot"
+              {bnNode(mode === "forgot"
                 ? "A fresh start, in your inbox."
-                : "A little code, just for you."}
+                : "A little code, just for you.")}
             </h2>
             <p>
-              {mode === "forgot"
+              {bnNode(mode === "forgot"
                 ? "Reset requests will be sent when email delivery is connected. This frontend preview does not change a real password."
-                : "For this preview, use the code 961204. SMS delivery will be connected with the backend."}
+                : "For this preview, use the code 961204. SMS delivery will be connected with the backend.")}
             </p>
-            {mode === "login" && (
+            {bnNode(mode === "login" && (
               <form
                 className="form-stack"
                 onSubmit={(e) => {
                   e.preventDefault();
                   const f = new FormData(e.currentTarget);
-                  if (f.get("code") !== "961204") {
+                  if (latinDigits(String(f.get("code"))) !== "961204") {
                     setError("Please use the preview code 961204.");
                     return;
                   }
                   enter();
                 }}
               >
-                <label className="field">
-                  6-digit code
-                  <input
+                <label className="field">{bnNode("6-digit code")}<input
                     name="code"
                     required
                     pattern="[0-9]{6}"
                     inputMode="numeric"
-                    placeholder="961204"
+                    placeholder={bnNode("961204")}
                   />
                 </label>
-                {error && <p className="field-error">{error}</p>}
-                <Button type="submit">
-                  Continue <ArrowRight size={16} />
+                {bnNode(error && <p className="field-error">{bnNode(error)}</p>)}
+                <Button type="submit">{bnNode("Continue ")}<ArrowRight size={16} />
                 </Button>
               </form>
-            )}
-            <Button variant="outline" to="/login">
-              Back to sign in
-            </Button>
+            ))}
+            <Button variant="outline" to="/login">{bnNode("Back to sign in")}</Button>
           </div>
         ) : (
           <>
@@ -1137,51 +1049,43 @@ export function Auth() {
                 );
               }}
             >
-              {mode === "register" && (
-                <label className="field">
-                  Full name
-                  <input
+              {bnNode(mode === "register" && (
+                <label className="field">{bnNode("Full name")}<input
                     name="name"
                     required
                     autoComplete="name"
-                    placeholder="Your name"
+                    placeholder={bnNode("Your name")}
                   />
                 </label>
-              )}
-              {!otp && (
-                <label className="field">
-                  Email address
-                  <input
+              ))}
+              {bnNode(!otp && (
+                <label className="field">{bnNode("Email address")}<input
                     name="email"
                     type="email"
                     autoComplete="email"
                     required
-                    placeholder="you@example.com"
+                    placeholder={bnNode("you@example.com")}
                   />
                 </label>
-              )}
-              {(mode === "register" || otp) && (
-                <label className="field">
-                  Mobile number
-                  <input
+              ))}
+              {bnNode((mode === "register" || otp) && (
+                <label className="field">{bnNode("Mobile number")}<input
                     name="phone"
                     type="tel"
-                    placeholder="01XXXXXXXXX"
+                    placeholder={bnNode("01XXXXXXXXX")}
                     pattern="(?:\+?88)?01[3-9][0-9]{8}"
                     required
                   />
                 </label>
-              )}
-              {mode !== "forgot" && !otp && (
-                <label className="field">
-                  Password
-                  <div className="password-field">
+              ))}
+              {bnNode(mode !== "forgot" && !otp && (
+                <label className="field">{bnNode("Password")}<div className="password-field">
                     <input
                       type={show ? "text" : "password"}
                       name="password"
                       required
                       minLength={8}
-                      placeholder="At least 8 characters"
+                      placeholder={bnNode("At least 8 characters")}
                       autoComplete={
                         mode === "register"
                           ? "new-password"
@@ -1190,72 +1094,65 @@ export function Auth() {
                     />
                     <button
                       type="button"
-                      aria-label={show ? "Hide password" : "Show password"}
+                      aria-label={bnNode(show ? "Hide password" : "Show password")}
                       onClick={() => setShow(!show)}
                     >
-                      {show ? <EyeOff size={17} /> : <Eye size={17} />}
+                      {bnNode(show ? <EyeOff size={17} /> : <Eye size={17} />)}
                     </button>
                   </div>
                 </label>
-              )}
-              {mode === "login" && !otp && (
-                <Link className="forgot-link" to="/forgot-password">
-                  Forgot your password?
-                </Link>
-              )}
-              {mode === "register" && (
+              ))}
+              {bnNode(mode === "login" && !otp && (
+                <Link className="forgot-link" to="/forgot-password">{bnNode("Forgot your password?")}</Link>
+              ))}
+              {bnNode(mode === "register" && (
                 <label className="check-label">
                   <input type="checkbox" required />
-                  <span>
-                    I agree to the <Link to="/page/terms">terms</Link> and{" "}
-                    <Link to="/page/privacy">privacy policy</Link>.
-                  </span>
+                  <span>{bnNode("I agree to the ")}<Link to="/page/terms">{bnNode("terms")}</Link>{bnNode(" and")}{bnNode(" ")}
+                    <Link to="/page/privacy">{bnNode("privacy policy")}</Link>{bnNode(".")}</span>
                 </label>
-              )}
+              ))}
               <Button className="full" type="submit">
-                {mode === "register"
+                {bnNode(mode === "register"
                   ? "Create your account"
                   : mode === "forgot"
                     ? "Send reset link"
                     : otp
                       ? "Send a little code"
-                      : "Sign in"}
+                      : "Sign in")}
                 <ArrowRight size={16} />
               </Button>
             </form>
-            {mode === "login" && (
+            {bnNode(mode === "login" && (
               <>
                 <div className="auth-divider">
-                  <span>or keep it simple</span>
+                  <span>{bnNode("or keep it simple")}</span>
                 </div>
                 <Button
                   variant="outline"
                   className="full"
                   onClick={() => setOtp(!otp)}
                 >
-                  {otp ? "Sign in with email" : "Continue with mobile OTP"}{" "}
+                  {bnNode(otp ? "Sign in with email" : "Continue with mobile OTP")}{bnNode(" ")}
                   <UserRound size={16} />
                 </Button>
-                <button className="demo-button" onClick={() => enter()}>
-                  Explore a demo customer account <ArrowUpRight size={14} />
+                <button className="demo-button" onClick={() => enter()}>{bnNode("Explore a demo customer account ")}<ArrowUpRight size={14} />
                 </button>
               </>
-            )}
+            ))}
             <div className="auth-switch">
-              {mode === "register"
+              {bnNode(mode === "register"
                 ? "Already part of the family?"
-                : "New to our little community?"}{" "}
+                : "New to our little community?")}{bnNode(" ")}
               <Link to={mode === "register" ? "/login" : "/register"}>
-                {mode === "register" ? "Sign in" : "Join us"}{" "}
+                {bnNode(mode === "register" ? "Sign in" : "Join us")}{bnNode(" ")}
                 <ArrowUpRight size={13} />
               </Link>
             </div>
             <p className="preview-note">
-              <LockKeyhole size={14} /> Frontend preview. Sign-in is simulated
-              on this browser; no passwords are stored.
-            </p>
+              <LockKeyhole size={14} />{bnNode(" Frontend preview. Sign-in is simulated on this browser; no passwords are stored.")}</p>
           </>
-        )}
+        ))}
       </div>
     </main>
   );
@@ -1270,7 +1167,7 @@ export function AddressForm({
   const { setAddresses, toast } = useStore();
   return (
     <Modal
-      title={address ? "Edit your address" : "A new little delivery spot"}
+      title={bnNode(address ? "Edit your address" : "A new little delivery spot")}
       onClose={onClose}
     >
       <form
@@ -1299,21 +1196,15 @@ export function AddressForm({
           onClose();
         }}
       >
-        <label className="field">
-          Address label
-          <input
+        <label className="field">{bnNode("Address label")}<input
             name="label"
             defaultValue={address?.label || "Home"}
             required
           />
         </label>
-        <label className="field">
-          Recipient name
-          <input name="name" defaultValue={address?.name} required />
+        <label className="field">{bnNode("Recipient name")}<input name="name" defaultValue={address?.name} required />
         </label>
-        <label className="field">
-          Mobile number
-          <input
+        <label className="field">{bnNode("Mobile number")}<input
             name="phone"
             type="tel"
             pattern="(?:\+?88)?01[3-9][0-9]{8}"
@@ -1321,10 +1212,8 @@ export function AddressForm({
             required
           />
         </label>
-        <label className="field">
-          Full address
-          <textarea
-            aria-label="Full address"
+        <label className="field">{bnNode("Full address")}<textarea
+            aria-label={bnNode("Full address")}
             name="address"
             rows={3}
             minLength={10}
@@ -1332,11 +1221,9 @@ export function AddressForm({
             required
           />
         </label>
-        <label className="field">
-          Delivery zone
-          <select name="zone" defaultValue={address?.zone || "Dhaka"}>
-            <option>Dhaka</option>
-            <option>Outside Dhaka</option>
+        <label className="field">{bnNode("Delivery zone")}<select name="zone" defaultValue={address?.zone || "Dhaka"}>
+            <option value={"Dhaka"}>{bnNode("Dhaka")}</option>
+            <option value={"Outside Dhaka"}>{bnNode("Outside Dhaka")}</option>
           </select>
         </label>
         <label className="check-label">
@@ -1344,11 +1231,8 @@ export function AddressForm({
             type="checkbox"
             name="default"
             defaultChecked={address?.default}
-          />
-          Make this my default address
-        </label>
-        <Button type="submit">
-          Save this little spot <Check size={16} />
+          />{bnNode("Make this my default address")}</label>
+        <Button type="submit">{bnNode("Save this little spot ")}<Check size={16} />
         </Button>
       </form>
     </Modal>
@@ -1391,11 +1275,10 @@ export function Account() {
       <main className="container page-space">
         <Empty
           icon={UserRound}
-          title="Your own little corner of goodness."
+          title={bnNode("Your own little corner of goodness.")}
           text="Sign in to see your orders, saved addresses and everyday favourites."
           action={
-            <Button to="/login">
-              Make yourself at home <ArrowRight size={16} />
+            <Button to="/login">{bnNode("Make yourself at home ")}<ArrowRight size={16} />
             </Button>
           }
         />
@@ -1412,26 +1295,26 @@ export function Account() {
         <aside className="account-sidebar">
           <div className="account-user">
             <span>
-              {profile.name
+              {bnNode(profile.name
                 .split(" ")
                 .map((x) => x[0])
                 .join("")
-                .slice(0, 2)}
+                .slice(0, 2))}
             </span>
-            <h3>{profile.name}</h3>
-            <small>{profile.email}</small>
-            <Badge>A part of the good stuff</Badge>
+            <h3>{bnNode(profile.name)}</h3>
+            <small>{bnNode(profile.email)}</small>
+            <Badge>{bnNode("A part of the good stuff")}</Badge>
           </div>
           <nav>
-            {accountNav.map(([label, url, Icon]) => (
+            {bnNode(accountNav.map(([label, url, Icon]) => (
               <NavLink key={url} to={url} end={url === "/account"}>
                 <Icon size={17} />
-                {label}
-                {label === "Notifications" && notifications.length > 0 && (
-                  <small>{notifications.length}</small>
-                )}
+                {bnNode(label)}
+                {bnNode(label === "Notifications" && notifications.length > 0 && (
+                  <small>{bnNode(notifications.length)}</small>
+                ))}
               </NavLink>
-            ))}
+            )))}
             <button
               onClick={() => {
                 s.setProfile((x) => ({ ...x, loggedIn: false }));
@@ -1439,21 +1322,17 @@ export function Account() {
                 navigate("/");
               }}
             >
-              <LogOut size={17} />
-              Sign out
-            </button>
+              <LogOut size={17} />{bnNode("Sign out")}</button>
           </nav>
         </aside>
         <div className="account-content">
-          {section === "overview" ? (
+          {bnNode(section === "overview" ? (
             <>
-              <span className="eyebrow">YOUR EVERYDAY GOOD, ALL TOGETHER</span>
-              <h1>Hello, {profile.name.split(" ")[0]}.</h1>
-              <p className="muted">
-                A little look at your latest good choices.
-              </p>
+              <span className="eyebrow">{bnNode("YOUR EVERYDAY GOOD, ALL TOGETHER")}</span>
+              <h1>{bnNode("Hello, ")}{bnNode(profile.name.split(" ")[0])}{bnNode(".")}</h1>
+              <p className="muted">{bnNode("A little look at your latest good choices.")}</p>
               <div className="account-stats">
-                {[
+                {bnNode([
                   [String(myOrders.length), "Good orders", Package],
                   [String(wishlist.length), "Saved favourites", Heart],
                   [String(addresses.length), "Delivery spots", MapPin],
@@ -1462,14 +1341,14 @@ export function Account() {
                   return (
                     <div key={String(t)}>
                       <Icon size={20} />
-                      <b>{String(n)}</b>
-                      <span>{String(t)}</span>
+                      <b>{bnNode(String(n))}</b>
+                      <span>{bnNode(String(t))}</span>
                     </div>
                   );
-                })}
+                }))}
               </div>
               <SectionTitle
-                title="Your latest goodness."
+                title={bnNode("Your latest goodness.")}
                 link="/account/orders"
                 label="All orders"
               />
@@ -1477,52 +1356,45 @@ export function Account() {
               <div className="account-welcome">
                 <Leaf size={25} />
                 <div>
-                  <h3>A little something for your next visit.</h3>
-                  <p>
-                    Use NIRBHOR10 for 10% off your next good find over ৳500.
-                  </p>
+                  <h3>{bnNode("A little something for your next visit.")}</h3>
+                  <p>{bnNode("Use NIRBHOR10 for 10% off your next good find over ৳500.")}</p>
                 </div>
-                <Link to="/shop" className="text-link">
-                  Find your good <ArrowUpRight size={15} />
+                <Link to="/shop" className="text-link">{bnNode("Find your good ")}<ArrowUpRight size={15} />
                 </Link>
               </div>
             </>
           ) : section === "orders" ? (
             <>
-              <SectionTitle eyebrow="YOUR GOOD CHOICES" title="My orders." />
+              <SectionTitle eyebrow="YOUR GOOD CHOICES" title={bnNode("My orders.")} />
               <OrderList orders={myOrders} />
             </>
           ) : section === "addresses" ? (
             <>
               <SectionTitle
                 eyebrow="FROM OUR HANDS TO YOUR HOME"
-                title="Your little delivery spots."
+                title={bnNode("Your little delivery spots.")}
               />
               <Button variant="outline" onClick={() => setEditAddress("new")}>
-                <Plus size={16} />
-                Add a new address
-              </Button>
+                <Plus size={16} />{bnNode("Add a new address")}</Button>
               <div className="address-grid">
-                {addresses.map((a) => (
+                {bnNode(addresses.map((a) => (
                   <article key={a.id}>
                     <div>
-                      <h3>{a.label}</h3>
-                      {a.default && <Badge>Default</Badge>}
+                      <h3>{bnNode(a.label)}</h3>
+                      {bnNode(a.default && <Badge>{bnNode("Default")}</Badge>)}
                     </div>
-                    <b>{a.name}</b>
+                    <b>{bnNode(a.name)}</b>
                     <p>
-                      {a.address}
+                      {bnNode(a.address)}
                       <br />
-                      {a.zone}
+                      {bnNode(a.zone)}
                       <br />
-                      {a.phone}
+                      {bnNode(a.phone)}
                     </p>
                     <div className="address-actions">
-                      <button onClick={() => setEditAddress(a)}>
-                        Edit address
-                      </button>
-                      <button onClick={() => setDeleting(a.id)}>Remove</button>
-                      {!a.default && (
+                      <button onClick={() => setEditAddress(a)}>{bnNode("Edit address")}</button>
+                      <button onClick={() => setDeleting(a.id)}>{bnNode("Remove")}</button>
+                      {bnNode(!a.default && (
                         <button
                           onClick={() => {
                             s.setAddresses((x) =>
@@ -1530,21 +1402,19 @@ export function Account() {
                             );
                             s.toast("Default address updated.");
                           }}
-                        >
-                          Make default
-                        </button>
-                      )}
+                        >{bnNode("Make default")}</button>
+                      ))}
                     </div>
                   </article>
-                ))}
+                )))}
               </div>
-              {!addresses.length && (
+              {bnNode(!addresses.length && (
                 <Empty
                   icon={MapPin}
-                  title="Where should the goodness go?"
+                  title={bnNode("Where should the goodness go?")}
                   text="Add a delivery address for a little easier checkout next time."
                 />
-              )}
+              ))}
             </>
           ) : section === "wishlist" || section === "recent" ? (
             <>
@@ -1555,89 +1425,88 @@ export function Account() {
                     : "GOOD TO SEE YOU AGAIN"
                 }
                 title={
-                  section === "wishlist"
+                  bnNode(section === "wishlist"
                     ? "Saved little favourites."
-                    : "A second look at something good."
+                    : "A second look at something good.")
                 }
                 link="/shop"
                 label="Keep exploring"
               />
-              {(section === "wishlist" ? wishlist : recent).length ? (
+              {bnNode((section === "wishlist" ? wishlist : recent).length ? (
                 <div className="product-grid three">
-                  {(section === "wishlist" ? wishlist : recent)
+                  {bnNode((section === "wishlist" ? wishlist : recent)
                     .map((id) => products.find((p) => p.id === id))
                     .filter((p): p is NonNullable<typeof p> => !!p)
                     .map((p) => (
                       <ProductCard key={p.id} product={p} />
-                    ))}
+                    )))}
                 </div>
               ) : (
                 <Empty
                   icon={Heart}
-                  title="A few good finds will make themselves at home."
+                  title={bnNode("A few good finds will make themselves at home.")}
                   text="Explore the shop and save your favourites."
-                  action={<Button to="/shop">Explore the shop</Button>}
+                  action={<Button to="/shop">{bnNode("Explore the shop")}</Button>}
                 />
-              )}
+              ))}
             </>
           ) : section === "reviews" ? (
             <>
               <SectionTitle
                 eyebrow="YOUR WORDS MAKE A DIFFERENCE"
-                title="A little feedback, from you."
+                title={bnNode("A little feedback, from you.")}
               />
-              {reviews
+              {bnNode(reviews
                 .filter((r) => r.name === profile.name)
                 .map((r) => (
                   <article className="account-review" key={r.id}>
                     <div>
-                      <b>{products.find((p) => p.id === r.productId)?.name}</b>
-                      <Badge>{r.status}</Badge>
+                      <b>{bnNode(products.find((p) => p.id === r.productId)?.name)}</b>
+                      <Badge>{bnNode(r.status)}</Badge>
                     </div>
-                    <span className="stars">{"★".repeat(r.rating)}</span>
-                    <h3>{r.title}</h3>
-                    <p>{r.text}</p>
-                    {r.media && (
+                    <span className="stars">{bnNode("★".repeat(r.rating))}</span>
+                    <h3>{bnNode(r.title)}</h3>
+                    <p>{bnNode(r.text)}</p>
+                    {bnNode(r.media && (
                       <a
                         href={r.media}
                         target="_blank"
                         rel="noreferrer"
                         className="text-link"
-                      >
-                        View your uploaded media <ArrowUpRight size={13} />
+                      >{bnNode("View your uploaded media ")}<ArrowUpRight size={13} />
                       </a>
-                    )}
+                    ))}
                   </article>
-                ))}
-              {!reviews.some((r) => r.name === profile.name) && (
+                )))}
+              {bnNode(!reviews.some((r) => r.name === profile.name) && (
                 <Empty
                   icon={Star}
-                  title="Your story belongs here."
+                  title={bnNode("Your story belongs here.")}
                   text="Review a product you’ve tried and help someone find their good."
-                  action={<Button to="/account/orders">See your orders</Button>}
+                  action={<Button to="/account/orders">{bnNode("See your orders")}</Button>}
                 />
-              )}
+              ))}
             </>
           ) : section === "notifications" ? (
             <>
               <SectionTitle
                 eyebrow="A LITTLE UPDATE FOR YOU"
-                title="Your good-news corner."
+                title={bnNode("Your good-news corner.")}
               />
-              {notifications.map((n, i) => (
+              {bnNode(notifications.map((n, i) => (
                 <div className="notification-row" key={i}>
                   <Bell size={19} />
                   <div>
                     <b>
-                      {n.includes("order")
+                      {bnNode(n.includes("order")
                         ? "Your order, with a little update"
-                        : "A little note from NIRBHOR"}
+                        : "A little note from NIRBHOR")}
                     </b>
-                    <p>{n}</p>
+                    <p>{bnNode(n)}</p>
                   </div>
                   <button
                     className="icon-btn"
-                    aria-label="Dismiss account notification"
+                    aria-label={bnNode("Dismiss account notification")}
                     onClick={() =>
                       s.setNotifications((x) => x.filter((_, j) => j !== i))
                     }
@@ -1645,20 +1514,20 @@ export function Account() {
                     <X size={15} />
                   </button>
                 </div>
-              ))}
-              {!notifications.length && (
+              )))}
+              {bnNode(!notifications.length && (
                 <Empty
                   icon={Bell}
-                  title="All caught up."
+                  title={bnNode("All caught up.")}
                   text="Your next little update will appear here."
                 />
-              )}
+              ))}
             </>
           ) : (
             <>
               <SectionTitle
                 eyebrow="MAKE YOURSELF AT HOME"
-                title="Your account, your way."
+                title={bnNode("Your account, your way.")}
               />
               <form
                 className="form-stack account-settings-form"
@@ -1675,13 +1544,9 @@ export function Account() {
                 }}
               >
                 <div className="form-grid">
-                  <label className="field">
-                    Full name
-                    <input name="name" defaultValue={profile.name} required />
+                  <label className="field">{bnNode("Full name")}<input name="name" defaultValue={profile.name} required />
                   </label>
-                  <label className="field">
-                    Email address
-                    <input
+                  <label className="field">{bnNode("Email address")}<input
                       type="email"
                       name="email"
                       defaultValue={profile.email}
@@ -1689,9 +1554,7 @@ export function Account() {
                     />
                   </label>
                 </div>
-                <label className="field">
-                  Mobile number
-                  <input
+                <label className="field">{bnNode("Mobile number")}<input
                     type="tel"
                     name="phone"
                     defaultValue={profile.phone}
@@ -1699,11 +1562,9 @@ export function Account() {
                     required
                   />
                 </label>
-                <h3>A little update, your way.</h3>
+                <h3>{bnNode("A little update, your way.")}</h3>
                 <label className="check-label">
-                  <input type="checkbox" defaultChecked />
-                  Order and delivery updates
-                </label>
+                  <input type="checkbox" defaultChecked />{bnNode("Order and delivery updates")}</label>
                 <label className="check-label">
                   <input
                     type="checkbox"
@@ -1716,100 +1577,82 @@ export function Account() {
                         e.target.checked ? "yes" : "no",
                       )
                     }
-                  />
-                  New arrivals, offers, and occasional good news
-                </label>
-                <Button type="submit">
-                  Save my details <Check size={16} />
+                  />{bnNode("New arrivals, offers, and occasional good news")}</label>
+                <Button type="submit">{bnNode("Save my details ")}<Check size={16} />
                 </Button>
               </form>
               <div className="account-security">
                 <LockKeyhole size={21} />
                 <div>
-                  <h3>Payment & account security</h3>
-                  <p>
-                    Saved payment methods and password management will be
-                    available with the secure backend. This preview does not
-                    store card details or passwords.
-                  </p>
-                  <Link className="text-link" to="/forgot-password">
-                    Preview password reset <ArrowUpRight size={14} />
+                  <h3>{bnNode("Payment & account security")}</h3>
+                  <p>{bnNode("Saved payment methods and password management will be available with the secure backend. This preview does not store card details or passwords.")}</p>
+                  <Link className="text-link" to="/forgot-password">{bnNode("Preview password reset ")}<ArrowUpRight size={14} />
                   </Link>
                 </div>
               </div>
             </>
-          )}
+          ))}
         </div>
       </div>
-      {editAddress && (
+      {bnNode(editAddress && (
         <AddressForm
           address={editAddress === "new" ? undefined : editAddress}
           onClose={() => setEditAddress(undefined)}
         />
-      )}{" "}
-      {deleting && (
+      ))}{bnNode(" ")}
+      {bnNode(deleting && (
         <Modal
-          title="Remove this delivery spot?"
+          title={bnNode("Remove this delivery spot?")}
           onClose={() => setDeleting("")}
         >
-          <p className="muted">
-            You can always add it again when your goodness needs a new
-            destination.
-          </p>
+          <p className="muted">{bnNode("You can always add it again when your goodness needs a new destination.")}</p>
           <div className="modal-actions">
-            <Button variant="outline" onClick={() => setDeleting("")}>
-              Keep address
-            </Button>
+            <Button variant="outline" onClick={() => setDeleting("")}>{bnNode("Keep address")}</Button>
             <Button
               onClick={() => {
                 s.setAddresses((x) => x.filter((a) => a.id !== deleting));
                 setDeleting("");
                 s.toast("Address removed.");
               }}
-            >
-              Remove address
-            </Button>
+            >{bnNode("Remove address")}</Button>
           </div>
         </Modal>
-      )}
+      ))}
     </main>
   );
 }
 export function OrderList({ orders }: { orders: Order[] }) {
   return orders.length ? (
     <div className="customer-order-list">
-      {orders.map((o) => (
+      {bnNode(orders.map((o) => (
         <Link to={`/account/order/${o.id}`} key={o.id}>
           <span className="order-list-icon">
             <Package size={22} />
           </span>
           <div>
-            <b>#{o.id}</b>
+            <b>{bnNode("#")}{bnNode(o.id)}</b>
             <span>
-              {new Date(o.date).toLocaleDateString("en-GB", {
+              {bnNode(new Date(o.date).toLocaleDateString("bn-BD", {
                 day: "numeric",
                 month: "short",
                 year: "numeric",
-              })}{" "}
-              · {o.items.reduce((n, i) => n + i.quantity, 0)} good finds
-            </span>
+              }))}{bnNode(" ")}{bnNode("· ")}{bnNode(o.items.reduce((n, i) => n + i.quantity, 0))}{bnNode(" good finds")}</span>
           </div>
           <Badge tone={o.status === "Cancelled" ? "warm" : ""}>
-            {o.status}
+            {bnNode(o.status)}
           </Badge>
-          <strong>{money(o.total)}</strong>
+          <strong>{bnNode(money(o.total))}</strong>
           <ArrowRight size={17} />
         </Link>
-      ))}
+      )))}
     </div>
   ) : (
     <Empty
       icon={Package}
-      title="Your first good choice is waiting."
+      title={bnNode("Your first good choice is waiting.")}
       text="When you place an order, its story will appear here."
       action={
-        <Button to="/shop">
-          Discover something good <ArrowRight size={16} />
+        <Button to="/shop">{bnNode("Discover something good ")}<ArrowRight size={16} />
         </Button>
       }
     />
@@ -1830,9 +1673,9 @@ export function OrderDetail() {
       <main className="container page-space">
         <Empty
           icon={Package}
-          title="Let’s find your order."
+          title={bnNode("Let’s find your order.")}
           text="Sign in with the account used for this order."
-          action={<Button to="/login">Sign in</Button>}
+          action={<Button to="/login">{bnNode("Sign in")}</Button>}
         />
       </main>
     );
@@ -1847,41 +1690,40 @@ export function OrderDetail() {
       />
       <div className="order-detail-heading">
         <div>
-          <span className="eyebrow">YOUR GOOD CHOICES, UP CLOSE</span>
-          <h1>Order #{order.id}</h1>
-          <p className="muted">
-            Placed{" "}
-            {new Date(order.date).toLocaleDateString("en-GB", {
+          <span className="eyebrow">{bnNode("YOUR GOOD CHOICES, UP CLOSE")}</span>
+          <h1>{bnNode("Order #")}{bnNode(order.id)}</h1>
+          <p className="muted">{bnNode("Placed")}{bnNode(" ")}
+            {bnNode(new Date(order.date).toLocaleDateString("bn-BD", {
               day: "numeric",
               month: "long",
               year: "numeric",
-            })}
+            }))}
           </p>
         </div>
-        <Badge>{order.status}</Badge>
+        <Badge>{bnNode(order.status)}</Badge>
       </div>
       <div className="order-detail-grid">
         <div>
-          <h3>A little update.</h3>
+          <h3>{bnNode("A little update.")}</h3>
           <OrderTimeline order={order} />
         </div>
         <div>
           <OrderSummary items={order.items} zone={order.zone} order={order} />
           <div className="order-placed-total">
-            <b>Recorded order total</b>
-            <b>{money(order.total)}</b>
+            <b>{bnNode("Recorded order total")}</b>
+            <b>{bnNode(money(order.total))}</b>
           </div>
           <div className="delivery-address">
-            <h3>Your delivery spot</h3>
+            <h3>{bnNode("Your delivery spot")}</h3>
             <p>
-              {order.customer}
+              {bnNode(order.customer)}
               <br />
-              {order.address}
+              {bnNode(order.address)}
               <br />
-              {order.phone}
+              {bnNode(order.phone)}
             </p>
             <Badge>
-              {order.payment} · {order.paymentStatus}
+              {bnNode(order.payment)}{bnNode(" · ")}{bnNode(order.paymentStatus)}
             </Badge>
           </div>
         </div>
@@ -1895,54 +1737,44 @@ export function OrderDetail() {
             s.setDrawer(true);
           }}
         >
-          <RotateCcw size={16} />
-          Reorder your good finds
-        </Button>
+          <RotateCcw size={16} />{bnNode("Reorder your good finds")}</Button>
         <Button
           to={`/track?order=${order.id}&phone=${encodeURIComponent(order.phone)}`}
           variant="outline"
-        >
-          Track delivery <Truck size={16} />
+        >{bnNode("Track delivery ")}<Truck size={16} />
         </Button>
-        {["Placed", "Confirmed"].includes(order.status) && (
+        {bnNode(["Placed", "Confirmed"].includes(order.status) && (
           <button
             className="text-button danger"
             onClick={() => setAction("cancel")}
-          >
-            Cancel order
-          </button>
-        )}
-        {order.status === "Delivered" && (
-          <button className="text-button" onClick={() => setAction("return")}>
-            Request a return / refund
-          </button>
-        )}
+          >{bnNode("Cancel order")}</button>
+        ))}
+        {bnNode(order.status === "Delivered" && (
+          <button className="text-button" onClick={() => setAction("return")}>{bnNode("Request a return / refund")}</button>
+        ))}
         <button className="text-link" onClick={() => window.print()}>
-          <Printer size={16} />
-          Print order
-        </button>
+          <Printer size={16} />{bnNode("Print order")}</button>
       </div>
-      {order.status === "Delivered" && (
+      {bnNode(order.status === "Delivered" && (
         <div className="order-review-prompt">
           <Star size={22} />
           <div>
-            <h3>How was your little goodness?</h3>
-            <p>Your experience helps the next person choose.</p>
+            <h3>{bnNode("How was your little goodness?")}</h3>
+            <p>{bnNode("Your experience helps the next person choose.")}</p>
           </div>
           <Link
             to={`/product/${order.items[0].id}#reviews`}
             className="text-link"
-          >
-            Write a review <ArrowUpRight size={14} />
+          >{bnNode("Write a review ")}<ArrowUpRight size={14} />
           </Link>
         </div>
-      )}
-      {action && (
+      ))}
+      {bnNode(action && (
         <Modal
           title={
-            action === "cancel"
+            bnNode(action === "cancel"
               ? "Cancel this little delivery?"
-              : "A little help with your order."
+              : "A little help with your order.")
           }
           onClose={() => setAction("")}
         >
@@ -1966,23 +1798,21 @@ export function OrderDetail() {
             }}
           >
             <p className="muted">
-              {action === "cancel"
+              {bnNode(action === "cancel"
                 ? "We’ll return these items to the shelf."
-                : "Tell us a little about what happened so our team can help."}
+                : "Tell us a little about what happened so our team can help.")}
             </p>
-            <label className="field">
-              Reason
-              <textarea name="reason" rows={3} required minLength={5} />
+            <label className="field">{bnNode("Reason")}<textarea name="reason" rows={3} required minLength={5} />
             </label>
             <Button type="submit">
-              {action === "cancel"
+              {bnNode(action === "cancel"
                 ? "Confirm cancellation"
-                : "Submit return request"}
+                : "Submit return request")}
               <ArrowRight size={16} />
             </Button>
           </form>
         </Modal>
-      )}
+      ))}
     </main>
   );
 }

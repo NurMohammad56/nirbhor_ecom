@@ -6,6 +6,7 @@ import {
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useStore } from "./store";
+import { bn } from "./bn";
 
 export function useSeo() {
   const { pathname, search } = useLocation();
@@ -41,7 +42,7 @@ export function useSeo() {
       product?.description ||
       experience?.description ||
       settings.seoDescription;
-    document.title = title;
+    document.title = bn(title);
     function meta(name: string, content: string, property = false) {
       let el = document.querySelector<HTMLMetaElement>(
         `meta[${property ? "property" : "name"}="${name}"]`,
@@ -53,15 +54,16 @@ export function useSeo() {
       }
       el.content = content;
     }
-    meta("description", description);
-    meta("og:title", title, true);
-    meta("og:description", description, true);
+    meta("description", bn(description));
+    meta("og:locale", "bn_BD", true);
+    meta("og:title", bn(title), true);
+    meta("og:description", bn(description), true);
     meta("og:type", product ? "product" : "website", true);
     meta("og:site_name", settings.name, true);
     meta(
       "og:image",
       new URL(
-        product?.image || experience?.heroImage || "/assets/brand-world-v3.webp",
+        product?.image || experience?.heroImage || "/assets/brand-world-v4.webp",
         location.origin,
       ).href,
       true,
@@ -97,8 +99,8 @@ export function useSeo() {
       script.textContent = JSON.stringify({
         "@context": "https://schema.org",
         "@type": "Product",
-        name: product.name,
-        description,
+        name: bn(product.name),
+        description: bn(description),
         image: new URL(product.image, location.origin).href,
         sku: product.sku,
         brand: { "@type": "Brand", name: product.brand },

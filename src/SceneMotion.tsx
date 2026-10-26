@@ -1,3 +1,4 @@
+import { bnNode } from "./bn";
 import { useEffect, useRef, useState } from "react";
 
 export function useReducedMotion() {
@@ -42,5 +43,5 @@ export function useSceneMotion() {
 }
 
 export function Botanical({ kind = "leaf", className = "" }: { kind?: "leaf" | "dry"; className?: string }) {
-  return <img className={`botanical botanical-${kind} ${className}`} src={`/assets/${kind === "leaf" ? "botanical-branch" : "dried-stem"}-v3.webp`} alt="" aria-hidden="true" loading="lazy" />;
+  return <img className={`botanical botanical-${kind} ${className}`} src={`/assets/${kind === "leaf" ? "botanical-branch" : "dried-stem"}-v3.webp`} alt={bnNode("")} aria-hidden="true" loading="lazy" />;
 }

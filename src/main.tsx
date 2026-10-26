@@ -5,3 +5,4 @@ createRoot(document.getElementById("root")!).render(<App />);
 
 import "./departments.css";
 import "./cinematic.css";
+import "./bengali.css";

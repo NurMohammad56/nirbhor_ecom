@@ -1,3 +1,4 @@
+import { bnNode } from "./bn";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -53,7 +54,7 @@ export default function BrandHome() {
     <main className="brand-home">
       <CinematicHero slides={slides.length ? slides : brandBanners} collections={visibleDepartments} />
       <div className="brand-services container">
-        {[
+        {bnNode([
           {
             Icon: PackageCheck,
             title: "Thoughtfully selected",
@@ -78,11 +79,11 @@ export default function BrandHome() {
           <div key={title}>
             <Icon size={24} strokeWidth={1.3} />
             <span>
-              <b>{content[`trust-heading-${i}`] || title}</b>
-              <small>{content[`trust-text-${i}`] || text}</small>
+              <b>{bnNode(content[`trust-heading-${i}`] || title)}</b>
+              <small>{bnNode(content[`trust-text-${i}`] || text)}</small>
             </span>
           </div>
-        ))}
+        )))}
       </div>
       <section
         className="container brand-section department-discovery"
@@ -90,17 +91,12 @@ export default function BrandHome() {
       >
         <div className="brand-section-heading">
           <div>
-            <span className="brand-eyebrow">FOUR WORLDS. ONE NIRBHOR.</span>
-            <h2>Find your kind of good.</h2>
+            <h2>{bnNode("Find your kind of good.")}</h2>
           </div>
-          <p>
-            Different corners of your life.
-            <br />
-            The same care in every choice.
-          </p>
+          <p>{bnNode("Different corners of your life.")}<br />{bnNode("The same care in every choice.")}</p>
         </div>
         <div className="brand-department-grid">
-          {visibleDepartments.map((d, i) => {
+          {bnNode(visibleDepartments.map((d, i) => {
             const exp = experienceForDepartment(d, categories);
             return (
               <Link
@@ -117,74 +113,58 @@ export default function BrandHome() {
                 <div className="brand-department-image">
                   <img
                     src={exp.heroImage}
-                    alt={`Nirbhor ${d.name} collection`}
+                    alt={bnNode(`Nirbhor ${d.name} collection`)}
                     loading="lazy"
                   />
-                  <span className="department-card-number">0{i + 1}</span>
+                  <span className="department-card-number">{bnNode("0")}{bnNode(i + 1)}</span>
                   <span className="department-card-pill">
-                    {d.collectionLabel}
+                    {bnNode(d.collectionLabel)}
                   </span>
                 </div>
                 <div className="brand-department-caption">
-                  <span className="brand-eyebrow">
-                    NIRBHOR {d.name.toUpperCase()}
+                  <span className="brand-eyebrow">{bnNode("NIRBHOR ")}{bnNode(d.name.toUpperCase())}
                   </span>
                   <div>
-                    <h3>{d.name === "Home" ? "Home & living" : d.name}</h3>
+                    <h3>{bnNode(d.name === "Home" ? "Home & living" : d.name)}</h3>
                     <span className="department-open">
                       <ArrowUpRight size={20} />
                     </span>
                   </div>
-                  <p>{d.tagline}</p>
+                  <p>{bnNode(d.tagline)}</p>
                 </div>
               </Link>
             );
-          })}
+          }))}
         </div>
       </section>
-      <section className="brand-collection-note">
-        <div className="container">
-          <span className="brand-note-symbol">✳</span>
-          <p>
-            For your pantry. Your wardrobe. Your rituals.{" "}
-            <em>Your everyday.</em>
-          </p>
-          <Link to="/shop">
-            Explore all good finds <ArrowUpRight size={16} />
-          </Link>
-        </div>
-      </section>
+
       <section className="container brand-section brand-everyday-edit">
         <div className="brand-section-heading">
           <div>
-            <span className="brand-eyebrow">A FEW GOOD PLACES TO BEGIN</span>
-            <h2>The everyday edit.</h2>
+            <h2>{bnNode("The everyday edit.")}</h2>
           </div>
-          <Link className="brand-underlined" to="/shop">
-            View the collection <ArrowUpRight size={16} />
+          <Link className="brand-underlined" to="/shop">{bnNode("View the collection ")}<ArrowUpRight size={16} />
           </Link>
         </div>
         <div className="brand-edit-tabs">
           <button
             className={edit === "all" ? "active" : ""}
             onClick={() => setEdit("all")}
-          >
-            A little of everything
-          </button>
-          {visibleDepartments.map((d) => (
+          >{bnNode("A little of everything")}</button>
+          {bnNode(visibleDepartments.map((d) => (
             <button
               className={edit === d.slug ? "active" : ""}
               key={d.slug}
               onClick={() => setEdit(d.slug)}
             >
-              {d.name}
+              {bnNode(d.name)}
             </button>
-          ))}
+          )))}
         </div>
         <div className="product-grid four brand-edit-products">
-          {selected.map((p) => (
+          {bnNode(selected.map((p) => (
             <ProductCard key={p.id} product={p} />
-          ))}
+          )))}
         </div>
       </section>
       <section className="brand-story-wrap botanical-stage">
@@ -193,25 +173,18 @@ export default function BrandHome() {
           <div className="brand-story-image">
             <img
               src="/assets/brand-story-v3.webp"
-              alt="Carefully wrapping selected everyday products at the Nirbhor packing table"
+              alt={bnNode("Carefully wrapping selected everyday products at the Nirbhor packing table")}
               loading="lazy"
             />
-            <span>THE CARE IS IN THE DETAILS.</span>
+            <span>{bnNode("THE CARE IS IN THE DETAILS.")}</span>
           </div>
           <div className="brand-story-copy">
-            <span className="brand-eyebrow">A NAME TO COME BACK TO</span>
-            <h2>
-              Care in what we choose.
-              <br />
-              <em>Confidence in what you do.</em>
+            <h2>{bnNode("Care in what we choose.")}<br />
+              <em>{bnNode("Confidence in what you do.")}</em>
             </h2>
-            <p>
-              Nirbhor brings together the things that make up your everyday.
-              Good food, personal care, pieces to wear, and objects to live with
-              — selected with a little more thought.
-            </p>
+            <p>{bnNode("Nirbhor brings together the things that make up your everyday. Good food, personal care, pieces to wear, and objects to live with — selected with a little more thought.")}</p>
             <div className="brand-principles">
-              {[
+              {bnNode([
                 [
                   "01",
                   "Selected with purpose",
@@ -229,35 +202,20 @@ export default function BrandHome() {
                 ],
               ].map(([n, t, d]) => (
                 <div key={n}>
-                  <span>{n}</span>
+                  <span>{bnNode(n)}</span>
                   <div>
-                    <h3>{t}</h3>
-                    <p>{d}</p>
+                    <h3>{bnNode(t)}</h3>
+                    <p>{bnNode(d)}</p>
                   </div>
                 </div>
-              ))}
+              )))}
             </div>
-            <Link to="/about" className="brand-underlined">
-              Get to know Nirbhor <ArrowUpRight size={16} />
+            <Link to="/about" className="brand-underlined">{bnNode("Get to know Nirbhor ")}<ArrowUpRight size={16} />
             </Link>
           </div>
         </div>
       </section>
-      <section className="container brand-closing botanical-stage">
-        <Botanical className="closing-botanical" />
-        <span className="brand-eyebrow">GOOD THINGS. A FAMILIAR NAME.</span>
-        <h2>
-          A little more considered.
-          <br />A little more <em>you.</em>
-        </h2>
-        <p>Find what fits your life, in a place that feels familiar.</p>
-        <Button to="/#departments">
-          Find your everyday <ArrowUpRight size={17} />
-        </Button>
-        <span className="brand-closing-wordmark" aria-hidden="true">
-          NIRBHOR
-        </span>
-      </section>
+
     </main>
   );
 }

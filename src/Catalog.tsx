@@ -1,3 +1,4 @@
+import { bnNode, searchText, latinDigits } from "./bn";
 import { useDepartment } from "./useDepartment";
 import {
   departments,
@@ -123,15 +124,13 @@ export default function Catalog() {
           descendants(categories, subcategory).has(p.subcategory),
       );
     if (query) {
-      const q = query.toLowerCase().trim();
+      const q = latinDigits(query).toLowerCase().trim();
       list = list.filter(
         (p) =>
-          (p.name + " " + p.category + " " + p.subcategory + " " + p.tags)
-            .toLowerCase()
+          searchText(p.name + " " + p.category + " " + p.subcategory + " " + p.tags)
             .includes(q) ||
-          p.name
-            .toLowerCase()
-            .split(" ")
+          searchText(p.name)
+            .split(/\s+/)
             .some(
               (w) =>
                 q.length >= 4 && distance(w, q) <= Math.floor(q.length / 4),
@@ -207,23 +206,20 @@ export default function Catalog() {
   const filters = (
     <>
       <div className="filters-head">
-        <h3>Refine your finds</h3>
-        <button className="text-button small" onClick={clear}>
-          Reset
-        </button>
+        <h3>{bnNode("Refine your finds")}</h3>
+        <button className="text-button small" onClick={clear}>{bnNode("Reset")}</button>
         <button
           className="icon-btn mobile-only"
           onClick={() => setMobileFilters(false)}
-          aria-label="Close filters"
+          aria-label={bnNode("Close filters")}
         >
           <X size={20} />
         </button>
       </div>
       <div className="filter-group">
-        <h4>
-          Category <ChevronDown size={14} />
+        <h4>{bnNode("Category ")}<ChevronDown size={14} />
         </h4>
-        {categories
+        {bnNode(categories
           .filter((c) => !c.parent && c.active)
           .map((c) => (
             <label className="check-label" key={c.id}>
@@ -253,17 +249,17 @@ export default function Catalog() {
                   setParams(p);
                 }}
               />
-              <span>{c.name}</span>
+              <span>{bnNode(c.name)}</span>
               <span className="muted">
                 {
-                  products.filter(
+                  bnNode(products.filter(
                     (p) => p.category === c.name && p.status === "Published",
-                  ).length
+                  ).length)
                 }
               </span>
             </label>
-          ))}
-        {category &&
+          )))}
+        {bnNode(category &&
           categories
             .filter((c) => c.parent === category && c.active)
             .map((c) => (
@@ -275,16 +271,15 @@ export default function Catalog() {
                     set("subcategory", subcategory === c.name ? "" : c.name)
                   }
                 />
-                <span>{c.name}</span>
+                <span>{bnNode(c.name)}</span>
               </label>
-            ))}
+            )))}
       </div>
       <div className="filter-group">
-        <h4>
-          Price range <span>BDT</span>
+        <h4>{bnNode("Price range ")}<span>{bnNode("BDT")}</span>
         </h4>
         <input
-          aria-label="Maximum price slider"
+          aria-label={bnNode("Maximum price slider")}
           className="range-input"
           type="range"
           min="0"
@@ -294,25 +289,21 @@ export default function Catalog() {
           onChange={(e) => set("max", e.target.value)}
         />
         <div className="price-inputs">
-          <label>
-            Min
-            <input
-              aria-label="Minimum price"
+          <label>{bnNode("Min")}<input
+              aria-label={bnNode("Minimum price")}
               type="number"
               min="0"
-              placeholder="৳ 0"
+              placeholder={bnNode("৳ 0")}
               value={params.get("min") || ""}
               onChange={(e) => set("min", e.target.value)}
             />
           </label>
-          <span>—</span>
-          <label>
-            Max
-            <input
-              aria-label="Maximum price"
+          <span>{bnNode("—")}</span>
+          <label>{bnNode("Max")}<input
+              aria-label={bnNode("Maximum price")}
               type="number"
               min="0"
-              placeholder="৳ 3,000"
+              placeholder={bnNode("৳ 3,000")}
               value={params.get("max") || ""}
               onChange={(e) => set("max", e.target.value)}
             />
@@ -320,26 +311,22 @@ export default function Catalog() {
         </div>
       </div>
       <div className="filter-group">
-        <h4>Availability</h4>
+        <h4>{bnNode("Availability")}</h4>
         <label className="check-label">
           <input
             type="checkbox"
             checked={!!params.get("stock")}
             onChange={(e) => set("stock", e.target.checked ? "in" : "")}
-          />
-          In stock only
-        </label>
+          />{bnNode("In stock only")}</label>
       </div>
       <div className="filter-group">
-        <h4>A little extra goodness</h4>
+        <h4>{bnNode("A little extra goodness")}</h4>
         <label className="check-label">
           <input
             type="checkbox"
             checked={!!params.get("discount")}
             onChange={(e) => set("discount", e.target.checked ? "10" : "")}
-          />
-          10% off or more
-        </label>
+          />{bnNode("10% off or more")}</label>
         <label className="check-label">
           <input
             type="checkbox"
@@ -347,87 +334,82 @@ export default function Catalog() {
             onChange={(e) => set("rating", e.target.checked ? "4.8" : "")}
           />
           <span>
-            <span className="stars">★★★★</span> 4.8 & above
-          </span>
+            <span className="stars">{bnNode("★★★★")}</span>{bnNode(" 4.8 & above")}</span>
         </label>
       </div>
       <div className="filter-group">
-        <h4>Source / origin</h4>
+        <h4>{bnNode("Source / origin")}</h4>
         <select
-          aria-label="Filter by source"
+          aria-label={bnNode("Filter by source")}
           value={params.get("source") || ""}
           onChange={(e) => set("source", e.target.value)}
         >
-          <option value="">All origins</option>
-          {[...new Set(products.map((p) => p.source))].map((x) => (
-            <option key={x}>{x}</option>
-          ))}
+          <option value="">{bnNode("All origins")}</option>
+          {bnNode([...new Set(products.map((p) => p.source))].map((x) => (
+            <option key={x} value={x}>{bnNode(x)}</option>
+          )))}
         </select>
       </div>
       <button
         className="text-link more-filters"
         onClick={() => setExtra(!extra)}
       >
-        {extra ? "Fewer filters" : "More ways to find your good"}
+        {bnNode(extra ? "Fewer filters" : "More ways to find your good")}
         <ChevronDown size={15} />
       </button>
-      {extra && (
+      {bnNode(extra && (
         <div className="filter-group">
-          {(["weight", "brand", "type", "dietary", "color"] as const).map(
+          {bnNode((["weight", "brand", "type", "dietary", "color"] as const).map(
             (k) => (
               <label className="field" key={k}>
                 {
-                  {
+                  bnNode({
                     weight: "Size / weight",
                     brand: "Brand",
                     type: "Product type",
                     dietary: "Dietary / material",
                     color: "Colour",
-                  }[k]
+                  }[k])
                 }
                 <select
                   value={params.get(k) || ""}
                   onChange={(e) => set(k, e.target.value)}
                 >
-                  <option value="">Any</option>
-                  {[...new Set(products.map((p) => p[k]))].map((x) => (
-                    <option key={x}>{x}</option>
-                  ))}
+                  <option value="">{bnNode("Any")}</option>
+                  {bnNode([...new Set(products.map((p) => p[k]))].map((x) => (
+                    <option key={x} value={x}>{bnNode(x)}</option>
+                  )))}
                 </select>
               </label>
             ),
-          )}
-          <label className="field">
-            Delivery
-            <select
+          ))}
+          <label className="field">{bnNode("Delivery")}<select
               value={params.get("delivery") || ""}
               onChange={(e) => set("delivery", e.target.value)}
             >
-              <option value="">All Bangladesh</option>
-              <option>Same-day</option>
+              <option value="">{bnNode("All Bangladesh")}</option>
+              <option value={"Same-day"}>{bnNode("Same-day")}</option>
             </select>
           </label>
-          <label className="field">
-            Custom attribute / tag
-            <input
-              placeholder="e.g. small batch"
+          <label className="field">{bnNode("Custom attribute / tag")}<input
+              placeholder={bnNode("e.g. small batch")}
               value={params.get("custom") || ""}
               onChange={(e) => set("custom", e.target.value)}
             />
           </label>
         </div>
-      )}
+      ))}
       <div className="filter-promise">
         <CategoryIcon size={21} />
         <strong>
-          {!department || department.slug === "organic"
+          {bnNode(!department || department.slug === "organic"
             ? "Good origins. Good choices."
-            : "Considered details. Clear choices."}
+            : "Considered details. Clear choices.")}
         </strong>
         <p>
-          {department && department.slug !== "organic"
+          {bnNode(department && department.slug !== "organic"
             ? "Explore the details that help you make it yours."
-            : "Every product has a story. We make sure you know it."}
+            : "Every product has a story. We make sure you know it.")}
         </p>
         <Link
           to={
@@ -436,18 +418,16 @@ export default function Catalog() {
               : "/page/sourcing"
           }
         >
-          {department && department.slug !== "organic"
+          {bnNode(department && department.slug !== "organic"
             ? "Our approach"
-            : "Our sourcing promise"}{" "}
+            : "Our sourcing promise")}{bnNode(" ")}
           <ArrowUpRight size={13} />
         </Link>
       </div>
       <Button
         className="mobile-only full"
         onClick={() => setMobileFilters(false)}
-      >
-        Show {list.length} good finds
-      </Button>
+      >{bnNode("Show ")}{bnNode(list.length)}{bnNode(" good finds")}</Button>
     </>
   );
   return (
@@ -467,33 +447,30 @@ export default function Catalog() {
           />
           <div className="catalog-heading">
             <div>
-              <span className="eyebrow">
-                THOUGHTFULLY CHOSEN. FOR YOUR EVERYDAY.
-              </span>
-              <h1>{title}</h1>
+              <span className="eyebrow">{bnNode("THOUGHTFULLY CHOSEN. FOR YOUR EVERYDAY.")}</span>
+              <h1>{bnNode(title)}</h1>
               <p>
-                {query
+                {bnNode(query
                   ? `${list.length} little discoveries for your everyday.`
                   : category === "Organic Food"
                     ? "From nature to your pantry. Honest ingredients, extraordinary everyday goodness."
                     : experience?.description ||
-                      "Good choices for your pantry, your wardrobe, yourself and your home."}
+                      "Good choices for your pantry, your wardrobe, yourself and your home.")}
               </p>
             </div>
             <div className="catalog-emblem">
               <CategoryIcon size={26} />
-              <span>EVERYDAY, WELL CHOSEN</span>
+              <span>{bnNode("EVERYDAY, WELL CHOSEN")}</span>
             </div>
           </div>
-          {!!department && (
+          {bnNode(!!department && (
             <div className="subcategory-chips">
               <button
                 className={!subcategory ? "active" : ""}
                 onClick={() => set("subcategory", "")}
-              >
-                All {department?.name.toLowerCase()}
+              >{bnNode("All ")}{bnNode(department?.name.toLowerCase())}
               </button>
-              {categories
+              {bnNode(categories
                 .filter((c) => c.parent === category && c.active)
                 .map((c) => (
                   <button
@@ -501,64 +478,61 @@ export default function Catalog() {
                     className={subcategory === c.name ? "active" : ""}
                     onClick={() => set("subcategory", c.name)}
                   >
-                    {c.name}
+                    {bnNode(c.name)}
                   </button>
-                ))}
+                )))}
             </div>
-          )}
+          ))}
         </div>
       </section>
       <div className="container catalog-layout">
         <aside className={`filters ${mobileFilters ? "mobile-open" : ""}`}>
-          {filters}
+          {bnNode(filters)}
         </aside>
-        {mobileFilters && (
+        {bnNode(mobileFilters && (
           <div
             className="filter-backdrop"
             onClick={() => setMobileFilters(false)}
           />
-        )}
+        ))}
         <section className="catalog-results">
           <div className="results-toolbar">
             <span>
-              <b>{list.length}</b> good finds
-            </span>
+              <b>{bnNode(list.length)}</b>{bnNode(" good finds")}</span>
             <button
               className="btn outline mobile-filter-btn"
               onClick={() => setMobileFilters(true)}
             >
-              <SlidersHorizontal size={16} />
-              Filters {active.length > 0 && `(${active.length})`}
+              <SlidersHorizontal size={16} />{bnNode("Filters ")}{bnNode(active.length > 0 && `(${active.length})`)}
             </button>
             <div className="sort-controls">
-              <label>
-                Sort by:{" "}
+              <label>{bnNode("Sort by:")}{bnNode(" ")}
                 <select
-                  aria-label="Sort products"
+                  aria-label={bnNode("Sort products")}
                   value={
                     params.get("sort") ||
                     (collection === "new" ? "newest" : "bestselling")
                   }
                   onChange={(e) => set("sort", e.target.value)}
                 >
-                  <option value="bestselling">Bestselling</option>
-                  <option value="popular">Most popular</option>
-                  <option value="price-low">Price: low to high</option>
-                  <option value="price-high">Price: high to low</option>
-                  <option value="rating">Top rated</option>
-                  <option value="newest">Newest arrivals</option>
+                  <option value="bestselling">{bnNode("Bestselling")}</option>
+                  <option value="popular">{bnNode("Most popular")}</option>
+                  <option value="price-low">{bnNode("Price: low to high")}</option>
+                  <option value="price-high">{bnNode("Price: high to low")}</option>
+                  <option value="rating">{bnNode("Top rated")}</option>
+                  <option value="newest">{bnNode("Newest arrivals")}</option>
                 </select>
               </label>
               <div className="view-switch">
                 <button
-                  aria-label="Grid view"
+                  aria-label={bnNode("Grid view")}
                   className={view === "grid" ? "active" : ""}
                   onClick={() => setView("grid")}
                 >
                   <Grid2X2 size={17} />
                 </button>
                 <button
-                  aria-label="List view"
+                  aria-label={bnNode("List view")}
                   className={view === "list" ? "active" : ""}
                   onClick={() => setView("list")}
                 >
@@ -567,11 +541,11 @@ export default function Catalog() {
               </div>
             </div>
           </div>
-          {active.length > 0 && (
+          {bnNode(active.length > 0 && (
             <div className="active-filters">
-              {active.map((k) => (
+              {bnNode(active.map((k) => (
                 <button key={k} onClick={() => set(k, "")}>
-                  {k === "stock"
+                  {bnNode(k === "stock"
                     ? "In stock"
                     : k === "min"
                       ? `From ${money(Number(params.get(k)))}`
@@ -581,32 +555,27 @@ export default function Catalog() {
                           ? `${params.get(k)}%+ off`
                           : k === "rating"
                             ? `${params.get(k)}★ & up`
-                            : params.get(k)}
+                            : params.get(k))}
                   <X size={12} />
                 </button>
-              ))}
-              <button className="clear-filters" onClick={clear}>
-                Clear all
-              </button>
+              )))}
+              <button className="clear-filters" onClick={clear}>{bnNode("Clear all")}</button>
             </div>
-          )}
-          {list.length ? (
+          ))}
+          {bnNode(list.length ? (
             <>
               <div
                 className={`product-grid ${view === "list" ? "list-view" : ""}`}
               >
-                {list.slice((page - 1) * 9, page * 9).map((p) => (
+                {bnNode(list.slice((page - 1) * 9, page * 9).map((p) => (
                   <ProductCard key={p.id} product={p} />
-                ))}
+                )))}
               </div>
               <div className="pagination">
-                <span>
-                  Showing {Math.min((page - 1) * 9 + 1, list.length)}–
-                  {Math.min(page * 9, list.length)} of {list.length} good finds
-                </span>
+                <span>{bnNode("Showing ")}{bnNode(Math.min((page - 1) * 9 + 1, list.length))}{bnNode("–")}{bnNode(Math.min(page * 9, list.length))}{bnNode(" of ")}{bnNode(list.length)}{bnNode(" good finds")}</span>
                 <div>
                   <button
-                    aria-label="Previous page"
+                    aria-label={bnNode("Previous page")}
                     disabled={page === 1}
                     onClick={() => {
                       setPage(page - 1);
@@ -615,9 +584,9 @@ export default function Catalog() {
                   >
                     <ChevronLeft size={17} />
                   </button>
-                  {Array.from({ length: totalPages }, (_, i) => (
+                  {bnNode(Array.from({ length: totalPages }, (_, i) => (
                     <button
-                      aria-label={`Page ${i + 1}`}
+                      aria-label={bnNode(`Page ${i + 1}`)}
                       key={i}
                       className={page === i + 1 ? "active" : ""}
                       onClick={() => {
@@ -625,11 +594,11 @@ export default function Catalog() {
                         window.scrollTo({ top: 320, behavior: "smooth" });
                       }}
                     >
-                      {i + 1}
+                      {bnNode(i + 1)}
                     </button>
-                  ))}
+                  )))}
                   <button
-                    aria-label="Next page"
+                    aria-label={bnNode("Next page")}
                     disabled={page === totalPages}
                     onClick={() => {
                       setPage(page + 1);
@@ -644,7 +613,7 @@ export default function Catalog() {
           ) : (
             <Empty
               icon={Search}
-              title="Let’s find a different kind of good."
+              title={bnNode("Let’s find a different kind of good.")}
               text="No products match these filters. Try broadening your search."
               action={
                 <Button
@@ -652,17 +621,15 @@ export default function Catalog() {
                     setParams({});
                     setPage(1);
                   }}
-                >
-                  Explore all products <ArrowRight size={16} />
+                >{bnNode("Explore all products ")}<ArrowRight size={16} />
                 </Button>
               }
             />
-          )}
+          ))}
           <div className="catalog-note">
             <Leaf size={16} />
-            <span>Every good find comes with a little more care.</span>
-            <Link to="/page/shipping">
-              Delivery across Bangladesh <ArrowUpRight size={13} />
+            <span>{bnNode("Every good find comes with a little more care.")}</span>
+            <Link to="/page/shipping">{bnNode("Delivery across Bangladesh ")}<ArrowUpRight size={13} />
             </Link>
           </div>
         </section>
@@ -677,31 +644,30 @@ export function Wishlist() {
       <Breadcrumb items={[{ label: "Your wishlist" }]} />
       <SectionTitle
         eyebrow="SAVE A LITTLE GOODNESS FOR LATER"
-        title="Your good-finds list."
+        title={bnNode("Your good-finds list.")}
         link="/shop"
         label="Keep exploring"
       />
-      {wishlist.length ? (
+      {bnNode(wishlist.length ? (
         <div className="product-grid four">
-          {wishlist
+          {bnNode(wishlist
             .map((id) => products.find((p) => p.id === id))
             .filter((p): p is NonNullable<typeof p> => !!p)
             .map((p) => (
               <ProductCard key={p.id} product={p} />
-            ))}
+            )))}
         </div>
       ) : (
         <Empty
           icon={Heart}
-          title="Something good will catch your eye."
+          title={bnNode("Something good will catch your eye.")}
           text="Tap the heart on any product to keep it close."
           action={
-            <Button to="/shop">
-              Find your favourites <ArrowRight size={16} />
+            <Button to="/shop">{bnNode("Find your favourites ")}<ArrowRight size={16} />
             </Button>
           }
         />
-      )}
+      ))}
     </main>
   );
 }
@@ -712,10 +678,10 @@ export function Categories() {
       <Breadcrumb items={[{ label: "All categories" }]} />
       <SectionTitle
         eyebrow="A WORLD OF EVERYDAY GOOD"
-        title="Find your little corner of goodness."
+        title={bnNode("Find your little corner of goodness.")}
       />
       <div className="all-categories">
-        {categories
+        {bnNode(categories
           .filter((c) => !c.parent && c.active)
           .map((c) => (
             <article key={c.id}>
@@ -723,30 +689,30 @@ export function Categories() {
                 className="all-category-image"
                 to={`/shop?category=${encodeURIComponent(c.name)}`}
               >
-                <img src={c.image} alt={c.name} />
+                <img src={c.image} alt={bnNode(c.name)} />
                 <span className="round-link">
                   <ArrowUpRight size={20} />
                 </span>
               </Link>
               <Link to={`/shop?category=${encodeURIComponent(c.name)}`}>
-                <h2>{c.name}</h2>
+                <h2>{bnNode(c.name)}</h2>
               </Link>
-              <p>{c.description}</p>
+              <p>{bnNode(c.description)}</p>
               <div>
-                {categories
+                {bnNode(categories
                   .filter((s) => s.parent === c.name && s.active)
                   .map((s) => (
                     <Link
                       key={s.id}
                       to={`/shop?category=${encodeURIComponent(c.name)}&subcategory=${encodeURIComponent(s.name)}`}
                     >
-                      {s.name}
+                      {bnNode(s.name)}
                       <ArrowRight size={13} />
                     </Link>
-                  ))}
+                  )))}
               </div>
             </article>
-          ))}
+          )))}
       </div>
     </main>
   );
@@ -758,47 +724,41 @@ export function Offers() {
       <section className="offers-hero">
         <div className="container">
           <Breadcrumb items={[{ label: "Offers & little extras" }]} />
-          <span className="eyebrow">GOOD THINGS COME WITH LITTLE EXTRAS</span>
-          <h1>
-            A little more goodness.
-            <br />
-            <em>A little less to spend.</em>
+          <span className="eyebrow">{bnNode("GOOD THINGS COME WITH LITTLE EXTRAS")}</span>
+          <h1>{bnNode("A little more goodness.")}<br />
+            <em>{bnNode("A little less to spend.")}</em>
           </h1>
-          <p>
-            Thoughtful bundles, seasonal finds, and offers worth making room
-            for.
-          </p>
+          <p>{bnNode("Thoughtful bundles, seasonal finds, and offers worth making room for.")}</p>
         </div>
-        <span className="offer-decoration">✳</span>
+        <span className="offer-decoration">{bnNode("✳")}</span>
       </section>
       <main className="container section">
         <SectionTitle
           eyebrow="A LITTLE SOMETHING FOR YOU"
-          title="Good codes. Great choices."
+          title={bnNode("Good codes. Great choices.")}
         />
         <div className="coupon-grid">
-          {coupons
+          {bnNode(coupons
             .filter((c) => c.active)
             .map((c) => (
               <article className="coupon-card" key={c.id}>
-                <span className="eyebrow">YOUR EVERYDAY EXTRA</span>
+                <span className="eyebrow">{bnNode("YOUR EVERYDAY EXTRA")}</span>
                 <h2>
-                  {c.type === "Free shipping"
+                  {bnNode(c.type === "Free shipping"
                     ? "Delivery, on us."
                     : c.type === "Percentage"
                       ? `${c.value}% off your good finds.`
-                      : `${money(c.value)} off something good.`}
+                      : `${money(c.value)} off something good.`)}
                 </h2>
-                <p>
-                  On orders over {money(c.minimum)} · Valid until{" "}
-                  {new Date(c.end).toLocaleDateString("en-GB", {
+                <p>{bnNode("On orders over ")}{bnNode(money(c.minimum))}{bnNode(" · Valid until")}{bnNode(" ")}
+                  {bnNode(new Date(c.end).toLocaleDateString("bn-BD", {
                     day: "numeric",
                     month: "short",
                     year: "numeric",
-                  })}
+                  }))}
                 </p>
                 <div>
-                  <code>{c.code}</code>
+                  <code>{bnNode(c.code)}</code>
                   <button
                     className="text-link"
                     onClick={() => {
@@ -807,41 +767,39 @@ export function Offers() {
                         .then(() => toast("Offer code copied"))
                         .catch(() => toast(`Use ${c.code} at checkout`));
                     }}
-                  >
-                    Copy code <Copy size={14} />
+                  >{bnNode("Copy code ")}<Copy size={14} />
                   </button>
                 </div>
               </article>
-            ))}
+            )))}
         </div>
         <div className="campaign-cards">
-          {campaigns
+          {bnNode(campaigns
             .filter((c) => c.active)
             .map((c) => (
               <Link to={`/campaign/${c.productId}`} key={c.id}>
-                <img src="/assets/hero.webp" alt="Sundarban honey harvest" />
+                <img src="/assets/hero.webp" alt={bnNode("Sundarban honey harvest")} />
                 <div>
-                  <Badge tone="warm">THE SEASONAL EDIT</Badge>
-                  <h2>{c.name}</h2>
-                  <p>{c.headline}</p>
-                  <span className="text-link">
-                    Explore the harvest <ArrowUpRight size={17} />
+                  <Badge tone="warm">{bnNode("THE SEASONAL EDIT")}</Badge>
+                  <h2>{bnNode(c.name)}</h2>
+                  <p>{bnNode(c.headline)}</p>
+                  <span className="text-link">{bnNode("Explore the harvest ")}<ArrowUpRight size={17} />
                   </span>
                 </div>
               </Link>
-            ))}
+            )))}
         </div>
         <SectionTitle
           eyebrow="SAME GOODNESS. SWEETER PRICE."
-          title="A few offers to feel good about."
+          title={bnNode("A few offers to feel good about.")}
         />
         <div className="product-grid four">
-          {products
+          {bnNode(products
             .filter((p) => p.oldPrice > p.price && p.status === "Published")
             .slice(0, 8)
             .map((p) => (
               <ProductCard product={p} key={p.id} />
-            ))}
+            )))}
         </div>
       </main>
     </>

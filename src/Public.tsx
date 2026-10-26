@@ -1,3 +1,4 @@
+import { bnNode } from "./bn";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -24,58 +25,43 @@ export function About() {
       <section className="about-hero container">
         <Breadcrumb items={[{ label: "Our story" }]} />
         <div>
-          <span className="eyebrow">GOODNESS IS IN THE LITTLE THINGS</span>
+          <span className="eyebrow">{bnNode("GOODNESS IS IN THE LITTLE THINGS")}</span>
           <h1>
-            {content["page-title-about"] ||
-              "Thoughtful by choice.\nTrusted, every day."}
+            {bnNode(content["page-title-about"] ||
+              "Thoughtful by choice.\nTrusted, every day.")}
           </h1>
-          <p>For your pantry, your wardrobe, your rituals, and your home.</p>
+          <p>{bnNode("For your pantry, your wardrobe, your rituals, and your home.")}</p>
         </div>
         <img
-          src="/assets/brand-world-v3.webp"
-          alt="A thoughtful selection of pantry, beauty, clothing and home essentials"
+          src="/assets/brand-world-v4.webp"
+          alt={bnNode("A thoughtful selection of pantry, beauty, clothing and home essentials")}
         />
       </section>
       <section className="container about-story section">
-        <span className="eyebrow">A LITTLE ABOUT NIRBHOR</span>
-        <h2>
-          Good choices should
-          <br />
-          feel a little simpler.
-        </h2>
+        <span className="eyebrow">{bnNode("A LITTLE ABOUT NIRBHOR")}</span>
+        <h2>{bnNode("Good choices should")}<br />{bnNode("feel a little simpler.")}</h2>
         <div>
-          {content["page-body-about"] ? (
+          {bnNode(content["page-body-about"] ? (
             content["page-body-about"]
               .split("\n\n")
-              .map((p, i) => <p key={i}>{p}</p>)
+              .map((p, i) => <p key={i}>{bnNode(p)}</p>)
           ) : (
             <>
-              <p>
-                Some of the best things in life are wonderfully uncomplicated. A
-                familiar daily ritual. A piece that feels like you. A home
-                filled with things you love using.
-              </p>
-              <p>
-                NIRBHOR brings these little moments together. We choose honest
-                products, look closely at where they come from, and put a little
-                more care into how they reach you.
-              </p>
-              <p>
-                Our name means something to lean on. And that’s what we hope to
-                be: a thoughtful place to find the everyday good.
-              </p>
+              <p>{bnNode("Some of the best things in life are wonderfully uncomplicated. A familiar daily ritual. A piece that feels like you. A home filled with things you love using.")}</p>
+              <p>{bnNode("NIRBHOR brings these little moments together. We choose honest products, look closely at where they come from, and put a little more care into how they reach you.")}</p>
+              <p>{bnNode("Our name means something to lean on. And that’s what we hope to be: a thoughtful place to find the everyday good.")}</p>
             </>
-          )}
+          ))}
         </div>
       </section>
       <section className="about-values">
         <div className="container section">
           <SectionTitle
             eyebrow="WHAT WE COME BACK TO"
-            title="A few good things we believe in."
+            title={bnNode("A few good things we believe in.")}
           />
           <div className="benefit-grid">
-            {[
+            {bnNode([
               [
                 ShieldCheck,
                 "Honest, always.",
@@ -101,23 +87,20 @@ export function About() {
               return (
                 <div key={String(t)}>
                   <Icon size={27} strokeWidth={1.3} />
-                  <h3>{String(t)}</h3>
-                  <p>{String(d)}</p>
+                  <h3>{bnNode(String(t))}</h3>
+                  <p>{bnNode(String(d))}</p>
                 </div>
               );
-            })}
+            }))}
           </div>
         </div>
       </section>
       <section className="brand-promise container">
         <ShieldCheck size={32} />
-        <h2>
-          A little more considered.
-          <br />
-          <em>A little more you.</em>
+        <h2>{bnNode("A little more considered.")}<br />
+          <em>{bnNode("A little more you.")}</em>
         </h2>
-        <Button to="/shop">
-          Find your everyday good <ArrowRight size={16} />
+        <Button to="/shop">{bnNode("Find your everyday good ")}<ArrowRight size={16} />
         </Button>
       </section>
     </>
@@ -131,56 +114,51 @@ export function Contact() {
       <Breadcrumb items={[{ label: "Say hello" }]} />
       <div className="contact-grid">
         <div>
-          <span className="eyebrow">REAL PEOPLE. A LITTLE HELP.</span>
+          <span className="eyebrow">{bnNode("REAL PEOPLE. A LITTLE HELP.")}</span>
           <h1>
-            {content["page-title-contact"] || "Let’s talk\na little goodness."}
+            {bnNode(content["page-title-contact"] || "Let’s talk\na little goodness.")}
           </h1>
           <p>
-            {content["page-body-contact"] ||
-              "An order question, a product thought, or just a hello. We’re happy to hear from you."}
+            {bnNode(content["page-body-contact"] ||
+              "An order question, a product thought, or just a hello. We’re happy to hear from you.")}
           </p>
           <div className="contact-info">
             <a href={`mailto:${settings.email}`}>
               <Mail size={22} />
               <span>
-                <small>DROP US A LITTLE NOTE</small>
-                <b>{settings.email}</b>
+                <small>{bnNode("DROP US A LITTLE NOTE")}</small>
+                <b>{bnNode(settings.email)}</b>
               </span>
               <ArrowUpRight size={16} />
             </a>
             <a href={`tel:${settings.phone}`}>
               <Phone size={22} />
               <span>
-                <small>LET’S HAVE A LITTLE CHAT</small>
-                <b>{settings.phone}</b>
+                <small>{bnNode("LET’S HAVE A LITTLE CHAT")}</small>
+                <b>{bnNode(settings.phone)}</b>
               </span>
               <ArrowUpRight size={16} />
             </a>
             <div>
               <MapPin size={22} />
               <span>
-                <small>WHERE WE CALL HOME</small>
-                <b>{settings.address}</b>
+                <small>{bnNode("WHERE WE CALL HOME")}</small>
+                <b>{bnNode(settings.address)}</b>
               </span>
             </div>
           </div>
-          <p className="small muted">
-            Saturday–Thursday, 9am–6pm · Bangladesh time
-          </p>
-          <Link className="text-link" to="/help">
-            A few answers you might find useful <ArrowUpRight size={15} />
+          <p className="small muted">{bnNode("Saturday–Thursday, 9am–6pm · Bangladesh time")}</p>
+          <Link className="text-link" to="/help">{bnNode("A few answers you might find useful ")}<ArrowUpRight size={15} />
           </Link>
         </div>
-        {sent ? (
+        {bnNode(sent ? (
           <div className="contact-form">
             <Empty
               icon={Check}
-              title="Your little note is saved."
+              title={bnNode("Your little note is saved.")}
               text="Thank you for reaching out. This message is stored in the frontend preview; sending to support will be connected with the backend."
               action={
-                <Button onClick={() => setSent(false)}>
-                  Send another little note
-                </Button>
+                <Button onClick={() => setSent(false)}>{bnNode("Send another little note")}</Button>
               }
             />
           </div>
@@ -209,58 +187,45 @@ export function Contact() {
               toast("Your message is saved in this preview.");
             }}
           >
-            <h2>A little message for us.</h2>
+            <h2>{bnNode("A little message for us.")}</h2>
             <div className="form-grid">
-              <label className="field">
-                Your name
-                <input
+              <label className="field">{bnNode("Your name")}<input
                   name="name"
                   required
-                  placeholder="How should we address you?"
+                  placeholder={bnNode("How should we address you?")}
                 />
               </label>
-              <label className="field">
-                Email address
-                <input
+              <label className="field">{bnNode("Email address")}<input
                   name="email"
                   type="email"
                   required
-                  placeholder="you@example.com"
+                  placeholder={bnNode("you@example.com")}
                 />
               </label>
             </div>
-            <label className="field">
-              What’s on your mind?
-              <select name="subject">
-                <option>An order question</option>
-                <option>A product question</option>
-                <option>Returns & refunds</option>
-                <option>A little feedback</option>
-                <option>Something else</option>
+            <label className="field">{bnNode("What’s on your mind?")}<select name="subject">
+                <option value={"An order question"}>{bnNode("An order question")}</option>
+                <option value={"A product question"}>{bnNode("A product question")}</option>
+                <option value={"Returns & refunds"}>{bnNode("Returns & refunds")}</option>
+                <option value={"A little feedback"}>{bnNode("A little feedback")}</option>
+                <option value={"Something else"}>{bnNode("Something else")}</option>
               </select>
             </label>
-            <label className="field">
-              Order number (optional)
-              <input name="order" placeholder="NBR-…" />
+            <label className="field">{bnNode("Order number (optional)")}<input name="order" placeholder={bnNode("NBR-…")} />
             </label>
-            <label className="field">
-              Your message
-              <textarea
+            <label className="field">{bnNode("Your message")}<textarea
                 name="message"
                 rows={5}
                 required
                 minLength={10}
-                placeholder="Tell us a little more…"
+                placeholder={bnNode("Tell us a little more…")}
               />
             </label>
-            <Button type="submit">
-              Send a little hello <ArrowRight size={16} />
+            <Button type="submit">{bnNode("Send a little hello ")}<ArrowRight size={16} />
             </Button>
-            <p className="small muted">
-              Preview form: messages stay in this browser.
-            </p>
+            <p className="small muted">{bnNode("Preview form: messages stay in this browser.")}</p>
           </form>
-        )}
+        ))}
       </div>
     </main>
   );
@@ -270,17 +235,16 @@ export function Help() {
     <main className="container page-space help-page">
       <Breadcrumb items={[{ label: "A little help" }]} />
       <div className="tracking-intro">
-        <span className="eyebrow">A LITTLE CLARITY GOES A LONG WAY</span>
-        <h1>Good questions. Honest answers.</h1>
-        <p>Everything you might want to know before your next good choice.</p>
+        <span className="eyebrow">{bnNode("A LITTLE CLARITY GOES A LONG WAY")}</span>
+        <h1>{bnNode("Good questions. Honest answers.")}</h1>
+        <p>{bnNode("Everything you might want to know before your next good choice.")}</p>
       </div>
       <Faq />
       <div className="help-contact">
         <Leaf size={27} />
-        <h2>Still a little curious?</h2>
-        <p>We’re real people, and we’re happy to help.</p>
-        <Button to="/contact">
-          Let’s have a little chat <ArrowUpRight size={16} />
+        <h2>{bnNode("Still a little curious?")}</h2>
+        <p>{bnNode("We’re real people, and we’re happy to help.")}</p>
+        <Button to="/contact">{bnNode("Let’s have a little chat ")}<ArrowUpRight size={16} />
         </Button>
       </div>
     </main>
@@ -427,11 +391,10 @@ export function StaticPage() {
     return (
       <main className="container page-space">
         <Empty
-          title="This little page is still finding its place."
+          title={bnNode("This little page is still finding its place.")}
           text="Let’s bring you back to something good."
           action={
-            <Button to="/">
-              Back home <ArrowRight size={16} />
+            <Button to="/">{bnNode("Back home ")}<ArrowRight size={16} />
             </Button>
           }
         />
@@ -440,23 +403,22 @@ export function StaticPage() {
   return (
     <main className="container page-space policy-page">
       <Breadcrumb items={[{ label: p.title }]} />
-      <span className="eyebrow">{p.eyebrow}</span>
-      <h1>{content[`page-title-${slug}`] || p.title}</h1>
-      <p className="policy-intro">{p.intro}</p>
+      <span className="eyebrow">{bnNode(p.eyebrow)}</span>
+      <h1>{bnNode(content[`page-title-${slug}`] || p.title)}</h1>
+      <p className="policy-intro">{bnNode(p.intro)}</p>
       <div className="policy-body">
-        {content[`page-body-${slug}`]
+        {bnNode(content[`page-body-${slug}`]
           ? content[`page-body-${slug}`]
               .split("\n\n")
-              .map((t, i) => <p key={i}>{t}</p>)
+              .map((t, i) => <p key={i}>{bnNode(t)}</p>)
           : p.sections.map(([t, d]) => (
               <section key={t}>
-                <h2>{t}</h2>
-                <p>{d}</p>
+                <h2>{bnNode(t)}</h2>
+                <p>{bnNode(d)}</p>
               </section>
-            ))}
+            )))}
       </div>
-      <Link className="text-link" to="/contact">
-        A little more help? <ArrowUpRight size={15} />
+      <Link className="text-link" to="/contact">{bnNode("A little more help? ")}<ArrowUpRight size={15} />
       </Link>
     </main>
   );

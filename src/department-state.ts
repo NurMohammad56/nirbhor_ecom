@@ -104,7 +104,7 @@ export const departmentProducts: Product[] = [
     price: 1190,
     oldPrice: 1390,
     image: "/assets/serum-float-v3.webp",
-    images: ["/assets/serum-float-v3.webp", "/assets/beauty-world-v3.webp"],
+    images: ["/assets/serum-float-v3.webp", "/assets/beauty-world-v4.webp"],
     stock: 24,
     rating: 0,
     reviews: 0,
@@ -137,8 +137,8 @@ export const departmentProducts: Product[] = [
     subcategory: "Beauty Sets",
     price: 2190,
     oldPrice: 2490,
-    image: "/assets/beauty-world-v3.webp",
-    images: ["/assets/beauty-world-v3.webp"],
+    image: "/assets/beauty-world-v4.webp",
+    images: ["/assets/beauty-world-v4.webp"],
     stock: 16,
     rating: 0,
     reviews: 0,
@@ -164,8 +164,8 @@ export const departmentProducts: Product[] = [
     },
   },
 ];
-departmentProducts[0].images.push("/assets/fashion-world-v3.webp");
-departmentProducts[1].images.push("/assets/fashion-world-v3.webp");
+departmentProducts[0].images.push("/assets/fashion-world-v4.webp");
+departmentProducts[1].images.push("/assets/fashion-world-v4.webp");
 departmentProducts[1].sizeGuide = [
   { size: "S", chest: "40 in", length: "28 in" },
   { size: "M", chest: "42 in", length: "29 in" },
@@ -179,7 +179,7 @@ export const departmentCategories: Category[] = [
     parent: "",
     description: "Considered pieces. Personal style.",
     active: true,
-    image: "/assets/fashion-world-v3.webp",
+    image: "/assets/fashion-world-v4.webp",
     sort: 2,
     departmentSlug: "fashion",
   },
@@ -201,7 +201,7 @@ export const departmentCategories: Category[] = [
     image: [
       "/assets/serum-float-v3.webp",
       "/assets/soap-unbranded-v3.webp",
-      "/assets/beauty-world-v3.webp",
+      "/assets/beauty-world-v4.webp",
     ][i],
     sort: i,
   })),
@@ -226,7 +226,7 @@ export const brandBanners: Banner[] = [
     cta: "Find your everyday",
     link: "/#departments",
     active: true,
-    image: "/assets/brand-world-v3.webp",
+    image: "/assets/brand-world-v4.webp",
     order: 0,
     start: "",
     end: "",
@@ -239,7 +239,7 @@ export const brandBanners: Banner[] = [
     cta: "Explore beauty",
     link: "/beauty",
     active: true,
-    image: "/assets/beauty-world-v3.webp",
+    image: "/assets/beauty-world-v4.webp",
     order: 1,
     start: "",
     end: "",
@@ -252,7 +252,7 @@ export const brandBanners: Banner[] = [
     cta: "Explore fashion",
     link: "/fashion",
     active: true,
-    image: "/assets/fashion-world-v3.webp",
+    image: "/assets/fashion-world-v4.webp",
     order: 2,
     start: "",
     end: "",

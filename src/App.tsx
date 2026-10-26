@@ -1,3 +1,4 @@
+import { bnNode, latinDigits } from "./bn";
 import StoreHeader from "./StoreHeader";
 import DepartmentLanding from "./DepartmentLanding";
 import { departments, departmentForProduct, productHref } from "./departments";
@@ -77,7 +78,7 @@ function AppContent() {
         e.preventDefault();
         document
           .querySelector<HTMLInputElement>(
-            'input[aria-label="Search products"]',
+            '.brand-header-search input',
           )
           ?.focus();
       }
@@ -87,28 +88,34 @@ function AppContent() {
   }, []);
   return (
     <>
-      {!isAdmin && (
+      {bnNode(!isAdmin && (
         <>
-          <a className="skip-link" href="#main-content">
-            Skip to content
-          </a>
+          <a className="skip-link" href="#main-content">{bnNode("Skip to content")}</a>
           <StoreHeader />
         </>
-      )}
-      <div id="main-content">
+      ))}
+      <div id="main-content" onInputCapture={event => {
+        const input = event.target;
+        if (input instanceof HTMLInputElement || input instanceof HTMLTextAreaElement || input instanceof HTMLSelectElement) input.setCustomValidity("");
+        if (input instanceof HTMLInputElement && (input.type === "tel" || input.name === "code")) input.value = latinDigits(input.value);
+      }} onInvalidCapture={event => {
+        const input = event.target;
+        if (!(input instanceof HTMLInputElement || input instanceof HTMLTextAreaElement || input instanceof HTMLSelectElement)) return;
+        input.setCustomValidity(input.validity.valueMissing ? "এই তথ্যটি পূরণ করুন।" : input instanceof HTMLInputElement && input.type === "email" ? "সঠিক ইমেইল ঠিকানা দিন।" : "সঠিক তথ্য দিয়ে আবার চেষ্টা করুন।");
+      }}>
         <Suspense
           fallback={
             <div className="route-loading">
               <span />
               <span />
               <span />
-              <p>Getting a little goodness ready…</p>
+              <p>{bnNode("Getting a little goodness ready…")}</p>
             </div>
           }
         >
           <Routes>
             <Route path="/" element={<Home />} />
-            {departments.flatMap((d) => [
+            {bnNode(departments.flatMap((d) => [
               <Route
                 key={d.slug}
                 path={"/" + d.slug}
@@ -129,7 +136,7 @@ function AppContent() {
                 path={"/" + d.slug + "/campaign/:id"}
                 element={<ScopedProduct department={d.slug} campaignMode />}
               />,
-            ])}
+            ]))}
             <Route path="/shop" element={<Catalog />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/offers" element={<Offers />} />
@@ -159,11 +166,10 @@ function AppContent() {
                 <main className="container page-space">
                   <Empty
                     icon={Leaf}
-                    title="A little off the beaten path."
+                    title={bnNode("A little off the beaten path.")}
                     text="Let’s find your way back to something good."
                     action={
-                      <Button to="/">
-                        Back to the good stuff <ArrowRight size={16} />
+                      <Button to="/">{bnNode("Back to the good stuff ")}<ArrowRight size={16} />
                       </Button>
                     }
                   />
@@ -173,12 +179,12 @@ function AppContent() {
           </Routes>
         </Suspense>
       </div>
-      {!isAdmin && (
+      {bnNode(!isAdmin && (
         <>
           <Footer />
           <CartDrawer />
         </>
-      )}
+      ))}
     </>
   );
 }

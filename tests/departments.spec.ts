@@ -1,3 +1,4 @@
+import { bn } from "../src/bn";
 import { test, expect } from "@playwright/test";
 import {
   seedProducts,
@@ -12,7 +13,7 @@ test("the main homepage introduces four distinct, directly accessible department
   await page.goto("/");
   await expect(page.locator("html")).toHaveAttribute("data-department", "main");
   await expect(page.locator(".brand-hero h1")).toHaveText(
-    "Good choices.A trusted place.",
+    bn("Good choices.") + bn("A trusted place."),
   );
   await expect(page.locator(".brand-department-card")).toHaveCount(4);
   for (const slug of ["organic", "beauty", "fashion", "home-living"])
@@ -20,11 +21,11 @@ test("the main homepage introduces four distinct, directly accessible department
       page.locator(`.brand-department-card[href="/${slug}"]`),
     ).toBeVisible();
   await expect(page.locator(".brand-story")).toContainText(
-    "Selected with purpose",
+    bn("Selected with purpose"),
   );
   await page
     .locator(".brand-hero-actions")
-    .getByRole("link", { name: "Find your everyday", exact: true })
+    .getByRole("link", { name: bn("Find your everyday"), exact: true })
     .click();
   await expect(page).toHaveURL(/#departments$/);
   await expect
@@ -34,10 +35,10 @@ test("the main homepage introduces four distinct, directly accessible department
         .evaluate((el) => el.getBoundingClientRect().top),
     )
     .toBeLessThan(200);
-  await page.getByRole("button", { name: "Pause hero carousel" }).click();
-  await page.getByRole("button", { name: "Next slide", exact: true }).click();
-  await expect(page.locator(".brand-hero h1")).toContainText("A little care.");
-  await page.getByRole("link", { name: "Explore beauty", exact: true }).click();
+
+  await page.getByRole("button", { name: bn("Next slide"), exact: true }).click();
+  await expect(page.locator(".brand-hero h1")).toContainText(bn("A little care."));
+  await page.getByRole("link", { name: bn("Explore beauty"), exact: true }).click();
   await expect(page).toHaveURL(/\/beauty$/);
   await expect(page.locator("html")).toHaveAttribute(
     "data-department",
@@ -53,12 +54,12 @@ test("department identity persists from a category through its listing and produ
     .locator("html")
     .evaluate((el) => el.style.getPropertyValue("--green"));
   expect(accent).toBe("#754e63");
-  await page.getByRole("link", { name: "Explore beauty", exact: true }).click();
+  await page.getByRole("link", { name: bn("Explore beauty"), exact: true }).click();
   await expect(page).toHaveURL(/\/beauty\/shop/);
   await expect(page.locator(".product-card")).toHaveCount(4);
   await page
     .locator(".product-name")
-    .filter({ hasText: "Daily Glow Serum" })
+    .filter({ hasText: bn("Daily Glow Serum") })
     .click();
   await expect(page).toHaveURL(/\/beauty\/product\/p20/);
   await expect(page.locator("html")).toHaveAttribute(
@@ -66,9 +67,9 @@ test("department identity persists from a category through its listing and produ
     "beauty",
   );
   await expect(page.locator(".product-purchase h1")).toHaveText(
-    "Daily Glow Serum",
+    bn("Daily Glow Serum"),
   );
-  await expect(page.locator(".pdp-rating")).not.toContainText("★★★★★");
+  await expect(page.locator(".pdp-rating")).not.toContainText(bn("★★★★★"));
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute(
     "data-department",
@@ -86,34 +87,34 @@ test("fashion size selection and beauty share a single neutral checkout", async 
   page,
 }) => {
   await page.goto("/fashion/product/p17");
-  await page.getByRole("button", { name: "Size guide", exact: true }).click();
-  await expect(page.locator(".size-guide-table")).toContainText("40 in");
-  await page.getByRole("button", { name: "Close dialog" }).click();
+  await page.getByRole("button", { name: bn("Size guide"), exact: true }).click();
+  await expect(page.locator(".size-guide-table")).toContainText(bn("40 in"));
+  await page.getByRole("button", { name: bn("Close dialog") }).click();
   await page
     .locator(".variant-options button")
     .filter({ has: page.locator("strong", { hasText: /^L$/ }) })
     .click();
   await page
-    .getByRole("button", { name: "Add to your bag", exact: true })
+    .getByRole("button", { name: bn("Add to your bag"), exact: true })
     .click();
-  await expect(page.locator(".bag-item")).toContainText("L");
-  await page.getByRole("button", { name: "Close bag" }).click();
+  await expect(page.locator(".bag-item")).toContainText(bn("L"));
+  await page.getByRole("button", { name: bn("Close bag") }).click();
   await page.goto("/beauty/product/p20");
   await page
-    .getByRole("button", { name: "Add to your bag", exact: true })
+    .getByRole("button", { name: bn("Add to your bag"), exact: true })
     .click();
   await page
-    .getByRole("button", { name: "Continue to checkout", exact: true })
+    .getByRole("button", { name: bn("Continue to checkout"), exact: true })
     .click();
   await expect(page.locator("html")).toHaveAttribute("data-department", "main");
-  await expect(page.getByTestId("order-total")).toHaveText("৳2,880");
+  await expect(page.getByTestId("order-total")).toHaveText(bn("৳2,880"));
   await expect(page.locator(".summary-products")).toContainText(
-    "The Everyday Cotton Kurta",
+    bn("The Everyday Cotton Kurta"),
   );
   await expect(page.locator(".summary-products")).toContainText(
-    "Daily Glow Serum",
+    bn("Daily Glow Serum"),
   );
-  await expect(page.locator(".summary-products")).toContainText("L");
+  await expect(page.locator(".summary-products")).toContainText(bn("L"));
 });
 
 test("category experience edits persist without losing category configuration", async ({
@@ -122,14 +123,14 @@ test("category experience edits persist without losing category configuration", 
   await page.goto("/admin/experiences");
   await page
     .locator(".experience-admin-tabs")
-    .getByRole("button", { name: "Beauty", exact: true })
+    .getByRole("button", { name: bn("Beauty"), exact: true })
     .click();
-  await page.getByLabel("Hero headline").fill("Care, your way.");
-  await page.getByLabel("Accent colour", { exact: true }).fill("#663d58");
-  await page.getByRole("button", { name: "Save changes", exact: true }).click();
+  await page.getByLabel(bn("Hero headline")).fill("Care, your way.");
+  await page.getByLabel(bn("Accent colour"), { exact: true }).fill("#663d58");
+  await page.getByRole("button", { name: bn("Save changes"), exact: true }).click();
   await page.goto("/beauty");
   await expect(page.locator(".department-hero h1")).toHaveText(
-    "Care, your way.",
+    bn("Care, your way."),
   );
   await expect
     .poll(() =>
@@ -140,19 +141,19 @@ test("category experience edits persist without losing category configuration", 
     .toBe("#663d58");
   await page.reload();
   await expect(page.locator(".department-hero h1")).toHaveText(
-    "Care, your way.",
+    bn("Care, your way."),
   );
   await page.goto("/admin/categories");
   await page
-    .getByRole("button", { name: "Edit Beauty & Care", exact: true })
+    .getByRole("button", { name: bn("Edit Beauty & Care"), exact: true })
     .click();
-  await page.getByLabel("Description").fill("Beauty, with a little thought.");
+  await page.getByLabel(bn("Description")).fill("Beauty, with a little thought.");
   await page
-    .getByRole("button", { name: "Save category", exact: true })
+    .getByRole("button", { name: bn("Save category"), exact: true })
     .click();
   await page.goto("/beauty");
   await expect(page.locator(".department-hero h1")).toHaveText(
-    "Care, your way.",
+    bn("Care, your way."),
   );
 });
 

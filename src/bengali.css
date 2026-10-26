@@ -1,0 +1,84 @@
+@import "./bengali-fonts.css";
+:root { --font: "Noto Sans Bengali", sans-serif; --sans: "Noto Sans Bengali", sans-serif; --serif: "Noto Serif Bengali", serif; }
+body, button, input, select, textarea { font-family: "Noto Sans Bengali", sans-serif; }
+body { line-height: 1.7; }
+h1,h2,h3,h4 { letter-spacing: 0 !important; }
+.wordmark { font-family: "Noto Serif Bengali", serif; line-height: 1.5; }
+.brand-logo-lockup .wordmark { font-size: 33px; }
+.brand-nav { gap: 24px; }
+.brand-nav > a,.brand-nav > button { font-size: 15px; }
+.brand-eyebrow,.eyebrow { letter-spacing: 0 !important; font-size: 12px; }
+.cinematic-hero .brand-hero-copy h1 { font-size: clamp(55px,5.4vw,82px); line-height: 1.4; letter-spacing: 0; }
+.cinematic-hero .brand-hero-copy > p { max-width: 435px; font-size: 17px; line-height: 1.9; margin-top: 20px; }
+.cinematic-hero .brand-hero-actions > .btn,.immersive-department .department-hero-copy .btn { font-size: 15px; min-height: 54px; }
+.cinematic-hero .brand-hero-actions > .brand-underlined { font-size: 14px; }
+.cinema-scene { transition-duration: .85s; }
+.cinema-worlds small { display: none; }
+.cinema-worlds strong { font-family: "Noto Sans Bengali",sans-serif; font-size: 24px; font-weight: 500; }
+.cinema-worlds > a { min-height: 88px; }
+.cinema-worlds svg { grid-row: 1; }
+.immersive-department .department-hero-copy h1 { font-size: clamp(47px,4.8vw,71px); line-height: 1.45; }
+.immersive-department .department-hero-copy > p { line-height: 1.9; font-size: 17px; max-width: 410px; }
+.immersive-department .department-hero { min-height: 610px; }
+.department-scene-footer { justify-content: flex-end; }
+.department-scene-footer a { font-size: 12px; letter-spacing: 0; }
+.brand-section-heading h2,.brand-story-copy h2,.department-editorial h2,.department-faq h2 { line-height: 1.55; }
+.brand-section-heading { margin-bottom: 28px; }
+.brand-section-heading h2 { font-size: 38px; }
+.brand-story-copy h2 { font-size: 37px; }
+.brand-story-copy .brand-principles { gap: 14px; }
+.brand-principles p { margin-top: 3px; }
+.brand-department-caption h3 { font-size: 25px; }
+.brand-department-caption > .brand-eyebrow { display: none; }
+.brand-section { padding-block: 60px; }
+.brand-story-wrap { padding-block: 60px; }
+.brand-edit-tabs > button { font-size: 14px; white-space: nowrap; }
+.product-card .product-name { font-size: 16px; line-height: 1.8; }
+.product-card .product-meta { font-size: 13px; }
+.product-purchase h1 { line-height: 1.5; }
+.brand-logo-department { font-family: "Noto Sans Bengali",sans-serif; font-style: normal; font-size: 13px; }
+.brand-mobile-nav .mobile-department-link small { display: none; }
+.admin-title h1 { font-family: "Noto Sans Bengali", sans-serif; font-size: 29px; font-weight: 600; line-height: 1.6; }
+.admin-title p { line-height: 1.9; }
+.admin-title .eyebrow { display: none; }
+.admin-nav-group > span { letter-spacing: 0; font-size: 12px; }
+.admin-nav-group > a { font-size: 15px; min-height: 43px; }
+.admin-sidebar > .wordmark { font-size: 31px; }
+.admin-app .stat-card > strong { line-height: 1.6; font-size: 31px; }
+.admin-table th { font-size: 13px; }
+.admin-table td { font-size: 14px; }
+.admin-app .panel-header h3 { line-height: 1.7; }
+.admin-panel,.stat-card { box-shadow: 0 2px 7px #193f300a; border-radius: 9px; }
+.admin-overview-notice { margin-bottom: 20px; }
+.admin-app .field { line-height: 1.8; }
+.newsletter h2 { line-height: 1.6; }
+.footer-grid h4 { font-size: 16px; }
+.footer-grid > div > a:not(.wordmark) { font-size: 14px; }
+.badge { line-height: 1.7; }
+.reviews-overview > div { min-width: 0; }
+.rating-distribution progress { width: 100%; min-width: 0; flex: 1; }
+.field input,.field textarea,.field select { line-height: 1.7; }
+@media(max-width:1100px) { .brand-nav { gap: 16px; }.brand-nav > a,.brand-nav > button { font-size: 14px; }.brand-header-search { max-width: 200px; } }
+@media(max-width:800px) { .brand-header-search { max-width: none; }.cinematic-hero .brand-hero-copy h1 { font-size: 59px; }.immersive-department .department-hero-copy h1 { font-size: 57px; }.brand-section-heading h2 { font-size: 32px; }.brand-story-copy h2 { font-size: 32px; }.cinema-worlds strong { font-size: 22px; } }
+@media(max-width:520px) {
+  .brand-logo-lockup .wordmark { font-size: 32px; }
+  .cinematic-hero .brand-hero-copy h1 { font-size: clamp(36px,10vw,51px); line-height: 1.5; }
+  .cinematic-hero .brand-hero-copy > p { font-size: 15px; line-height: 1.9; max-width: 320px; margin-top: 14px; }
+  .cinematic-hero .brand-hero-actions > .btn { font-size: 14px; padding-inline: 19px; }
+  .cinematic-hero .brand-hero-actions > .brand-underlined { font-size: 13px; }
+  .cinematic-hero .brand-hero-actions { gap: 17px; }
+  .cinema-worlds strong { font-size: 20px; }
+  .cinema-worlds > a { min-height: 77px; }
+  .immersive-department .department-hero-copy h1 { font-size: clamp(35px,9.7vw,47px); line-height: 1.5; }
+  .immersive-department .department-hero-copy > p { font-size: 15px; }
+  .immersive-department .department-hero-copy .btn { font-size: 14px; }
+  .brand-section { padding-block: 45px; }
+  .brand-section-heading h2 { font-size: 29px; }
+  .brand-story-copy h2 { font-size: 30px; }
+  .brand-department-caption h3 { font-size: 22px; }
+  .brand-section-heading .brand-underlined { font-size: 12px; }
+  .brand-services b { font-size: 13px; }.brand-services small { font-size: 12px; }
+  .admin-title h1 { font-size: 25px; }.admin-title p { font-size: 13px; }
+  .admin-app .stat-card > strong { font-size: 27px; }
+  .product-card .product-name { font-size: 14px; }
+}

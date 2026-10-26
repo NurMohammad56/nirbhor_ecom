@@ -1,3 +1,4 @@
+import { bnNode, searchText, latinDigits } from "./bn";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
@@ -44,9 +45,7 @@ export default function StoreHeader() {
       (p) =>
         p.status === "Published" &&
         (!department || p.category === category?.name) &&
-        (p.name + " " + p.subcategory)
-          .toLowerCase()
-          .includes(search.toLowerCase()),
+        searchText(p.name + " " + p.subcategory).includes(latinDigits(search).toLowerCase()),
     )
     .slice(0, 4);
   useEffect(() => {
@@ -87,22 +86,18 @@ export default function StoreHeader() {
       <div className="announcement brand-announcement">
         <div className="container">
           <span>
-            <ShieldCheck size={12} />
-            Thoughtful choices. Trusted every day.
-          </span>
+            <ShieldCheck size={12} />{bnNode("Thoughtful choices. Trusted every day.")}</span>
           <span className="announcement-center">
-            {department && experience ? (
+            {bnNode(department && experience ? (
               experience.announcement
             ) : (
-              <>
-                Free delivery over {money(s.settings.freeShipping)}{" "}
-                <span className="tiny-dot" /> Cash on delivery available
-              </>
-            )}
+              <>{bnNode(`${money(s.settings.freeShipping)}-এর বেশি কেনাকাটায় ফ্রি ডেলিভারি`)}
+                <span className="tiny-dot" />{bnNode(" Cash on delivery available")}</>
+            ))}
           </span>
           <div>
-            <Link to="/track">Track your order</Link>
-            <Link to="/help">Help</Link>
+            <Link to="/track">{bnNode("Track your order")}</Link>
+            <Link to="/help">{bnNode("Help")}</Link>
           </div>
         </div>
       </div>
@@ -112,57 +107,54 @@ export default function StoreHeader() {
         <div className="container header-main">
           <button
             className="icon-btn mobile-menu"
-            aria-label={menu ? "Close menu" : "Open menu"}
+            aria-label={bnNode(menu ? "Close menu" : "Open menu")}
             aria-expanded={menu}
             onClick={() => setMenu(!menu)}
           >
-            {menu ? <X /> : <Menu />}
+            {bnNode(menu ? <X /> : <Menu />)}
           </button>
           <div className="brand-logo-lockup">
-            <Link to="/" className="wordmark" aria-label="Nirbhor home">
-              {s.settings.name}
+            <Link to="/" className="wordmark" aria-label={bnNode("Nirbhor home")}>
+              {bnNode(s.settings.name)}
             </Link>
-            {department && (
+            {bnNode(department && (
               <Link
                 to={"/" + department.slug}
                 className="brand-logo-department"
               >
-                {department.name}
+                {bnNode(department.name)}
               </Link>
-            )}
+            ))}
           </div>
-          <nav className="brand-nav" aria-label="Main navigation">
+          <nav className="brand-nav" aria-label={bnNode("Main navigation")}>
             <button
               className={mega ? "active" : ""}
               aria-expanded={mega}
               onClick={() => setMega(!mega)}
               onMouseEnter={() => setMega(true)}
-            >
-              Discover <ChevronDown size={11} />
+            >{bnNode("Discover ")}<ChevronDown size={11} />
             </button>
-            {visible.map((d) => (
+            {bnNode(visible.map((d) => (
               <Link
                 to={"/" + d.slug}
                 key={d.slug}
                 className={department?.slug === d.slug ? "active" : ""}
               >
-                {d.name === "Home" ? "Home & living" : d.name}
+                {bnNode(d.name === "Home" ? "Home & living" : d.name)}
               </Link>
-            ))}
-            <Link className="brand-nav-offers" to="/offers">
-              Offers
-              <span />
+            )))}
+            <Link className="brand-nav-offers" to="/offers">{bnNode("Offers")}<span />
             </Link>
           </nav>
           <div className="header-search brand-header-search" ref={searchRef}>
             <form onSubmit={submit}>
               <Search size={16} />
               <input
-                aria-label="Search products"
+                aria-label={bnNode("Search products")}
                 placeholder={
-                  department
+                  bnNode(department
                     ? "Search " + department.name.toLowerCase() + "…"
-                    : "Find your everyday…"
+                    : "Find your everyday…")
                 }
                 value={search}
                 onFocus={() => setFocused(true)}
@@ -171,20 +163,20 @@ export default function StoreHeader() {
                   setFocused(true);
                 }}
               />
-              <kbd>⌘ K</kbd>
+              <kbd>{bnNode("⌘ K")}</kbd>
             </form>
-            {focused && (
+            {bnNode(focused && (
               <div className="search-popover">
                 <div className="popover-label">
-                  {search
+                  {bnNode(search
                     ? "A few good finds"
                     : department
                       ? "Explore " + department.name
-                      : "What are you looking for?"}
+                      : "What are you looking for?")}
                 </div>
-                {!search ? (
+                {bnNode(!search ? (
                   <div className="search-chips">
-                    {(department
+                    {bnNode((department
                       ? department.subcategories.slice(0, 3)
                       : ["Honey", "Skincare", "Cotton", "Home"]
                     ).map((text) => (
@@ -199,9 +191,9 @@ export default function StoreHeader() {
                         }
                       >
                         <Search size={11} />
-                        {text}
+                        {bnNode(text)}
                       </Link>
-                    ))}
+                    )))}
                   </div>
                 ) : matches.length ? (
                   matches.map((p) => (
@@ -210,19 +202,17 @@ export default function StoreHeader() {
                       key={p.id}
                       className="search-item"
                     >
-                      <img src={p.image} alt="" />
+                      <img src={p.image} alt={bnNode("")} />
                       <div>
-                        {p.name}
-                        <small>{p.weight}</small>
+                        {bnNode(p.name)}
+                        <small>{bnNode(p.weight)}</small>
                       </div>
-                      <b>{money(p.price)}</b>
+                      <b>{bnNode(money(p.price))}</b>
                     </Link>
                   ))
                 ) : (
-                  <p className="small muted">
-                    Try a product name, or explore the collection.
-                  </p>
-                )}
+                  <p className="small muted">{bnNode("Try a product name, or explore the collection.")}</p>
+                ))}
                 <Link
                   className="text-link"
                   to={
@@ -230,80 +220,76 @@ export default function StoreHeader() {
                     "?q=" +
                     encodeURIComponent(search)
                   }
-                >
-                  See all results <ArrowRight size={14} />
+                >{bnNode("See all results ")}<ArrowRight size={14} />
                 </Link>
               </div>
-            )}
+            ))}
           </div>
           <div className="header-actions">
             <Link
               className="icon-btn account-icon"
-              aria-label="My account"
+              aria-label={bnNode("My account")}
               to="/account"
             >
               <UserRound size={20} />
             </Link>
-            <Link className="icon-btn" aria-label="Wishlist" to="/wishlist">
+            <Link className="icon-btn" aria-label={bnNode("Wishlist")} to="/wishlist">
               <Heart size={20} />
-              {s.wishlist.length > 0 && (
-                <span className="count">{s.wishlist.length}</span>
-              )}
+              {bnNode(s.wishlist.length > 0 && (
+                <span className="count">{bnNode(s.wishlist.length)}</span>
+              ))}
             </Link>
             <button
               className="icon-btn bag-icon"
-              aria-label="Open shopping bag"
+              aria-label={bnNode("Open shopping bag")}
               onClick={() => s.setDrawer(true)}
             >
               <ShoppingBag size={20} />
               <span className="count">
-                {s.cart.reduce((n, i) => n + i.quantity, 0)}
+                {bnNode(s.cart.reduce((n, i) => n + i.quantity, 0))}
               </span>
             </button>
           </div>
         </div>
-        {department && (
+        {bnNode(department && (
           <nav
             className="department-subnav"
-            aria-label={`${department.name} categories`}
+            aria-label={bnNode(`${department.name} categories`)}
           >
             <div className="container">
               <Link
                 className="department-subnav-all"
                 to={departmentShopHref(department)}
-              >
-                Shop all {department.name.toLowerCase()}{" "}
+              >{bnNode("Shop all ")}{bnNode(department.name.toLowerCase())}{bnNode(" ")}
                 <ArrowUpRight size={12} />
               </Link>
-              {s.categories
+              {bnNode(s.categories
                 .filter((c) => c.parent === category?.name && c.active)
                 .map((c) => (
                   <Link to={departmentShopHref(department, c.name)} key={c.id}>
-                    {c.name}
+                    {bnNode(c.name)}
                   </Link>
-                ))}
-              <Link to="/#departments" className="department-back-link">
-                All of Nirbhor <ArrowUpRight size={12} />
+                )))}
+              <Link to="/#departments" className="department-back-link">{bnNode("All of Nirbhor ")}<ArrowUpRight size={12} />
               </Link>
             </div>
           </nav>
-        )}
-        {mega && (
+        ))}
+        {bnNode(mega && (
           <div className="brand-mega" onMouseLeave={() => setMega(false)}>
             <div className="container">
-              {visible.map((d) => (
+              {bnNode(visible.map((d) => (
                 <div className="brand-mega-column" key={d.slug}>
                   <Link to={"/" + d.slug}>
                     <img
                       src={experienceForDepartment(d, s.categories).heroImage}
-                      alt=""
+                      alt={bnNode("")}
                     />
-                    <strong>
-                      Nirbhor {d.name}
+                    <strong>{bnNode("Nirbhor ")}{bnNode(d.name)}
                       <ArrowUpRight size={14} />
                     </strong>
                   </Link>
-                  {s.categories
+                  {bnNode(s.categories
                     .filter(
                       (c) =>
                         c.parent ===
@@ -313,58 +299,55 @@ export default function StoreHeader() {
                     .slice(0, 5)
                     .map((c) => (
                       <Link key={c.id} to={departmentShopHref(d, c.name)}>
-                        {c.name}
+                        {bnNode(c.name)}
                         <ChevronRight size={11} />
                       </Link>
-                    ))}
+                    )))}
                 </div>
-              ))}
+              )))}
               <div className="brand-mega-bottom">
-                <Link to="/shop">
-                  Explore all products <ArrowUpRight size={14} />
+                <Link to="/shop">{bnNode("Explore all products ")}<ArrowUpRight size={14} />
                 </Link>
-                <span>Good choices. One trusted place.</span>
-                <Link to="/about">
-                  Get to know Nirbhor <ArrowRight size={14} />
+                <span>{bnNode("Good choices. One trusted place.")}</span>
+                <Link to="/about">{bnNode("Get to know Nirbhor ")}<ArrowRight size={14} />
                 </Link>
               </div>
             </div>
           </div>
-        )}
+        ))}
       </header>
-      {menu && (
+      {bnNode(menu && (
         <nav
           className="mobile-nav brand-mobile-nav"
-          aria-label="Mobile navigation"
+          aria-label={bnNode("Mobile navigation")}
         >
           <form onSubmit={submit} className="search-field">
             <Search size={17} />
             <input
-              aria-label="Mobile search"
-              placeholder="Find your everyday…"
+              aria-label={bnNode("Mobile search")}
+              placeholder={bnNode("Find your everyday…")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
           </form>
-          <Link to="/shop">
-            Shop all <ArrowUpRight size={18} />
+          <Link to="/shop">{bnNode("Shop all ")}<ArrowUpRight size={18} />
           </Link>
-          {visible.map((d) => (
+          {bnNode(visible.map((d) => (
             <div key={d.slug} className="mobile-department-link">
               <Link to={"/" + d.slug}>
                 <img
                   src={experienceForDepartment(d, s.categories).heroImage}
-                  alt=""
+                  alt={bnNode("")}
                 />
                 <span>
-                  <small>NIRBHOR</small>
-                  <b>{d.name === "Home" ? "Home & living" : d.name}</b>
+                  <small>{bnNode("NIRBHOR")}</small>
+                  <b>{bnNode(d.name === "Home" ? "Home & living" : d.name)}</b>
                 </span>
                 <ArrowUpRight size={17} />
               </Link>
             </div>
-          ))}
-          {[
+          )))}
+          {bnNode([
             ["Offers & collections", "/offers"],
             ["Our story", "/about"],
             ["My account", "/account"],
@@ -372,12 +355,12 @@ export default function StoreHeader() {
             ["Store admin", "/admin"],
           ].map(([text, to]) => (
             <Link key={to} to={to}>
-              {text}
+              {bnNode(text)}
               <ArrowUpRight size={17} />
             </Link>
-          ))}
+          )))}
         </nav>
-      )}
+      ))}
     </>
   );
 }

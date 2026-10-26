@@ -1,3 +1,4 @@
+import { bnNode } from "./bn";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowDown, ArrowUpRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
@@ -9,16 +10,15 @@ import { useReducedMotion, useSceneMotion } from "./SceneMotion";
 export default function CinematicHero({ slides, collections }: { slides: Banner[]; collections: Department[] }) {
   const [slide, setSlide] = useState(0);
   const [stopped, setStopped] = useState(false);
-  const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [hidden, setHidden] = useState(document.hidden);
   const [inView, setInView] = useState(true);
   const reduced = useReducedMotion();
   const ref = useSceneMotion();
-  const remaining = useRef(8500);
+  const remaining = useRef(3000);
   const index = slide % slides.length;
   const current = slides[index];
-  const paused = stopped || reduced || hovered || focused || hidden || !inView;
+  const paused = stopped || reduced || focused || hidden || !inView;
   useEffect(() => {
     const visibility = () => setHidden(document.hidden);
     document.addEventListener("visibilitychange", visibility);
@@ -26,7 +26,7 @@ export default function CinematicHero({ slides, collections }: { slides: Banner[
     if (ref.current) observer.observe(ref.current);
     return () => { document.removeEventListener("visibilitychange", visibility); observer.disconnect(); };
   }, [ref]);
-  useEffect(() => { remaining.current = 8500; }, [slide]);
+  useEffect(() => { remaining.current = 3000; }, [slide]);
   useEffect(() => {
     if (paused || slides.length < 2) return;
     const started = performance.now();
@@ -37,32 +37,29 @@ export default function CinematicHero({ slides, collections }: { slides: Banner[
     };
   }, [paused, slide, slides.length]);
   return (
-    <section ref={ref} className={`brand-hero-wrap cinematic-shell ${paused ? "motion-paused" : ""}`} aria-label="Welcome to Nirbhor" aria-roledescription="carousel"
-      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+    <section ref={ref} className={`brand-hero-wrap cinematic-shell ${paused ? "motion-paused" : ""}`} aria-label={bnNode("Welcome to Nirbhor")} aria-roledescription="স্লাইডার"
       onFocusCapture={() => setFocused(true)} onBlurCapture={e => { if (!e.currentTarget.contains(e.relatedTarget)) setFocused(false); }}>
       <div className="brand-hero cinematic-hero">
         <div className="cinema-scene-stack" aria-hidden="true">
-          {slides.map((item, i) => <div key={item.id} className={`cinema-scene ${i === index ? "is-active" : ""}`}><img src={item.image} alt="" fetchPriority={i === 0 ? "high" : "auto"} loading={i === 0 ? "eager" : "lazy"} /></div>)}
+          {bnNode(slides.map((item, i) => <div key={item.id} className={`cinema-scene ${i === index ? "is-active" : ""}`}><img src={item.image} alt={bnNode("")} fetchPriority={i === 0 ? "high" : "auto"} loading={i === 0 ? "eager" : "lazy"} /></div>))}
         </div>
         <div className="cinema-shade" />
-        <div className="cinema-topline container"><span>THE NIRBHOR EDIT / {String(index + 1).padStart(2, "0")}</span><span>EVERYDAY, WELL CHOSEN.</span></div>
         <div className="brand-hero-copy container" key={current.id}>
-          <span className="brand-eyebrow"><span /> A WORLD OF GOOD FINDS</span>
-          <h1>{current.title.split("\n").map((line, i) => <span key={i}>{line}</span>)}</h1>
-          <p>{current.subtitle}</p>
-          <div className="brand-hero-actions"><Button to={current.link}>{current.cta}<ArrowUpRight size={19} /></Button><Link to="/offers" className="brand-underlined">Discover the offers <ArrowUpRight size={17} /></Link></div>
+          <h1>{bnNode(current.title.split("\n").map((line, i) => <span key={i}>{bnNode(line)}</span>))}</h1>
+          <p>{bnNode(current.subtitle)}</p>
+          <div className="brand-hero-actions"><Button to={current.link}>{bnNode(current.cta)}<ArrowUpRight size={19} /></Button><Link to="/offers" className="brand-underlined">{bnNode("Discover the offers ")}<ArrowUpRight size={17} /></Link></div>
         </div>
         <div className="cinema-bottom container">
-          <a className="cinema-scroll" href="#departments"><ArrowDown size={17} /><span>FOUR WORLDS.<br />ONE TRUSTED PLACE.</span></a>
+          <a className="cinema-scroll" href="#departments" aria-label="ক্যাটাগরি দেখুন"><ArrowDown size={17} /></a>
           <div className="brand-carousel-controls">
-            <button className="icon-btn" aria-label={stopped || reduced ? "Play hero carousel" : "Pause hero carousel"} aria-pressed={stopped || reduced} disabled={reduced} onClick={() => setStopped(!stopped)}>{stopped || reduced ? <Play size={15} /> : <Pause size={15} />}</button>
-            <div className="brand-slide-dots">{slides.map((item, i) => <button key={item.id} className={i === index ? "active" : ""} aria-label={`Go to slide ${i + 1}`} aria-current={i === index} onClick={() => setSlide(i)}><span key={`${slide}-${i}`} /></button>)}</div>
-            <span>{String(index + 1).padStart(2, "0")} <i>/ {String(slides.length).padStart(2, "0")}</i></span>
-            <div><button className="icon-btn" aria-label="Previous slide" disabled={slides.length < 2} onClick={() => setSlide(s => (s - 1 + slides.length) % slides.length)}><ChevronLeft size={18} /></button><button className="icon-btn" aria-label="Next slide" disabled={slides.length < 2} onClick={() => setSlide(s => (s + 1) % slides.length)}><ChevronRight size={18} /></button></div>
+            <button className="icon-btn" aria-label={bnNode(stopped || reduced ? "Play hero carousel" : "Pause hero carousel")} aria-pressed={stopped || reduced} disabled={reduced} onClick={() => setStopped(!stopped)}>{bnNode(stopped || reduced ? <Play size={15} /> : <Pause size={15} />)}</button>
+            <div className="brand-slide-dots">{bnNode(slides.map((item, i) => <button key={item.id} className={i === index ? "active" : ""} aria-label={bnNode(`Go to slide ${i + 1}`)} aria-current={i === index} onClick={() => setSlide(i)}><span key={`${slide}-${i}`} /></button>))}</div>
+            <span>{bnNode(String(index + 1).padStart(2, "0"))} <i>{bnNode("/ ")}{bnNode(String(slides.length).padStart(2, "0"))}</i></span>
+            <div><button className="icon-btn" aria-label={bnNode("Previous slide")} disabled={slides.length < 2} onClick={() => setSlide(s => (s - 1 + slides.length) % slides.length)}><ChevronLeft size={18} /></button><button className="icon-btn" aria-label={bnNode("Next slide")} disabled={slides.length < 2} onClick={() => setSlide(s => (s + 1) % slides.length)}><ChevronRight size={18} /></button></div>
           </div>
         </div>
       </div>
-      <nav className="cinema-worlds" aria-label="Explore our departments">{collections.map((d, i) => <Link to={`/${d.slug}`} key={d.slug}><span>0{i + 1}</span><strong>{d.name === "Home" ? "Home & living" : d.name}</strong><small>{d.tagline}</small><ArrowUpRight size={20} /></Link>)}</nav>
+      <nav className="cinema-worlds" aria-label={bnNode("Explore our departments")}>{bnNode(collections.map((d, i) => <Link to={`/${d.slug}`} key={d.slug}><span>{bnNode("0")}{bnNode(i + 1)}</span><strong>{bnNode(d.name === "Home" ? "Home & living" : d.name)}</strong><small>{bnNode(d.tagline)}</small><ArrowUpRight size={20} /></Link>))}</nav>
     </section>
   );
 }

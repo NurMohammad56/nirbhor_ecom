@@ -1,3 +1,4 @@
+import { bnNode } from "./bn";
 import { Link, useParams } from "react-router-dom";
 import {
   ArrowRight,
@@ -89,11 +90,10 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
     return (
       <main className="container page-space">
         <Empty
-          title="This collection is taking a little pause."
+          title={bnNode("This collection is taking a little pause.")}
           text="Explore another corner of your everyday."
           action={
-            <Button to="/#departments">
-              Explore Nirbhor <ArrowRight size={16} />
+            <Button to="/#departments">{bnNode("Explore Nirbhor ")}<ArrowRight size={16} />
             </Button>
           }
         />
@@ -121,56 +121,46 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
     <main className={`department-landing department-${d.slug}`}>
       <section ref={sceneRef} className="department-hero-shell immersive-department">
         <div className="department-immersive-media" aria-hidden="true">
-          <img src={exp.heroImage} alt="" fetchPriority="high" />
+          <img src={exp.heroImage} alt={bnNode("")} fetchPriority="high" />
         </div>
         <div className="department-hero-shade" />
         <div className="container">
-          <nav className="department-breadcrumb" aria-label="Breadcrumb">
-            <Link to="/">Nirbhor</Link>
+          <nav className="department-breadcrumb" aria-label={bnNode("Breadcrumb")}>
+            <Link to="/">{bnNode("Nirbhor")}</Link>
             <ChevronRight size={12} />
-            <span>{d.name}</span>
+            <span>{bnNode(d.name)}</span>
           </nav>
           <div className="department-hero">
             <div className="department-hero-copy">
-              <span className="brand-eyebrow">
-                <Icon size={14} />
-                {d.kicker}
-              </span>
+
               <h1>
-                {exp.heroTitle.split("\n").map((line, i) => (
-                  <span key={i}>{line}</span>
-                ))}
+                {bnNode(exp.heroTitle.split("\n").map((line, i) => (
+                  <span key={i}>{bnNode(line)}</span>
+                )))}
               </h1>
-              <p>{exp.description}</p>
+              <p>{bnNode(exp.description)}</p>
               <div>
-                <Button to={departmentShopHref(d)}>
-                  Explore{" "}
-                  {d.name === "Home" ? "home & living" : d.name.toLowerCase()}
+                <Button to={departmentShopHref(d)}>{bnNode(`Explore ${d.name === "Home" ? "home & living" : d.name.toLowerCase()}`)}
                   <ArrowUpRight size={17} />
                 </Button>
-                <a href="#department-collections" className="brand-underlined">
-                  Find your favourites <ArrowRight size={15} />
+                <a href="#department-collections" className="brand-underlined">{bnNode("Find your favourites ")}<ArrowRight size={15} />
                 </a>
               </div>
-              <span className="department-signature">
-                NIRBHOR <i>{d.name}</i>
-              </span>
             </div>
-            {d.slug === "beauty" && <div className="serum-orbit" aria-hidden="true"><img src="/assets/serum-float-v3.webp" alt="" /><span>THE DAILY RITUAL</span></div>}
+            {bnNode(d.slug === "beauty" && <div className="serum-orbit" aria-hidden="true"><img src="/assets/serum-float-v3.webp" alt={bnNode("")} /></div>)}
           </div>
-          <div className="department-scene-footer"><span>{d.eyebrow}</span><a href="#department-collections">SCROLL TO DISCOVER <span>↓</span></a></div>
+          <div className="department-scene-footer"><a href="#department-collections">{bnNode("SCROLL TO DISCOVER ")}<span>{bnNode("↓")}</span></a></div>
         </div>
-        {(d.slug === "organic" || d.slug === "home-living") && <Botanical kind={d.slug === "organic" ? "leaf" : "dry"} className="hero-botanical" />}
+        {bnNode((d.slug === "organic" || d.slug === "home-living") && <Botanical kind={d.slug === "organic" ? "leaf" : "dry"} className="hero-botanical" />)}
       </section>
       <div className="container department-features">
-        {d.features.map((text) => (
+        {bnNode(d.features.map((text) => (
           <span key={text}>
             <Check size={14} />
-            {text}
+            {bnNode(text)}
           </span>
-        ))}
-        <Link to="/page/shipping">
-          Delivery across Bangladesh <ArrowUpRight size={13} />
+        )))}
+        <Link to="/page/shipping">{bnNode("Delivery across Bangladesh ")}<ArrowUpRight size={13} />
         </Link>
       </div>
       <section
@@ -179,23 +169,22 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
       >
         <div className="brand-section-heading">
           <div>
-            <span className="brand-eyebrow">EXPLORE YOUR CORNER</span>
+            
             <h2>
-              {d.slug === "organic"
+              {bnNode(d.slug === "organic"
                 ? "Goodness for your pantry."
                 : d.slug === "beauty"
                   ? "Find your feel-good ritual."
                   : d.slug === "fashion"
                     ? "Your wardrobe, your way."
-                    : "Good things to come home to."}
+                    : "Good things to come home to.")}
             </h2>
           </div>
-          <Link className="brand-underlined" to={departmentShopHref(d)}>
-            Shop all {d.name.toLowerCase()} <ArrowUpRight size={16} />
+          <Link className="brand-underlined" to={departmentShopHref(d)}>{bnNode("Shop all ")}{bnNode(d.name.toLowerCase())} <ArrowUpRight size={16} />
           </Link>
         </div>
         <div className="department-collection-grid">
-          {selectedCollections.map((c, i) => {
+          {bnNode(selectedCollections.map((c, i) => {
             const p = items.find((p) => p.subcategory === c.name)!;
             return (
               <Link
@@ -204,55 +193,51 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
                 to={departmentShopHref(d, c.name)}
               >
                 <div>
-                  <img src={c.image || p.image} alt={c.name} loading="lazy" />
-                  <span>0{i + 1}</span>
+                  <img src={c.image || p.image} alt={bnNode(c.name)} loading="lazy" />
+                  <span>{bnNode("0")}{bnNode(i + 1)}</span>
                 </div>
                 <footer>
                   <span>
-                    <h3>{c.name}</h3>
+                    <h3>{bnNode(c.name)}</h3>
                     <small>
-                      {items.filter((p) => p.subcategory === c.name).length}{" "}
-                      considered{" "}
-                      {items.filter((p) => p.subcategory === c.name).length ===
+                      {bnNode(items.filter((p) => p.subcategory === c.name).length)}{bnNode(" ")}{bnNode("considered")}{bnNode(" ")}
+                      {bnNode(items.filter((p) => p.subcategory === c.name).length ===
                       1
                         ? "find"
-                        : "finds"}
+                        : "finds")}
                     </small>
                   </span>
                   <ArrowUpRight size={20} />
                 </footer>
               </Link>
             );
-          })}
+          }))}
         </div>
         <div className="department-subcategory-links">
-          {subcategories.map((c) => (
+          {bnNode(subcategories.map((c) => (
             <Link key={c.id} to={departmentShopHref(d, c.name)}>
-              {c.name}
+              {bnNode(c.name)}
               <ArrowUpRight size={12} />
             </Link>
-          ))}
+          )))}
         </div>
       </section>
       <section className="department-product-edit">
         <div className="container brand-section">
           <div className="brand-section-heading">
             <div>
-              <span className="brand-eyebrow">
-                THE NIRBHOR {d.name.toUpperCase()} EDIT
-              </span>
-              <h2>{d.collectionLabel}.</h2>
+              
+              <h2>{bnNode(d.collectionLabel)}{bnNode(".")}</h2>
             </div>
-            <Link className="brand-underlined" to={departmentShopHref(d)}>
-              All good finds <ArrowUpRight size={16} />
+            <Link className="brand-underlined" to={departmentShopHref(d)}>{bnNode("All good finds ")}<ArrowUpRight size={16} />
             </Link>
           </div>
           <div
             className={`product-grid department-product-grid ${featured.length >= 4 ? "four" : "three"}`}
           >
-            {featured.map((p) => (
+            {bnNode(featured.map((p) => (
               <ProductCard key={p.id} product={p} />
-            ))}
+            )))}
           </div>
         </div>
       </section>
@@ -261,47 +246,46 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
           <img
             src={d.storyImage}
             alt={
-              d.slug === "organic"
+              bnNode(d.slug === "organic"
                 ? "A forest full of natural character"
                 : d.slug === "fashion"
                   ? "A closer look at considered fabric and tailoring"
                   : d.slug === "beauty"
                     ? "A closer look at your daily care"
-                    : "Natural linen and thoughtful home details"
+                    : "Natural linen and thoughtful home details")
             }
             loading="lazy"
           />
           <span>
-            {d.name === "Organic"
+            {bnNode(d.name === "Organic"
               ? "ORIGINS MATTER."
               : d.name === "Beauty"
                 ? "A MOMENT FOR YOURSELF."
                 : d.name === "Fashion"
                   ? "THE DETAILS MAKE THE DIFFERENCE."
-                  : "THE COMFORT IS IN THE DETAILS."}
+                  : "THE COMFORT IS IN THE DETAILS.")}
           </span>
         </div>
         <div>
-          <span className="brand-eyebrow">THE THOUGHT BEHIND THE THINGS</span>
+          
           <h2>
-            {exp.storyTitle.split("\n").map((line, i) => (
-              <span key={i}>{line}</span>
-            ))}
+            {bnNode(exp.storyTitle.split("\n").map((line, i) => (
+              <span key={i}>{bnNode(line)}</span>
+            )))}
           </h2>
-          <p>{exp.storyText}</p>
+          <p>{bnNode(exp.storyText)}</p>
           <div className="department-editorial-details">
-            {d.features.map((text) => (
+            {bnNode(d.features.map((text) => (
               <span key={text}>
                 <Check size={13} />
-                {text}
+                {bnNode(text)}
               </span>
-            ))}
+            )))}
           </div>
           <Link
             to={d.slug === "organic" ? "/page/sourcing" : "/about"}
             className="brand-underlined"
-          >
-            A little more about our choices <ArrowUpRight size={16} />
+          >{bnNode("A little more about our choices ")}<ArrowUpRight size={16} />
           </Link>
         </div>
       </section>
@@ -309,34 +293,29 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
         <Botanical kind={d.slug === "organic" ? "leaf" : "dry"} className="editorial-botanical" />
         <div className="container brand-section department-faq">
           <div>
-            <span className="brand-eyebrow">A LITTLE CLARITY</span>
-            <h2>
-              Before you
-              <br />
-              make it yours.
-            </h2>
-            <p>A few helpful details for your next good choice.</p>
-            <Link to="/contact" className="brand-underlined">
-              Ask us a question <ArrowUpRight size={15} />
+            
+            <h2>{bnNode("Before you")}<br />{bnNode("make it yours.")}</h2>
+            <p>{bnNode("A few helpful details for your next good choice.")}</p>
+            <Link to="/contact" className="brand-underlined">{bnNode("Ask us a question ")}<ArrowUpRight size={15} />
             </Link>
           </div>
           <div className="faq-list">
-            {questions[d.slug].map(([q, a]) => (
+            {bnNode(questions[d.slug].map(([q, a]) => (
               <details key={q}>
                 <summary>
-                  {q}
-                  <span>+</span>
+                  {bnNode(q)}
+                  <span>{bnNode("+")}</span>
                 </summary>
-                <p>{a}</p>
+                <p>{bnNode(a)}</p>
               </details>
-            ))}
+            )))}
           </div>
         </div>
       </section>
       <section className="container department-switcher">
-        <span className="brand-eyebrow">MORE SIDES OF YOUR EVERYDAY</span>
+        
         <div>
-          {departments
+          {bnNode(departments
             .filter(
               (other) =>
                 other.slug !== d.slug &&
@@ -345,12 +324,11 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
             )
             .map((other) => (
               <Link to={"/" + other.slug} key={other.slug}>
-                <span>
-                  NIRBHOR <b>{other.name}</b>
+                <span>{bnNode("NIRBHOR ")}<b>{bnNode(other.name)}</b>
                 </span>
                 <ArrowUpRight size={18} />
               </Link>
-            ))}
+            )))}
         </div>
       </section>
     </main>

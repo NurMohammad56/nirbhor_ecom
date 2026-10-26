@@ -1,6 +1,8 @@
+import { bnNode } from "./bn";
 import { eligibleCouponItems } from "./order-logic";
 import { migrateDepartmentState } from "./department-state";
 import { migrateSceneState } from "./scene-state";
+import { migrateBengaliState } from "./bn-state";
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode, Dispatch, SetStateAction } from "react";
 import {
@@ -37,7 +39,7 @@ function usePersist<T>(
   const [value, setValue] = useState<T>(() => {
     try {
       const saved = localStorage.getItem("nirbhor-v1-" + key);
-      return migrateSceneState(key, migrateDepartmentState(key, saved ? JSON.parse(saved) : initial));
+      return migrateBengaliState(key, migrateSceneState(key, migrateDepartmentState(key, saved ? JSON.parse(saved) : initial)));
     } catch {
       return initial;
     }
@@ -256,20 +258,18 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         setInventoryLog,
       }}
     >
-      {children}
+      {bnNode(children)}
       <div className="toast-stack" role="status" aria-live="polite">
-        {toasts.map((t) => (
+        {bnNode(toasts.map((t) => (
           <div className="toast" key={t.id}>
-            <span className="toast-check">✓</span>
-            {t.message}
+            <span className="toast-check">{bnNode("✓")}</span>
+            {bnNode(t.message)}
             <button
-              aria-label="Dismiss notification"
+              aria-label={bnNode("Dismiss notification")}
               onClick={() => setToasts((x) => x.filter((y) => y.id !== t.id))}
-            >
-              ×
-            </button>
+            >{bnNode("×")}</button>
           </div>
-        ))}
+        )))}
       </div>
     </Context.Provider>
   );

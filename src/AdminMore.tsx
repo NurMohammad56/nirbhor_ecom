@@ -1,3 +1,4 @@
+import { bnNode, latinDigits, searchText } from "./bn";
 import { descendants } from "./category-tree";
 import { useUpdateOrder } from "./inventory-actions";
 import { useEffect, useState } from "react";
@@ -71,27 +72,25 @@ export function CategoriesAdmin() {
   return (
     <>
       <AdminTitle
-        title="A good place for everything."
+        title={bnNode("A good place for everything.")}
         text="Organise your collections, from broad categories to the smallest good finds."
       >
         <Button onClick={() => setEdit("new")}>
-          <Plus size={16} />
-          Add category
-        </Button>
+          <Plus size={16} />{bnNode("Add category")}</Button>
       </AdminTitle>
       <div className="admin-category-grid">
-        {s.categories
+        {bnNode(s.categories
           .filter((c) => !c.parent)
           .sort((a, b) => a.sort - b.sort)
           .map((c) => (
             <Panel
               key={c.id}
-              title={c.name}
+              title={bnNode(c.name)}
               subtitle={c.description}
               action={
                 <button
                   className="icon-btn"
-                  aria-label={`Edit ${c.name}`}
+                  aria-label={bnNode(`Edit ${c.name}`)}
                   onClick={() => setEdit(c)}
                 >
                   <Edit3 size={16} />
@@ -99,48 +98,45 @@ export function CategoriesAdmin() {
               }
             >
               <div className="category-admin-preview">
-                <img src={c.image} alt="" />
+                <img src={c.image} alt={bnNode("")} />
                 <div>
                   <Status value={c.active ? "Active" : "Draft"} />
                   <p>
-                    {s.products.filter((p) => p.category === c.name).length}{" "}
-                    products · Sort order {c.sort}
+                    {bnNode(s.products.filter((p) => p.category === c.name).length)}{bnNode(" ")}{bnNode("products · Sort order ")}{bnNode(c.sort)}
                   </p>
                 </div>
               </div>
               <div className="category-tree">
-                {s.categories
+                {bnNode(s.categories
                   .filter((x) => x.parent === c.name)
                   .sort((a, b) => a.sort - b.sort)
                   .map((x) => (
                     <div key={x.id}>
-                      <span className="tree-branch">↳</span>
+                      <span className="tree-branch">{bnNode("↳")}</span>
                       <span>
-                        {x.name}
+                        {bnNode(x.name)}
                         <small>
                           {
-                            s.products.filter((p) => p.subcategory === x.name)
-                              .length
-                          }{" "}
-                          products
-                        </small>
+                            bnNode(s.products.filter((p) => p.subcategory === x.name)
+                              .length)
+                          }{bnNode(" ")}{bnNode("products")}</small>
                       </span>
                       <button
                         className="icon-btn"
-                        aria-label={`Edit ${x.name}`}
+                        aria-label={bnNode(`Edit ${x.name}`)}
                         onClick={() => setEdit(x)}
                       >
                         <Edit3 size={14} />
                       </button>
                       <button
                         className="icon-btn"
-                        aria-label={`Delete ${x.name}`}
+                        aria-label={bnNode(`Delete ${x.name}`)}
                         onClick={() => setRemove(x)}
                       >
                         <Trash2 size={14} />
                       </button>
                     </div>
-                  ))}
+                  )))}
               </div>
               <Button
                 variant="outline"
@@ -156,18 +152,16 @@ export function CategoriesAdmin() {
                   })
                 }
               >
-                <Plus size={14} />
-                Add subcategory
-              </Button>
+                <Plus size={14} />{bnNode("Add subcategory")}</Button>
             </Panel>
-          ))}
+          )))}
       </div>
-      {edit && (
+      {bnNode(edit && (
         <Modal
           title={
-            edit === "new" || !edit.name
+            bnNode(edit === "new" || !edit.name
               ? "A new corner of goodness."
-              : "A little care for this category."
+              : "A little care for this category.")
           }
           onClose={() => setEdit(undefined)}
         >
@@ -222,22 +216,18 @@ export function CategoriesAdmin() {
               setEdit(undefined);
             }}
           >
-            <label className="field">
-              Category name
-              <input
+            <label className="field">{bnNode("Category name")}<input
                 name="name"
                 defaultValue={edit === "new" ? "" : edit.name}
                 required
               />
             </label>
-            <label className="field">
-              Parent category
-              <select
+            <label className="field">{bnNode("Parent category")}<select
                 name="parent"
                 defaultValue={edit === "new" ? "" : edit.parent}
               >
-                <option value="">None — top-level category</option>
-                {s.categories
+                <option value="">{bnNode("None — top-level category")}</option>
+                {bnNode(s.categories
                   .filter(
                     (c) =>
                       edit === "new" ||
@@ -246,30 +236,24 @@ export function CategoriesAdmin() {
                   )
                   .map((c) => (
                     <option value={c.name} key={c.id}>
-                      {c.parent ? c.parent + " › " : ""}
-                      {c.name}
+                      {bnNode(c.parent ? c.parent + " › " : "")}
+                      {bnNode(c.name)}
                     </option>
-                  ))}
+                  )))}
               </select>
             </label>
-            <label className="field">
-              Description
-              <textarea
+            <label className="field">{bnNode("Description")}<textarea
                 name="description"
                 defaultValue={edit === "new" ? "" : edit.description}
                 rows={3}
               />
             </label>
-            <label className="field">
-              Image URL
-              <input
+            <label className="field">{bnNode("Image URL")}<input
                 name="image"
                 defaultValue={edit === "new" ? "/assets/hero.webp" : edit.image}
               />
             </label>
-            <label className="field">
-              Sort order
-              <input
+            <label className="field">{bnNode("Sort order")}<input
                 name="sort"
                 type="number"
                 min="0"
@@ -281,35 +265,27 @@ export function CategoriesAdmin() {
                 type="checkbox"
                 name="active"
                 defaultChecked={edit === "new" || edit.active}
-              />
-              Visible in the storefront
-            </label>
-            <Button type="submit">
-              Save category <Check size={16} />
+              />{bnNode("Visible in the storefront")}</label>
+            <Button type="submit">{bnNode("Save category ")}<Check size={16} />
             </Button>
           </form>
         </Modal>
-      )}
-      {remove && (
+      ))}
+      {bnNode(remove && (
         <Modal
-          title="Remove this category?"
+          title={bnNode("Remove this category?")}
           onClose={() => setRemove(undefined)}
         >
-          <p className="muted">
-            Products will stay in your catalogue. Their category can be updated
-            in the product editor.
-          </p>
+          <p className="muted">{bnNode("Products will stay in your catalogue. Their category can be updated in the product editor.")}</p>
           <Button
             onClick={() => {
               s.setCategories((x) => x.filter((c) => c.id !== remove.id));
               setRemove(undefined);
               s.toast("Category removed.");
             }}
-          >
-            Remove category
-          </Button>
+          >{bnNode("Remove category")}</Button>
         </Modal>
-      )}
+      ))}
     </>
   );
 }
@@ -321,7 +297,7 @@ export function InventoryAdmin() {
     [edit, setEdit] = useState<Product>();
   const rows = s.products.filter(
     (p) =>
-      p.name.toLowerCase().includes(query.toLowerCase()) &&
+      searchText(p.name).includes(latinDigits(query).toLowerCase()) &&
       (filter === "All stock" ||
         (filter === "Low stock" && p.stock > 0 && p.stock < 10) ||
         (filter === "Out of stock" && p.stock === 0)),
@@ -329,7 +305,7 @@ export function InventoryAdmin() {
   return (
     <>
       <AdminTitle
-        title="Keep the good things in stock."
+        title={bnNode("Keep the good things in stock.")}
         text="A clear view of what’s ready, what’s running low, and what needs a little refill."
       >
         <Button
@@ -346,9 +322,7 @@ export function InventoryAdmin() {
             )
           }
         >
-          <Download size={16} />
-          Export stock
-        </Button>
+          <Download size={16} />{bnNode("Export stock")}</Button>
       </AdminTitle>
       <div className="stats-grid three">
         <Stat
@@ -373,16 +347,16 @@ export function InventoryAdmin() {
         />
       </div>
       <Panel
-        title="Your little stockroom."
+        title={bnNode("Your little stockroom.")}
         action={
           <select
-            aria-label="Stock filter"
+            aria-label={bnNode("Stock filter")}
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
           >
-            {["All stock", "Low stock", "Out of stock"].map((x) => (
-              <option key={x}>{x}</option>
-            ))}
+            {bnNode(["All stock", "Low stock", "Out of stock"].map((x) => (
+              <option key={x} value={x}>{bnNode(x)}</option>
+            )))}
           </select>
         }
       >
@@ -390,38 +364,37 @@ export function InventoryAdmin() {
           <div className="search-field">
             <Search size={16} />
             <input
-              placeholder="Find a product…"
-              aria-label="Search inventory"
+              placeholder={bnNode("Find a product…")}
+              aria-label={bnNode("Search inventory")}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
           </div>
-          <span className="muted small">Low-stock threshold: 10 units</span>
+          <span className="muted small">{bnNode("Low-stock threshold: 10 units")}</span>
         </div>
         <div className="table-scroll">
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Product</th>
-                <th>SKU</th>
-                <th>Available</th>
-                <th>Status</th>
+                <th>{bnNode("Product")}</th>
+                <th>{bnNode("SKU")}</th>
+                <th>{bnNode("Available")}</th>
+                <th>{bnNode("Status")}</th>
                 <th />
               </tr>
             </thead>
             <tbody>
-              {rows.map((p) => (
+              {bnNode(rows.map((p) => (
                 <tr key={p.id}>
                   <td>
                     <div className="table-product">
-                      <img src={p.image} alt="" />
-                      <b>{p.name}</b>
+                      <img src={p.image} alt={bnNode("")} />
+                      <b>{bnNode(p.name)}</b>
                     </div>
                   </td>
-                  <td>{p.sku}</td>
+                  <td>{bnNode(p.sku)}</td>
                   <td>
-                    <b>{p.stock}</b> units
-                  </td>
+                    <b>{bnNode(p.stock)}</b>{bnNode(" units")}</td>
                   <td>
                     <Status
                       value={
@@ -434,55 +407,51 @@ export function InventoryAdmin() {
                     />
                   </td>
                   <td>
-                    <Button variant="outline" onClick={() => setEdit(p)}>
-                      Adjust stock
-                    </Button>
+                    <Button variant="outline" onClick={() => setEdit(p)}>{bnNode("Adjust stock")}</Button>
                   </td>
                 </tr>
-              ))}
+              )))}
             </tbody>
           </table>
         </div>
       </Panel>
       <Panel
-        title="A little stock history."
+        title={bnNode("A little stock history.")}
         subtitle="Adjustments made in this browser."
       >
-        {s.inventoryLog.length ? (
+        {bnNode(s.inventoryLog.length ? (
           <div className="table-scroll">
             <table className="admin-table">
               <thead>
                 <tr>
-                  <th>Date</th>
-                  <th>Product</th>
-                  <th>Adjustment</th>
-                  <th>Reason</th>
+                  <th>{bnNode("Date")}</th>
+                  <th>{bnNode("Product")}</th>
+                  <th>{bnNode("Adjustment")}</th>
+                  <th>{bnNode("Reason")}</th>
                 </tr>
               </thead>
               <tbody>
-                {s.inventoryLog.slice(0, 20).map((x, i) => (
+                {bnNode(s.inventoryLog.slice(0, 20).map((x, i) => (
                   <tr key={i}>
-                    <td>{new Date(x.date).toLocaleDateString()}</td>
-                    <td>{x.product}</td>
+                    <td>{bnNode(new Date(x.date).toLocaleDateString("bn-BD"))}</td>
+                    <td>{bnNode(x.product)}</td>
                     <td className={x.change > 0 ? "green" : "danger"}>
-                      {x.change > 0 ? "+" : ""}
-                      {x.change}
+                      {bnNode(x.change > 0 ? "+" : "")}
+                      {bnNode(x.change)}
                     </td>
-                    <td>{x.reason}</td>
+                    <td>{bnNode(x.reason)}</td>
                   </tr>
-                ))}
+                )))}
               </tbody>
             </table>
           </div>
         ) : (
-          <p className="panel-empty muted">
-            Your next stock adjustment will appear here.
-          </p>
-        )}
+          <p className="panel-empty muted">{bnNode("Your next stock adjustment will appear here.")}</p>
+        ))}
       </Panel>
-      {edit && (
+      {bnNode(edit && (
         <Modal
-          title={"A little refill for " + edit.name}
+          title={bnNode("A little refill for " + edit.name)}
           onClose={() => setEdit(undefined)}
         >
           <form
@@ -518,34 +487,27 @@ export function InventoryAdmin() {
               setEdit(undefined);
             }}
           >
-            <Badge>Currently {edit.stock} available</Badge>
-            <label className="field">
-              Adjustment
-              <select name="mode">
-                <option>Add stock</option>
-                <option>Remove stock</option>
-                <option>Set available</option>
+            <Badge>{bnNode("Currently ")}{bnNode(edit.stock)}{bnNode(" available")}</Badge>
+            <label className="field">{bnNode("Adjustment")}<select name="mode">
+                <option value={"Add stock"}>{bnNode("Add stock")}</option>
+                <option value={"Remove stock"}>{bnNode("Remove stock")}</option>
+                <option value={"Set available"}>{bnNode("Set available")}</option>
               </select>
             </label>
-            <label className="field">
-              Quantity
-              <input type="number" name="quantity" required min="0" step="1" />
+            <label className="field">{bnNode("Quantity")}<input type="number" name="quantity" required min="0" step="1" />
             </label>
-            <label className="field">
-              A little note for the record
-              <textarea
+            <label className="field">{bnNode("A little note for the record")}<textarea
                 name="reason"
                 rows={3}
                 required
-                placeholder="e.g. New harvest batch received"
+                placeholder={bnNode("e.g. New harvest batch received")}
               />
             </label>
-            <Button type="submit">
-              Save adjustment <Check size={16} />
+            <Button type="submit">{bnNode("Save adjustment ")}<Check size={16} />
             </Button>
           </form>
         </Modal>
-      )}
+      ))}
     </>
   );
 }
@@ -572,7 +534,7 @@ export function OrdersAdmin() {
   return (
     <>
       <AdminTitle
-        title="Every order, a little promise."
+        title={bnNode("Every order, a little promise.")}
         text="From a first good choice to a carefully delivered doorstep moment."
       >
         <Button
@@ -606,9 +568,7 @@ export function OrdersAdmin() {
             )
           }
         >
-          <Download size={16} />
-          Export orders
-        </Button>
+          <Download size={16} />{bnNode("Export orders")}</Button>
       </AdminTitle>
       <div className="stats-grid four">
         <Stat
@@ -644,7 +604,7 @@ export function OrdersAdmin() {
       </div>
       <section className="admin-panel">
         <div className="admin-table-tabs">
-          {[
+          {bnNode([
             "All orders",
             "Placed",
             "Confirmed",
@@ -659,16 +619,16 @@ export function OrdersAdmin() {
               className={status === t ? "active" : ""}
               onClick={() => setStatus(t)}
             >
-              {t}
+              {bnNode(t)}
             </button>
-          ))}
+          )))}
         </div>
         <div className="table-toolbar">
           <div className="search-field">
             <Search size={16} />
             <input
-              aria-label="Search orders"
-              placeholder="Order number, customer or phone…"
+              aria-label={bnNode("Search orders")}
+              placeholder={bnNode("Order number, customer or phone…")}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
@@ -676,17 +636,17 @@ export function OrdersAdmin() {
           <select
             value={paymentFilter}
             onChange={(e) => setPaymentFilter(e.target.value)}
-            aria-label="Payment status filter"
+            aria-label={bnNode("Payment status filter")}
           >
-            <option value="">All payments</option>
-            <option>Paid</option>
-            <option>Unpaid</option>
-            <option>Refunded</option>
+            <option value="">{bnNode("All payments")}</option>
+            <option value={"Paid"}>{bnNode("Paid")}</option>
+            <option value={"Unpaid"}>{bnNode("Unpaid")}</option>
+            <option value={"Refunded"}>{bnNode("Refunded")}</option>
           </select>
         </div>
-        {selectedIds.length > 0 && (
+        {bnNode(selectedIds.length > 0 && (
           <div className="bulk-toolbar">
-            <b>{selectedIds.length} selected</b>
+            <b>{bnNode(selectedIds.length)}{bnNode(" selected")}</b>
             <button
               onClick={() => {
                 s.setOrders((x) =>
@@ -699,9 +659,7 @@ export function OrdersAdmin() {
                 setSelectedIds([]);
                 s.toast("Eligible orders confirmed.");
               }}
-            >
-              Confirm eligible orders
-            </button>
+            >{bnNode("Confirm eligible orders")}</button>
             <button
               onClick={() =>
                 exportCSV(
@@ -716,11 +674,9 @@ export function OrdersAdmin() {
                     })),
                 )
               }
-            >
-              Export selection
-            </button>
+            >{bnNode("Export selection")}</button>
           </div>
-        )}
+        ))}
         <div className="table-scroll">
           <table className="admin-table">
             <thead>
@@ -728,7 +684,7 @@ export function OrdersAdmin() {
                 <th>
                   <input
                     type="checkbox"
-                    aria-label="Select all orders"
+                    aria-label={bnNode("Select all orders")}
                     checked={
                       rows.length > 0 &&
                       rows.every((o) => selectedIds.includes(o.id))
@@ -740,20 +696,20 @@ export function OrdersAdmin() {
                     }
                   />
                 </th>
-                <th>Order</th>
-                <th>Customer</th>
-                <th>Payment</th>
-                <th>Fulfilment</th>
-                <th>Total</th>
+                <th>{bnNode("Order")}</th>
+                <th>{bnNode("Customer")}</th>
+                <th>{bnNode("Payment")}</th>
+                <th>{bnNode("Fulfilment")}</th>
+                <th>{bnNode("Total")}</th>
                 <th />
               </tr>
             </thead>
             <tbody>
-              {rows.map((o) => (
+              {bnNode(rows.map((o) => (
                 <tr key={o.id}>
                   <td>
                     <input
-                      aria-label={`Select order ${o.id}`}
+                      aria-label={bnNode(`Select order ${o.id}`)}
                       type="checkbox"
                       checked={selectedIds.includes(o.id)}
                       onChange={(e) =>
@@ -769,54 +725,53 @@ export function OrdersAdmin() {
                     <button
                       className="text-button order-id"
                       onClick={() => setSelected(o.id)}
-                    >
-                      #{o.id}
+                    >{bnNode("#")}{bnNode(o.id)}
                     </button>
                     <small>
-                      {new Date(o.date).toLocaleDateString("en-GB", {
+                      {bnNode(new Date(o.date).toLocaleDateString("bn-BD", {
                         day: "numeric",
                         month: "short",
                         year: "numeric",
-                      })}
+                      }))}
                     </small>
                   </td>
                   <td>
-                    {o.customer}
-                    <small>{o.phone}</small>
+                    {bnNode(o.customer)}
+                    <small>{bnNode(o.phone)}</small>
                   </td>
                   <td>
                     <Status value={o.paymentStatus} />
-                    <small>{o.payment}</small>
+                    <small>{bnNode(o.payment)}</small>
                   </td>
                   <td>
                     <Status value={o.status} />
                   </td>
                   <td>
-                    <b>{money(o.total)}</b>
+                    <b>{bnNode(money(o.total))}</b>
                   </td>
                   <td>
                     <button
                       className="icon-btn"
-                      aria-label={`View order ${o.id}`}
+                      aria-label={bnNode(`View order ${o.id}`)}
                       onClick={() => setSelected(o.id)}
                     >
                       <ArrowUpRight size={16} />
                     </button>
                   </td>
                 </tr>
-              ))}
+              )))}
             </tbody>
           </table>
         </div>
-        {!rows.length && (
+        {bnNode(!rows.length && (
           <Empty
             icon={ShoppingBag}
-            title="A little quiet here."
+            title={bnNode("A little quiet here.")}
             text="No orders match these filters."
           />
-        )}
+        ))}
       </section>
-      {order && <OrderEditor order={order} onClose={() => setSelected("")} />}
+      {bnNode(order && <OrderEditor order={order} onClose={() => setSelected("")} />)}
     </>
   );
 }
@@ -830,69 +785,68 @@ function OrderEditor({
   const s = useStore(),
     updateOrder = useUpdateOrder();
   return (
-    <Modal title={`A closer look at #${o.id}`} onClose={onClose} wide>
+    <Modal title={bnNode(`A closer look at #${o.id}`)} onClose={onClose} wide>
       <div className="order-editor-print">
         <div className="invoice-brand">
-          <h2>NIRBHOR</h2>
-          <span>
-            Invoice #{o.id} · {new Date(o.date).toLocaleDateString()}
+          <h2>{bnNode("NIRBHOR")}</h2>
+          <span>{bnNode("Invoice #")}{bnNode(o.id)}{bnNode(" · ")}{bnNode(new Date(o.date).toLocaleDateString("bn-BD"))}
           </span>
         </div>
         <div className="order-editor-grid">
           <div>
             <div className="order-editor-items">
-              {o.items.map((i, j) => {
+              {bnNode(o.items.map((i, j) => {
                 const p = s.products.find((p) => p.id === i.id);
                 return (
                   <div key={j}>
-                    {p && <img src={p.image} alt="" />}
+                    {bnNode(p && <img src={p.image} alt={bnNode("")} />)}
                     <span>
-                      <b>{p?.name || "Archived product"}</b>
+                      <b>{bnNode(p?.name || "Archived product")}</b>
                       <small>
-                        {i.variant} × {i.quantity}
+                        {bnNode(i.variant)}{bnNode(" × ")}{bnNode(i.quantity)}
                       </small>
                     </span>
                     <b>
-                      {money(
+                      {bnNode(money(
                         (i.unitPrice ?? (p ? itemPrice(p, i.variant) : 0)) *
                           i.quantity,
-                      )}
+                      ))}
                     </b>
                   </div>
                 );
-              })}
+              }))}
             </div>
             <div className="summary-breakdown">
               <div className="summary-line">
-                <span>Subtotal</span>
-                <b>{money(o.subtotal)}</b>
+                <span>{bnNode("Subtotal")}</span>
+                <b>{bnNode(money(o.subtotal))}</b>
               </div>
               <div className="summary-line">
-                <span>Discount</span>
-                <b>− {money(o.discount)}</b>
+                <span>{bnNode("Discount")}</span>
+                <b>{bnNode("− ")}{bnNode(money(o.discount))}</b>
               </div>
               <div className="summary-line">
-                <span>Delivery</span>
-                <b>{money(o.shipping)}</b>
+                <span>{bnNode("Delivery")}</span>
+                <b>{bnNode(money(o.shipping))}</b>
               </div>
               <div className="summary-total">
-                <span>Total</span>
-                <b>{money(o.total)}</b>
+                <span>{bnNode("Total")}</span>
+                <b>{bnNode(money(o.total))}</b>
               </div>
             </div>
             <div className="delivery-address">
-              <h3>Customer & delivery</h3>
+              <h3>{bnNode("Customer & delivery")}</h3>
               <p>
-                <b>{o.customer}</b>
+                <b>{bnNode(o.customer)}</b>
                 <br />
-                {o.phone}
+                {bnNode(o.phone)}
                 <br />
-                {o.email}
+                {bnNode(o.email)}
                 <br />
-                {o.address}
+                {bnNode(o.address)}
               </p>
               <p>
-                <b>Customer note:</b> {o.note || "No notes added."}
+                <b>{bnNode("Customer note:")}</b> {bnNode(o.note || "No notes added.")}
               </p>
             </div>
           </div>
@@ -915,84 +869,64 @@ function OrderEditor({
               s.toast("Order details updated.");
             }}
           >
-            <label className="field">
-              Order status
-              <select
+            <label className="field">{bnNode("Order status")}<select
                 name="status"
-                aria-label="Order status"
+                aria-label={bnNode("Order status")}
                 defaultValue={o.status}
               >
-                {[
+                {bnNode([
                   ...statusSteps,
                   "Cancelled",
                   "Return requested",
                   "Returned",
                   "Refunded",
                 ].map((x) => (
-                  <option key={x}>{x}</option>
-                ))}
+                  <option key={x} value={x}>{bnNode(x)}</option>
+                )))}
               </select>
             </label>
-            <label className="field">
-              Payment status
-              <select name="paymentStatus" defaultValue={o.paymentStatus}>
-                <option>Unpaid</option>
-                <option>Paid</option>
-                <option>Failed</option>
-                <option>Refunded</option>
+            <label className="field">{bnNode("Payment status")}<select name="paymentStatus" defaultValue={o.paymentStatus}>
+                <option value={"Unpaid"}>{bnNode("Unpaid")}</option>
+                <option value={"Paid"}>{bnNode("Paid")}</option>
+                <option value={"Failed"}>{bnNode("Failed")}</option>
+                <option value={"Refunded"}>{bnNode("Refunded")}</option>
               </select>
             </label>
-            <label className="field">
-              Confirmation call
-              <select name="callStatus" defaultValue={o.callStatus}>
-                <option>Pending</option>
-                <option>Confirmed</option>
-                <option>No answer</option>
-                <option>Call back</option>
+            <label className="field">{bnNode("Confirmation call")}<select name="callStatus" defaultValue={o.callStatus}>
+                <option value={"Pending"}>{bnNode("Pending")}</option>
+                <option value={"Confirmed"}>{bnNode("Confirmed")}</option>
+                <option value={"No answer"}>{bnNode("No answer")}</option>
+                <option value={"Call back"}>{bnNode("Call back")}</option>
               </select>
             </label>
             <div className="form-grid">
-              <label className="field">
-                Courier
-                <select name="courier" defaultValue={o.courier}>
-                  {[
+              <label className="field">{bnNode("Courier")}<select name="courier" defaultValue={o.courier}>
+                  {bnNode([
                     "Unassigned",
                     "Steadfast",
                     "Pathao",
                     "RedX",
                     "Sundarban Courier",
                   ].map((x) => (
-                    <option key={x}>{x}</option>
-                  ))}
+                    <option key={x} value={x}>{bnNode(x)}</option>
+                  )))}
                 </select>
               </label>
-              <label className="field">
-                Tracking number
-                <input name="tracking" defaultValue={o.tracking} />
+              <label className="field">{bnNode("Tracking number")}<input name="tracking" defaultValue={o.tracking} />
               </label>
             </div>
-            <label className="field">
-              Internal notes
-              <textarea name="note" rows={3} defaultValue={o.internalNote} />
+            <label className="field">{bnNode("Internal notes")}<textarea name="note" rows={3} defaultValue={o.internalNote} />
             </label>
-            <Button type="submit">
-              Save order updates <Check size={15} />
+            <Button type="submit">{bnNode("Save order updates ")}<Check size={15} />
             </Button>
-            <p className="small muted">
-              Courier, refund and notification actions are local previews. No
-              external service is called.
-            </p>
+            <p className="small muted">{bnNode("Courier, refund and notification actions are local previews. No external service is called.")}</p>
           </form>
         </div>
       </div>
       <div className="editor-footer no-print">
         <Button variant="outline" onClick={() => window.print()}>
-          <Printer size={16} />
-          Print invoice / packing slip
-        </Button>
-        <Button variant="outline" onClick={onClose}>
-          Close
-        </Button>
+          <Printer size={16} />{bnNode("Print invoice / packing slip")}</Button>
+        <Button variant="outline" onClick={onClose}>{bnNode("Close")}</Button>
       </div>
     </Modal>
   );
@@ -1036,7 +970,7 @@ export function CustomersAdmin() {
   return (
     <>
       <AdminTitle
-        title="The people behind the good choices."
+        title={bnNode("The people behind the good choices.")}
         text="A little more context to make every customer feel at home."
       >
         <Button
@@ -1054,9 +988,7 @@ export function CustomersAdmin() {
             )
           }
         >
-          <Download size={15} />
-          Export customers
-        </Button>
+          <Download size={15} />{bnNode("Export customers")}</Button>
       </AdminTitle>
       <div className="stats-grid three">
         <Stat
@@ -1082,16 +1014,16 @@ export function CustomersAdmin() {
         />
       </div>
       <Panel
-        title="Your good company."
+        title={bnNode("Your good company.")}
         action={
           <select
             value={segment}
             onChange={(e) => setSegment(e.target.value)}
-            aria-label="Customer segment"
+            aria-label={bnNode("Customer segment")}
           >
-            {["All customers", "Repeat customers", "High value"].map((x) => (
-              <option key={x}>{x}</option>
-            ))}
+            {bnNode(["All customers", "Repeat customers", "High value"].map((x) => (
+              <option key={x} value={x}>{bnNode(x)}</option>
+            )))}
           </select>
         }
       >
@@ -1099,8 +1031,8 @@ export function CustomersAdmin() {
           <div className="search-field">
             <Search size={16} />
             <input
-              aria-label="Search customers"
-              placeholder="Name, email or phone…"
+              aria-label={bnNode("Search customers")}
+              placeholder={bnNode("Name, email or phone…")}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
@@ -1110,79 +1042,77 @@ export function CustomersAdmin() {
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Customer</th>
-                <th>Contact</th>
-                <th>Orders</th>
-                <th>Total spent</th>
+                <th>{bnNode("Customer")}</th>
+                <th>{bnNode("Contact")}</th>
+                <th>{bnNode("Orders")}</th>
+                <th>{bnNode("Total spent")}</th>
                 <th />
               </tr>
             </thead>
             <tbody>
-              {filtered.map((c) => (
+              {bnNode(filtered.map((c) => (
                 <tr key={c.email || c.phone}>
                   <td>
                     <button
                       className="text-button"
                       onClick={() => setSelected(c.email || c.phone)}
                     >
-                      <b>{c.name}</b>
+                      <b>{bnNode(c.name)}</b>
                     </button>
-                    {s.notes["blocked-" + (c.email || c.phone)] === "yes" && (
+                    {bnNode(s.notes["blocked-" + (c.email || c.phone)] === "yes" && (
                       <Status value="Blocked" />
-                    )}
+                    ))}
                   </td>
                   <td>
-                    {c.email}
-                    <small>{c.phone}</small>
+                    {bnNode(c.email)}
+                    <small>{bnNode(c.phone)}</small>
                   </td>
-                  <td>{c.orders.length}</td>
+                  <td>{bnNode(c.orders.length)}</td>
                   <td>
-                    <b>{money(c.orders.reduce((n, o) => n + o.total, 0))}</b>
+                    <b>{bnNode(money(c.orders.reduce((n, o) => n + o.total, 0)))}</b>
                   </td>
                   <td>
                     <button
                       className="icon-btn"
-                      aria-label={`View customer ${c.name}`}
+                      aria-label={bnNode(`View customer ${c.name}`)}
                       onClick={() => setSelected(c.email || c.phone)}
                     >
                       <ArrowUpRight size={16} />
                     </button>
                   </td>
                 </tr>
-              ))}
+              )))}
             </tbody>
           </table>
         </div>
       </Panel>
-      {c && (
+      {bnNode(c && (
         <Modal
-          title={c.name + " · A little customer story"}
+          title={bnNode(c.name + " · A little customer story")}
           onClose={() => setSelected("")}
           wide
         >
           <div className="customer-detail-top">
             <Badge>
-              {c.orders.length > 1
+              {bnNode(c.orders.length > 1
                 ? "Repeat customer"
-                : "New to the good stuff"}
+                : "New to the good stuff")}
             </Badge>
             <strong>
-              {money(c.orders.reduce((n, o) => n + o.total, 0))} lifetime value
-            </strong>
+              {bnNode(money(c.orders.reduce((n, o) => n + o.total, 0)))}{bnNode(" lifetime value")}</strong>
             <span>
-              {c.email} · {c.phone}
+              {bnNode(c.email)}{bnNode(" · ")}{bnNode(c.phone)}
             </span>
           </div>
-          <p className="muted">{c.orders[0]?.address}</p>
+          <p className="muted">{bnNode(c.orders[0]?.address)}</p>
           <div className="customer-detail-orders">
-            {c.orders.map((o) => (
-              <Link key={o.id} to={`/admin/orders?order=${o.id}`}>
-                #{o.id}
+            {bnNode(c.orders.map((o) => (
+              <Link key={o.id} to={`/admin/orders?order=${o.id}`}>{bnNode("#")}{bnNode(o.id)}
                 <Status value={o.status} />
-                <b>{money(o.total)}</b>
+                <b>{bnNode(money(o.total))}</b>
                 <ArrowUpRight size={14} />
               </Link>
-            ))}
+            )))}
           </div>
           <form
             className="form-stack"
@@ -1198,17 +1128,13 @@ export function CustomersAdmin() {
               s.toast("Customer notes saved.");
             }}
           >
-            <label className="field">
-              Tags
-              <input
+            <label className="field">{bnNode("Tags")}<input
                 name="tags"
                 defaultValue={s.notes["tags-" + selected] || ""}
-                placeholder="e.g. VIP, organic regular"
+                placeholder={bnNode("e.g. VIP, organic regular")}
               />
             </label>
-            <label className="field">
-              A little note for the team
-              <textarea
+            <label className="field">{bnNode("A little note for the team")}<textarea
                 name="notes"
                 rows={3}
                 defaultValue={s.notes["customer-" + selected] || ""}
@@ -1219,18 +1145,13 @@ export function CustomersAdmin() {
                 type="checkbox"
                 name="blocked"
                 defaultChecked={s.notes["blocked-" + selected] === "yes"}
-              />
-              Mark customer as blocked in this preview
-            </label>
-            <Button type="submit">
-              Save customer notes <Check size={16} />
+              />{bnNode("Mark customer as blocked in this preview")}</label>
+            <Button type="submit">{bnNode("Save customer notes ")}<Check size={16} />
             </Button>
           </form>
-          <p className="small muted">
-            Access restrictions will be enforced by the backend.
-          </p>
+          <p className="small muted">{bnNode("Access restrictions will be enforced by the backend.")}</p>
         </Modal>
-      )}
+      ))}
     </>
   );
 }
@@ -1243,19 +1164,17 @@ export function DiscountsAdmin() {
   return (
     <>
       <AdminTitle
-        title="A little extra goes a long way."
+        title={bnNode("A little extra goes a long way.")}
         text="Thoughtful offers, welcome codes, and good reasons to come back."
       >
         <Button onClick={() => setEdit("new")}>
-          <Plus size={16} />
-          Create an offer
-        </Button>
+          <Plus size={16} />{bnNode("Create an offer")}</Button>
       </AdminTitle>
       <div className="coupon-admin-grid">
-        {s.coupons.map((c) => (
+        {bnNode(s.coupons.map((c) => (
           <Panel
             key={c.id}
-            title={c.code}
+            title={bnNode(c.code)}
             subtitle={
               c.type === "Percentage"
                 ? `${c.value}% off`
@@ -1267,22 +1186,22 @@ export function DiscountsAdmin() {
           >
             <div className="discount-details">
               <div>
-                <span>Minimum order</span>
-                <b>{money(c.minimum)}</b>
+                <span>{bnNode("Minimum order")}</span>
+                <b>{bnNode(money(c.minimum))}</b>
               </div>
               <div>
-                <span>Used / limit</span>
+                <span>{bnNode("Used / limit")}</span>
                 <b>
-                  {c.uses} / {c.limit}
+                  {bnNode(c.uses)}{bnNode(" / ")}{bnNode(c.limit)}
                 </b>
               </div>
               <div>
-                <span>Applies to</span>
-                <b>{c.scope}</b>
+                <span>{bnNode("Applies to")}</span>
+                <b>{bnNode(c.scope)}</b>
               </div>
               <div>
-                <span>Valid until</span>
-                <b>{new Date(c.end).toLocaleDateString("en-GB")}</b>
+                <span>{bnNode("Valid until")}</span>
+                <b>{bnNode(new Date(c.end).toLocaleDateString("bn-BD"))}</b>
               </div>
             </div>
             <Toggle
@@ -1294,18 +1213,17 @@ export function DiscountsAdmin() {
                 )
               }
             />
-            <Button variant="outline" onClick={() => setEdit(c)}>
-              Edit this little offer <Edit3 size={14} />
+            <Button variant="outline" onClick={() => setEdit(c)}>{bnNode("Edit this little offer ")}<Edit3 size={14} />
             </Button>
           </Panel>
-        ))}
+        )))}
       </div>
-      {edit && (
+      {bnNode(edit && (
         <Modal
           title={
-            edit === "new"
+            bnNode(edit === "new"
               ? "A new little reason to shop."
-              : "Fine-tune this offer."
+              : "Fine-tune this offer.")
           }
           onClose={() => setEdit(undefined)}
         >
@@ -1358,31 +1276,25 @@ export function DiscountsAdmin() {
               setEdit(undefined);
             }}
           >
-            <label className="field">
-              Offer code
-              <input
+            <label className="field">{bnNode("Offer code")}<input
                 name="code"
                 required
                 defaultValue={edit === "new" ? "" : edit.code}
-                placeholder="e.g. A_LITTLE_GOOD"
+                placeholder={bnNode("e.g. A_LITTLE_GOOD")}
               />
             </label>
             <div className="form-grid">
-              <label className="field">
-                Type
-                <select
+              <label className="field">{bnNode("Type")}<select
                   name="type"
                   defaultValue={edit === "new" ? "Percentage" : edit.type}
                 >
-                  <option>Percentage</option>
-                  <option>Fixed amount</option>
-                  <option>Free shipping</option>
-                  <option>Buy 2 get 1</option>
+                  <option value={"Percentage"}>{bnNode("Percentage")}</option>
+                  <option value={"Fixed amount"}>{bnNode("Fixed amount")}</option>
+                  <option value={"Free shipping"}>{bnNode("Free shipping")}</option>
+                  <option value={"Buy 2 get 1"}>{bnNode("Buy 2 get 1")}</option>
                 </select>
               </label>
-              <label className="field">
-                Value
-                <input
+              <label className="field">{bnNode("Value")}<input
                   type="number"
                   min="0"
                   max="100000"
@@ -1390,65 +1302,53 @@ export function DiscountsAdmin() {
                   defaultValue={edit === "new" ? 10 : edit.value}
                 />
               </label>
-              <label className="field">
-                Minimum order (BDT)
-                <input
+              <label className="field">{bnNode("Minimum order (BDT)")}<input
                   type="number"
                   min="0"
                   name="minimum"
                   defaultValue={edit === "new" ? 500 : edit.minimum}
                 />
               </label>
-              <label className="field">
-                Usage limit
-                <input
+              <label className="field">{bnNode("Usage limit")}<input
                   type="number"
                   min="1"
                   name="limit"
                   defaultValue={edit === "new" ? 500 : edit.limit}
                 />
               </label>
-              <label className="field">
-                Per-customer limit
-                <input
+              <label className="field">{bnNode("Per-customer limit")}<input
                   type="number"
                   min="1"
                   name="perUser"
                   defaultValue={edit === "new" ? 1 : edit.perUser}
                 />
               </label>
-              <label className="field">
-                Applies to
-                <select
+              <label className="field">{bnNode("Applies to")}<select
                   name="scope"
                   defaultValue={edit === "new" ? "All products" : edit.scope}
                 >
-                  <option>All products</option>
-                  {s.categories
+                  <option value={"All products"}>{bnNode("All products")}</option>
+                  {bnNode(s.categories
                     .filter((c) => !c.parent)
                     .map((c) => (
-                      <option key={c.id}>{c.name}</option>
-                    ))}
-                  {s.products.map((p) => (
+                      <option key={c.id} value={c.name}>{bnNode(c.name)}</option>
+                    )))}
+                  {bnNode(s.products.map((p) => (
                     <option key={p.id} value={"Product: " + p.id}>
-                      {p.name}
+                      {bnNode(p.name)}
                     </option>
-                  ))}
-                  <option value="Brand: Nirbhor">Brand: Nirbhor</option>
+                  )))}
+                  <option value="Brand: Nirbhor">{bnNode("Brand: Nirbhor")}</option>
                 </select>
               </label>
-              <label className="field">
-                Start date
-                <input
+              <label className="field">{bnNode("Start date")}<input
                   type="date"
                   name="start"
                   required
                   defaultValue={edit === "new" ? "2026-10-26" : edit.start}
                 />
               </label>
-              <label className="field">
-                End date
-                <input
+              <label className="field">{bnNode("End date")}<input
                   type="date"
                   name="end"
                   required
@@ -1461,19 +1361,13 @@ export function DiscountsAdmin() {
                 name="active"
                 type="checkbox"
                 defaultChecked={edit === "new" || edit.active}
-              />
-              Active on the storefront
-            </label>
-            <p className="small muted">
-              Buy 2 get 1 makes every third eligible item free, starting with
-              the lowest-priced items.
-            </p>
-            <Button type="submit">
-              Save offer <Check size={16} />
+              />{bnNode("Active on the storefront")}</label>
+            <p className="small muted">{bnNode("Buy 2 get 1 makes every third eligible item free, starting with the lowest-priced items.")}</p>
+            <Button type="submit">{bnNode("Save offer ")}<Check size={16} />
             </Button>
           </form>
         </Modal>
-      )}
+      ))}
     </>
   );
 }
@@ -1517,7 +1411,7 @@ export function CampaignsAdmin() {
   return (
     <>
       <AdminTitle
-        title="Give your good finds a moment."
+        title={bnNode("Give your good finds a moment.")}
         text="A campaign experience with the right story, the right offer, and a little care."
       >
         <Button
@@ -1538,10 +1432,8 @@ export function CampaignsAdmin() {
             setDraft(c);
           }}
         >
-          <Plus size={16} />
-          New campaign
-        </Button>
-        {draft && (
+          <Plus size={16} />{bnNode("New campaign")}</Button>
+        {bnNode(draft && (
           <Button
             onClick={() => {
               if (!draft.name || !draft.headline || draft.start > draft.end) {
@@ -1561,41 +1453,41 @@ export function CampaignsAdmin() {
             }}
           >
             <Check size={16} />
-            {dirty ? "Save changes" : "Save campaign"}
+            {bnNode(dirty ? "Save changes" : "Save campaign")}
           </Button>
-        )}
+        ))}
       </AdminTitle>
       <div className="campaign-selector">
-        {s.campaigns.map((c) => (
+        {bnNode(s.campaigns.map((c) => (
           <button
             key={c.id}
             className={id === c.id ? "active" : ""}
             onClick={() => setId(c.id)}
           >
             <Sparkles size={16} />
-            {c.name}
+            {bnNode(c.name)}
             <Status value={c.active ? "Active" : "Draft"} />
           </button>
-        ))}
+        )))}
       </div>
-      {draft && (
+      {bnNode(draft && (
         <div className="campaign-admin-grid">
           <div>
             <Panel
-              title="The campaign story."
+              title={bnNode("The campaign story.")}
               subtitle="The words and details that make it yours."
             >
               <div className="form-stack">
-                {(["name", "headline", "announcement", "label"] as const).map(
+                {bnNode((["name", "headline", "announcement", "label"] as const).map(
                   (k) => (
                     <label className="field" key={k}>
                       {
-                        {
+                        bnNode({
                           name: "Campaign name",
                           headline: "Offer headline",
                           announcement: "Announcement bar text",
                           label: "Discount label",
-                        }[k]
+                        }[k])
                       }
                       <input
                         value={draft[k]}
@@ -1603,41 +1495,33 @@ export function CampaignsAdmin() {
                       />
                     </label>
                   ),
-                )}
-                <label className="field">
-                  Campaign product
-                  <select
+                ))}
+                <label className="field">{bnNode("Campaign product")}<select
                     value={draft.productId}
                     onChange={(e) => set("productId", e.target.value)}
                   >
-                    {s.products.map((p) => (
+                    {bnNode(s.products.map((p) => (
                       <option value={p.id} key={p.id}>
-                        {p.name}
+                        {bnNode(p.name)}
                       </option>
-                    ))}
+                    )))}
                   </select>
                 </label>
                 <div className="form-grid">
-                  <label className="field">
-                    Starts
-                    <input
+                  <label className="field">{bnNode("Starts")}<input
                       type="date"
                       value={draft.start}
                       onChange={(e) => set("start", e.target.value)}
                     />
                   </label>
-                  <label className="field">
-                    Ends
-                    <input
+                  <label className="field">{bnNode("Ends")}<input
                       type="datetime-local"
                       value={draft.end}
                       onChange={(e) => set("end", e.target.value)}
                     />
                   </label>
                 </div>
-                <label className="field">
-                  Traffic source / UTM
-                  <input
+                <label className="field">{bnNode("Traffic source / UTM")}<input
                     value={draft.utm}
                     onChange={(e) => set("utm", e.target.value)}
                   />
@@ -1651,10 +1535,10 @@ export function CampaignsAdmin() {
               </div>
             </Panel>
             <Panel
-              title="A little control over every block."
+              title={bnNode("A little control over every block.")}
               subtitle="Switch on what matters. Keep the rest beautifully simple."
             >
-              {campaignToggles.map(([k, t, d]) => (
+              {bnNode(campaignToggles.map(([k, t, d]) => (
                 <Toggle
                   key={k}
                   label={t}
@@ -1666,49 +1550,48 @@ export function CampaignsAdmin() {
                   }
                   onChange={(v) => set(k, v)}
                 />
-              ))}
+              )))}
             </Panel>
           </div>
           <aside>
-            <Panel title="Your campaign, at a glance.">
+            <Panel title={bnNode("Your campaign, at a glance.")}>
               <div className="campaign-mini-preview">
-                <div>{draft.announcement || "A little seasonal goodness"}</div>
+                <div>{bnNode(draft.announcement || "A little seasonal goodness")}</div>
                 <img
                   src={s.products.find((p) => p.id === draft.productId)?.image}
-                  alt="Campaign preview"
+                  alt={bnNode("Campaign preview")}
                 />
-                {draft.discount && <Badge tone="warm">{draft.label}</Badge>}
-                <h2>{draft.headline}</h2>
+                {bnNode(draft.discount && <Badge tone="warm">{bnNode(draft.label)}</Badge>)}
+                <h2>{bnNode(draft.headline)}</h2>
                 <p>
-                  {draft.bundles
+                  {bnNode(draft.bundles
                     ? "A little bundle. A little more goodness."
-                    : "Just good things. Beautifully simple."}
+                    : "Just good things. Beautifully simple.")}
                 </p>
-                <Button to={`/campaign/${draft.productId}`} target="_blank">
-                  Preview saved campaign <Eye size={15} />
+                <Button to={`/campaign/${draft.productId}`} target="_blank">{bnNode("Preview saved campaign ")}<Eye size={15} />
                 </Button>
               </div>
             </Panel>
             <Panel
-              title="Put the story in order."
+              title={bnNode("Put the story in order.")}
               subtitle="Arrange the sections below the product."
             >
               <div className="block-order">
-                {draft.blockOrder.map((key, i) => (
+                {bnNode(draft.blockOrder.map((key, i) => (
                   <div key={key}>
                     <Layers size={15} />
                     <b>
-                      {key === "source"
+                      {bnNode(key === "source"
                         ? "Source story"
                         : key === "trust"
                           ? "Trust blocks"
                           : key === "reviews"
                             ? "Customer reviews"
-                            : "Questions & answers"}
+                            : "Questions & answers")}
                     </b>
                     <button
                       disabled={i === 0}
-                      aria-label={`Move ${key} up`}
+                      aria-label={bnNode(`Move ${key} up`)}
                       onClick={() => {
                         const list = [...draft.blockOrder];
                         [list[i - 1], list[i]] = [list[i], list[i - 1]];
@@ -1719,7 +1602,7 @@ export function CampaignsAdmin() {
                     </button>
                     <button
                       disabled={i === draft.blockOrder.length - 1}
-                      aria-label={`Move ${key} down`}
+                      aria-label={bnNode(`Move ${key} down`)}
                       onClick={() => {
                         const list = [...draft.blockOrder];
                         [list[i + 1], list[i]] = [list[i], list[i + 1]];
@@ -1729,13 +1612,11 @@ export function CampaignsAdmin() {
                       <ArrowDown size={14} />
                     </button>
                   </div>
-                ))}
+                )))}
               </div>
             </Panel>
-            <Panel title="A little link to share.">
-              <code className="campaign-url">
-                /campaign/{draft.productId}?utm_source=facebook
-              </code>
+            <Panel title={bnNode("A little link to share.")}>
+              <code className="campaign-url">{bnNode("/campaign/")}{bnNode(draft.productId)}{bnNode("?utm_source=facebook")}</code>
               <Button
                 variant="outline"
                 onClick={() => {
@@ -1746,16 +1627,13 @@ export function CampaignsAdmin() {
                   s.toast("Campaign URL copied.");
                 }}
               >
-                <Copy size={14} />
-                Copy campaign link
-              </Button>
+                <Copy size={14} />{bnNode("Copy campaign link")}</Button>
             </Panel>
             <div className="preview-note">
-              <Leaf size={15} /> Preview updates after saving your changes.
-            </div>
+              <Leaf size={15} />{bnNode(" Preview updates after saving your changes.")}</div>
           </aside>
         </div>
-      )}
+      ))}
     </>
   );
 }
@@ -1766,39 +1644,35 @@ export function BannersAdmin() {
   return (
     <>
       <AdminTitle
-        title="First impressions, thoughtfully made."
+        title={bnNode("First impressions, thoughtfully made.")}
         text="A little story, a seasonal offer, or a new reason to explore."
       >
         <Button onClick={() => setEdit("new")}>
-          <Plus size={16} />
-          Add a slide
-        </Button>
+          <Plus size={16} />{bnNode("Add a slide")}</Button>
       </AdminTitle>
       <div className="banner-admin-list">
-        {[...s.banners]
+        {bnNode([...s.banners]
           .sort((a, b) => a.order - b.order)
           .map((b, i) => (
             <Panel
               key={b.id}
-              title={`0${i + 1} · ${b.title.replace("\n", " ")}`}
+              title={bnNode(`0${i + 1} · ${b.title.replace("\n", " ")}`)}
               subtitle={b.subtitle}
               action={<Status value={b.active ? "Active" : "Draft"} />}
             >
               <div className="banner-admin-body">
-                <img src={b.image} alt={b.title} />
+                <img src={b.image} alt={bnNode(b.title)} />
                 <div>
-                  <span className="small muted">LINK DESTINATION</span>
-                  <p>{b.link}</p>
-                  <span className="small muted">BUTTON TEXT</span>
-                  <p>{b.cta}</p>
+                  <span className="small muted">{bnNode("LINK DESTINATION")}</span>
+                  <p>{bnNode(b.link)}</p>
+                  <span className="small muted">{bnNode("BUTTON TEXT")}</span>
+                  <p>{bnNode(b.cta)}</p>
                   <div className="row-actions">
                     <Button variant="outline" onClick={() => setEdit(b)}>
-                      <Edit3 size={14} />
-                      Edit slide
-                    </Button>
+                      <Edit3 size={14} />{bnNode("Edit slide")}</Button>
                     <button
                       className="icon-btn"
-                      aria-label="Move slide up"
+                      aria-label={bnNode("Move slide up")}
                       disabled={i === 0}
                       onClick={() => {
                         const ordered = [...s.banners].sort(
@@ -1821,7 +1695,7 @@ export function BannersAdmin() {
                     </button>
                     <button
                       className="icon-btn"
-                      aria-label="Delete slide"
+                      aria-label={bnNode("Delete slide")}
                       onClick={() => {
                         s.setBanners((x) => x.filter((v) => v.id !== b.id));
                         s.toast("Slide removed.");
@@ -1842,11 +1716,11 @@ export function BannersAdmin() {
                 </div>
               </div>
             </Panel>
-          ))}
+          )))}
       </div>
-      {edit && (
+      {bnNode(edit && (
         <Modal
-          title="A little care for your first impression."
+          title={bnNode("A little care for your first impression.")}
           onClose={() => setEdit(undefined)}
           wide
         >
@@ -1881,27 +1755,21 @@ export function BannersAdmin() {
             }}
           >
             <div className="form-grid">
-              <label className="field">
-                Headline (new line supported)
-                <textarea
+              <label className="field">{bnNode("Headline (new line supported)")}<textarea
                   name="title"
                   rows={2}
                   required
                   defaultValue={edit === "new" ? "" : edit.title}
                 />
               </label>
-              <label className="field">
-                Supporting text
-                <textarea
+              <label className="field">{bnNode("Supporting text")}<textarea
                   name="subtitle"
                   rows={2}
                   required
                   defaultValue={edit === "new" ? "" : edit.subtitle}
                 />
               </label>
-              <label className="field">
-                CTA text
-                <input
+              <label className="field">{bnNode("CTA text")}<input
                   name="cta"
                   required
                   defaultValue={
@@ -1909,17 +1777,13 @@ export function BannersAdmin() {
                   }
                 />
               </label>
-              <label className="field">
-                Link destination
-                <input
+              <label className="field">{bnNode("Link destination")}<input
                   name="link"
                   required
                   defaultValue={edit === "new" ? "/shop" : edit.link}
                 />
               </label>
-              <label className="field">
-                Desktop / responsive image URL
-                <input
+              <label className="field">{bnNode("Desktop / responsive image URL")}<input
                   name="image"
                   required
                   defaultValue={
@@ -1927,26 +1791,20 @@ export function BannersAdmin() {
                   }
                 />
               </label>
-              <label className="field">
-                Slide order
-                <input
+              <label className="field">{bnNode("Slide order")}<input
                   name="order"
                   type="number"
                   min="0"
                   defaultValue={edit === "new" ? s.banners.length : edit.order}
                 />
               </label>
-              <label className="field">
-                Scheduled start (optional)
-                <input
+              <label className="field">{bnNode("Scheduled start (optional)")}<input
                   name="start"
                   type="datetime-local"
                   defaultValue={edit === "new" ? "" : edit.start}
                 />
               </label>
-              <label className="field">
-                Scheduled end (optional)
-                <input
+              <label className="field">{bnNode("Scheduled end (optional)")}<input
                   name="end"
                   type="datetime-local"
                   defaultValue={edit === "new" ? "" : edit.end}
@@ -1958,15 +1816,12 @@ export function BannersAdmin() {
                 name="active"
                 type="checkbox"
                 defaultChecked={edit === "new" || edit.active}
-              />
-              Show on the homepage
-            </label>
-            <Button type="submit">
-              Save your slide <Check size={16} />
+              />{bnNode("Show on the homepage")}</label>
+            <Button type="submit">{bnNode("Save your slide ")}<Check size={16} />
             </Button>
           </form>
         </Modal>
-      )}
+      ))}
     </>
   );
 }
@@ -1981,7 +1836,7 @@ export function ReviewsAdmin() {
   return (
     <>
       <AdminTitle
-        title="Let the good words be heard."
+        title={bnNode("Let the good words be heard.")}
         text="A little moderation to keep your community honest, helpful, and welcoming."
       />
       <div className="stats-grid three">
@@ -2006,40 +1861,39 @@ export function ReviewsAdmin() {
       </div>
       <section className="admin-panel">
         <div className="admin-table-tabs">
-          {["All reviews", "Pending", "Approved", "Rejected"].map((t) => (
+          {bnNode(["All reviews", "Pending", "Approved", "Rejected"].map((t) => (
             <button
               className={filter === t ? "active" : ""}
               key={t}
               onClick={() => setFilter(t)}
             >
-              {t}
+              {bnNode(t)}
             </button>
-          ))}
+          )))}
         </div>
         <div className="moderation-list">
-          {rows.map((r) => (
+          {bnNode(rows.map((r) => (
             <article key={r.id}>
               <div className="moderation-head">
                 <div>
-                  <b>{r.name}</b>
+                  <b>{bnNode(r.name)}</b>
                   <span>
-                    {s.products.find((p) => p.id === r.productId)?.name} ·{" "}
-                    {r.date.slice(0, 10)}
+                    {bnNode(s.products.find((p) => p.id === r.productId)?.name)}{bnNode(" ·")}{bnNode(" ")}
+                    {bnNode(r.date.slice(0, 10))}
                   </span>
                 </div>
                 <Status value={r.status} />
               </div>
               <span className="stars">
-                {"★".repeat(r.rating)}
-                {"☆".repeat(5 - r.rating)}
+                {bnNode("★".repeat(r.rating))}
+                {bnNode("☆".repeat(5 - r.rating))}
               </span>
-              <h3>{r.title}</h3>
-              <p>{r.text}</p>
+              <h3>{bnNode(r.title)}</h3>
+              <p>{bnNode(r.text)}</p>
               <div className="moderation-actions">
-                {r.verified && <Badge>Verified purchase</Badge>}
-                {r.media && <Badge>Media attached</Badge>}
-                <button className="text-button" onClick={() => setSelected(r)}>
-                  Read & reply <ArrowUpRight size={13} />
+                {bnNode(r.verified && <Badge>{bnNode("Verified purchase")}</Badge>)}
+                {bnNode(r.media && <Badge>{bnNode("Media attached")}</Badge>)}
+                <button className="text-button" onClick={() => setSelected(r)}>{bnNode("Read & reply ")}<ArrowUpRight size={13} />
                 </button>
                 <Button
                   variant="outline"
@@ -2052,12 +1906,10 @@ export function ReviewsAdmin() {
                     s.toast("Review approved. A little goodness shared.");
                   }}
                 >
-                  <Check size={14} />
-                  Approve
-                </Button>
+                  <Check size={14} />{bnNode("Approve")}</Button>
                 <button
                   className="icon-btn"
-                  aria-label="Reject review"
+                  aria-label={bnNode("Reject review")}
                   onClick={() => {
                     s.setReviews((x) =>
                       x.map((y) =>
@@ -2071,26 +1923,26 @@ export function ReviewsAdmin() {
                 </button>
               </div>
             </article>
-          ))}
+          )))}
         </div>
       </section>
-      {selected && (
+      {bnNode(selected && (
         <Modal
-          title="A little reply goes a long way."
+          title={bnNode("A little reply goes a long way.")}
           onClose={() => setSelected(undefined)}
         >
-          <h3>{selected.title}</h3>
-          <p className="muted">{selected.text}</p>
-          {selected.media &&
+          <h3>{bnNode(selected.title)}</h3>
+          <p className="muted">{bnNode(selected.text)}</p>
+          {bnNode(selected.media &&
             (selected.media.startsWith("data:video") ? (
               <video controls src={selected.media} className="review-media" />
             ) : (
               <img
                 src={selected.media}
-                alt="Customer uploaded review"
+                alt={bnNode("Customer uploaded review")}
                 className="review-media"
               />
-            ))}
+            )))}
           <form
             className="form-stack"
             onSubmit={(e) => {
@@ -2112,16 +1964,12 @@ export function ReviewsAdmin() {
               setSelected(undefined);
             }}
           >
-            <label className="field">
-              A reply from NIRBHOR
-              <textarea name="reply" rows={3} defaultValue={selected.reply} />
+            <label className="field">{bnNode("A reply from NIRBHOR")}<textarea name="reply" rows={3} defaultValue={selected.reply} />
             </label>
-            <label className="field">
-              Moderation status
-              <select name="status" defaultValue={selected.status}>
-                <option>Pending</option>
-                <option>Approved</option>
-                <option>Rejected</option>
+            <label className="field">{bnNode("Moderation status")}<select name="status" defaultValue={selected.status}>
+                <option value={"Pending"}>{bnNode("Pending")}</option>
+                <option value={"Approved"}>{bnNode("Approved")}</option>
+                <option value={"Rejected"}>{bnNode("Rejected")}</option>
               </select>
             </label>
             <label className="check-label">
@@ -2129,15 +1977,12 @@ export function ReviewsAdmin() {
                 type="checkbox"
                 name="featured"
                 defaultChecked={selected.featured}
-              />
-              Feature on the homepage
-            </label>
-            <Button type="submit">
-              Save review <Check size={15} />
+              />{bnNode("Feature on the homepage")}</label>
+            <Button type="submit">{bnNode("Save review ")}<Check size={15} />
             </Button>
           </form>
         </Modal>
-      )}
+      ))}
     </>
   );
 }
@@ -2162,29 +2007,29 @@ export function ContentAdmin() {
   return (
     <>
       <AdminTitle
-        title="Make the good story yours."
+        title={bnNode("Make the good story yours.")}
         text="The little words and useful details that bring your storefront together."
       />
       <div className="settings-tabs">
-        {["Homepage", "FAQs", "Static pages", "Trust blocks"].map((t) => (
+        {bnNode(["Homepage", "FAQs", "Static pages", "Trust blocks"].map((t) => (
           <button
             key={t}
             className={tab === t ? "active" : ""}
             onClick={() => setTab(t)}
           >
-            {t}
+            {bnNode(t)}
           </button>
-        ))}
+        )))}
       </div>
       <Panel
         title={
-          tab === "Homepage"
+          bnNode(tab === "Homepage"
             ? "A little homepage personality."
             : tab === "FAQs"
               ? "A little clarity for your customers."
               : tab === "Trust blocks"
                 ? "Good reasons to feel at home."
-                : "Pages with a little purpose."
+                : "Pages with a little purpose.")
         }
       >
         <form
@@ -2200,22 +2045,21 @@ export function ContentAdmin() {
             s.toast("Your story is saved.");
           }}
         >
-          {tab === "Homepage" ? (
+          {bnNode(tab === "Homepage" ? (
             homeFields.map(([k, t, d]) => (
               <label className="field" key={k}>
-                {t}
+                {bnNode(t)}
                 <input name={k} defaultValue={s.content[k] || d} />
               </label>
             ))
           ) : tab === "FAQs" ? (
             [0, 1, 2, 3, 4].map((i) => (
-              <label className="field" key={i}>
-                Answer {i + 1}
+              <label className="field" key={i}>{bnNode("Answer ")}{bnNode(i + 1)}
                 <textarea
                   rows={3}
                   name={`faq-${i}`}
                   defaultValue={s.content[`faq-${i}`] || ""}
-                  placeholder="Leave blank to use the default answer"
+                  placeholder={bnNode("Leave blank to use the default answer")}
                 />
               </label>
             ))
@@ -2227,16 +2071,13 @@ export function ContentAdmin() {
               "Shop with confidence",
             ].map((t, i) => (
               <div className="form-grid" key={t}>
-                <label className="field">
-                  Trust heading {i + 1}
+                <label className="field">{bnNode("Trust heading ")}{bnNode(i + 1)}
                   <input
                     name={`trust-heading-${i}`}
                     defaultValue={s.content[`trust-heading-${i}`] || t}
                   />
                 </label>
-                <label className="field">
-                  Supporting line
-                  <input
+                <label className="field">{bnNode("Supporting line")}<input
                     name={`trust-text-${i}`}
                     defaultValue={s.content[`trust-text-${i}`] || ""}
                   />
@@ -2245,10 +2086,8 @@ export function ContentAdmin() {
             ))
           ) : (
             <>
-              <label className="field">
-                Page
-                <select value={page} onChange={(e) => setPage(e.target.value)}>
-                  {[
+              <label className="field">{bnNode("Page")}<select value={page} onChange={(e) => setPage(e.target.value)}>
+                  {bnNode([
                     "about",
                     "contact",
                     "privacy",
@@ -2257,25 +2096,21 @@ export function ContentAdmin() {
                     "shipping",
                     "sourcing",
                   ].map((x) => (
-                    <option key={x}>{x}</option>
-                  ))}
+                    <option key={x} value={x}>{bnNode(x)}</option>
+                  )))}
                 </select>
               </label>
-              <label className="field">
-                Page title
-                <input
+              <label className="field">{bnNode("Page title")}<input
                   name={`page-title-${page}`}
                   defaultValue={s.content[`page-title-${page}`] || ""}
-                  placeholder="Leave blank for the default title"
+                  placeholder={bnNode("Leave blank for the default title")}
                 />
               </label>
-              <label className="field">
-                Page body (paragraphs separated by blank lines)
-                <textarea
+              <label className="field">{bnNode("Page body (paragraphs separated by blank lines)")}<textarea
                   name={`page-body-${page}`}
                   rows={12}
                   defaultValue={s.content[`page-body-${page}`] || ""}
-                  placeholder="Your carefully written page content…"
+                  placeholder={bnNode("Your carefully written page content…")}
                 />
               </label>
               <Link
@@ -2286,13 +2121,11 @@ export function ContentAdmin() {
                     : "/page/" + page
                 }
                 target="_blank"
-              >
-                Preview saved page <ArrowUpRight size={14} />
+              >{bnNode("Preview saved page ")}<ArrowUpRight size={14} />
               </Link>
             </>
-          )}
-          <Button type="submit">
-            Save your story <Check size={16} />
+          ))}
+          <Button type="submit">{bnNode("Save your story ")}<Check size={16} />
           </Button>
         </form>
       </Panel>
@@ -2310,17 +2143,17 @@ export function AnalyticsAdmin() {
   return (
     <>
       <AdminTitle
-        title="A little insight. A lot of possibility."
+        title={bnNode("A little insight. A lot of possibility.")}
         text="Understand the good choices your customers make, and what brings them back."
       >
         <select
-          aria-label="Analytics period"
+          aria-label={bnNode("Analytics period")}
           value={period}
           onChange={(e) => setPeriod(e.target.value)}
         >
-          <option value="7">Last 7 days</option>
-          <option value="30">Last 30 days</option>
-          <option value="90">Last 90 days</option>
+          <option value="7">{bnNode("Last 7 days")}</option>
+          <option value="30">{bnNode("Last 30 days")}</option>
+          <option value="90">{bnNode("Last 90 days")}</option>
         </select>
         <Button
           variant="outline"
@@ -2344,9 +2177,7 @@ export function AnalyticsAdmin() {
             )
           }
         >
-          <Download size={15} />
-          Export report
-        </Button>
+          <Download size={15} />{bnNode("Export report")}</Button>
       </AdminTitle>
       <div className="stats-grid">
         <Stat
@@ -2376,15 +2207,15 @@ export function AnalyticsAdmin() {
         />
       </div>
       <div className="dashboard-main-grid">
-        <Panel title="Good growth, over time." subtitle="Sample revenue trend">
+        <Panel title={bnNode("Good growth, over time.")} subtitle="Sample revenue trend">
           <SalesChart period={period} />
         </Panel>
         <Panel
-          title="Where the goodness begins."
+          title={bnNode("Where the goodness begins.")}
           subtitle="Sample traffic sources"
         >
           <div className="traffic-bars">
-            {[
+            {bnNode([
               ["Facebook / Instagram", 64],
               ["Direct visits", 20],
               ["Organic search", 11],
@@ -2392,58 +2223,55 @@ export function AnalyticsAdmin() {
             ].map(([n, v]) => (
               <div key={String(n)}>
                 <span>
-                  {n}
-                  <b>{v}%</b>
+                  {bnNode(n)}
+                  <b>{bnNode(v)}{bnNode("%")}</b>
                 </span>
                 <progress max="100" value={Number(v)} />
               </div>
-            ))}
+            )))}
           </div>
           <div className="analytics-mini">
-            <span>
-              Checkout completion <b>62.4%</b>
+            <span>{bnNode("Checkout completion ")}<b>{bnNode("62.4%")}</b>
             </span>
-            <span>
-              Repeat purchase <b>28.6%</b>
+            <span>{bnNode("Repeat purchase ")}<b>{bnNode("28.6%")}</b>
             </span>
-            <span>
-              Cart abandonment <b>37.6%</b>
+            <span>{bnNode("Cart abandonment ")}<b>{bnNode("37.6%")}</b>
             </span>
           </div>
         </Panel>
       </div>
       <Panel
-        title="What’s finding its people."
+        title={bnNode("What’s finding its people.")}
         subtitle="Performance from local order records."
       >
         <div className="admin-table-tabs">
-          {["Products", "Categories", "Campaigns", "Searches", "Discounts"].map(
+          {bnNode(["Products", "Categories", "Campaigns", "Searches", "Discounts"].map(
             (t) => (
               <button
                 className={tab === t ? "active" : ""}
                 key={t}
                 onClick={() => setTab(t)}
               >
-                {t}
+                {bnNode(t)}
               </button>
             ),
-          )}
+          ))}
         </div>
         <div className="table-scroll">
           <table className="admin-table">
             <thead>
               <tr>
-                <th>{tab}</th>
+                <th>{bnNode(tab)}</th>
                 <th>
-                  {tab === "Searches" ? "Search count" : "Orders / units"}
+                  {bnNode(tab === "Searches" ? "Search count" : "Orders / units")}
                 </th>
                 <th>
-                  {tab === "Searches" ? "Last searched" : "Revenue / saving"}
+                  {bnNode(tab === "Searches" ? "Last searched" : "Revenue / saving")}
                 </th>
               </tr>
             </thead>
             <tbody>
-              {tab === "Products"
+              {bnNode(tab === "Products"
                 ? s.products.map((p) => {
                     const units = s.orders.reduce(
                       (n, o) =>
@@ -2455,9 +2283,9 @@ export function AnalyticsAdmin() {
                     );
                     return (
                       <tr key={p.id}>
-                        <td>{p.name}</td>
-                        <td>{units}</td>
-                        <td>{money(units * p.price)}</td>
+                        <td>{bnNode(p.name)}</td>
+                        <td>{bnNode(units)}</td>
+                        <td>{bnNode(money(units * p.price))}</td>
                       </tr>
                     );
                   })
@@ -2473,10 +2301,10 @@ export function AnalyticsAdmin() {
                           .filter((i) => ids.includes(i.id));
                         return (
                           <tr key={c.id}>
-                            <td>{c.name}</td>
-                            <td>{items.reduce((n, i) => n + i.quantity, 0)}</td>
+                            <td>{bnNode(c.name)}</td>
+                            <td>{bnNode(items.reduce((n, i) => n + i.quantity, 0))}</td>
                             <td>
-                              {money(
+                              {bnNode(money(
                                 items.reduce(
                                   (n, i) =>
                                     n +
@@ -2485,7 +2313,7 @@ export function AnalyticsAdmin() {
                                         ?.price || 0),
                                   0,
                                 ),
-                              )}
+                              ))}
                             </td>
                           </tr>
                         );
@@ -2493,18 +2321,18 @@ export function AnalyticsAdmin() {
                   : tab === "Campaigns"
                     ? s.campaigns.map((c) => (
                         <tr key={c.id}>
-                          <td>{c.name}</td>
+                          <td>{bnNode(c.name)}</td>
                           <td>
                             {
-                              s.orders.filter(
+                              bnNode(s.orders.filter(
                                 (o) =>
                                   o.note === "Campaign quick order" &&
                                   o.items.some((i) => i.id === c.productId),
-                              ).length
+                              ).length)
                             }
                           </td>
                           <td>
-                            {money(
+                            {bnNode(money(
                               s.orders
                                 .filter(
                                   (o) =>
@@ -2512,7 +2340,7 @@ export function AnalyticsAdmin() {
                                     o.items.some((i) => i.id === c.productId),
                                 )
                                 .reduce((n, o) => n + o.total, 0),
-                            )}
+                            ))}
                           </td>
                         </tr>
                       ))
@@ -2522,22 +2350,22 @@ export function AnalyticsAdmin() {
                           .slice(0, 12)
                           .map((e) => (
                             <tr key={e.id}>
-                              <td>{e.detail || "(empty query)"}</td>
-                              <td>1</td>
-                              <td>{new Date(e.date).toLocaleString()}</td>
+                              <td>{bnNode(e.detail || "(empty query)")}</td>
+                              <td>{bnNode("1")}</td>
+                              <td>{bnNode(new Date(e.date).toLocaleString("bn-BD"))}</td>
                             </tr>
                           ))
                       : s.coupons.map((c) => (
                           <tr key={c.id}>
-                            <td>{c.code}</td>
-                            <td>{c.uses} redemptions</td>
+                            <td>{bnNode(c.code)}</td>
+                            <td>{bnNode(c.uses)}{bnNode(" redemptions")}</td>
                             <td>
-                              {c.type === "Percentage"
+                              {bnNode(c.type === "Percentage"
                                 ? c.value + "%"
-                                : money(c.value)}
+                                : money(c.value))}
                             </td>
                           </tr>
-                        ))}
+                        )))}
             </tbody>
           </table>
         </div>
@@ -2560,7 +2388,7 @@ export function PixelAdmin() {
   return (
     <>
       <AdminTitle
-        title="See the little steps that lead to good."
+        title={bnNode("See the little steps that lead to good.")}
         text="Configure your Meta Pixel and inspect storefront events in this browser."
       >
         <Button
@@ -2570,23 +2398,18 @@ export function PixelAdmin() {
             s.toast("Local test event recorded. No external request sent.");
           }}
         >
-          <Zap size={16} />
-          Test local event
-        </Button>
+          <Zap size={16} />{bnNode("Test local event")}</Button>
       </AdminTitle>
       <div className="pixel-notice">
         <Shield size={22} />
         <div>
-          <b>Preview tracking. Privacy first.</b>
-          <p>
-            These events stay on this browser. Your Pixel ID and mappings are
-            ready for the backend phase; nothing is sent to Meta.
-          </p>
+          <b>{bnNode("Preview tracking. Privacy first.")}</b>
+          <p>{bnNode("These events stay on this browser. Your Pixel ID and mappings are ready for the backend phase; nothing is sent to Meta.")}</p>
         </div>
-        <Badge tone="neutral">External events off</Badge>
+        <Badge tone="neutral">{bnNode("External events off")}</Badge>
       </div>
       <div className="campaign-admin-grid">
-        <Panel title="Your little connection settings.">
+        <Panel title={bnNode("Your little connection settings.")}>
           <form
             className="form-stack"
             onSubmit={(e) => {
@@ -2600,9 +2423,7 @@ export function PixelAdmin() {
               s.toast("Pixel configuration saved for backend integration.");
             }}
           >
-            <label className="field">
-              Meta Pixel ID
-              <input
+            <label className="field">{bnNode("Meta Pixel ID")}<input
                 name="pixel"
                 pattern="[0-9]{8,20}"
                 required
@@ -2614,14 +2435,9 @@ export function PixelAdmin() {
                 name="enabled"
                 type="checkbox"
                 defaultChecked={s.settings.pixelEnabled}
-              />
-              Enable tracking configuration
-            </label>
-            <p className="small muted">
-              Enabling this stores your preference. External event delivery will
-              be connected with the backend.
-            </p>
-            {eventTypes.map((name) => (
+              />{bnNode("Enable tracking configuration")}</label>
+            <p className="small muted">{bnNode("Enabling this stores your preference. External event delivery will be connected with the backend.")}</p>
+            {bnNode(eventTypes.map((name) => (
               <Toggle
                 key={name}
                 checked={s.content["pixel-" + name] !== "off"}
@@ -2634,44 +2450,43 @@ export function PixelAdmin() {
                 label={name}
                 description={`Map storefront ${name} events to Meta.`}
               />
-            ))}
-            <Button type="submit">
-              Save configuration <Check size={15} />
+            )))}
+            <Button type="submit">{bnNode("Save configuration ")}<Check size={15} />
             </Button>
           </form>
         </Panel>
         <Panel
-          title="Your local conversion funnel."
+          title={bnNode("Your local conversion funnel.")}
           subtitle="Real preview interactions, counted on this browser."
         >
           <div className="pixel-funnel">
-            {eventTypes.map((name, i) => {
+            {bnNode(eventTypes.map((name, i) => {
               const n = s.events.filter((e) => e.name === name).length;
               return (
                 <div key={name}>
                   <span style={{ width: 100 - i * 10 + "%" }}>
-                    {name}
-                    <b>{n}</b>
+                    {bnNode(name)}
+                    <b>{bnNode(n)}</b>
                   </span>
                 </div>
               );
-            })}
+            }))}
           </div>
         </Panel>
       </div>
       <Panel
-        title="A little activity log."
+        title={bnNode("A little activity log.")}
         subtitle={`${s.events.length} locally recorded events`}
         action={
           <select
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
-            aria-label="Filter pixel events"
+            aria-label={bnNode("Filter pixel events")}
           >
-            <option>All events</option>
-            {eventTypes.map((x) => (
-              <option key={x}>{x}</option>
-            ))}
+            <option value={"All events"}>{bnNode("All events")}</option>
+            {bnNode(eventTypes.map((x) => (
+              <option key={x} value={x}>{bnNode(x)}</option>
+            )))}
           </select>
         }
       >
@@ -2679,28 +2494,28 @@ export function PixelAdmin() {
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Event</th>
-                <th>Details</th>
-                <th>Recorded</th>
-                <th>Status</th>
+                <th>{bnNode("Event")}</th>
+                <th>{bnNode("Details")}</th>
+                <th>{bnNode("Recorded")}</th>
+                <th>{bnNode("Status")}</th>
               </tr>
             </thead>
             <tbody>
-              {s.events
+              {bnNode(s.events
                 .filter((e) => filter === "All events" || e.name === filter)
                 .slice(0, 30)
                 .map((e) => (
                   <tr key={e.id}>
                     <td>
-                      <b>{e.name}</b>
+                      <b>{bnNode(e.name)}</b>
                     </td>
-                    <td>{e.detail}</td>
-                    <td>{new Date(e.date).toLocaleString()}</td>
+                    <td>{bnNode(e.detail)}</td>
+                    <td>{bnNode(new Date(e.date).toLocaleString("bn-BD"))}</td>
                     <td>
-                      <Badge tone="neutral">Local only</Badge>
+                      <Badge tone="neutral">{bnNode("Local only")}</Badge>
                     </td>
                   </tr>
-                ))}
+                )))}
             </tbody>
           </table>
         </div>
@@ -2718,7 +2533,7 @@ export function SettingsAdmin() {
   return (
     <>
       <AdminTitle
-        title="Your store. Your little details."
+        title={bnNode("Your store. Your little details.")}
         text="Fine-tune the essentials behind a thoughtful shopping experience."
       >
         <Button
@@ -2740,13 +2555,11 @@ export function SettingsAdmin() {
             s.toast("Store settings saved.");
           }}
         >
-          <Check size={16} />
-          Save settings
-        </Button>
+          <Check size={16} />{bnNode("Save settings")}</Button>
       </AdminTitle>
       <div className="settings-layout">
         <div className="settings-nav">
-          {[
+          {bnNode([
             "Store details",
             "Branding",
             "Shipping & delivery",
@@ -2759,19 +2572,19 @@ export function SettingsAdmin() {
               key={t}
               onClick={() => setTab(t)}
             >
-              {t}
+              {bnNode(t)}
               <ChevronRight size={14} />
             </button>
-          ))}
+          )))}
         </div>
         <Panel
-          title={tab}
+          title={bnNode(tab)}
           subtitle="A little care for the things that make your store yours."
         >
           <div className="form-stack">
-            {tab === "Store details" ? (
+            {bnNode(tab === "Store details" ? (
               <>
-                {(
+                {bnNode((
                   [
                     "name",
                     "tagline",
@@ -2783,24 +2596,22 @@ export function SettingsAdmin() {
                 ).map((k) => (
                   <label className="field" key={k}>
                     {
-                      {
+                      bnNode({
                         name: "Store name",
                         tagline: "Brand tagline",
                         email: "Support email",
                         phone: "Support phone",
                         address: "Business address",
                         currency: "Currency",
-                      }[k]
+                      }[k])
                     }
                     <input
                       value={draft[k]}
                       onChange={(e) => set(k, e.target.value)}
                     />
                   </label>
-                ))}
-                <label className="field">
-                  Tax rate (%)
-                  <input
+                )))}
+                <label className="field">{bnNode("Tax rate (%)")}<input
                     type="number"
                     min="0"
                     max="100"
@@ -2816,39 +2627,32 @@ export function SettingsAdmin() {
                   style={{ background: draft.color }}
                 >
                   <Leaf size={29} />
-                  <h2>{draft.name}</h2>
-                  <p>{draft.tagline}</p>
+                  <h2>{bnNode(draft.name)}</h2>
+                  <p>{bnNode(draft.tagline)}</p>
                 </div>
-                <label className="field">
-                  Primary brand colour
-                  <input
+                <label className="field">{bnNode("Primary brand colour")}<input
                     type="color"
                     value={draft.color}
                     onChange={(e) => set("color", e.target.value)}
                   />
                 </label>
-                <label className="field">
-                  Wordmark text
-                  <input
+                <label className="field">{bnNode("Wordmark text")}<input
                     value={draft.name}
                     onChange={(e) => set("name", e.target.value)}
                   />
                 </label>
-                <p className="muted small">
-                  The wordmark uses the shared brand typeface. Your primary
-                  colour updates buttons and key storefront accents.
-                </p>
+                <p className="muted small">{bnNode("The wordmark uses the shared brand typeface. Your primary colour updates buttons and key storefront accents.")}</p>
               </>
             ) : tab === "Shipping & delivery" ? (
               <>
-                {(["dhaka", "outside", "freeShipping"] as const).map((k) => (
+                {bnNode((["dhaka", "outside", "freeShipping"] as const).map((k) => (
                   <label className="field" key={k}>
                     {
-                      {
+                      bnNode({
                         dhaka: "Delivery charge within Dhaka (BDT)",
                         outside: "Outside Dhaka delivery charge (BDT)",
                         freeShipping: "Free delivery threshold (BDT)",
-                      }[k]
+                      }[k])
                     }
                     <input
                       type="number"
@@ -2857,25 +2661,22 @@ export function SettingsAdmin() {
                       onChange={(e) => set(k, Number(e.target.value))}
                     />
                   </label>
-                ))}
+                )))}
                 <div className="shipping-zone-preview">
                   <MapPin size={22} />
                   <div>
-                    <b>Dhaka · 1–2 working days</b>
-                    <p>Standard delivery · {money(draft.dhaka)}</p>
+                    <b>{bnNode("Dhaka · 1–2 working days")}</b>
+                    <p>{bnNode("Standard delivery · ")}{bnNode(money(draft.dhaka))}</p>
                   </div>
                 </div>
                 <div className="shipping-zone-preview">
                   <Truck size={22} />
                   <div>
-                    <b>Outside Dhaka · 3–5 working days</b>
-                    <p>Nationwide delivery · {money(draft.outside)}</p>
+                    <b>{bnNode("Outside Dhaka · 3–5 working days")}</b>
+                    <p>{bnNode("Nationwide delivery · ")}{bnNode(money(draft.outside))}</p>
                   </div>
                 </div>
-                <p className="small muted">
-                  Courier integrations and live serviceability will be connected
-                  with the backend.
-                </p>
+                <p className="small muted">{bnNode("Courier integrations and live serviceability will be connected with the backend.")}</p>
               </>
             ) : tab === "Payments" ? (
               <>
@@ -2893,13 +2694,9 @@ export function SettingsAdmin() {
                 />
                 <div className="payment-gateway-card">
                   <CreditCard size={30} />
-                  <h3>Ready for local payments.</h3>
-                  <p>
-                    SSLCommerz, cards and mobile banking will be connected
-                    securely with your backend. Credentials are never stored in
-                    this frontend.
-                  </p>
-                  <Badge tone="neutral">Gateway integration pending</Badge>
+                  <h3>{bnNode("Ready for local payments.")}</h3>
+                  <p>{bnNode("SSLCommerz, cards and mobile banking will be connected securely with your backend. Credentials are never stored in this frontend.")}</p>
+                  <Badge tone="neutral">{bnNode("Gateway integration pending")}</Badge>
                 </div>
               </>
             ) : tab === "Notifications" ? (
@@ -2916,7 +2713,7 @@ export function SettingsAdmin() {
                   label="Newsletter signup"
                   description="Show the newsletter form in your storefront footer."
                 />
-                {[
+                {bnNode([
                   "New order",
                   "Order confirmation",
                   "Shipping update",
@@ -2937,45 +2734,38 @@ export function SettingsAdmin() {
                     label={t}
                     description="Save this preference for email / SMS integration."
                   />
-                ))}
+                )))}
               </>
             ) : (
               <>
-                <label className="field">
-                  Default SEO title
-                  <input
+                <label className="field">{bnNode("Default SEO title")}<input
                     value={draft.seoTitle}
                     onChange={(e) => set("seoTitle", e.target.value)}
                     maxLength={70}
                   />
                 </label>
-                <label className="field">
-                  Meta description
-                  <textarea
+                <label className="field">{bnNode("Meta description")}<textarea
                     rows={3}
                     value={draft.seoDescription}
                     onChange={(e) => set("seoDescription", e.target.value)}
                     maxLength={180}
                   />
                 </label>
-                <label className="field">
-                  Facebook page URL
-                  <input
+                <label className="field">{bnNode("Facebook page URL")}<input
                     type="url"
                     value={draft.social}
                     onChange={(e) => set("social", e.target.value)}
                   />
                 </label>
                 <div className="seo-preview">
-                  <span>nirbhor.com</span>
-                  <h3>{draft.seoTitle}</h3>
-                  <p>{draft.seoDescription}</p>
+                  <span>{bnNode("nirbhor.com")}</span>
+                  <h3>{bnNode(draft.seoTitle)}</h3>
+                  <p>{bnNode(draft.seoDescription)}</p>
                 </div>
-                <Link className="text-link" to="/admin/pixel">
-                  Configure Meta Pixel <ArrowUpRight size={13} />
+                <Link className="text-link" to="/admin/pixel">{bnNode("Configure Meta Pixel ")}<ArrowUpRight size={13} />
                 </Link>
               </>
-            )}
+            ))}
           </div>
         </Panel>
       </div>
@@ -3018,64 +2808,59 @@ export function TeamAdmin() {
   return (
     <>
       <AdminTitle
-        title="Good people, in the right places."
+        title={bnNode("Good people, in the right places.")}
         text="Give your team the little controls they need to care for your store."
       >
         <Button onClick={() => setEdit("new")}>
-          <Plus size={16} />
-          Add team member
-        </Button>
+          <Plus size={16} />{bnNode("Add team member")}</Button>
       </AdminTitle>
       <div className="pixel-notice">
         <Shield size={22} />
         <div>
-          <b>Permission design preview</b>
-          <p>
-            Roles and permissions are saved locally. Secure sign-in, invitations
-            and access enforcement will be handled by the backend.
-          </p>
+          <b>{bnNode("Permission design preview")}</b>
+          <p>{bnNode("Roles and permissions are saved locally. Secure sign-in, invitations and access enforcement will be handled by the backend.")}</p>
         </div>
       </div>
-      <Panel title="Your little team.">
+      <Panel title={bnNode("Your little team.")}>
         <div className="table-scroll">
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Team member</th>
-                <th>Role</th>
-                <th>Permissions</th>
+                <th>{bnNode("Team member")}</th>
+                <th>{bnNode("Role")}</th>
+                <th>{bnNode("Permissions")}</th>
                 <th />
               </tr>
             </thead>
             <tbody>
-              {team.map((m) => (
+              {bnNode(team.map((m) => (
                 <tr key={m.id}>
                   <td>
-                    <b>{m.name}</b>
-                    <small>{m.email}</small>
+                    <b>{bnNode(m.name)}</b>
+                    <small>{bnNode(m.email)}</small>
                   </td>
                   <td>
-                    <Badge>{m.role}</Badge>
+                    <Badge>{bnNode(m.role)}</Badge>
                   </td>
-                  <td>{m.permissions.join(", ")}</td>
+                  <td>{bnNode(m.permissions.join(", "))}</td>
                   <td>
                     <button
                       className="icon-btn"
-                      aria-label={`Edit ${m.name} permissions`}
+                      aria-label={bnNode(`Edit ${m.name} permissions`)}
                       onClick={() => setEdit(m)}
                     >
                       <Edit3 size={15} />
                     </button>
                   </td>
                 </tr>
-              ))}
+              )))}
             </tbody>
           </table>
         </div>
       </Panel>
-      {edit && (
+      {bnNode(edit && (
         <Modal
-          title="A little role in something good."
+          title={bnNode("A little role in something good.")}
           onClose={() => setEdit(undefined)}
         >
           <form
@@ -3099,30 +2884,24 @@ export function TeamAdmin() {
               setEdit(undefined);
             }}
           >
-            <label className="field">
-              Name
-              <input
+            <label className="field">{bnNode("Name")}<input
                 name="name"
                 required
                 defaultValue={edit === "new" ? "" : edit.name}
               />
             </label>
-            <label className="field">
-              Email
-              <input
+            <label className="field">{bnNode("Email")}<input
                 type="email"
                 name="email"
                 required
                 defaultValue={edit === "new" ? "" : edit.email}
               />
             </label>
-            <label className="field">
-              Role
-              <select
+            <label className="field">{bnNode("Role")}<select
                 name="role"
                 defaultValue={edit === "new" ? "Product Manager" : edit.role}
               >
-                {[
+                {bnNode([
                   "Super Admin",
                   "Product Manager",
                   "Order Manager",
@@ -3131,13 +2910,13 @@ export function TeamAdmin() {
                   "Content Manager",
                   "Custom",
                 ].map((r) => (
-                  <option key={r}>{r}</option>
-                ))}
+                  <option key={r} value={r}>{bnNode(r)}</option>
+                )))}
               </select>
             </label>
-            <h3>A little access to…</h3>
+            <h3>{bnNode("A little access to…")}</h3>
             <div className="permission-grid">
-              {[
+              {bnNode([
                 "Products",
                 "Orders",
                 "Customers",
@@ -3154,16 +2933,15 @@ export function TeamAdmin() {
                       edit !== "new" && edit.permissions.includes(p)
                     }
                   />
-                  {p}
+                  {bnNode(p)}
                 </label>
-              ))}
+              )))}
             </div>
-            <Button type="submit">
-              Save team member <Check size={15} />
+            <Button type="submit">{bnNode("Save team member ")}<Check size={15} />
             </Button>
           </form>
         </Modal>
-      )}
+      ))}
     </>
   );
 }

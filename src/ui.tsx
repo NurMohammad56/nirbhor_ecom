@@ -1,3 +1,4 @@
+import { bnNode } from "./bn";
 import { productHref } from "./departments";
 import { descendants } from "./category-tree";
 import { useEffect, useRef, useState } from "react";
@@ -48,7 +49,7 @@ export function Button({
 }) {
   return to ? (
     <Link className={`btn ${variant} ${className}`} to={to} {...props}>
-      {children}
+      {bnNode(children)}
     </Link>
   ) : (
     <button
@@ -56,7 +57,7 @@ export function Button({
       onClick={onClick}
       {...props}
     >
-      {children}
+      {bnNode(children)}
     </button>
   );
 }
@@ -74,15 +75,15 @@ export function SectionTitle({
   return (
     <div className="section-heading">
       <div>
-        {eyebrow && <span className="eyebrow">{eyebrow}</span>}
-        <h2>{title}</h2>
+        {bnNode(eyebrow && <span className="eyebrow">{bnNode(eyebrow)}</span>)}
+        <h2>{bnNode(title)}</h2>
       </div>
-      {link && (
+      {bnNode(link && (
         <Link className="text-link" to={link}>
-          {label}
+          {bnNode(label)}
           <ArrowUpRight size={17} />
         </Link>
-      )}
+      ))}
     </div>
   );
 }
@@ -93,7 +94,7 @@ export function Badge({
   children: ReactNode;
   tone?: string;
 }) {
-  return <span className={`badge ${tone}`}>{children}</span>;
+  return <span className={`badge ${tone}`}>{bnNode(children)}</span>;
 }
 export function Empty({
   icon: Icon = ShoppingBag,
@@ -111,9 +112,9 @@ export function Empty({
       <div className="empty-icon">
         <Icon size={30} strokeWidth={1.3} />
       </div>
-      <h2>{title}</h2>
-      <p>{text}</p>
-      {action}
+      <h2>{bnNode(title)}</h2>
+      <p>{bnNode(text)}</p>
+      {bnNode(action)}
     </div>
   );
 }
@@ -171,21 +172,21 @@ export function Modal({
         className={`modal ${wide ? "wide" : ""}`}
         role="dialog"
         aria-modal="true"
-        aria-label={title}
+        aria-label={bnNode(title)}
         tabIndex={-1}
         ref={ref}
       >
         <div className="modal-head">
-          <h2>{title}</h2>
+          <h2>{bnNode(title)}</h2>
           <button
             className="icon-btn"
-            aria-label="Close dialog"
+            aria-label={bnNode("Close dialog")}
             onClick={onClose}
           >
             <X />
           </button>
         </div>
-        {children}
+        {bnNode(children)}
       </div>
     </div>
   );
@@ -202,15 +203,15 @@ export function Quantity({
   return (
     <div className="quantity">
       <button
-        aria-label="Decrease quantity"
+        aria-label={bnNode("Decrease quantity")}
         disabled={value <= 1}
         onClick={() => onChange(value - 1)}
       >
         <Minus size={14} />
       </button>
-      <span>{value}</span>
+      <span>{bnNode(value)}</span>
       <button
-        aria-label="Increase quantity"
+        aria-label={bnNode("Increase quantity")}
         disabled={value >= max}
         onClick={() => onChange(value + 1)}
       >
@@ -236,13 +237,13 @@ export function ProductCard({
   return (
     <article className={`product-card ${compact ? "compact" : ""}`}>
       <div className="product-photo">
-        <Link to={productHref(p, categories)} aria-label={`View ${p.name}`}>
-          <img src={p.image} alt={p.name} loading="lazy" />
+        <Link to={productHref(p, categories)} aria-label={bnNode(`View ${p.name}`)}>
+          <img src={p.image} alt={bnNode(p.name)} loading="lazy" />
         </Link>
-        {p.badge && <Badge tone={p.oldPrice ? "warm" : ""}>{p.badge}</Badge>}
+        {bnNode(p.badge && <Badge tone={p.oldPrice ? "warm" : ""}>{bnNode(p.badge)}</Badge>)}
         <button
           className={`wish-btn ${wishlist.includes(p.id) ? "saved" : ""}`}
-          aria-label={`${wishlist.includes(p.id) ? "Remove" : "Save"} ${p.name} ${wishlist.includes(p.id) ? "from" : "to"} wishlist`}
+          aria-label={bnNode(`${wishlist.includes(p.id) ? "Remove" : "Save"} ${p.name} ${wishlist.includes(p.id) ? "from" : "to"} wishlist`)}
           onClick={() => toggleWish(p.id)}
         >
           <Heart
@@ -256,41 +257,40 @@ export function ProductCard({
           onClick={() => addToCart(p.id, 1, variant)}
         >
           <Plus size={16} />
-          {p.stock ? "Quick add" : "Out of stock"}
+          {bnNode(p.stock ? "Quick add" : "Out of stock")}
         </button>
       </div>
       <div className="product-info">
         <div className="product-meta">
-          <span>{p.subcategory}</span>
+          <span>{bnNode(p.subcategory)}</span>
           <span className="rating">
-            {p.rating ? "★ " : ""}{" "}
-            <b>{p.rating ? p.rating.toFixed(1) : "New"}</b>
+            {bnNode(p.rating ? "★ " : "")}{bnNode(" ")}
+            <b>{bnNode(p.rating ? p.rating.toFixed(1) : "New")}</b>
           </span>
         </div>
         <Link className="product-name" to={productHref(p, categories)}>
-          {p.name}
+          {bnNode(p.name)}
         </Link>
-        {savedView && (
+        {bnNode(savedView && (
           <div className="wishlist-variant">
-            <span>{variant}</span>
-            {Number(notes["wish-price-" + p.id]) > displayPrice && (
-              <span>
-                Price dropped{" "}
-                {money(Number(notes["wish-price-" + p.id]) - displayPrice)}
+            <span>{bnNode(variant)}</span>
+            {bnNode(Number(notes["wish-price-" + p.id]) > displayPrice && (
+              <span>{bnNode("Price dropped")}{bnNode(" ")}
+                {bnNode(money(Number(notes["wish-price-" + p.id]) - displayPrice))}
               </span>
-            )}
-            {!p.stock && <span>Awaiting a refill</span>}
+            ))}
+            {bnNode(!p.stock && <span>{bnNode("Awaiting a refill")}</span>)}
           </div>
-        )}
+        ))}
         <div className="product-bottom">
           <span className="price">
-            {money(displayPrice)}{" "}
-            {p.oldPrice > displayPrice && <del>{money(p.oldPrice)}</del>}
+            {bnNode(money(displayPrice))}{bnNode(" ")}
+            {bnNode(p.oldPrice > displayPrice && <del>{bnNode(money(p.oldPrice))}</del>)}
           </span>
-          <span className="muted small">{variant}</span>
+          <span className="muted small">{bnNode(variant)}</span>
           <button
             className="mobile-add icon-btn"
-            aria-label={`Add ${p.name} to bag`}
+            aria-label={bnNode(`Add ${p.name} to bag`)}
             disabled={!p.stock}
             onClick={() => addToCart(p.id, 1, variant)}
           >
@@ -345,15 +345,12 @@ export function Header() {
       <div className="announcement">
         <div className="container">
           <span>
-            <Leaf size={12} /> Thoughtfully sourced. Naturally better.
-          </span>
-          <span className="announcement-center">
-            Free delivery on orders over {money(settings.freeShipping)}{" "}
-            <span className="tiny-dot" /> Cash on delivery available
-          </span>
+            <Leaf size={12} />{bnNode(" Thoughtfully sourced. Naturally better.")}</span>
+          <span className="announcement-center">{bnNode("Free delivery on orders over ")}{bnNode(money(settings.freeShipping))}{bnNode(" ")}
+            <span className="tiny-dot" />{bnNode(" Cash on delivery available")}</span>
           <div>
-            <Link to="/track">Track your order</Link>
-            <Link to="/help">Help</Link>
+            <Link to="/track">{bnNode("Track your order")}</Link>
+            <Link to="/help">{bnNode("Help")}</Link>
           </div>
         </div>
       </div>
@@ -361,40 +358,37 @@ export function Header() {
         <div className="container header-main">
           <button
             className="icon-btn mobile-menu"
-            aria-label="Open menu"
+            aria-label={bnNode("Open menu")}
             onClick={() => setMenu(!menu)}
           >
-            {menu ? <X /> : <Menu />}
+            {bnNode(menu ? <X /> : <Menu />)}
           </button>
-          <Link to="/" className="wordmark" aria-label="Nirbhor home">
-            {settings.name}
+          <Link to="/" className="wordmark" aria-label={bnNode("Nirbhor home")}>
+            {bnNode(settings.name)}
             <span className="brand-leaf">
               <Leaf size={15} />
             </span>
           </Link>
-          <nav className="desktop-nav" aria-label="Main navigation">
+          <nav className="desktop-nav" aria-label={bnNode("Main navigation")}>
             <div onMouseEnter={() => setMega(true)}>
               <button
                 className={mega ? "nav-active" : ""}
                 onClick={() => setMega(!mega)}
                 aria-expanded={mega}
-              >
-                Shop <ChevronDown size={12} />
+              >{bnNode("Shop ")}<ChevronDown size={12} />
               </button>
             </div>
-            <NavLink to="/shop?category=Organic+Food">Organic food</NavLink>
-            <NavLink to="/shop?category=Home+%26+Living">Home & living</NavLink>
-            <Link to="/offers" className="offers-link">
-              Offers
-              <span />
+            <NavLink to="/shop?category=Organic+Food">{bnNode("Organic food")}</NavLink>
+            <NavLink to="/shop?category=Home+%26+Living">{bnNode("Home & living")}</NavLink>
+            <Link to="/offers" className="offers-link">{bnNode("Offers")}<span />
             </Link>
           </nav>
           <div className="header-search" ref={searchBox}>
             <form onSubmit={submit}>
               <Search size={17} />
               <input
-                aria-label="Search products"
-                placeholder="Search for a little goodness…"
+                aria-label={bnNode("Search products")}
+                placeholder={bnNode("Search for a little goodness…")}
                 value={search}
                 onFocus={() => setFocused(true)}
                 onChange={(e) => {
@@ -402,21 +396,21 @@ export function Header() {
                   setFocused(true);
                 }}
               />
-              <kbd>⌘ K</kbd>
+              <kbd>{bnNode("⌘ K")}</kbd>
             </form>
-            {focused && (
+            {bnNode(focused && (
               <div className="search-popover">
                 <div className="popover-label">
-                  {search ? "A few good finds" : "Popular searches"}
+                  {bnNode(search ? "A few good finds" : "Popular searches")}
                 </div>
-                {!search ? (
+                {bnNode(!search ? (
                   <div className="search-chips">
-                    {["Raw honey", "Mixed nuts", "Tea", "Home"].map((x) => (
+                    {bnNode(["Raw honey", "Mixed nuts", "Tea", "Home"].map((x) => (
                       <Link key={x} to={`/shop?q=${x}`}>
                         <Search size={12} />
-                        {x}
+                        {bnNode(x)}
                       </Link>
-                    ))}
+                    )))}
                   </div>
                 ) : matches.length ? (
                   matches.map((p) => (
@@ -425,58 +419,55 @@ export function Header() {
                       key={p.id}
                       to={productHref(p, categories)}
                     >
-                      <img src={p.image} alt="" />
+                      <img src={p.image} alt={bnNode("")} />
                       <div>
-                        {p.name}
-                        <small>{p.weight}</small>
+                        {bnNode(p.name)}
+                        <small>{bnNode(p.weight)}</small>
                       </div>
-                      <b>{money(p.price)}</b>
+                      <b>{bnNode(money(p.price))}</b>
                     </Link>
                   ))
                 ) : (
-                  <p className="small muted">
-                    No exact matches. Try a category or view suggestions.
-                  </p>
-                )}
+                  <p className="small muted">{bnNode("No exact matches. Try a category or view suggestions.")}</p>
+                ))}
                 <Link
                   className="text-link"
                   to={`/shop?q=${encodeURIComponent(search)}`}
-                >
-                  See all results <ArrowRight size={15} />
+                >{bnNode("See all results ")}<ArrowRight size={15} />
                 </Link>
               </div>
-            )}
+            ))}
           </div>
           <div className="header-actions">
             <Link
               className="icon-btn account-icon"
               to="/account"
-              aria-label="My account"
+              aria-label={bnNode("My account")}
             >
               <UserRound size={20} />
             </Link>
-            <Link className="icon-btn" to="/wishlist" aria-label="Wishlist">
+            <Link className="icon-btn" to="/wishlist" aria-label={bnNode("Wishlist")}>
               <Heart size={20} />
-              {wishlist.length > 0 && (
-                <span className="count">{wishlist.length}</span>
-              )}
+              {bnNode(wishlist.length > 0 && (
+                <span className="count">{bnNode(wishlist.length)}</span>
+              ))}
             </Link>
             <button
               className="icon-btn bag-icon"
-              aria-label="Open shopping bag"
+              aria-label={bnNode("Open shopping bag")}
               onClick={() => setDrawer(true)}
             >
               <ShoppingBag size={20} />
               <span className="count">
-                {cart.reduce((s, x) => s + x.quantity, 0)}
+                {bnNode(cart.reduce((s, x) => s + x.quantity, 0))}
               </span>
             </button>
           </div>
         </div>
-        {mega && (
+        {bnNode(mega && (
           <div className="mega-menu" onMouseLeave={() => setMega(false)}>
             <div className="container mega-content">
-              {categories
+              {bnNode(categories
                 .filter((c) => !c.parent && c.active)
                 .slice(0, 4)
                 .map((c) => (
@@ -485,10 +476,10 @@ export function Header() {
                       className="mega-title"
                       to={`/shop?category=${encodeURIComponent(c.name)}`}
                     >
-                      {c.name}
+                      {bnNode(c.name)}
                       <ArrowUpRight size={14} />
                     </Link>
-                    {categories
+                    {bnNode(categories
                       .filter(
                         (x) =>
                           descendants(categories, c.name).has(x.name) &&
@@ -499,10 +490,10 @@ export function Header() {
                           key={x.id}
                           to={`/shop?category=${encodeURIComponent(c.name)}&subcategory=${encodeURIComponent(x.name)}`}
                         >
-                          {x.name}
+                          {bnNode(x.name)}
                         </Link>
-                      ))}
-                    {!categories.some((x) => x.parent === c.name) &&
+                      )))}
+                    {bnNode(!categories.some((x) => x.parent === c.name) &&
                       [
                         "Explore collection",
                         "New arrivals",
@@ -512,35 +503,34 @@ export function Header() {
                           key={x}
                           to={`/shop?category=${encodeURIComponent(c.name)}${i === 1 ? "&collection=new" : ""}`}
                         >
-                          {x}
+                          {bnNode(x)}
                         </Link>
-                      ))}
+                      )))}
                   </div>
-                ))}
+                )))}
               <Link className="mega-feature" to="/campaign/p1">
                 <Leaf size={24} />
-                <strong>The harvest edit</strong>
-                <span>Good things, in season.</span>
-                <span className="text-link">
-                  Discover the story <ArrowRight size={15} />
+                <strong>{bnNode("The harvest edit")}</strong>
+                <span>{bnNode("Good things, in season.")}</span>
+                <span className="text-link">{bnNode("Discover the story ")}<ArrowRight size={15} />
                 </span>
               </Link>
             </div>
           </div>
-        )}
+        ))}
       </header>
-      {menu && (
+      {bnNode(menu && (
         <div className="mobile-nav">
           <form onSubmit={submit} className="search-field">
             <Search size={17} />
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search products"
-              aria-label="Mobile search"
+              placeholder={bnNode("Search products")}
+              aria-label={bnNode("Mobile search")}
             />
           </form>
-          {[
+          {bnNode([
             { name: "Shop all", path: "/shop" },
             ...categories
               .filter((c) => !c.parent && c.active)
@@ -554,12 +544,12 @@ export function Header() {
             { name: "Store admin", path: "/admin" },
           ].map((x) => (
             <Link key={x.path} to={x.path}>
-              {x.name}
+              {bnNode(x.name)}
               <ArrowUpRight size={18} />
             </Link>
-          ))}
+          )))}
         </div>
-      )}
+      ))}
     </>
   );
 }
@@ -567,7 +557,7 @@ export function TrustStrip() {
   const { content } = useStore();
   return (
     <div className="trust-strip container">
-      {[
+      {bnNode([
         {
           icon: Leaf,
           title: "Honest ingredients",
@@ -592,11 +582,11 @@ export function TrustStrip() {
         <div key={x.title}>
           <x.icon size={25} strokeWidth={1.4} />
           <div>
-            <strong>{content[`trust-heading-${i}`] || x.title}</strong>
-            <span>{content[`trust-text-${i}`] || x.text}</span>
+            <strong>{bnNode(content[`trust-heading-${i}`] || x.title)}</strong>
+            <span>{bnNode(content[`trust-text-${i}`] || x.text)}</span>
           </div>
         </div>
-      ))}
+      )))}
     </div>
   );
 }
@@ -611,12 +601,9 @@ export function Newsletter() {
           <Mail size={29} strokeWidth={1.3} />
         </div>
         <div>
-          <span className="eyebrow">A GOOD THING IN YOUR INBOX</span>
-          <h2>{content.newsletter || "Stay close to the good stuff."}</h2>
-          <p>
-            Fresh arrivals, thoughtful stories, and a little something just for
-            you.
-          </p>
+          <span className="eyebrow">{bnNode("A GOOD THING IN YOUR INBOX")}</span>
+          <h2>{bnNode(content.newsletter || "Stay close to the good stuff.")}</h2>
+          <p>{bnNode("Fresh arrivals, thoughtful stories, and a little something just for you.")}</p>
         </div>
         <form
           onSubmit={(e) => {
@@ -632,18 +619,16 @@ export function Newsletter() {
             setEmail("");
           }}
         >
-          <label className="sr-only" htmlFor="newsletter-email">
-            Email address
-          </label>
+          <label className="sr-only" htmlFor="newsletter-email">{bnNode("Email address")}</label>
           <input
             id="newsletter-email"
             type="email"
-            placeholder="Your email address"
+            placeholder={bnNode("Your email address")}
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <button aria-label="Subscribe to newsletter">
+          <button aria-label={bnNode("Subscribe to newsletter")}>
             <ArrowRight size={21} />
           </button>
         </form>
@@ -660,21 +645,15 @@ export function Footer() {
         <div className="container footer-grid">
           <div className="footer-brand">
             <Link to="/" className="wordmark">
-              {settings.name}
+              {bnNode(settings.name)}
             </Link>
-            <p>
-              Good choices. A trusted place.
-              <br />
-              Pantry, beauty, fashion, home.
-              <br />
-              Everyday, well chosen.
-            </p>
+            <p>{bnNode("Good choices. A trusted place.")}<br />{bnNode("Pantry, beauty, fashion, home.")}<br />{bnNode("Everyday, well chosen.")}</p>
             <div className="socials">
               <a
                 href={settings.social}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="Facebook"
+                aria-label={bnNode("Facebook")}
               >
                 <Facebook size={17} />
               </a>
@@ -682,15 +661,15 @@ export function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
-                aria-label="Instagram"
+                aria-label={bnNode("Instagram")}
               >
                 <Instagram size={17} />
               </a>
             </div>
           </div>
           <div>
-            <h4>Explore</h4>
-            {[
+            <h4>{bnNode("Explore")}</h4>
+            {bnNode([
               ["Shop all", "/shop"],
               ["Organic", "/organic"],
               ["Home & living", "/home-living"],
@@ -699,13 +678,13 @@ export function Footer() {
               ["Offers & bundles", "/offers"],
             ].map(([t, u]) => (
               <Link to={u} key={t}>
-                {t}
+                {bnNode(t)}
               </Link>
-            ))}
+            )))}
           </div>
           <div>
-            <h4>Here to help</h4>
-            {[
+            <h4>{bnNode("Here to help")}</h4>
+            {bnNode([
               ["Track your order", "/track"],
               ["Delivery & shipping", "/page/shipping"],
               ["Returns & refunds", "/page/returns"],
@@ -713,13 +692,13 @@ export function Footer() {
               ["Contact us", "/contact"],
             ].map(([t, u]) => (
               <Link to={u} key={t}>
-                {t}
+                {bnNode(t)}
               </Link>
-            ))}
+            )))}
           </div>
           <div>
-            <h4>A little about us</h4>
-            {[
+            <h4>{bnNode("A little about us")}</h4>
+            {bnNode([
               ["Our story", "/about"],
               ["Our sourcing promise", "/page/sourcing"],
               ["Privacy policy", "/page/privacy"],
@@ -727,33 +706,29 @@ export function Footer() {
               ["Store admin ↗", "/admin"],
             ].map(([t, u]) => (
               <Link to={u} key={t}>
-                {t}
+                {bnNode(t)}
               </Link>
-            ))}
+            )))}
           </div>
           <div className="footer-contact">
-            <h4>Let’s talk goodness.</h4>
-            <a href={`mailto:${settings.email}`}>{settings.email}</a>
-            <a href={`tel:${settings.phone}`}>{settings.phone}</a>
-            <p>
-              Saturday–Thursday, 9am–6pm
-              <br />
-              {settings.address}
+            <h4>{bnNode("Let’s talk goodness.")}</h4>
+            <a href={`mailto:${settings.email}`}>{bnNode(settings.email)}</a>
+            <a href={`tel:${settings.phone}`}>{bnNode(settings.phone)}</a>
+            <p>{bnNode("Saturday–Thursday, 9am–6pm")}<br />
+              {bnNode(settings.address)}
             </p>
-            <Badge>Made for everyday Bangladesh</Badge>
+            <Badge>{bnNode("Made for everyday Bangladesh")}</Badge>
           </div>
         </div>
         <div className="container footer-bottom">
-          <span>
-            © {new Date().getFullYear()} {settings.name}. Thoughtfully, always.
-          </span>
+          <span>{bnNode("© ")}{bnNode(new Date().getFullYear())} {bnNode(settings.name)}{bnNode(". Thoughtfully, always.")}</span>
           <span className="payment-marks">
-            <span>CASH ON DELIVERY</span>
-            <b>bKash</b>
-            <b>VISA</b>
-            <span>◉ Mastercard</span>
+            <span>{bnNode("CASH ON DELIVERY")}</span>
+            <b>{bnNode("bKash")}</b>
+            <b>{bnNode("VISA")}</b>
+            <span>{bnNode("◉ Mastercard")}</span>
           </span>
-          <span>Good choices. Good living.</span>
+          <span>{bnNode("Good choices. Good living.")}</span>
         </div>
       </footer>
     </>
@@ -806,37 +781,33 @@ export function CartDrawer() {
         ref={drawerRef}
         className="cart-drawer"
         role="dialog"
-        aria-label="Shopping bag"
+        aria-label={bnNode("Shopping bag")}
         aria-modal="true"
         onKeyDown={(e) => e.key === "Escape" && setDrawer(false)}
       >
         <div className="drawer-head">
-          <h2>
-            Your bag <span>({cart.reduce((n, x) => n + x.quantity, 0)})</span>
+          <h2>{bnNode("Your bag ")}<span>{bnNode("(")}{bnNode(cart.reduce((n, x) => n + x.quantity, 0))}{bnNode(")")}</span>
           </h2>
           <button
             className="icon-btn"
             autoFocus
-            aria-label="Close bag"
+            aria-label={bnNode("Close bag")}
             onClick={() => setDrawer(false)}
           >
             <X />
           </button>
         </div>
-        {cart.length ? (
+        {bnNode(cart.length ? (
           <>
             <div className="shipping-progress">
               <Truck size={18} />
               <span>
-                {total.subtotal >= settings.freeShipping ? (
+                {bnNode(total.subtotal >= settings.freeShipping ? (
                   "Your order qualifies for free delivery!"
                 ) : (
-                  <>
-                    You’re{" "}
-                    <b>{money(settings.freeShipping - total.subtotal)}</b> away
-                    from free delivery.
-                  </>
-                )}
+                  <>{bnNode("You’re")}{bnNode(" ")}
+                    <b>{bnNode(money(settings.freeShipping - total.subtotal))}</b>{bnNode(" away from free delivery.")}</>
+                ))}
               </span>
               <progress
                 value={Math.min(total.subtotal, settings.freeShipping)}
@@ -844,7 +815,7 @@ export function CartDrawer() {
               />
             </div>
             <div className="drawer-items">
-              {cart.map((item, i) => {
+              {bnNode(cart.map((item, i) => {
                 const p = products.find((p) => p.id === item.id);
                 if (!p) return null;
                 return (
@@ -853,11 +824,11 @@ export function CartDrawer() {
                       to={`/product/${p.id}`}
                       onClick={() => setDrawer(false)}
                     >
-                      <img src={p.image} alt={p.name} />
+                      <img src={p.image} alt={bnNode(p.name)} />
                     </Link>
                     <div>
-                      <strong>{p.name}</strong>
-                      <span className="small muted">{item.variant}</span>
+                      <strong>{bnNode(p.name)}</strong>
+                      <span className="small muted">{bnNode(item.variant)}</span>
                       <Quantity
                         value={item.quantity}
                         max={p.stock}
@@ -871,36 +842,31 @@ export function CartDrawer() {
                       />
                     </div>
                     <div>
-                      <b>{money(itemPrice(p, item.variant) * item.quantity)}</b>
+                      <b>{bnNode(money(itemPrice(p, item.variant) * item.quantity))}</b>
                       <button
                         className="text-button small muted"
                         onClick={() =>
                           setCart((x) => x.filter((_, j) => j !== i))
                         }
-                      >
-                        Remove
-                      </button>
+                      >{bnNode("Remove")}</button>
                     </div>
                   </div>
                 );
-              })}
+              }))}
             </div>
             <div className="drawer-bottom">
               <div className="summary-line">
-                <b>Subtotal</b>
-                <b>{money(total.subtotal)}</b>
+                <b>{bnNode("Subtotal")}</b>
+                <b>{bnNode(money(total.subtotal))}</b>
               </div>
-              <p className="small muted">
-                Delivery and discounts calculated at checkout.
-              </p>
+              <p className="small muted">{bnNode("Delivery and discounts calculated at checkout.")}</p>
               <Button
                 className="full"
                 onClick={() => {
                   setDrawer(false);
                   navigate("/checkout");
                 }}
-              >
-                Continue to checkout <ArrowRight size={17} />
+              >{bnNode("Continue to checkout ")}<ArrowRight size={17} />
               </Button>
               <Button
                 className="full"
@@ -909,18 +875,14 @@ export function CartDrawer() {
                   setDrawer(false);
                   navigate("/cart");
                 }}
-              >
-                View your bag
-              </Button>
+              >{bnNode("View your bag")}</Button>
               <span className="secure-note">
-                <ShieldCheck size={14} /> A little care, from checkout to
-                doorstep.
-              </span>
+                <ShieldCheck size={14} />{bnNode(" A little care, from checkout to doorstep.")}</span>
             </div>
           </>
         ) : (
           <Empty
-            title="A little empty, for now."
+            title={bnNode("A little empty, for now.")}
             text="Good things are waiting to be discovered."
             action={
               <Button
@@ -928,12 +890,11 @@ export function CartDrawer() {
                   setDrawer(false);
                   navigate("/shop");
                 }}
-              >
-                Explore the shop <ArrowRight size={16} />
+              >{bnNode("Explore the shop ")}<ArrowRight size={16} />
               </Button>
             }
           />
-        )}
+        ))}
       </aside>
     </div>
   );
@@ -944,14 +905,14 @@ export function Breadcrumb({
   items: { label: string; to?: string }[];
 }) {
   return (
-    <nav className="breadcrumb" aria-label="Breadcrumb">
-      <Link to="/">Home</Link>
-      {items.map((x, i) => (
+    <nav className="breadcrumb" aria-label={bnNode("Breadcrumb")}>
+      <Link to="/">{bnNode("Home")}</Link>
+      {bnNode(items.map((x, i) => (
         <span key={i}>
           <ChevronRight size={12} />
-          {x.to ? <Link to={x.to}>{x.label}</Link> : x.label}
+          {bnNode(x.to ? <Link to={x.to}>{bnNode(x.label)}</Link> : x.label)}
         </span>
-      ))}
+      )))}
     </nav>
   );
 }

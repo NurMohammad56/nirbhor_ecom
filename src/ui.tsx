@@ -1,3 +1,4 @@
+import BrandLogo from "./BrandLogo";
 import { bnNode } from "./bn";
 import { productHref } from "./departments";
 import { descendants } from "./category-tree";
@@ -364,7 +365,7 @@ export function Header() {
             {bnNode(menu ? <X /> : <Menu />)}
           </button>
           <Link to="/" className="wordmark" aria-label={bnNode("Nirbhor home")}>
-            {bnNode(settings.name)}
+            <BrandLogo />
             <span className="brand-leaf">
               <Leaf size={15} />
             </span>
@@ -645,7 +646,7 @@ export function Footer() {
         <div className="container footer-grid">
           <div className="footer-brand">
             <Link to="/" className="wordmark">
-              {bnNode(settings.name)}
+              <BrandLogo />
             </Link>
             <p>{bnNode("Good choices. A trusted place.")}<br />{bnNode("Pantry, beauty, fashion, home.")}<br />{bnNode("Everyday, well chosen.")}</p>
             <div className="socials">
@@ -714,7 +715,7 @@ export function Footer() {
             <h4>{bnNode("Let’s talk goodness.")}</h4>
             <a href={`mailto:${settings.email}`}>{bnNode(settings.email)}</a>
             <a href={`tel:${settings.phone}`}>{bnNode(settings.phone)}</a>
-            <p>{bnNode("Saturday–Thursday, 9am–6pm")}<br />
+            <p>{bnNode("Saturday-Thursday, 9am-6pm")}<br />
               {bnNode(settings.address)}
             </p>
             <Badge>{bnNode("Made for everyday Bangladesh")}</Badge>

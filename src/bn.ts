@@ -1,6 +1,6 @@
 import { bnCopy } from "./bn-copy";
 
-const normal = (s: string) => s.replace(/\s+/g, " ").trim();
+const normal = (s: string) => s.replace(/[\u2013\u2014]/g, "-").replace(/\s+/g, " ").trim();
 const dictionary = new Map(Object.entries(bnCopy).map(([key, value]) => [normal(key).toLowerCase(), value]));
 const phrases = Object.entries(bnCopy).filter(([key]) => /[a-z]/i.test(key)).sort((a, b) => b[0].length - a[0].length);
 const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -9,6 +9,7 @@ export const bnNumber = (value: string | number) => String(value).replace(/[0-9]
 
 /** Translate presentation text only. IDs, enum values, routes and stored data stay stable. */
 export function bn(value: string): string {
+  value = value.replace(/[\u2013\u2014]/g, "-");
   if (!value || /^(https?:|data:|\/[a-z#]|#[a-f\d]{3,8}$)/i.test(value) || /^[\w.+-]+@[\w.-]+\.[a-z]+$/i.test(value) || /^(?:NBR-|SH-|DEMO-|NIRBHOR\d|WELCOME\d|FREESHIP)[\w-]*$/i.test(value) || /^[a-z]+\d[a-z\d]*$/i.test(value)) return value;
   const trimmed = normal(value);
   const exact = bnCopy[trimmed] ?? dictionary.get(trimmed.toLowerCase());

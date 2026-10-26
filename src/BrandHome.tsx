@@ -18,6 +18,8 @@ import {
 import { brandBanners } from "./department-state";
 import CinematicHero from "./CinematicHero";
 import { Botanical } from "./SceneMotion";
+import CategoryRail from "./CategoryRail";
+import CustomerVoices from "./CustomerVoices";
 
 export default function BrandHome() {
   const { products, categories, banners, content } = useStore();
@@ -95,47 +97,7 @@ export default function BrandHome() {
           </div>
           <p>{bnNode("Different corners of your life.")}<br />{bnNode("The same care in every choice.")}</p>
         </div>
-        <div className="brand-department-grid">
-          {bnNode(visibleDepartments.map((d, i) => {
-            const exp = experienceForDepartment(d, categories);
-            return (
-              <Link
-                to={"/" + d.slug}
-                className={"brand-department-card department-card-" + d.slug}
-                key={d.slug}
-                style={
-                  {
-                    "--card-accent": exp.accent,
-                    "--card-bg": exp.background,
-                  } as React.CSSProperties
-                }
-              >
-                <div className="brand-department-image">
-                  <img
-                    src={exp.heroImage}
-                    alt={bnNode(`Nirbhor ${d.name} collection`)}
-                    loading="lazy"
-                  />
-                  <span className="department-card-number">{bnNode("0")}{bnNode(i + 1)}</span>
-                  <span className="department-card-pill">
-                    {bnNode(d.collectionLabel)}
-                  </span>
-                </div>
-                <div className="brand-department-caption">
-                  <span className="brand-eyebrow">{bnNode("NIRBHOR ")}{bnNode(d.name.toUpperCase())}
-                  </span>
-                  <div>
-                    <h3>{bnNode(d.name === "Home" ? "Home & living" : d.name)}</h3>
-                    <span className="department-open">
-                      <ArrowUpRight size={20} />
-                    </span>
-                  </div>
-                  <p>{bnNode(d.tagline)}</p>
-                </div>
-              </Link>
-            );
-          }))}
-        </div>
+        <CategoryRail items={categories.filter(c => !c.parent && c.active).filter(c => { const d = departments.find(item => item.categoryId === c.id); return !d || experienceForDepartment(d, categories).enabled; }).sort((a,b) => a.sort-b.sort).map(c => { const d = departments.find(item => item.categoryId === c.id); return { id:c.id, name:d ? (d.name === "Home" ? "Home & living" : d.name) : c.name, image:d ? experienceForDepartment(d, categories).heroImage : c.image, to:d ? "/"+d.slug : "/shop?category="+encodeURIComponent(c.name), department:!!d }; })} />
       </section>
 
       <section className="container brand-section brand-everyday-edit">
@@ -167,12 +129,13 @@ export default function BrandHome() {
           )))}
         </div>
       </section>
+      <CustomerVoices />
       <section className="brand-story-wrap botanical-stage">
         <Botanical kind="dry" className="story-botanical" />
         <div className="container brand-story">
           <div className="brand-story-image">
             <img
-              src="/assets/brand-story-v3.webp"
+              src="/assets/brand-story-v5.webp"
               alt={bnNode("Carefully wrapping selected everyday products at the Nirbhor packing table")}
               loading="lazy"
             />
@@ -182,7 +145,7 @@ export default function BrandHome() {
             <h2>{bnNode("Care in what we choose.")}<br />
               <em>{bnNode("Confidence in what you do.")}</em>
             </h2>
-            <p>{bnNode("Nirbhor brings together the things that make up your everyday. Good food, personal care, pieces to wear, and objects to live with — selected with a little more thought.")}</p>
+            <p>{bnNode("Nirbhor brings together the things that make up your everyday. Good food, personal care, pieces to wear, and objects to live with - selected with a little more thought.")}</p>
             <div className="brand-principles">
               {bnNode([
                 [

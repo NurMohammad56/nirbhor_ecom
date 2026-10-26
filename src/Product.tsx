@@ -86,13 +86,13 @@ export function Faq({ campaign = false }: { campaign?: boolean }) {
         ],
         [
           "When will my order arrive?",
-          `Delivery typically takes 1–2 working days in Dhaka and 3–5 working days outside Dhaka. Delivery is free over ${money(settings.freeShipping)}.`,
+          `Delivery typically takes 1-2 working days in Dhaka and 3-5 working days outside Dhaka. Delivery is free over ${money(settings.freeShipping)}.`,
         ],
       ]
     : [
         [
           "Where do you deliver?",
-          "We deliver across Bangladesh. Dhaka orders usually arrive within 1–2 working days; other areas within 3–5 working days.",
+          "We deliver across Bangladesh. Dhaka orders usually arrive within 1-2 working days; other areas within 3-5 working days.",
         ],
         [
           "How much is delivery?",
@@ -188,7 +188,7 @@ export function Reviews({ product: p }: { product: Product }) {
       <div className="reviews-overview">
         <div>
           <span className="review-score">
-            {bnNode(average ? average.toFixed(1) : "—")}
+            {bnNode(average ? average.toFixed(1) : "-")}
           </span>
           <div>
             <span className="stars">
@@ -260,7 +260,8 @@ export function Reviews({ product: p }: { product: Product }) {
                   .join(""))}
               </span>
               <strong>{bnNode(r.name)}</strong>
-              {bnNode(r.verified && (
+              {r.demo && <span className="review-demo-badge">নমুনা রিভিউ</span>}
+              {bnNode(!r.demo && r.verified && (
                 <span>
                   <Check size={12} />{bnNode(" Verified purchase")}</span>
               ))}
@@ -669,7 +670,7 @@ export default function ProductPage({
               <div className="main-product-photo">
                 <img
                   src={gallery[imageIndex] || p.image}
-                  alt={bnNode(`${p.name} — view ${imageIndex + 1}`)}
+                  alt={bnNode(`${p.name} - view ${imageIndex + 1}`)}
                 />
                 <button
                   className="gallery-zoom icon-btn"
@@ -855,7 +856,7 @@ export default function ProductPage({
                   <Truck size={17} />
                   <div>
                     <b>{bnNode("A little care, delivered.")}</b>
-                    <small>{bnNode("Dhaka 1–2 days · Nationwide 3–5 days")}</small>
+                    <small>{bnNode("Dhaka 1-2 days · Nationwide 3-5 days")}</small>
                   </div>
                 </span>
                 <span>
@@ -1013,8 +1014,8 @@ export default function ProductPage({
                   <>
                     <div>
                       <h2>{bnNode("Goodness, delivered with care.")}</h2>
-                      <p>{bnNode("Dhaka: 1–2 working days · ")}{bnNode(money(s.settings.dhaka))}
-                        <br />{bnNode("Outside Dhaka: 3–5 working days ·")}{bnNode(" ")}
+                      <p>{bnNode("Dhaka: 1-2 working days · ")}{bnNode(money(s.settings.dhaka))}
+                        <br />{bnNode("Outside Dhaka: 3-5 working days ·")}{bnNode(" ")}
                         {bnNode(money(s.settings.outside))}
                         <br />{bnNode(`${money(s.settings.freeShipping)}-এর বেশি কেনাকাটায় ফ্রি ডেলিভারি।`)}</p>
                       <Link to="/page/shipping" className="text-link">{bnNode("Our delivery promise ")}<ArrowUpRight size={14} />
@@ -1128,7 +1129,7 @@ export default function ProductPage({
       ))}
       {bnNode(zoom && (
         <Modal
-          title={bnNode(p.name + " — a closer look")}
+          title={bnNode(p.name + " - a closer look")}
           onClose={() => setZoom(false)}
           wide
         >
@@ -1141,7 +1142,7 @@ export default function ProductPage({
       ))}
       {bnNode(guideOpen && p.sizeGuide && (
         <Modal
-          title={bnNode(p.name + " — size guide")}
+          title={bnNode(p.name + " - size guide")}
           onClose={() => setGuideOpen(false)}
         >
           <p className="size-guide-intro">{bnNode("Compare these garment measurements with a piece you already own. All measurements are in inches.")}</p>

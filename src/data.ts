@@ -86,6 +86,7 @@ export type Review = {
   media: string;
   reply: string;
   verified: boolean;
+  demo?: boolean;
 };
 export type Category = {
   id: string;
@@ -495,7 +496,7 @@ export const seedCampaigns: Campaign[] = [
     id: "camp1",
     name: "The Sundarban Harvest",
     headline: "Wild by nature. Pure by promise.",
-    announcement: "The harvest edit — save 20% on raw Sundarban honey",
+    announcement: "The harvest edit - save 20% on raw Sundarban honey",
     label: "HARVEST SPECIAL · 20% OFF",
     start: "2026-10-01",
     end: "2027-01-31T23:59",
@@ -616,6 +617,7 @@ export const seedReviews: Review[] = [
     media: "",
     reply: "Thank you for making us part of your mornings, Samia.",
     verified: true,
+    demo: true,
   },
   {
     id: "r2",
@@ -631,6 +633,7 @@ export const seedReviews: Review[] = [
     media: "",
     reply: "",
     verified: true,
+    demo: true,
   },
   {
     id: "r3",
@@ -646,6 +649,7 @@ export const seedReviews: Review[] = [
     media: "",
     reply: "",
     verified: true,
+    demo: true,
   },
   {
     id: "r4",
@@ -661,6 +665,7 @@ export const seedReviews: Review[] = [
     media: "",
     reply: "",
     verified: true,
+    demo: true,
   },
 ];
 export const seedOrders: Order[] = [
@@ -719,7 +724,7 @@ export const seedSettings: Settings = {
   currency: "BDT",
   tax: 0,
   color: "#193f30",
-  seoTitle: "NIRBHOR — A little goodness, every day.",
+  seoTitle: "NIRBHOR - A little goodness, every day.",
   seoDescription: "Organic pantry, thoughtful home and everyday essentials.",
   social: "https://facebook.com",
   notifications: true,

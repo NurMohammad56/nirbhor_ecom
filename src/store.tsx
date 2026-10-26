@@ -3,6 +3,7 @@ import { eligibleCouponItems } from "./order-logic";
 import { migrateDepartmentState } from "./department-state";
 import { migrateSceneState } from "./scene-state";
 import { migrateBengaliState } from "./bn-state";
+import { migrateBrandState } from "./brand-state";
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode, Dispatch, SetStateAction } from "react";
 import {
@@ -39,7 +40,7 @@ function usePersist<T>(
   const [value, setValue] = useState<T>(() => {
     try {
       const saved = localStorage.getItem("nirbhor-v1-" + key);
-      return migrateBengaliState(key, migrateSceneState(key, migrateDepartmentState(key, saved ? JSON.parse(saved) : initial)));
+      return migrateBrandState(key, migrateBengaliState(key, migrateSceneState(key, migrateDepartmentState(key, saved ? JSON.parse(saved) : initial))));
     } catch {
       return initial;
     }

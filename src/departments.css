@@ -86,7 +86,7 @@ html:not([data-department="main"]) .wish-btn {
   font-family: var(--serif);
   font-size: 15px;
   letter-spacing: 0.5px;
-  font-style: italic;
+  font-style: normal;
   color: var(--department-accent);
   line-height: 1;
 }
@@ -939,7 +939,7 @@ html:not([data-department="main"]) .wish-btn {
 }
 .department-signature > i {
   font-family: var(--serif);
-  font-style: italic;
+  font-style: normal;
   font-size: 19px;
   letter-spacing: 0;
   margin-left: 6px;
@@ -1290,7 +1290,7 @@ html:not([data-department="main"]) .wish-btn {
 }
 .department-switcher a > span > b {
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   letter-spacing: 0;
   color: var(--department-accent);
   margin-left: 5px;

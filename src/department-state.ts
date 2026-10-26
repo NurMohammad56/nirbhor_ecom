@@ -103,8 +103,8 @@ export const departmentProducts: Product[] = [
     subcategory: "Skin Care",
     price: 1190,
     oldPrice: 1390,
-    image: "/assets/serum-float-v3.webp",
-    images: ["/assets/serum-float-v3.webp", "/assets/beauty-world-v4.webp"],
+    image: "/assets/serum-bare-v5.webp",
+    images: ["/assets/serum-bare-v5.webp", "/assets/beauty-world-v5.webp"],
     stock: 24,
     rating: 0,
     reviews: 0,
@@ -137,8 +137,8 @@ export const departmentProducts: Product[] = [
     subcategory: "Beauty Sets",
     price: 2190,
     oldPrice: 2490,
-    image: "/assets/beauty-world-v4.webp",
-    images: ["/assets/beauty-world-v4.webp"],
+    image: "/assets/beauty-world-v5.webp",
+    images: ["/assets/beauty-world-v5.webp"],
     stock: 16,
     rating: 0,
     reviews: 0,
@@ -199,9 +199,9 @@ export const departmentCategories: Category[] = [
     description: "Care that feels like you.",
     active: true,
     image: [
-      "/assets/serum-float-v3.webp",
+      "/assets/serum-bare-v5.webp",
       "/assets/soap-unbranded-v3.webp",
-      "/assets/beauty-world-v4.webp",
+      "/assets/beauty-world-v5.webp",
     ][i],
     sort: i,
   })),
@@ -211,7 +211,7 @@ export const departmentCategories: Category[] = [
     parent: "Home & Living",
     description: "Useful objects. Beautiful living.",
     active: true,
-    image: ["/assets/ceramic.webp", "/assets/linen.webp", "/assets/jars.webp"][
+    image: ["/assets/ceramic.webp", "/assets/linen-v5.webp", "/assets/jars.webp"][
       i
     ],
     sort: i,
@@ -226,7 +226,7 @@ export const brandBanners: Banner[] = [
     cta: "Find your everyday",
     link: "/#departments",
     active: true,
-    image: "/assets/brand-world-v4.webp",
+    image: "/assets/brand-world-v5.webp",
     order: 0,
     start: "",
     end: "",
@@ -239,7 +239,7 @@ export const brandBanners: Banner[] = [
     cta: "Explore beauty",
     link: "/beauty",
     active: true,
-    image: "/assets/beauty-world-v4.webp",
+    image: "/assets/beauty-world-v5.webp",
     order: 1,
     start: "",
     end: "",
@@ -323,8 +323,8 @@ export function migrateDepartmentState<T>(key: string, value: T): T {
           ? "Everyday, well chosen."
           : settings.tagline,
       seoTitle:
-        settings.seoTitle === "NIRBHOR — A little goodness, every day."
-          ? "NIRBHOR — Good choices. A trusted place."
+        settings.seoTitle === "NIRBHOR - A little goodness, every day."
+          ? "NIRBHOR - Good choices. A trusted place."
           : settings.seoTitle,
       seoDescription:
         settings.seoDescription ===

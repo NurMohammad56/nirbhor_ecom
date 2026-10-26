@@ -1,0 +1,72 @@
+[
+  {
+    "id": "p1",
+    "name": "সুন্দরবনের খাঁটি মধু",
+    "description": "প্রাকৃতিক স্বাদের মধু",
+    "quantity": "৫০০ গ্রাম",
+    "source": "honey"
+  },
+  {
+    "id": "p2",
+    "name": "প্রিমিয়াম মিক্সড নাটস",
+    "description": "নিত্যদিনের জন্য বাদামের মিক্স",
+    "quantity": "২৫০ গ্রাম",
+    "source": "nuts"
+  },
+  {
+    "id": "p3",
+    "name": "আজওয়া খেজুর",
+    "description": "বেছে নেওয়া খেজুর",
+    "quantity": "৫০০ গ্রাম",
+    "source": "dates"
+  },
+  {
+    "id": "p4",
+    "name": "হারবাল মর্নিং টি",
+    "description": "সকালের জন্য হারবাল চা",
+    "quantity": "১২ স্যাশে",
+    "source": "tea"
+  },
+  {
+    "id": "p5",
+    "name": "অর্গানিক গাওয়া ঘি",
+    "description": "দৈনন্দিন রান্নার জন্য ঘি",
+    "quantity": "৫০০ মিলি",
+    "source": "ghee"
+  },
+  {
+    "id": "p6",
+    "name": "চিয়া সিড",
+    "description": "প্রতিদিনের খাবারের সঙ্গে",
+    "quantity": "২৫০ গ্রাম",
+    "source": "seeds"
+  },
+  {
+    "id": "p7",
+    "name": "হানি রোস্টেড গ্র্যানোলা",
+    "description": "সকালের খাবারের জন্য",
+    "quantity": "৩৫০ গ্রাম",
+    "source": "granola"
+  },
+  {
+    "id": "p8",
+    "name": "কালোজিরার মধু",
+    "description": "প্রাকৃতিক স্বাদের মধু",
+    "quantity": "৫০০ গ্রাম",
+    "source": "honey"
+  },
+  {
+    "id": "p9",
+    "name": "খেজুর ও বীজের মিক্স",
+    "description": "খেজুর ও বীজের মিশ্রণ",
+    "quantity": "৪০০ গ্রাম",
+    "source": "dates"
+  },
+  {
+    "id": "p16",
+    "name": "অর্গানিক হলুদের গুঁড়া",
+    "description": "নিত্যদিনের রান্নার মসলা",
+    "quantity": "২০০ গ্রাম",
+    "source": "spices"
+  }
+]

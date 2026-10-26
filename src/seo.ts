@@ -35,7 +35,7 @@ export function useSeo() {
         : category
           ? `${category} | ${settings.name}`
           : department
-            ? `${settings.name} ${department.name} — ${department.tagline}`
+            ? `${settings.name} ${department.name} - ${department.tagline}`
             : settings.seoTitle;
     const description =
       product?.seoDescription ||
@@ -63,7 +63,7 @@ export function useSeo() {
     meta(
       "og:image",
       new URL(
-        product?.image || experience?.heroImage || "/assets/brand-world-v4.webp",
+        product?.image || experience?.heroImage || "/assets/brand-world-v5.webp",
         location.origin,
       ).href,
       true,

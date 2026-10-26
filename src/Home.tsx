@@ -197,7 +197,7 @@ export default function Home() {
                 <b>{bnNode("Discover the bundle ")}<ArrowUpRight size={15} />
                 </b>
               </div>
-              <img src="/assets/nuts.webp" alt={bnNode("Nourishing mixed nuts")} />
+              <img src="/assets/product-p2-v5.webp" alt={bnNode("Nourishing mixed nuts")} />
               <span className="promo-price">{bnNode("FROM ")}{bnNode(money(1290))}</span>
             </Link>
             <Link

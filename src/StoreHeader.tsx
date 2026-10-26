@@ -1,3 +1,4 @@
+import BrandLogo from "./BrandLogo";
 import { bnNode, searchText, latinDigits } from "./bn";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -115,7 +116,7 @@ export default function StoreHeader() {
           </button>
           <div className="brand-logo-lockup">
             <Link to="/" className="wordmark" aria-label={bnNode("Nirbhor home")}>
-              {bnNode(s.settings.name)}
+              <BrandLogo />
             </Link>
             {bnNode(department && (
               <Link

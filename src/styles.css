@@ -1545,7 +1545,7 @@ a:focus-visible {
   line-height: 1.2;
 }
 .brand-promise em {
-  font-style: italic;
+  font-style: normal;
   color: #819074;
 }
 .brand-promise p {
@@ -1691,7 +1691,7 @@ a:focus-visible {
 }
 .payment-marks b:nth-child(3) {
   font-size: 13px;
-  font-style: italic;
+  font-style: normal;
   color: #7a8b86;
 }
 .toast-stack {

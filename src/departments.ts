@@ -23,7 +23,7 @@ export const departments: Department[] = [
     name: "Organic",
     kicker: "GOODNESS, AT ITS ROOTS",
     tagline: "From honest origins to everyday rituals.",
-    image: "/assets/organic-world-v4.webp",
+    image: "/assets/organic-world-v5.webp",
     collectionLabel: "The pantry edit",
     storyImage: "/assets/source.webp",
     eyebrow: "PANTRY & EVERYDAY NOURISHMENT",
@@ -43,7 +43,7 @@ export const departments: Department[] = [
       heroTitle: "Naturally good.\nHonestly chosen.",
       description:
         "Golden honey, nourishing nuts, and everyday pantry essentials. Discover the simple pleasure of knowing what goes into your home.",
-      heroImage: "/assets/organic-world-v4.webp",
+      heroImage: "/assets/organic-world-v5.webp",
       accent: "#193f30",
       background: "#e9eedf",
       ink: "#263c2e",
@@ -62,9 +62,9 @@ export const departments: Department[] = [
     name: "Beauty",
     kicker: "CARE THAT FEELS LIKE YOU",
     tagline: "A considered moment, just for yourself.",
-    image: "/assets/beauty-world-v4.webp",
+    image: "/assets/beauty-world-v5.webp",
     collectionLabel: "The self-care edit",
-    storyImage: "/assets/serum-float-v3.webp",
+    storyImage: "/assets/serum-bare-v5.webp",
     eyebrow: "SKINCARE & PERSONAL RITUALS",
     subcategories: ["Skin Care", "Bath & Body", "Beauty Sets"],
     features: [
@@ -76,12 +76,12 @@ export const departments: Department[] = [
       heroTitle: "Your moment.\nBeautifully considered.",
       description:
         "Everyday care with a little intention. Explore skincare, gentle essentials and rituals that make time for you.",
-      heroImage: "/assets/beauty-world-v4.webp",
+      heroImage: "/assets/beauty-world-v5.webp",
       accent: "#754e63",
       background: "#f3e7e5",
       ink: "#49333e",
       announcement:
-        "The care edit — thoughtful essentials for your daily ritual.",
+        "The care edit - thoughtful essentials for your daily ritual.",
       storyTitle: "A little care.\nA ritual of your own.",
       storyText:
         "A good routine starts with understanding what you choose. Find ingredients, sizes and use instructions together, so you can build a ritual around your own needs.",
@@ -114,7 +114,7 @@ export const departments: Department[] = [
       background: "#ede9e1",
       ink: "#292d2a",
       announcement:
-        "The everyday wardrobe — natural textures, effortless silhouettes.",
+        "The everyday wardrobe - natural textures, effortless silhouettes.",
       storyTitle: "Good style lives\nin the details.",
       storyText:
         "The feel of a fabric. The line of a sleeve. A fit that gives you room to move. Look closer at the materials, measurements and care behind each piece.",
@@ -130,7 +130,7 @@ export const departments: Department[] = [
     tagline: "Objects to live with, beautifully.",
     image: "/assets/home-world-v4.webp",
     collectionLabel: "The considered home",
-    storyImage: "/assets/linen.webp",
+    storyImage: "/assets/linen-v5.webp",
     eyebrow: "HOMEWARE & THOUGHTFUL LIVING",
     subcategories: ["Kitchen & Dining", "Home Textiles", "Storage"],
     features: [

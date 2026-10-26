@@ -1,3 +1,4 @@
+import BrandLogo from "./BrandLogo";
 import { bnNode, latinDigits, searchText } from "./bn";
 import { descendants } from "./category-tree";
 import { useUpdateOrder } from "./inventory-actions";
@@ -226,7 +227,7 @@ export function CategoriesAdmin() {
                 name="parent"
                 defaultValue={edit === "new" ? "" : edit.parent}
               >
-                <option value="">{bnNode("None — top-level category")}</option>
+                <option value="">{bnNode("None - top-level category")}</option>
                 {bnNode(s.categories
                   .filter(
                     (c) =>
@@ -788,7 +789,7 @@ function OrderEditor({
     <Modal title={bnNode(`A closer look at #${o.id}`)} onClose={onClose} wide>
       <div className="order-editor-print">
         <div className="invoice-brand">
-          <h2>{bnNode("NIRBHOR")}</h2>
+          <div className="invoice-brand"><BrandLogo /></div>
           <span>{bnNode("Invoice #")}{bnNode(o.id)}{bnNode(" · ")}{bnNode(new Date(o.date).toLocaleDateString("bn-BD"))}
           </span>
         </div>
@@ -2546,7 +2547,7 @@ export function SettingsAdmin() {
               !draft.name.trim()
             ) {
               s.toast(
-                "Please check the store name and non-negative charges. Tax must be 0–100%.",
+                "Please check the store name and non-negative charges. Tax must be 0-100%.",
               );
               return;
             }
@@ -2665,14 +2666,14 @@ export function SettingsAdmin() {
                 <div className="shipping-zone-preview">
                   <MapPin size={22} />
                   <div>
-                    <b>{bnNode("Dhaka · 1–2 working days")}</b>
+                    <b>{bnNode("Dhaka · 1-2 working days")}</b>
                     <p>{bnNode("Standard delivery · ")}{bnNode(money(draft.dhaka))}</p>
                   </div>
                 </div>
                 <div className="shipping-zone-preview">
                   <Truck size={22} />
                   <div>
-                    <b>{bnNode("Outside Dhaka · 3–5 working days")}</b>
+                    <b>{bnNode("Outside Dhaka · 3-5 working days")}</b>
                     <p>{bnNode("Nationwide delivery · ")}{bnNode(money(draft.outside))}</p>
                   </div>
                 </div>

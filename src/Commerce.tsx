@@ -70,7 +70,7 @@ function couponError(c: Coupon | undefined, subtotal: number) {
     return "This little offer is outside its valid dates.";
   if (c.uses >= c.limit) return "This offer has reached its usage limit.";
   if (subtotal < c.minimum)
-    return `Add a little more — this code needs an order of ${money(c.minimum)}.`;
+    return `Add a little more - this code needs an order of ${money(c.minimum)}.`;
   return "";
 }
 function useCoupon(subtotal: number) {
@@ -150,7 +150,7 @@ function CouponField({
                 }
                 setCode(value);
                 setError("");
-                toast("A little extra goodness — code applied.");
+                toast("A little extra goodness - code applied.");
               }}
             >{bnNode("Apply")}</button>
           </div>
@@ -381,7 +381,7 @@ export function Cart() {
                 </select>
               </label>
               <p className="small muted">
-                {bnNode(zone === "Dhaka" ? "1–2" : "3–5")}{bnNode(" working days ·")}{bnNode(" ")}
+                {bnNode(zone === "Dhaka" ? "1-2" : "3-5")}{bnNode(" working days ·")}{bnNode(" ")}
                 {bnNode(t.shipping ? money(t.shipping) : "Free delivery")}
               </p>
             </div>
@@ -583,7 +583,7 @@ export function Checkout() {
                     <option value="">{bnNode("Enter a new address")}</option>
                     {bnNode(addresses.map((a) => (
                       <option key={a.id} value={a.id}>
-                        {bnNode(a.label)}{bnNode(" — ")}{bnNode(a.address)}
+                        {bnNode(a.label)}{bnNode(" - ")}{bnNode(a.address)}
                       </option>
                     )))}
                   </select>
@@ -610,7 +610,7 @@ export function Checkout() {
                 <span>
                   <b>{bnNode("Standard delivery")}</b>
                   <small>
-                    {bnNode(zone === "Dhaka" ? "1–2" : "3–5")}{bnNode(" working days · Carefully packed")}</small>
+                    {bnNode(zone === "Dhaka" ? "1-2" : "3-5")}{bnNode(" working days · Carefully packed")}</small>
                 </span>
                 <b>{bnNode(t.shipping ? money(t.shipping) : "Free")}</b>
               </div>
@@ -652,7 +652,7 @@ export function Checkout() {
                   <b>{bnNode("Card / mobile banking")}</b>
                   <small>
                     {bnNode(settings.online
-                      ? "Payment preview — saved as unpaid, no charge is made."
+                      ? "Payment preview - saved as unpaid, no charge is made."
                       : "Available when the payment gateway is connected.")}
                   </small>
                 </span>
@@ -740,7 +740,7 @@ export function OrderSuccess() {
         </div>
         <div>
           <span>{bnNode("ESTIMATED DELIVERY")}</span>
-          <b>{bnNode(order.zone === "Dhaka" ? "1–2" : "3–5")}{bnNode(" working days")}</b>
+          <b>{bnNode(order.zone === "Dhaka" ? "1-2" : "3-5")}{bnNode(" working days")}</b>
         </div>
       </div>
       <div className="success-actions">
@@ -911,7 +911,7 @@ export function TrackOrder() {
                 </div>
                 <div>
                   <dt>{bnNode("Estimated delivery")}</dt>
-                  <dd>{bnNode(order.zone === "Dhaka" ? "1–2" : "3–5")}{bnNode(" working days")}</dd>
+                  <dd>{bnNode(order.zone === "Dhaka" ? "1-2" : "3-5")}{bnNode(" working days")}</dd>
                 </div>
                 <div>
                   <dt>{bnNode("Payment")}</dt>

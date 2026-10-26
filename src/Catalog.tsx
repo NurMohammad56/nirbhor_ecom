@@ -298,7 +298,7 @@ export default function Catalog() {
               onChange={(e) => set("min", e.target.value)}
             />
           </label>
-          <span>{bnNode("—")}</span>
+          <span>{bnNode("-")}</span>
           <label>{bnNode("Max")}<input
               aria-label={bnNode("Maximum price")}
               type="number"
@@ -572,7 +572,7 @@ export default function Catalog() {
                 )))}
               </div>
               <div className="pagination">
-                <span>{bnNode("Showing ")}{bnNode(Math.min((page - 1) * 9 + 1, list.length))}{bnNode("–")}{bnNode(Math.min(page * 9, list.length))}{bnNode(" of ")}{bnNode(list.length)}{bnNode(" good finds")}</span>
+                <span>{bnNode("Showing ")}{bnNode(Math.min((page - 1) * 9 + 1, list.length))}{bnNode("-")}{bnNode(Math.min(page * 9, list.length))}{bnNode(" of ")}{bnNode(list.length)}{bnNode(" good finds")}</span>
                 <div>
                   <button
                     aria-label={bnNode("Previous page")}

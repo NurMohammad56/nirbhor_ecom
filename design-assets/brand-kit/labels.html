@@ -1,0 +1,76 @@
+<!doctype html><html lang="bn-BD"><head><meta charset="utf-8"><title>নির্ভর - একই স্টিকার টেমপ্লেট</title><style>
+@font-face{font-family:Bangla;src:url(../../public/fonts/bengali-1.ttf)}*{box-sizing:border-box}body{font-family:Bangla,sans-serif;background:#e9e9df;margin:0;padding:40px;color:#173e30}.grid{display:grid;grid-template-columns:repeat(2,560px);gap:30px}.label{width:560px;height:450px;background:#fbf6e9;border:3px solid #173e30;border-radius:13px;overflow:hidden;position:relative;text-align:center;display:flex;flex-direction:column;align-items:center;padding:23px 30px 24px}.label:before{content:"";position:absolute;inset:0 0 auto;height:9px;background:#ef8b25}.label img{width:190px;height:120px;object-fit:contain;margin:0 0 10px}.rule{width:100%;height:1px;background:#173e3050;margin-bottom:20px}.label h1{font-size:29px;line-height:1.5;min-height:78px;margin:0;font-weight:500}.label p{font-size:19px;line-height:1.7;margin:0}.quantity{margin-top:auto;font-size:22px;border-top:1px solid #173e3040;width:100%;padding-top:16px}.sheet-title{font-size:28px;margin:0 0 25px} .note{font-size:15px;margin:0 0 25px}</style></head><body><h1 class="sheet-title">এক ডিজাইন, সব অর্গানিক পণ্য</h1><p class="note">শুধু পণ্যের নাম, বিবরণ ও পরিমাণ বদলাবে।</p><div class="grid" id="labels"></div><script type="application/json" id="specs">[
+  {
+    "id": "p1",
+    "name": "সুন্দরবনের খাঁটি মধু",
+    "description": "প্রাকৃতিক স্বাদের মধু",
+    "quantity": "৫০০ গ্রাম",
+    "source": "honey"
+  },
+  {
+    "id": "p2",
+    "name": "প্রিমিয়াম মিক্সড নাটস",
+    "description": "নিত্যদিনের জন্য বাদামের মিক্স",
+    "quantity": "২৫০ গ্রাম",
+    "source": "nuts"
+  },
+  {
+    "id": "p3",
+    "name": "আজওয়া খেজুর",
+    "description": "বেছে নেওয়া খেজুর",
+    "quantity": "৫০০ গ্রাম",
+    "source": "dates"
+  },
+  {
+    "id": "p4",
+    "name": "হারবাল মর্নিং টি",
+    "description": "সকালের জন্য হারবাল চা",
+    "quantity": "১২ স্যাশে",
+    "source": "tea"
+  },
+  {
+    "id": "p5",
+    "name": "অর্গানিক গাওয়া ঘি",
+    "description": "দৈনন্দিন রান্নার জন্য ঘি",
+    "quantity": "৫০০ মিলি",
+    "source": "ghee"
+  },
+  {
+    "id": "p6",
+    "name": "চিয়া সিড",
+    "description": "প্রতিদিনের খাবারের সঙ্গে",
+    "quantity": "২৫০ গ্রাম",
+    "source": "seeds"
+  },
+  {
+    "id": "p7",
+    "name": "হানি রোস্টেড গ্র্যানোলা",
+    "description": "সকালের খাবারের জন্য",
+    "quantity": "৩৫০ গ্রাম",
+    "source": "granola"
+  },
+  {
+    "id": "p8",
+    "name": "কালোজিরার মধু",
+    "description": "প্রাকৃতিক স্বাদের মধু",
+    "quantity": "৫০০ গ্রাম",
+    "source": "honey"
+  },
+  {
+    "id": "p9",
+    "name": "খেজুর ও বীজের মিক্স",
+    "description": "খেজুর ও বীজের মিশ্রণ",
+    "quantity": "৪০০ গ্রাম",
+    "source": "dates"
+  },
+  {
+    "id": "p16",
+    "name": "অর্গানিক হলুদের গুঁড়া",
+    "description": "নিত্যদিনের রান্নার মসলা",
+    "quantity": "২০০ গ্রাম",
+    "source": "spices"
+  }
+]
+</script><script>
+Promise.resolve(JSON.parse(document.querySelector('#specs').textContent)).then(items=>{document.querySelector('#labels').innerHTML=items.map(p=>`<article class="label" data-product="${p.id}"><img src="../../public/brand/nirbhor-logo.png" alt="নির্ভর"><div class="rule"></div><h1>${p.name}</h1><p>${p.description}</p><div class="quantity">নেট পরিমাণ: ${p.quantity}</div></article>`).join('')});
+</script></body></html>

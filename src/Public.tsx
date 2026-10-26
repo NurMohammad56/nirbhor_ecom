@@ -33,7 +33,7 @@ export function About() {
           <p>{bnNode("For your pantry, your wardrobe, your rituals, and your home.")}</p>
         </div>
         <img
-          src="/assets/brand-world-v4.webp"
+          src="/assets/brand-world-v5.webp"
           alt={bnNode("A thoughtful selection of pantry, beauty, clothing and home essentials")}
         />
       </section>
@@ -147,7 +147,7 @@ export function Contact() {
               </span>
             </div>
           </div>
-          <p className="small muted">{bnNode("Saturday–Thursday, 9am–6pm · Bangladesh time")}</p>
+          <p className="small muted">{bnNode("Saturday-Thursday, 9am-6pm · Bangladesh time")}</p>
           <Link className="text-link" to="/help">{bnNode("A few answers you might find useful ")}<ArrowUpRight size={15} />
           </Link>
         </div>
@@ -274,7 +274,7 @@ export function StaticPage() {
         ],
         [
           "A little about timing",
-          `Dhaka: typically 1–2 working days. Outside Dhaka: typically 3–5 working days. Public holidays and remote areas may take a little longer.`,
+          `Dhaka: typically 1-2 working days. Outside Dhaka: typically 3-5 working days. Public holidays and remote areas may take a little longer.`,
         ],
         [
           "Simple delivery charges",

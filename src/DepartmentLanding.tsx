@@ -19,6 +19,8 @@ import {
 } from "./departments";
 import { Badge, Button, Empty, ProductCard } from "./ui";
 import { Botanical, useSceneMotion } from "./SceneMotion";
+import CategoryRail from "./CategoryRail";
+import CustomerVoices from "./CustomerVoices";
 
 const questions: Record<string, [string, string][]> = {
   organic: [
@@ -105,7 +107,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
   const subcategories = categories.filter(
     (c) => c.parent === category.name && c.active,
   );
-  const featured = items.slice(0, 4);
+  const featured = items;
   const selectedCollections = subcategories
     .filter((c) => items.some((p) => p.subcategory === c.name))
     .slice(0, 3);
@@ -147,7 +149,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
                 </a>
               </div>
             </div>
-            {bnNode(d.slug === "beauty" && <div className="serum-orbit" aria-hidden="true"><img src="/assets/serum-float-v3.webp" alt={bnNode("")} /></div>)}
+            {bnNode(d.slug === "beauty" && <div className="serum-orbit" aria-hidden="true"><img src="/assets/serum-bare-v5.webp" alt={bnNode("")} /></div>)}
           </div>
           <div className="department-scene-footer"><a href="#department-collections">{bnNode("SCROLL TO DISCOVER ")}<span>{bnNode("↓")}</span></a></div>
         </div>
@@ -163,71 +165,16 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
         <Link to="/page/shipping">{bnNode("Delivery across Bangladesh ")}<ArrowUpRight size={13} />
         </Link>
       </div>
-      <section
-        className="container brand-section department-collection-section"
-        id="department-collections"
-      >
-        <div className="brand-section-heading">
-          <div>
-            
-            <h2>
-              {bnNode(d.slug === "organic"
-                ? "Goodness for your pantry."
-                : d.slug === "beauty"
-                  ? "Find your feel-good ritual."
-                  : d.slug === "fashion"
-                    ? "Your wardrobe, your way."
-                    : "Good things to come home to.")}
-            </h2>
-          </div>
-          <Link className="brand-underlined" to={departmentShopHref(d)}>{bnNode("Shop all ")}{bnNode(d.name.toLowerCase())} <ArrowUpRight size={16} />
-          </Link>
-        </div>
-        <div className="department-collection-grid">
-          {bnNode(selectedCollections.map((c, i) => {
-            const p = items.find((p) => p.subcategory === c.name)!;
-            return (
-              <Link
-                key={c.id}
-                className="department-collection-card"
-                to={departmentShopHref(d, c.name)}
-              >
-                <div>
-                  <img src={c.image || p.image} alt={bnNode(c.name)} loading="lazy" />
-                  <span>{bnNode("0")}{bnNode(i + 1)}</span>
-                </div>
-                <footer>
-                  <span>
-                    <h3>{bnNode(c.name)}</h3>
-                    <small>
-                      {bnNode(items.filter((p) => p.subcategory === c.name).length)}{bnNode(" ")}{bnNode("considered")}{bnNode(" ")}
-                      {bnNode(items.filter((p) => p.subcategory === c.name).length ===
-                      1
-                        ? "find"
-                        : "finds")}
-                    </small>
-                  </span>
-                  <ArrowUpRight size={20} />
-                </footer>
-              </Link>
-            );
-          }))}
-        </div>
-        <div className="department-subcategory-links">
-          {bnNode(subcategories.map((c) => (
-            <Link key={c.id} to={departmentShopHref(d, c.name)}>
-              {bnNode(c.name)}
-              <ArrowUpRight size={12} />
-            </Link>
-          )))}
-        </div>
+      <section className="container brand-section department-collection-section" id="department-collections">
+        <div className="brand-section-heading"><h2>{bnNode("Categories")}</h2><Link className="brand-underlined" to={departmentShopHref(d)}>{bnNode("All products")}<ArrowUpRight size={16} /></Link></div>
+        <CategoryRail label={bnNode(d.name)+" ক্যাটাগরি"} items={subcategories.map(c=>({id:c.id,name:c.name,image:c.image || items.find(p=>p.subcategory===c.name)?.image || exp.heroImage,to:departmentShopHref(d,c.name)}))} />
       </section>
       <section className="department-product-edit">
         <div className="container brand-section">
           <div className="brand-section-heading">
             <div>
               
-              <h2>{bnNode(d.collectionLabel)}{bnNode(".")}</h2>
+              <h2>{bnNode("All products")}</h2>
             </div>
             <Link className="brand-underlined" to={departmentShopHref(d)}>{bnNode("All good finds ")}<ArrowUpRight size={16} />
             </Link>
@@ -241,6 +188,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
           </div>
         </div>
       </section>
+      <CustomerVoices category={category.name} />
       <section className="container brand-section department-editorial botanical-stage">
         <div className="department-editorial-image">
           <img

@@ -1,3 +1,4 @@
+import BrandLogo from "./BrandLogo";
 import { bnNode, latinDigits, searchText } from "./bn";
 import DepartmentExperiencesAdmin from "./DepartmentExperiencesAdmin";
 import { descendants } from "./category-tree";
@@ -277,7 +278,7 @@ export default function Admin() {
   return (
     <div className="admin-app">
       <aside className={`admin-sidebar ${mobile ? "open" : ""}`}>
-        <Link to="/" className="wordmark">{bnNode("NIRBHOR")}<Leaf size={14} />
+        <Link to="/" className="wordmark"><BrandLogo />
         </Link>
         <div className="workspace-picker">
           <span className="workspace-avatar">

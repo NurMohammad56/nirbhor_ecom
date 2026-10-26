@@ -53,7 +53,7 @@ Welcome to Nirbhor¦নির্ভরে স্বাগতম
 Good choices.¦পছন্দের সবকিছু।
 A trusted place.¦আস্থার এক ঠিকানা।
 Good choices. A trusted place.¦পছন্দের সবকিছু, আস্থার এক ঠিকানায়।
-For your pantry, your wardrobe, yourself, and the place you call home. Discover everyday things, thoughtfully chosen.¦খাবার, পোশাক, নিজের যত্ন ও ঘরের প্রয়োজন—সব একসঙ্গে নির্ভরে।
+For your pantry, your wardrobe, yourself, and the place you call home. Discover everyday things, thoughtfully chosen.¦খাবার, পোশাক, নিজের যত্ন ও ঘরের প্রয়োজন-সব একসঙ্গে নির্ভরে।
 Find your everyday¦পণ্য দেখুন
 A little care.¦নিজের জন্য যত্ন।
 All for you.¦আপনার মতো করেই।
@@ -95,7 +95,7 @@ View the collection¦সব পণ্য দেখুন
 THE CARE IS IN THE DETAILS.¦যত্নে প্যাকিং, আপনার ঠিকানায়
 Care in what we choose.¦পণ্য বাছাইয়ে যত্ন।
 Confidence in what you do.¦কেনাকাটায় নিশ্চিন্ত।
-Nirbhor brings together the things that make up your everyday. Good food, personal care, pieces to wear, and objects to live with — selected with a little more thought.¦নির্ভরে পাবেন অর্গানিক খাবার, আমদানি করা বিউটি পণ্য, পোশাক ও ঘরের প্রয়োজনীয় জিনিস। পণ্যের তথ্য থেকে ডেলিভারি—প্রতিটি ধাপে সহজ অভিজ্ঞতাই আমাদের লক্ষ্য।
+Nirbhor brings together the things that make up your everyday. Good food, personal care, pieces to wear, and objects to live with - selected with a little more thought.¦নির্ভরে পাবেন অর্গানিক খাবার, আমদানি করা বিউটি পণ্য, পোশাক ও ঘরের প্রয়োজনীয় জিনিস। পণ্যের তথ্য থেকে ডেলিভারি-প্রতিটি ধাপে সহজ অভিজ্ঞতাই আমাদের লক্ষ্য।
 Selected with purpose¦প্রয়োজন বুঝে বাছাই
 Everyday products with a place in your life.¦প্রতিদিন কাজে লাগে এমন পণ্য।
 Details before promises¦কেনার আগে জানুন
@@ -112,7 +112,7 @@ The everyday wardrobe¦পোশাকের কালেকশন
 The considered home¦ঘরের কালেকশন
 Naturally good.¦প্রকৃতির ভালোবাসা।
 Honestly chosen.¦যত্নে বেছে নেওয়া।
-Golden honey, nourishing nuts, and everyday pantry essentials. Discover the simple pleasure of knowing what goes into your home.¦মধু, বাদাম, খেজুর ও নিত্যদিনের খাবার—প্রকৃতির স্বাদ আসুক আপনার ঘরে।
+Golden honey, nourishing nuts, and everyday pantry essentials. Discover the simple pleasure of knowing what goes into your home.¦মধু, বাদাম, খেজুর ও নিত্যদিনের খাবার-প্রকৃতির স্বাদ আসুক আপনার ঘরে।
 A little closer to nature. A little more everyday goodness.¦প্রতিদিনের খাবারে প্রকৃতির স্বাদ
 From honest origins to everyday rituals.¦প্রকৃতি থেকে আপনার প্রতিদিনে।
 Clear ingredients¦উপাদানের তথ্য
@@ -121,16 +121,16 @@ Small-batch selections¦যত্নে প্যাকিং
 Your moment.¦নিজের জন্য সময়।
 Beautifully considered.¦যত্ন হোক নিজের মতো।
 Everyday care with a little intention. Explore skincare, gentle essentials and rituals that make time for you.¦আপনার দৈনন্দিন যত্নে সিরাম, স্কিনকেয়ার ও প্রয়োজনীয় বিউটি পণ্য।
-The care edit — thoughtful essentials for your daily ritual.¦নিজের যত্নে পছন্দের বিউটি পণ্য
+The care edit - thoughtful essentials for your daily ritual.¦নিজের যত্নে পছন্দের বিউটি পণ্য
 A considered moment, just for yourself.¦নিজের জন্য একটু যত্ন।
 Ingredients made clear¦উপাদান জেনে কিনুন
 Care for your routine¦প্রতিদিনের যত্ন
 Thoughtful personal rituals¦আপনার পছন্দে যত্ন
 Wear your¦পোশাক হোক
 kind of everyday.¦নিজের পছন্দে।
-Easy silhouettes. Thoughtful details. Discover pieces that feel at home in your wardrobe, and let you feel like yourself.¦আরামদায়ক পোশাক ও মানানসই স্টাইল—বেছে নিন নিজের মতো করে।
+Easy silhouettes. Thoughtful details. Discover pieces that feel at home in your wardrobe, and let you feel like yourself.¦আরামদায়ক পোশাক ও মানানসই স্টাইল-বেছে নিন নিজের মতো করে।
 Considered pieces. Personal style.¦আরাম ও স্টাইল, আপনার পছন্দে।
-The everyday wardrobe — natural textures, effortless silhouettes.¦প্রতিদিনের পোশাকে আরাম ও স্টাইল
+The everyday wardrobe - natural textures, effortless silhouettes.¦প্রতিদিনের পোশাকে আরাম ও স্টাইল
 Fit & size details¦মাপ ও ফিটের তথ্য
 Fabrics with character¦কাপড়ের বিবরণ
 Everyday versatility¦প্রতিদিন পরার জন্য
@@ -414,7 +414,7 @@ A little care for this category.¦ক্যাটাগরি সম্পাদ
 A category with that name already exists.¦এই নামে একটি ক্যাটাগরি আছে।
 Category saved. Everything in its good place.¦ক্যাটাগরি সেভ হয়েছে।
 Category name¦ক্যাটাগরির নাম
-None — top-level category¦নেই — মূল ক্যাটাগরি
+None - top-level category¦নেই - মূল ক্যাটাগরি
 Image URL¦ছবির লিংক
 Sort order¦সাজানোর ক্রম
 Visible in the storefront¦স্টোরে দেখান
@@ -759,7 +759,7 @@ Local only¦এই ব্রাউজারে
 Store details¦স্টোরের তথ্য
 Your store. Your little details.¦স্টোর সেটিংস
 Fine-tune the essentials behind a thoughtful shopping experience.¦স্টোর, ডেলিভারি ও পেমেন্টের তথ্য।
-Please check the store name and non-negative charges. Tax must be 0–100%.¦স্টোরের নাম ও সঠিক চার্জ দিন। কর ০–১০০% হতে হবে।
+Please check the store name and non-negative charges. Tax must be 0-100%.¦স্টোরের নাম ও সঠিক চার্জ দিন। কর ০-১০০% হতে হবে।
 Store settings saved.¦স্টোর সেটিংস সেভ হয়েছে।
 Save settings¦সেটিংস সেভ করুন
 Branding¦ব্র্যান্ডিং
@@ -781,9 +781,9 @@ The wordmark uses the shared brand typeface. Your primary colour updates buttons
 Delivery charge within Dhaka (BDT)¦ঢাকার ভেতরে ডেলিভারি চার্জ (টাকা)
 Outside Dhaka delivery charge (BDT)¦ঢাকার বাইরে ডেলিভারি চার্জ (টাকা)
 Free delivery threshold (BDT)¦ফ্রি ডেলিভারির ন্যূনতম কেনাকাটা (টাকা)
-Dhaka · 1–2 working days¦ঢাকা · ১–২ কর্মদিবস
+Dhaka · 1-2 working days¦ঢাকা · ১-২ কর্মদিবস
 Standard delivery ·¦সাধারণ ডেলিভারি ·
-Outside Dhaka · 3–5 working days¦ঢাকার বাইরে · ৩–৫ কর্মদিবস
+Outside Dhaka · 3-5 working days¦ঢাকার বাইরে · ৩-৫ কর্মদিবস
 Nationwide delivery ·¦সারা দেশে ডেলিভারি ·
 Courier integrations and live serviceability will be connected with the backend.¦ব্যাকএন্ডে কুরিয়ার সংযোগ যুক্ত হবে।
 Cash on delivery¦ক্যাশ অন ডেলিভারি
@@ -925,7 +925,7 @@ This offer has reached its usage limit.¦এই অফারের ব্যব�
 Remove coupon¦কুপন সরান
 Discount code¦ডিসকাউন্ট কোড
 A little code for a little extra¦আপনার কোড লিখুন
-A little extra goodness — code applied.¦ডিসকাউন্ট কোড যোগ হয়েছে।
+A little extra goodness - code applied.¦ডিসকাউন্ট কোড যোগ হয়েছে।
 A little look at your order.¦অর্ডারের হিসাব
 A little saving¦সাশ্রয়
 On us¦ফ্রি
@@ -987,7 +987,7 @@ A simple way to pay.¦পেমেন্ট পদ্ধতি
 Pay when your little goodness arrives.¦পণ্য হাতে পেয়ে মূল্য দিন।
 Online payment¦অনলাইন পেমেন্ট
 Card / mobile banking¦কার্ড / মোবাইল ব্যাংকিং
-Payment preview — saved as unpaid, no charge is made.¦পেমেন্ট প্রিভিউ—কোনো টাকা কাটা হবে না।
+Payment preview - saved as unpaid, no charge is made.¦পেমেন্ট প্রিভিউ-কোনো টাকা কাটা হবে না।
 Available when the payment gateway is connected.¦পেমেন্ট গেটওয়ে যুক্ত হলে চালু হবে।
 A note for us¦অতিরিক্ত নির্দেশনা
 Anything that would make your delivery a little easier?¦ডেলিভারি সম্পর্কে কিছু জানাতে চাইলে লিখুন
@@ -1050,7 +1050,7 @@ Nur Rahman¦নূর রহমান
 Welcome to your little corner of goodness.¦নির্ভরে স্বাগতম।
 A little goodness.¦আপনার পছন্দ।
 A place to call yours.¦আপনার অ্যাকাউন্ট।
-Your favourites, thoughtful updates, and all your good choices in one place.¦অর্ডার, ঠিকানা ও পছন্দের পণ্য—সব এক জায়গায়।
+Your favourites, thoughtful updates, and all your good choices in one place.¦অর্ডার, ঠিকানা ও পছন্দের পণ্য-সব এক জায়গায়।
 YOUR LITTLE CORNER OF NIRBHOR¦আপনার নির্ভর
 Good to have you here.¦স্বাগতম
 A little fresh start.¦নতুন পাসওয়ার্ড
@@ -1233,7 +1233,7 @@ Give a little goodness.¦প্রিয়জনের জন্য উপহা�
 Thoughtfully sourced pantry essentials.¦যত্নে বাছাই করা খাবার।
 The Sundarban Harvest¦সুন্দরবনের মধুর কালেকশন
 Wild by nature. Pure by promise.¦প্রকৃতির স্বাদ, যত্নে সংগ্রহ।
-The harvest edit — save 20% on raw Sundarban honey¦সুন্দরবনের মধুতে ২০% ছাড়
+The harvest edit - save 20% on raw Sundarban honey¦সুন্দরবনের মধুতে ২০% ছাড়
 HARVEST SPECIAL · 20% OFF¦বিশেষ অফার · ২০% ছাড়
 A little goodness, every day.¦প্রতিদিনের পছন্দে নির্ভর।
 Honest ingredients. Thoughtful choices. Discover everyday essentials that bring you closer to nature.¦যত্নে বাছাই করা নিত্যদিনের অর্গানিক পণ্য।
@@ -1306,8 +1306,8 @@ Everyday, in your own way.¦প্রতিদিন নিজের পছন�
 Care that feels like you.¦আপনার পছন্দে নিজের যত্ন।
 Useful objects. Beautiful living.¦প্রয়োজনীয় জিনিসে সুন্দর ঘর।
 Everyday, well chosen.¦প্রতিদিনের পছন্দে নির্ভর।
-NIRBHOR — Good choices. A trusted place.¦নির্ভর — পছন্দের সবকিছু, আস্থার এক ঠিকানায়
-Thoughtfully chosen pantry, beauty, fashion and home essentials. Discover your everyday with NIRBHOR.¦অর্গানিক খাবার, বিউটি, পোশাক ও ঘরের প্রয়োজনীয় পণ্য—সব একসঙ্গে নির্ভরে।
+NIRBHOR - Good choices. A trusted place.¦নির্ভর - পছন্দের সবকিছু, আস্থার এক ঠিকানায়
+Thoughtfully chosen pantry, beauty, fashion and home essentials. Discover your everyday with NIRBHOR.¦অর্গানিক খাবার, বিউটি, পোশাক ও ঘরের প্রয়োজনীয় পণ্য-সব একসঙ্গে নির্ভরে।
 Four worlds. One familiar name.¦ক্যাটাগরি পেজ
 Shape the colour, imagery and story of each Nirbhor department.¦ক্যাটাগরির ছবি, লেখা ও রং সম্পাদনা করুন।
 Add a headline and hero image before saving.¦শিরোনাম ও হিরোর ছবি দিন।
@@ -1413,7 +1413,7 @@ Can I pay when my order arrives?¦পণ্য পেয়ে টাকা দি�
 Yes. Cash on delivery is available across our delivery areas in Bangladesh. The delivery charge is shown before you confirm.¦হ্যাঁ, ডেলিভারি এলাকায় ক্যাশ অন ডেলিভারি আছে। অর্ডার নিশ্চিত করার আগে চার্জ দেখানো হবে।
 When will my order arrive?¦অর্ডার কবে পাব?
 Where do you deliver?¦কোথায় ডেলিভারি হয়?
-We deliver across Bangladesh. Dhaka orders usually arrive within 1–2 working days; other areas within 3–5 working days.¦সারা বাংলাদেশে ডেলিভারি হয়। ঢাকায় সাধারণত ১–২ এবং বাইরে ৩–৫ কর্মদিবস লাগে।
+We deliver across Bangladesh. Dhaka orders usually arrive within 1-2 working days; other areas within 3-5 working days.¦সারা বাংলাদেশে ডেলিভারি হয়। ঢাকায় সাধারণত ১-২ এবং বাইরে ৩-৫ কর্মদিবস লাগে।
 How much is delivery?¦ডেলিভারি চার্জ কত?
 Can I order without an account?¦অ্যাকাউন্ট ছাড়াই অর্ডার করা যাবে?
 Absolutely. Choose guest checkout or the quick order form on a campaign product. We only ask for what we need to deliver your order.¦হ্যাঁ। গেস্ট চেকআউট বা ক্যাম্পেইনের দ্রুত অর্ডার ফর্ম ব্যবহার করুন।
@@ -1513,7 +1513,7 @@ Order now · Cash on delivery¦অর্ডার করুন · ক্যা�
 Add to your bag¦ব্যাগে যোগ করুন
 Buy it now¦এখনই কিনুন
 A little care, delivered.¦যত্নে ডেলিভারি
-Dhaka 1–2 days · Nationwide 3–5 days¦ঢাকায় ১–২ দিন · সারা দেশে ৩–৫ দিন
+Dhaka 1-2 days · Nationwide 3-5 days¦ঢাকায় ১-২ দিন · সারা দেশে ৩-৫ দিন
 Pay when it’s at your door.¦পণ্য পেয়ে মূল্য দিন
 Cash on delivery · Easy support¦ক্যাশ অন ডেলিভারি · সহজ সহায়তা
 No account needed¦অ্যাকাউন্ট ছাড়াই
@@ -1544,8 +1544,8 @@ Batch¦ব্যাচ
 Storage / care¦সংরক্ষণ / যত্ন
 Cool, dry place. Away from direct sun.¦ঠান্ডা ও শুকনো জায়গায়, সরাসরি রোদ থেকে দূরে রাখুন।
 Goodness, delivered with care.¦ডেলিভারির তথ্য
-Dhaka: 1–2 working days ·¦ঢাকা: ১–২ কর্মদিবস ·
-Outside Dhaka: 3–5 working days ·¦ঢাকার বাইরে: ৩–৫ কর্মদিবস ·
+Dhaka: 1-2 working days ·¦ঢাকা: ১-২ কর্মদিবস ·
+Outside Dhaka: 3-5 working days ·¦ঢাকার বাইরে: ৩-৫ কর্মদিবস ·
 Our delivery promise¦ডেলিভারি নীতি
 A little reassurance.¦কেনাকাটায় নিশ্চিন্ত
 Received a damaged or incorrect item? Contact us within 48 hours with your order number and photos. Our team will make it right.¦ভুল বা ক্ষতিগ্রস্ত পণ্য পেলে ৪৮ ঘণ্টার মধ্যে অর্ডার নম্বর ও ছবিসহ যোগাযোগ করুন।
@@ -1556,8 +1556,8 @@ Add selected to bag¦নির্বাচিত পণ্য ব্যাগে
 A FEW MORE GOOD FINDS¦আরও পণ্য
 A little more your kind of good.¦আপনার পছন্দ হতে পারে
 A little goodness, please¦অর্ডার করুন
-— a closer look¦— বড় করে দেখুন
-— size guide¦— মাপের গাইড
+- a closer look¦- বড় করে দেখুন
+- size guide¦- মাপের গাইড
 Compare these garment measurements with a piece you already own. All measurements are in inches.¦আপনার পোশাকের সঙ্গে মাপ মিলিয়ে নিন। সব মাপ ইঞ্চিতে।
 Size¦মাপ
 Chest¦বুক
@@ -1571,7 +1571,7 @@ A LITTLE ABOUT NIRBHOR¦আমাদের কথা
 Good choices should¦কেনাকাটা হোক
 feel a little simpler.¦আরও সহজ।
 Some of the best things in life are wonderfully uncomplicated. A familiar daily ritual. A piece that feels like you. A home filled with things you love using.¦প্রতিদিনের ভালো লাগা অনেক সময় ছোট ছোট জিনিসে। প্রিয় খাবার, আরামের পোশাক ও সুন্দর ঘরে।
-NIRBHOR brings these little moments together. We choose honest products, look closely at where they come from, and put a little more care into how they reach you.¦অর্গানিক খাবার, বিউটি, পোশাক ও ঘরের পণ্য একসঙ্গে এনেছে নির্ভর। পণ্য বাছাই থেকে আপনার কাছে পৌঁছানো—সব ধাপে যত্ন রাখি।
+NIRBHOR brings these little moments together. We choose honest products, look closely at where they come from, and put a little more care into how they reach you.¦অর্গানিক খাবার, বিউটি, পোশাক ও ঘরের পণ্য একসঙ্গে এনেছে নির্ভর। পণ্য বাছাই থেকে আপনার কাছে পৌঁছানো-সব ধাপে যত্ন রাখি।
 Our name means something to lean on. And that’s what we hope to be: a thoughtful place to find the everyday good.¦নির্ভর মানে আস্থা। আপনার প্রতিদিনের কেনাকাটার বিশ্বস্ত ঠিকানা হতে চাই আমরা।
 WHAT WE COME BACK TO¦আমাদের ভাবনা
 A few good things we believe in.¦যে মূল্যবোধে নির্ভর
@@ -1592,7 +1592,7 @@ An order question, a product thought, or just a hello. We’re happy to hear fro
 DROP US A LITTLE NOTE¦ইমেইল করুন
 LET’S HAVE A LITTLE CHAT¦কথা বলুন
 WHERE WE CALL HOME¦আমাদের ঠিকানা
-Saturday–Thursday, 9am–6pm · Bangladesh time¦শনিবার–বৃহস্পতিবার, সকাল ৯টা–সন্ধ্যা ৬টা · বাংলাদেশ সময়
+Saturday-Thursday, 9am-6pm · Bangladesh time¦শনিবার-বৃহস্পতিবার, সকাল ৯টা-সন্ধ্যা ৬টা · বাংলাদেশ সময়
 A few answers you might find useful¦সাধারণ প্রশ্নের উত্তর
 Your little note is saved.¦বার্তা সেভ হয়েছে
 Thank you for reaching out. This message is stored in the frontend preview; sending to support will be connected with the backend.¦ধন্যবাদ। প্রিভিউতে বার্তাটি সেভ হয়েছে। ব্যাকএন্ডে সহায়তা টিমে পাঠানো যুক্ত হবে।
@@ -1621,7 +1621,7 @@ From our shelves to your doorstep, carefully packed and thoughtfully handled.¦�
 Where we deliver¦ডেলিভারি এলাকা
 We deliver across Bangladesh, subject to courier coverage. If your address needs a little extra attention, we’ll confirm the details before dispatch.¦কুরিয়ারের আওতাধীন সারা বাংলাদেশে ডেলিভারি হয়। প্রয়োজন হলে পাঠানোর আগে ঠিকানা নিশ্চিত করব।
 A little about timing¦ডেলিভারির সময়
-Dhaka: typically 1–2 working days. Outside Dhaka: typically 3–5 working days. Public holidays and remote areas may take a little longer.¦ঢাকায় সাধারণত ১–২ ও বাইরে ৩–৫ কর্মদিবস। সরকারি ছুটি বা দূরবর্তী এলাকায় বেশি সময় লাগতে পারে।
+Dhaka: typically 1-2 working days. Outside Dhaka: typically 3-5 working days. Public holidays and remote areas may take a little longer.¦ঢাকায় সাধারণত ১-২ ও বাইরে ৩-৫ কর্মদিবস। সরকারি ছুটি বা দূরবর্তী এলাকায় বেশি সময় লাগতে পারে।
 Simple delivery charges¦ডেলিভারি চার্জ
 When the goodness arrives¦পণ্য গ্রহণের সময়
 Please check your parcel on delivery. Keep your order number and contact our support team if anything needs a little care.¦পণ্য গ্রহণের সময় পার্সেল যাচাই করুন। সমস্যা হলে অর্ডার নম্বরসহ যোগাযোগ করুন।
@@ -1728,7 +1728,7 @@ Privacy policy¦গোপনীয়তা নীতি
 Terms & conditions¦শর্তাবলি
 Store admin ↗¦অ্যাডমিন ↗
 Let’s talk goodness.¦যোগাযোগ করুন
-Saturday–Thursday, 9am–6pm¦শনিবার–বৃহস্পতিবার, সকাল ৯টা–সন্ধ্যা ৬টা
+Saturday-Thursday, 9am-6pm¦শনিবার-বৃহস্পতিবার, সকাল ৯টা-সন্ধ্যা ৬টা
 Made for everyday Bangladesh¦বাংলাদেশের প্রতিদিনের জন্য
 . Thoughtfully, always.¦। প্রতিদিনের পছন্দে নির্ভর।
 CASH ON DELIVERY¦ক্যাশ অন ডেলিভারি
@@ -1736,7 +1736,7 @@ Good choices. Good living.¦ভালো পছন্দে সুন্দর �
 Your order qualifies for free delivery!¦আপনার অর্ডারে ডেলিভারি ফ্রি!
 Delivery and discounts calculated at checkout.¦চেকআউটে ডেলিভারি ও ছাড়ের হিসাব দেখাবে।
 View your bag¦ব্যাগ দেখুন
-A little care, from checkout to doorstep.¦অর্ডার থেকে ডেলিভারি—যত্ন প্রতিটি ধাপে।
+A little care, from checkout to doorstep.¦অর্ডার থেকে ডেলিভারি-যত্ন প্রতিটি ধাপে।
 Good things are waiting to be discovered.¦পছন্দের পণ্য বেছে নিন।
 g¦গ্রাম
 kg¦কেজি

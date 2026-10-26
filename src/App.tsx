@@ -48,7 +48,7 @@ function AppContent() {
     } else window.scrollTo(0, 0);
     s.setDrawer(false);
     s.track("PageView", location.pathname + location.search);
-  }, [location.pathname, location.search]);
+  }, [location.pathname, location.search, location.hash]);
   useEffect(() => {
     const root = document.documentElement;
     root.dataset.department = department?.slug || "main";

@@ -22,6 +22,18 @@ test("the main homepage introduces four distinct, directly accessible department
   await expect(page.locator(".brand-story")).toContainText(
     "Selected with purpose",
   );
+  await page
+    .locator(".brand-hero-actions")
+    .getByRole("link", { name: "Find your everyday", exact: true })
+    .click();
+  await expect(page).toHaveURL(/#departments$/);
+  await expect
+    .poll(() =>
+      page
+        .locator("#departments")
+        .evaluate((el) => el.getBoundingClientRect().top),
+    )
+    .toBeLessThan(200);
   await page.getByRole("button", { name: "Pause hero carousel" }).click();
   await page.getByRole("button", { name: "Next slide", exact: true }).click();
   await expect(page.locator(".brand-hero h1")).toContainText("A little care.");

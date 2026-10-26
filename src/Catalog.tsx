@@ -1,6 +1,13 @@
+import { useDepartment } from "./useDepartment";
+import {
+  departments,
+  departmentForProduct,
+  departmentShopHref,
+  categoryForDepartment,
+} from "./departments";
 import { descendants } from "./category-tree";
 import { useEffect, useMemo, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -16,6 +23,9 @@ import {
   Check,
   ChevronLeft,
   ChevronRight,
+  Sparkles,
+  Ruler,
+  Armchair,
 } from "lucide-react";
 import { useStore } from "./store";
 import { money } from "./data";
@@ -43,13 +53,29 @@ function distance(a: string, b: string): number {
   return m[a.length][b.length];
 }
 export default function Catalog() {
+  const navigate = useNavigate();
   const { products, categories, track } = useStore();
+  const {
+    department,
+    category: departmentCategory,
+    experience,
+  } = useDepartment();
+  const CategoryIcon =
+    department?.slug === "organic"
+      ? Leaf
+      : department?.slug === "beauty"
+        ? Sparkles
+        : department?.slug === "fashion"
+          ? Ruler
+          : department?.slug === "home-living"
+            ? Armchair
+            : Search;
   const [params, setParams] = useSearchParams();
   const [mobileFilters, setMobileFilters] = useState(false),
     [view, setView] = useState("grid"),
     [page, setPage] = useState(1),
     [extra, setExtra] = useState(false);
-  const category = params.get("category") || "",
+  const category = params.get("category") || departmentCategory?.name || "",
     subcategory = params.get("subcategory") || "",
     query = params.get("q") || "",
     collection = params.get("collection") || "";
@@ -164,7 +190,7 @@ export default function Catalog() {
                     ? 1
                     : b.reviews - a.reviews,
     );
-  }, [products, params.toString()]);
+  }, [products, params.toString(), category, categories]);
   useEffect(() => {
     setPage(1);
   }, [params.toString()]);
@@ -205,6 +231,21 @@ export default function Catalog() {
                 type="checkbox"
                 checked={category === c.name}
                 onChange={() => {
+                  if (department) {
+                    if (category === c.name) {
+                      navigate("/shop");
+                      return;
+                    }
+                    const next = departments.find(
+                      (d) => categoryForDepartment(d, categories)?.id === c.id,
+                    );
+                    if (next) {
+                      navigate(departmentShopHref(next));
+                      return;
+                    }
+                    navigate("/shop?category=" + encodeURIComponent(c.name));
+                    return;
+                  }
                   const p = new URLSearchParams(params);
                   p.delete("subcategory");
                   if (category === c.name) p.delete("category");
@@ -377,11 +418,28 @@ export default function Catalog() {
         </div>
       )}
       <div className="filter-promise">
-        <Leaf size={21} />
-        <strong>Good origins. Good choices.</strong>
-        <p>Every product has a story. We make sure you know it.</p>
-        <Link to="/page/sourcing">
-          Our sourcing promise <ArrowUpRight size={13} />
+        <CategoryIcon size={21} />
+        <strong>
+          {!department || department.slug === "organic"
+            ? "Good origins. Good choices."
+            : "Considered details. Clear choices."}
+        </strong>
+        <p>
+          {department && department.slug !== "organic"
+            ? "Explore the details that help you make it yours."
+            : "Every product has a story. We make sure you know it."}
+        </p>
+        <Link
+          to={
+            department && department.slug !== "organic"
+              ? "/about"
+              : "/page/sourcing"
+          }
+        >
+          {department && department.slug !== "organic"
+            ? "Our approach"
+            : "Our sourcing promise"}{" "}
+          <ArrowUpRight size={13} />
         </Link>
       </div>
       <Button
@@ -410,7 +468,7 @@ export default function Catalog() {
           <div className="catalog-heading">
             <div>
               <span className="eyebrow">
-                THOUGHTFULLY CHOSEN. EVERY SINGLE ONE.
+                THOUGHTFULLY CHOSEN. FOR YOUR EVERYDAY.
               </span>
               <h1>{title}</h1>
               <p>
@@ -418,21 +476,22 @@ export default function Catalog() {
                   ? `${list.length} little discoveries for your everyday.`
                   : category === "Organic Food"
                     ? "From nature to your pantry. Honest ingredients, extraordinary everyday goodness."
-                    : "Good choices for your pantry, your home, and everything in between."}
+                    : experience?.description ||
+                      "Good choices for your pantry, your wardrobe, yourself and your home."}
               </p>
             </div>
             <div className="catalog-emblem">
-              <Leaf size={26} />
-              <span>GOOD BY NATURE</span>
+              <CategoryIcon size={26} />
+              <span>EVERYDAY, WELL CHOSEN</span>
             </div>
           </div>
-          {category === "Organic Food" && (
+          {!!department && (
             <div className="subcategory-chips">
               <button
                 className={!subcategory ? "active" : ""}
                 onClick={() => set("subcategory", "")}
               >
-                All organic
+                All {department?.name.toLowerCase()}
               </button>
               {categories
                 .filter((c) => c.parent === category && c.active)

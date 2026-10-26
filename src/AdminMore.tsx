@@ -184,6 +184,9 @@ export function CategoriesAdmin() {
                 image: String(f.get("image")),
                 sort: Number(f.get("sort")),
                 active: !!f.get("active"),
+                departmentSlug:
+                  edit === "new" ? undefined : edit.departmentSlug,
+                experience: edit === "new" ? undefined : edit.experience,
               };
               const oldName = edit === "new" ? "" : edit.name;
               if (

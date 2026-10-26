@@ -1,12 +1,26 @@
+import {
+  productHref,
+  departmentForLocation,
+  experienceForDepartment,
+} from "./departments";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useStore } from "./store";
 
 export function useSeo() {
   const { pathname, search } = useLocation();
-  const { products, settings } = useStore();
+  const { products, settings, categories } = useStore();
   useEffect(() => {
-    const product = /^\/(product|campaign)\//.test(pathname)
+    const department = departmentForLocation(
+      pathname,
+      search,
+      products,
+      categories,
+    );
+    const experience = department
+      ? experienceForDepartment(department, categories)
+      : undefined;
+    const product = /\/(product|campaign)\//.test(pathname)
       ? products.find(
           (p) => p.id === pathname.split("/").pop() && p.status === "Published",
         )
@@ -19,10 +33,13 @@ export function useSeo() {
         ? `Commerce Admin | ${settings.name}`
         : category
           ? `${category} | ${settings.name}`
-          : settings.seoTitle;
+          : department
+            ? `${settings.name} ${department.name} — ${department.tagline}`
+            : settings.seoTitle;
     const description =
       product?.seoDescription ||
       product?.description ||
+      experience?.description ||
       settings.seoDescription;
     document.title = title;
     function meta(name: string, content: string, property = false) {
@@ -43,7 +60,10 @@ export function useSeo() {
     meta("og:site_name", settings.name, true);
     meta(
       "og:image",
-      new URL(product?.image || "/assets/hero.webp", location.origin).href,
+      new URL(
+        product?.image || experience?.heroImage || "/assets/brand-hero-v2.webp",
+        location.origin,
+      ).href,
       true,
     );
     const canonicalParams = new URLSearchParams();
@@ -51,7 +71,7 @@ export function useSeo() {
       if (params.get(key)) canonicalParams.set(key, params.get(key)!);
     const canonical =
       location.origin +
-      pathname +
+      (product ? productHref(product, categories) : pathname) +
       (canonicalParams.size ? "?" + canonicalParams.toString() : "");
     meta("og:url", canonical, true);
     meta(
@@ -94,5 +114,5 @@ export function useSeo() {
       });
       document.head.appendChild(script);
     }
-  }, [pathname, search, products, settings]);
+  }, [pathname, search, products, settings, categories]);
 }

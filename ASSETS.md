@@ -1,5 +1,7 @@
 # Visual assets
 
+The multi-category prototype adds nine generated assets for the main hero, Beauty, Fashion, Home, brand packing story and sample products. Their exact prompts, filenames and generation mode are in [V2-PROMPTS.md](design-assets/V2-PROMPTS.md). Final images are served from `public/assets/*-v2.webp`; the selected originals remain in `design-assets/originals/`.
+
 Final website assets are stored in **public/assets/** as WebP images. The selected generated originals are also retained locally in **design-assets/originals/**. Built-in **image_gen** was used; no API key or fallback CLI was used.
 
 The hero and eight product photographs were created for this frontend. Treat them as brand presentation concepts rather than photographs of actual commercial stock.

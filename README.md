@@ -2,6 +2,25 @@
 
 A complete, responsive ecommerce frontend built around the supplied green-and-cream NIRBHOR design references. React 19, TypeScript, Vite, React Router, and Lucide icons.
 
+## Category experience prototype
+
+The main homepage now presents NIRBHOR as a multi-category brand. It includes a newly generated cross-category hero, four department entrances, a curated product edit, and the brand's selection and packing story.
+
+| Department | Landing        | Catalogue           | Design direction                                   |
+| ---------- | -------------- | ------------------- | -------------------------------------------------- |
+| Organic    | `/organic`     | `/organic/shop`     | Forest green, sage, honest pantry photography      |
+| Beauty     | `/beauty`      | `/beauty/shop`      | Blush, dusty plum, skincare still life             |
+| Fashion    | `/fashion`     | `/fashion/shop`     | Charcoal, warm neutrals, fashion editorial imagery |
+| Home       | `/home-living` | `/home-living/shop` | Sand, clay, tactile home photography               |
+
+Department colours and navigation continue into product and campaign pages. Old product and campaign URLs remain usable. Fashion samples include size selection, a size guide and fabric details. Different departments share one bag, customer account and neutral checkout.
+
+**`/admin/experiences`** edits each department's headline, description, hero image, palette, announcement and story. Its preview is local until saved. Category edits preserve this configuration.
+
+The browser upgrade adds the new department samples without resetting previous products, prices, cart, addresses or orders. Existing custom banners are retained. New samples and generated packaging are illustrative prototype content to replace with real catalogue details before launch.
+
+Nine additional assets were generated with built-in image generation and optimised to WebP. Their exact prompts and local paths are documented in [design-assets/V2-PROMPTS.md](design-assets/V2-PROMPTS.md).
+
 ## Run locally
 
 ```sh
@@ -64,5 +83,9 @@ To reset the demo, clear this origin's site data in your browser. To preserve it
 - `src/styles.css`, `src/commerce.css`, `src/admin.css` — responsive design system
 - `public/assets`, `public/fonts` — locally served, optimised assets
 - `tests/commerce.spec.ts` — browser workflow checks
+- `tests/departments.spec.ts` — category navigation, palette continuity, mixed checkout, editor persistence, migration and mobile checks
+- `src/BrandHome.tsx`, `src/DepartmentLanding.tsx`, `src/StoreHeader.tsx` — multi-category storefront prototype
+- `src/departments.ts`, `src/department-state.ts`, `src/useDepartment.ts` — department configuration, migration and context
+- `src/DepartmentExperiencesAdmin.tsx`, `src/departments.css` — category experience editing and design
 
 See [ASSETS.md](ASSETS.md) for image creation prompts and image / font sources.

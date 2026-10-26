@@ -36,6 +36,8 @@ export type Product = {
   slug?: string;
   cost?: number;
   barcode?: string;
+  details?: Record<string, string>;
+  sizeGuide?: { size: string; chest: string; length: string }[];
 };
 export type CartItem = {
   id: string;
@@ -93,6 +95,20 @@ export type Category = {
   active: boolean;
   image: string;
   sort: number;
+  departmentSlug?: string;
+  experience?: DepartmentExperience;
+};
+export type DepartmentExperience = {
+  heroTitle: string;
+  description: string;
+  heroImage: string;
+  accent: string;
+  background: string;
+  ink: string;
+  announcement: string;
+  storyTitle: string;
+  storyText: string;
+  enabled: boolean;
 };
 export type Campaign = {
   id: string;

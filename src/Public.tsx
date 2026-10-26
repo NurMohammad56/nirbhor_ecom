@@ -27,13 +27,13 @@ export function About() {
           <span className="eyebrow">GOODNESS IS IN THE LITTLE THINGS</span>
           <h1>
             {content["page-title-about"] ||
-              "Thoughtful by choice.\nNatural at heart."}
+              "Thoughtful by choice.\nTrusted, every day."}
           </h1>
-          <p>For your pantry, your home, and the life in between.</p>
+          <p>For your pantry, your wardrobe, your rituals, and your home.</p>
         </div>
         <img
-          src="/assets/hero.webp"
-          alt="A thoughtful selection of honey, nuts and dates"
+          src="/assets/brand-hero-v2.webp"
+          alt="A thoughtful selection of pantry, beauty, clothing and home essentials"
         />
       </section>
       <section className="container about-story section">
@@ -52,8 +52,8 @@ export function About() {
             <>
               <p>
                 Some of the best things in life are wonderfully uncomplicated. A
-                spoonful of raw honey. A handful of fresh nuts. A home filled
-                with things you love using.
+                familiar daily ritual. A piece that feels like you. A home
+                filled with things you love using.
               </p>
               <p>
                 NIRBHOR brings these little moments together. We choose honest
@@ -77,9 +77,9 @@ export function About() {
           <div className="benefit-grid">
             {[
               [
-                Leaf,
+                ShieldCheck,
                 "Honest, always.",
-                "Clear ingredients. Transparent sources. No unnecessary promises.",
+                "Clear product details. Thoughtful choices. Useful information.",
               ],
               [
                 Heart,
@@ -110,9 +110,9 @@ export function About() {
         </div>
       </section>
       <section className="brand-promise container">
-        <Leaf size={32} />
+        <ShieldCheck size={32} />
         <h2>
-          A little closer to nature.
+          A little more considered.
           <br />
           <em>A little more you.</em>
         </h2>

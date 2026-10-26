@@ -187,10 +187,18 @@ export function Reviews({ product: p }: { product: Product }) {
       />
       <div className="reviews-overview">
         <div>
-          <span className="review-score">{average.toFixed(1)}</span>
+          <span className="review-score">
+            {average ? average.toFixed(1) : "—"}
+          </span>
           <div>
-            <span className="stars">★★★★★</span>
-            <p>{approved.length || p.reviews} customer reviews</p>
+            <span className="stars">
+              {average ? "★★★★★" : "A new good find"}
+            </span>
+            <p>
+              {approved.length || p.reviews
+                ? `${approved.length || p.reviews} customer reviews`
+                : "Be the first to share your experience"}
+            </p>
           </div>
         </div>
         <div className="rating-distribution">
@@ -540,7 +548,8 @@ export default function ProductPage({
     [imageIndex, setImageIndex] = useState(0),
     [zoom, setZoom] = useState(false),
     [video, setVideo] = useState(false),
-    [tab, setTab] = useState("The details");
+    [tab, setTab] = useState("The details"),
+    [guideOpen, setGuideOpen] = useState(false);
   useEffect(() => {
     if (p) {
       setSelected(p.weight);
@@ -728,7 +737,7 @@ export default function ProductPage({
                   <ZoomIn size={20} />
                 </button>
                 <span className="gallery-caption">
-                  <Leaf size={13} /> GOODNESS, UP CLOSE.
+                  <ZoomIn size={13} /> A CLOSER LOOK.
                 </span>
               </div>
               <div className="gallery-thumbnails">
@@ -782,12 +791,19 @@ export default function ProductPage({
                 </h3>
               )}
               <a className="pdp-rating" href="#reviews">
-                <span className="stars">★★★★★</span>
-                <b>{p.rating.toFixed(1)}</b>
-                <span>({p.reviews} happy customers)</span>
-                <span className="verified-inline">
-                  <Check size={12} /> Verified goodness
-                </span>
+                {p.reviews > 0 ? (
+                  <>
+                    <span className="stars">★★★★★</span>
+                    <b>{p.rating.toFixed(1)}</b>
+                    <span>({p.reviews} customer reviews)</span>
+                  </>
+                ) : (
+                  <>
+                    <span>New to Nirbhor</span>
+                    <span>·</span>
+                    <span>Share your first impression</span>
+                  </>
+                )}
               </a>
               <p className="product-description">
                 {campaign
@@ -816,7 +832,16 @@ export default function ProductPage({
                       ? "Choose your little bundle"
                       : "Choose your size"}
                   </strong>
-                  <span>{variant.label}</span>
+                  {p.sizeGuide ? (
+                    <button
+                      className="size-guide-link"
+                      onClick={() => setGuideOpen(true)}
+                    >
+                      Size guide <ArrowUpRight size={12} />
+                    </button>
+                  ) : (
+                    <span>{variant.label}</span>
+                  )}
                 </div>
                 <div
                   className={`variant-options ${campaign ? "bundle-options" : ""}`}
@@ -958,7 +983,11 @@ export default function ProductPage({
               <div className="detail-tabs">
                 {[
                   "The details",
-                  "Ingredients & origin",
+                  p.category === "Clothing & Style"
+                    ? "Fabric & care"
+                    : p.category === "Home & Living"
+                      ? "Materials & care"
+                      : "Ingredients & origin",
                   "Delivery & returns",
                 ].map((t) => (
                   <button
@@ -982,6 +1011,13 @@ export default function ProductPage({
                       </p>
                     </div>
                     <dl>
+                      {p.details &&
+                        Object.entries(p.details).map(([key, value]) => (
+                          <div key={key}>
+                            <dt>{key}</dt>
+                            <dd>{value}</dd>
+                          </div>
+                        ))}
                       <div>
                         <dt>Brand</dt>
                         <dd>{p.brand}</dd>
@@ -1008,10 +1044,22 @@ export default function ProductPage({
                       </div>
                     </dl>
                   </>
-                ) : tab === "Ingredients & origin" ? (
+                ) : [
+                    "Ingredients & origin",
+                    "Fabric & care",
+                    "Materials & care",
+                  ].includes(tab) ? (
                   <>
                     <div>
-                      <h2>Honest origins. Clear ingredients.</h2>
+                      <h2>
+                        {p.category === "Clothing & Style"
+                          ? "A closer look at the fabric."
+                          : p.category === "Home & Living"
+                            ? "Made for the way you live."
+                            : p.category === "Beauty & Care"
+                              ? "Get to know your daily care."
+                              : "Honest origins. Clear ingredients."}
+                      </h2>
                       <p>
                         {p.category === "Organic Food"
                           ? `Made with ${p.name.toLowerCase()}. No unnecessary additives. Please check the packaging for allergen and batch information.`
@@ -1129,7 +1177,7 @@ export default function ProductPage({
                 (x) =>
                   x.id !== p.id &&
                   x.status === "Published" &&
-                  (x.category === p.category || x.stock > 0),
+                  x.category === p.category,
               )
               .slice(0, 4)
               .map((p) => (
@@ -1174,6 +1222,39 @@ export default function ProductPage({
             src={gallery[imageIndex]}
             alt={p.name}
           />
+        </Modal>
+      )}
+      {guideOpen && p.sizeGuide && (
+        <Modal
+          title={p.name + " — size guide"}
+          onClose={() => setGuideOpen(false)}
+        >
+          <p className="size-guide-intro">
+            Compare these garment measurements with a piece you already own. All
+            measurements are in inches.
+          </p>
+          <table className="size-guide-table">
+            <thead>
+              <tr>
+                <th>Size</th>
+                <th>Chest</th>
+                <th>Length</th>
+              </tr>
+            </thead>
+            <tbody>
+              {p.sizeGuide.map((row) => (
+                <tr key={row.size}>
+                  <td>{row.size}</td>
+                  <td>{row.chest}</td>
+                  <td>{row.length}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="small muted">
+            Preview collection measurements. Follow the final product label and
+            size information before purchase.
+          </p>
         </Modal>
       )}
       {video && p.video && (

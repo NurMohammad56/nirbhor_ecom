@@ -1,3 +1,4 @@
+import { productHref } from "./departments";
 import { descendants } from "./category-tree";
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
@@ -225,7 +226,7 @@ export function ProductCard({
   product: Product;
   compact?: boolean;
 }) {
-  const { wishlist, toggleWish, addToCart, notes } = useStore();
+  const { wishlist, toggleWish, addToCart, notes, categories } = useStore();
   const location = useLocation();
   const savedView = location.pathname.endsWith("/wishlist");
   const variant = savedView
@@ -235,10 +236,7 @@ export function ProductCard({
   return (
     <article className={`product-card ${compact ? "compact" : ""}`}>
       <div className="product-photo">
-        <Link
-          to={p.campaign ? `/campaign/${p.id}` : `/product/${p.id}`}
-          aria-label={`View ${p.name}`}
-        >
+        <Link to={productHref(p, categories)} aria-label={`View ${p.name}`}>
           <img src={p.image} alt={p.name} loading="lazy" />
         </Link>
         {p.badge && <Badge tone={p.oldPrice ? "warm" : ""}>{p.badge}</Badge>}
@@ -265,13 +263,11 @@ export function ProductCard({
         <div className="product-meta">
           <span>{p.subcategory}</span>
           <span className="rating">
-            ★ <b>{p.rating.toFixed(1)}</b>
+            {p.rating ? "★ " : ""}{" "}
+            <b>{p.rating ? p.rating.toFixed(1) : "New"}</b>
           </span>
         </div>
-        <Link
-          className="product-name"
-          to={p.campaign ? `/campaign/${p.id}` : `/product/${p.id}`}
-        >
+        <Link className="product-name" to={productHref(p, categories)}>
           {p.name}
         </Link>
         {savedView && (
@@ -296,7 +292,7 @@ export function ProductCard({
             className="mobile-add icon-btn"
             aria-label={`Add ${p.name} to bag`}
             disabled={!p.stock}
-            onClick={() => addToCart(p.id)}
+            onClick={() => addToCart(p.id, 1, variant)}
           >
             <Plus size={17} />
           </button>
@@ -427,7 +423,7 @@ export function Header() {
                     <Link
                       className="search-item"
                       key={p.id}
-                      to={p.campaign ? `/campaign/${p.id}` : `/product/${p.id}`}
+                      to={productHref(p, categories)}
                     >
                       <img src={p.image} alt="" />
                       <div>
@@ -665,14 +661,13 @@ export function Footer() {
           <div className="footer-brand">
             <Link to="/" className="wordmark">
               {settings.name}
-              <Leaf size={15} />
             </Link>
             <p>
-              A little goodness, every day.
+              Good choices. A trusted place.
               <br />
-              For your pantry, your home,
+              Pantry, beauty, fashion, home.
               <br />
-              and the life in between.
+              Everyday, well chosen.
             </p>
             <div className="socials">
               <a
@@ -697,9 +692,10 @@ export function Footer() {
             <h4>Explore</h4>
             {[
               ["Shop all", "/shop"],
-              ["Organic food", "/shop?category=Organic+Food"],
-              ["Home & living", "/shop?category=Home+%26+Living"],
-              ["Beauty & care", "/shop?category=Beauty+%26+Care"],
+              ["Organic", "/organic"],
+              ["Home & living", "/home-living"],
+              ["Beauty", "/beauty"],
+              ["Fashion", "/fashion"],
               ["Offers & bundles", "/offers"],
             ].map(([t, u]) => (
               <Link to={u} key={t}>

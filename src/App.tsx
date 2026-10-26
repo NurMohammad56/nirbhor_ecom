@@ -1,3 +1,7 @@
+import StoreHeader from "./StoreHeader";
+import DepartmentLanding from "./DepartmentLanding";
+import { departments, departmentForProduct, productHref } from "./departments";
+import { useDepartment } from "./useDepartment";
 import { useSeo } from "./seo";
 import { useEffect, lazy, Suspense } from "react";
 import {
@@ -6,11 +10,13 @@ import {
   Route,
   useLocation,
   Link,
+  Navigate,
+  useParams,
 } from "react-router-dom";
 import { ArrowRight, Leaf } from "lucide-react";
 import { StoreProvider, useStore } from "./store";
 import { Header, Footer, CartDrawer, Button, Empty } from "./ui";
-import Home from "./Home";
+import Home from "./BrandHome";
 import Catalog, { Wishlist, Categories, Offers } from "./Catalog";
 import ProductPage from "./Product";
 import {
@@ -26,6 +32,7 @@ const Admin = lazy(() => import("./Admin"));
 import { About, Contact, Help, StaticPage } from "./Public";
 function AppContent() {
   useSeo();
+  const { department, experience } = useDepartment();
   const location = useLocation(),
     s = useStore();
   const isAdmin = location.pathname.startsWith("/admin");
@@ -41,26 +48,29 @@ function AppContent() {
     } else window.scrollTo(0, 0);
     s.setDrawer(false);
     s.track("PageView", location.pathname + location.search);
-    const product =
-      location.pathname.includes("/product/") ||
-      location.pathname.includes("/campaign/")
-        ? s.products.find((p) => p.id === location.pathname.split("/").pop())
-        : undefined;
-    document.title = product
-      ? product.seoTitle || product.name + " | " + s.settings.name
-      : isAdmin
-        ? "Commerce Admin | " + s.settings.name
-        : s.settings.seoTitle;
-    document
-      .querySelector('meta[name="description"]')
-      ?.setAttribute(
-        "content",
-        product?.seoDescription || s.settings.seoDescription,
-      );
   }, [location.pathname, location.search]);
   useEffect(() => {
-    document.documentElement.style.setProperty("--green", s.settings.color);
-  }, [s.settings.color]);
+    const root = document.documentElement;
+    root.dataset.department = department?.slug || "main";
+    root.style.setProperty("--green", experience?.accent || s.settings.color);
+    root.style.setProperty("--ink", experience?.ink || "#2d332e");
+    root.style.setProperty("--paper", "#fbfaf7");
+    root.style.setProperty(
+      "--department-bg",
+      experience?.background || "#f0ede5",
+    );
+    root.style.setProperty(
+      "--department-accent",
+      experience?.accent || s.settings.color,
+    );
+    root.style.setProperty("--department-ink", experience?.ink || "#2d332e");
+  }, [
+    s.settings.color,
+    department?.slug,
+    experience?.accent,
+    experience?.background,
+    experience?.ink,
+  ]);
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -82,7 +92,7 @@ function AppContent() {
           <a className="skip-link" href="#main-content">
             Skip to content
           </a>
-          <Header />
+          <StoreHeader />
         </>
       )}
       <div id="main-content">
@@ -98,6 +108,28 @@ function AppContent() {
         >
           <Routes>
             <Route path="/" element={<Home />} />
+            {departments.flatMap((d) => [
+              <Route
+                key={d.slug}
+                path={"/" + d.slug}
+                element={<DepartmentLanding slug={d.slug} />}
+              />,
+              <Route
+                key={d.slug + "-shop"}
+                path={"/" + d.slug + "/shop"}
+                element={<Catalog />}
+              />,
+              <Route
+                key={d.slug + "-product"}
+                path={"/" + d.slug + "/product/:id"}
+                element={<ScopedProduct department={d.slug} />}
+              />,
+              <Route
+                key={d.slug + "-campaign"}
+                path={"/" + d.slug + "/campaign/:id"}
+                element={<ScopedProduct department={d.slug} campaignMode />}
+              />,
+            ])}
             <Route path="/shop" element={<Catalog />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/offers" element={<Offers />} />
@@ -158,4 +190,26 @@ export default function App() {
       </StoreProvider>
     </BrowserRouter>
   );
+}
+
+function ScopedProduct({
+  department,
+  campaignMode = false,
+}: {
+  department: string;
+  campaignMode?: boolean;
+}) {
+  const { id } = useParams();
+  const { products, categories } = useStore();
+  const location = useLocation();
+  const p = products.find((p) => p.id === id);
+  const actual = p ? departmentForProduct(p, categories) : undefined;
+  if (p && actual && actual.slug !== department)
+    return (
+      <Navigate
+        to={productHref(p, categories) + location.search + location.hash}
+        replace
+      />
+    );
+  return <ProductPage campaignMode={campaignMode} />;
 }

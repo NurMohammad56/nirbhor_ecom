@@ -1,3 +1,4 @@
+import DepartmentExperiencesAdmin from "./DepartmentExperiencesAdmin";
 import { descendants } from "./category-tree";
 import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
@@ -38,6 +39,7 @@ import {
   MessageSquare,
   MoreHorizontal,
   Package,
+  Palette,
   Plus,
   Printer,
   RefreshCw,
@@ -104,6 +106,7 @@ const navGroups: {
       ["Orders", "/admin/orders", ShoppingBag],
       ["Products", "/admin/products", Package],
       ["Categories", "/admin/categories", FolderTree],
+      ["Category experiences", "/admin/experiences", Palette],
       ["Inventory", "/admin/inventory", Box],
       ["Customers", "/admin/customers", Users],
     ],
@@ -398,6 +401,8 @@ export default function Admin() {
         <main className="admin-content">
           {section === "overview" ? (
             <Overview />
+          ) : section === "experiences" ? (
+            <DepartmentExperiencesAdmin />
           ) : section === "products" ? (
             <ProductsAdmin />
           ) : section === "categories" ? (

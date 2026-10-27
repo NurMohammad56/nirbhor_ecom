@@ -3,11 +3,10 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowDown, ArrowUpRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import type { Banner } from "./data";
-import type { Department } from "./departments";
 import { Button } from "./ui";
 import { useReducedMotion, useSceneMotion } from "./SceneMotion";
 
-export default function CinematicHero({ slides, collections }: { slides: Banner[]; collections: Department[] }) {
+export default function CinematicHero({ slides }: { slides: Banner[] }) {
   const [slide, setSlide] = useState(0);
   const [stopped, setStopped] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -59,7 +58,6 @@ export default function CinematicHero({ slides, collections }: { slides: Banner[
           </div>
         </div>
       </div>
-      <nav className="cinema-worlds" aria-label={bnNode("Explore our departments")}>{bnNode(collections.map((d, i) => <Link to={`/${d.slug}`} key={d.slug}><span>{bnNode("0")}{bnNode(i + 1)}</span><strong>{bnNode(d.name === "Home" ? "Home & living" : d.name)}</strong><small>{bnNode(d.tagline)}</small><ArrowUpRight size={20} /></Link>))}</nav>
     </section>
   );
 }

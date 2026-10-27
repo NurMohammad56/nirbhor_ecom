@@ -55,7 +55,7 @@ export default function BrandHome() {
           .slice(0, 4);
   return (
     <main className="brand-home">
-      <CinematicHero slides={slides.length ? slides : brandBanners} collections={visibleDepartments} />
+      <CinematicHero slides={slides.length ? slides : brandBanners} />
       <div className="brand-services container">
         {bnNode([
           {

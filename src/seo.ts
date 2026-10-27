@@ -28,7 +28,7 @@ export function useSeo() {
       : undefined;
     const params = new URLSearchParams(search);
     const category = params.get("subcategory") || params.get("category");
-    const title = product
+    const title = pathname === "/" ? "নির্ভর" : product
       ? product.seoTitle || `${product.page?.headline || product.name} | ${settings.name}`
       : pathname === "/offers"
         ? `অফার ও কম্বো | ${settings.name}`

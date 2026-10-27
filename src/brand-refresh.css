@@ -21,12 +21,13 @@ em, i { font-style: normal !important; }
 .brand-story-copy h2 > em { color: #3a5138; }
 
 .category-rail { min-width: 0; }
-.category-rail-window { overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; overflow-anchor: none; -webkit-overflow-scrolling: touch; }
+.category-rail-window { padding-block: 10px 16px; margin-block: -10px -16px; overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; overflow-anchor: none; -webkit-overflow-scrolling: touch; }
 .category-rail-window::-webkit-scrollbar { display: none; }
 .category-rail-track, .category-rail-group { display: flex; align-items: stretch; gap: 18px; width: max-content; }
 .category-rail-group { flex-shrink: 0; }
-.category-rail .category-rail-card { display: block; width: 210px; flex: 0 0 210px; min-height: 0; margin: 0; padding: 11px 11px 16px; background: #fffefb; color: #213d2b; border: 1px solid #e0e3d8; border-radius: 15px; overflow: hidden; transition: border-color .25s, box-shadow .25s; }
-.category-rail .category-rail-card:hover { border-color: #b1bf9f; box-shadow: 0 5px 15px #1a3b2210; }
+.category-rail .category-rail-card { display: block; width: 210px; flex: 0 0 210px; min-height: 0; margin: 0; padding: 11px 11px 16px; background: #fffefb; color: #213d2b; border: 1px solid #e0e3d8; border-radius: 15px; overflow: hidden; transform: translateY(0); transition: border-color .25s, box-shadow .25s, transform .25s; }
+.category-rail .category-rail-card:hover { transform: translateY(-3px); border-color: #b1bf9f; box-shadow: 0 5px 15px #1a3b2210; }
+.category-rail .category-rail-card:focus-visible { outline-offset: -3px; }
 .category-rail-image { height: 133px; border-radius: 9px; position: relative; overflow: hidden; background: #efeee4; }
 .category-rail-image img { width: 100%; height: 100%; object-fit: cover; object-position: 70% center; transition: transform .6s; }
 .category-rail-image > span { position: absolute; right: 9px; bottom: 9px; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: #fff9e9ed; color: #8d5c24; }

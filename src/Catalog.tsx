@@ -778,7 +778,7 @@ export function Offers() {
             .filter((c) => c.active)
             .map((c) => (
               <Link to={`/campaign/${c.productId}`} key={c.id}>
-                <img src="/assets/hero.webp" alt={bnNode("Sundarban honey harvest")} />
+                <img src="/assets/organic-world-v5.webp" alt={bnNode("Sundarban honey harvest")} />
                 <div>
                   <Badge tone="warm">{bnNode("THE SEASONAL EDIT")}</Badge>
                   <h2>{bnNode(c.name)}</h2>

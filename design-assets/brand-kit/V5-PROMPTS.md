@@ -129,3 +129,21 @@ Mode: edit
 Output: public/assets/bundle-v5.webp
 
 Use case: compositing. Transform this existing honey still-life into a premium three-item morning gift box product photograph, maintaining its cream/sage editorial light and natural materials. Input 2 is the exact approved orange-leaf Bengali নির্ভর logo, and inputs 3–5 are the single shared sticker layout in honey, mixed nuts and herbal tea variants. Show an open kraft gift carton with the exact logo on its lid, a 500g honey jar, a 250g mixed nuts kraft pouch and a small 12-sachet herbal tea pack arranged neatly. EACH FOOD PACKAGE USES THE EXACT SAME SUPPLIED cream sticker design with green border, narrow orange top strip and actual Bengali logo; only product name, description and amount differ. No other label designs, no decorative landscape illustrations. Premium realistic crisp product photograph, warm cream background, full box visible, no captions or UI.
+
+## linen-v5
+
+Mode: edit
+
+Output: public/assets/linen-v5.webp
+
+Edit image 1 only. Keep this exact premium linen napkins photograph, same crop, lighting, ribbon, dried flowers, folded textile and cream hanging packaging tag. Replace the old small botanical icon and English NIRBHOR on the tag with the EXACT approved Bengali logo from image 2: green Bengali word নির্ভর with two orange leaves and orange stem above it. Do not invent a different logo, no other text, no white sticker anywhere else. Print it naturally centered on the existing cream paper tag with realistic perspective, lighting and paper texture. This tag is our retailer gift packaging, the textile has no woven manufacturer branding. Preserve original image proportions and photo quality.
+
+## Approved logo
+
+Mode: edit
+
+Source: design-assets/logo-concepts/v4-simple/nirbhor-simple-02-pair.png
+
+Output: public/brand/nirbhor-logo.png
+
+Preserve the selected Bengali wordmark exactly. Recolour only the two leaves and their stem to warm orange. Keep the lettering and the separate curved Bengali stroke green. Preserve transparency. The web version is cropped to its visible bounds.

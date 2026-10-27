@@ -339,7 +339,7 @@ export default function Home() {
       <section className="harvest-section container">
         <div className="harvest-visual">
           <img
-            src="/assets/hero.webp"
+            src="/assets/organic-world-v5.webp"
             alt={bnNode("Golden raw honey in a glass jar, with natural honey dipper")}
             loading="lazy"
           />

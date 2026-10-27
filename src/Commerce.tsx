@@ -965,7 +965,7 @@ export function Auth() {
   return (
     <main className="auth-layout">
       <div className="auth-image">
-        <img src="/assets/hero.webp" alt={bnNode("Nirbhor raw honey, nuts and dates")} />
+        <img src="/assets/organic-world-v5.webp" alt={bnNode("Nirbhor raw honey, nuts and dates")} />
         <div>
           <Leaf size={28} />
           <h2>{bnNode("A little goodness.")}<br />{bnNode("A place to call yours.")}</h2>

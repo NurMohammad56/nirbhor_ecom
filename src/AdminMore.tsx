@@ -251,7 +251,7 @@ export function CategoriesAdmin() {
             </label>
             <label className="field">{bnNode("Image URL")}<input
                 name="image"
-                defaultValue={edit === "new" ? "/assets/hero.webp" : edit.image}
+                defaultValue={edit === "new" ? "/assets/organic-world-v5.webp" : edit.image}
               />
             </label>
             <label className="field">{bnNode("Sort order")}<input
@@ -1788,7 +1788,7 @@ export function BannersAdmin() {
                   name="image"
                   required
                   defaultValue={
-                    edit === "new" ? "/assets/hero.webp" : edit.image
+                    edit === "new" ? "/assets/organic-world-v5.webp" : edit.image
                   }
                 />
               </label>
@@ -1892,7 +1892,7 @@ export function ReviewsAdmin() {
               <h3>{bnNode(r.title)}</h3>
               <p>{bnNode(r.text)}</p>
               <div className="moderation-actions">
-                {bnNode(r.verified && <Badge>{bnNode("Verified purchase")}</Badge>)}
+                {r.demo ? <Badge>নমুনা রিভিউ</Badge> : bnNode(r.verified && <Badge>{bnNode("Verified purchase")}</Badge>)}
                 {bnNode(r.media && <Badge>{bnNode("Media attached")}</Badge>)}
                 <button className="text-button" onClick={() => setSelected(r)}>{bnNode("Read & reply ")}<ArrowUpRight size={13} />
                 </button>
@@ -2627,8 +2627,7 @@ export function SettingsAdmin() {
                   className="branding-preview"
                   style={{ background: draft.color }}
                 >
-                  <Leaf size={29} />
-                  <h2>{bnNode(draft.name)}</h2>
+                  <div className="branding-logo-plate"><BrandLogo /></div>
                   <p>{bnNode(draft.tagline)}</p>
                 </div>
                 <label className="field">{bnNode("Primary brand colour")}<input
@@ -2642,7 +2641,7 @@ export function SettingsAdmin() {
                     onChange={(e) => set("name", e.target.value)}
                   />
                 </label>
-                <p className="muted small">{bnNode("The wordmark uses the shared brand typeface. Your primary colour updates buttons and key storefront accents.")}</p>
+                <p className="muted small">নির্বাচিত লোগো সাইট ও প্যাকেজিংয়ে ব্যবহার করা হচ্ছে। ব্র্যান্ডের রং বাটন ও অন্যান্য অংশে প্রযোজ্য।</p>
               </>
             ) : tab === "Shipping & delivery" ? (
               <>

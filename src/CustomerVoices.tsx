@@ -10,7 +10,7 @@ export default function CustomerVoices({ category }: { category?: string }) {
   const selected = [...eligible.filter(review => review.featured), ...eligible.filter(review => !review.featured)].slice(0, 3);
   if (!selected.length) return null;
   return <section className="container brand-section customer-voices">
-    <div className="brand-section-heading"><h2>ক্রেতাদের অভিজ্ঞতা</h2><span>কেনাকাটার পর দেওয়া মতামত</span></div>
+    <div className="brand-section-heading"><h2>ক্রেতাদের অভিজ্ঞতা</h2></div>
     <div className="customer-voice-grid">{selected.map(review => {
       const product = products.find(item => item.id === review.productId);
       return <article className="customer-voice" key={review.id}>

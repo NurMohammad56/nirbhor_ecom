@@ -1,4 +1,5 @@
 import { bnNode } from "./bn";
+import BrandLogo from "./BrandLogo";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Check, Eye, Palette } from "lucide-react";
@@ -162,8 +163,7 @@ export default function DepartmentExperiencesAdmin() {
             className="experience-preview"
             style={{ background: draft.background, color: draft.ink }}
           >
-            <span>{bnNode("NIRBHOR ")}<i>{bnNode(d.name)}</i>
-            </span>
+            <div className="experience-brand"><BrandLogo /><span>{bnNode(d.name)}</span></div>
             <img src={draft.heroImage} alt={bnNode(`${d.name} draft preview`)} />
             <div>
               <small>{bnNode(d.kicker)}</small>

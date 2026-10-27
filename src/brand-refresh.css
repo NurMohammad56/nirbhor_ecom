@@ -13,6 +13,11 @@ em, i { font-style: normal !important; }
 .admin-sidebar .nirbhor-brand-mark { width: 106px; }
 .invoice-brand { margin-bottom: 12px; }
 .invoice-brand .nirbhor-brand-mark { width: 120px; }
+.branding-logo-plate { display: inline-block; padding: 16px 24px; background: #fbf6e9; border-radius: 10px; }
+.branding-logo-plate .nirbhor-brand-mark { width: 130px; }
+.experience-brand { display: flex; align-items: center; gap: 12px; }
+.experience-brand .nirbhor-brand-mark { width: 90px; }
+.experience-brand .nirbhor-brand-mark img { width: 100%; height: auto; border-radius: 0; object-fit: contain; }
 .brand-story-copy h2 > em { color: #3a5138; }
 
 .category-rail { min-width: 0; }

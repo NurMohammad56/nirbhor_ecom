@@ -5,10 +5,6 @@ import {
   ArrowUpRight,
   Check,
   ChevronRight,
-  Leaf,
-  Sparkles,
-  Ruler,
-  Armchair,
 } from "lucide-react";
 import { useStore } from "./store";
 import {
@@ -108,17 +104,6 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
     (c) => c.parent === category.name && c.active,
   );
   const featured = items;
-  const selectedCollections = subcategories
-    .filter((c) => items.some((p) => p.subcategory === c.name))
-    .slice(0, 3);
-  const Icon =
-    d.slug === "organic"
-      ? Leaf
-      : d.slug === "beauty"
-        ? Sparkles
-        : d.slug === "fashion"
-          ? Ruler
-          : Armchair;
   return (
     <main className={`department-landing department-${d.slug}`}>
       <section ref={sceneRef} className="department-hero-shell immersive-department">

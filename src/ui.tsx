@@ -366,9 +366,6 @@ export function Header() {
           </button>
           <Link to="/" className="wordmark" aria-label={bnNode("Nirbhor home")}>
             <BrandLogo />
-            <span className="brand-leaf">
-              <Leaf size={15} />
-            </span>
           </Link>
           <nav className="desktop-nav" aria-label={bnNode("Main navigation")}>
             <div onMouseEnter={() => setMega(true)}>

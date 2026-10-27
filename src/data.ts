@@ -38,6 +38,7 @@ export type Product = {
   barcode?: string;
   details?: Record<string, string>;
   sizeGuide?: { size: string; chest: string; length: string }[];
+  page?: Partial<import("./product-page-content").ProductPageContent>;
 };
 export type CartItem = {
   id: string;
@@ -89,6 +90,7 @@ export type Review = {
   reply: string;
   verified: boolean;
   demo?: boolean;
+  source?: "customer" | "admin";
 };
 export type Category = {
   id: string;

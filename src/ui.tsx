@@ -1,3 +1,4 @@
+import { reviewSummary } from "./product-page-content";
 import BrandLogo from "./BrandLogo";
 import { ComboCartGroups } from "./OfferCards";
 import { bnNode } from "./bn";
@@ -229,7 +230,8 @@ export function ProductCard({
   product: Product;
   compact?: boolean;
 }) {
-  const { wishlist, toggleWish, addToCart, notes, categories } = useStore();
+  const { wishlist, toggleWish, addToCart, notes, categories, reviews } = useStore();
+  const stats = reviewSummary(p.id, reviews);
   const location = useLocation();
   const savedView = location.pathname.endsWith("/wishlist");
   const variant = savedView
@@ -266,8 +268,8 @@ export function ProductCard({
         <div className="product-meta">
           <span>{bnNode(p.subcategory)}</span>
           <span className="rating">
-            {bnNode(p.rating ? "★ " : "")}{bnNode(" ")}
-            <b>{bnNode(p.rating ? p.rating.toFixed(1) : "New")}</b>
+            {bnNode(stats.count ? "★ " : "")}{bnNode(" ")}
+            <b>{bnNode(stats.count ? stats.average.toFixed(1) : "New")}</b>
           </span>
         </div>
         <Link className="product-name" to={productHref(p, categories)}>

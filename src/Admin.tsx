@@ -1,5 +1,6 @@
 import BrandLogo from "./BrandLogo";
 import OffersAdmin from "./OffersAdmin";
+import ProductPageAdmin from "./ProductPageAdmin";
 import { bnNode, latinDigits, searchText } from "./bn";
 import DepartmentExperiencesAdmin from "./DepartmentExperiencesAdmin";
 import { descendants } from "./category-tree";
@@ -108,6 +109,7 @@ const navGroups: {
       ["Overview", "/admin", Layers],
       ["Orders", "/admin/orders", ShoppingBag],
       ["Products", "/admin/products", Package],
+      ["প্রোডাক্ট পেজ", "/admin/product-pages", FileText],
       ["Categories", "/admin/categories", FolderTree],
       ["Category experiences", "/admin/experiences", Palette],
       ["Inventory", "/admin/inventory", Box],
@@ -400,6 +402,8 @@ export default function Admin() {
             <DepartmentExperiencesAdmin />
           ) : section === "products" ? (
             <ProductsAdmin />
+          ) : section === "product-pages" ? (
+            <ProductPageAdmin />
           ) : section === "categories" ? (
             <CategoriesAdmin />
           ) : section === "inventory" ? (
@@ -1009,6 +1013,7 @@ function ProductsAdmin() {
                       >
                         <Edit3 size={15} />
                       </button>
+                      <Link className="icon-btn" aria-label={`${bnNode(p.name)} পেজ সাজান`} to={`/admin/product-pages?product=${p.id}`}><FileText size={15} /></Link>
                       <button
                         className="icon-btn"
                         aria-label={bnNode(`Duplicate ${p.name}`)}
@@ -1563,6 +1568,7 @@ function ProductEditor({
             />
             <Link className="text-link" to="/admin/campaigns">{bnNode("Manage landing-page experiences ")}<ArrowUpRight size={14} />
             </Link>
+            {product && <Link className="text-link" to={`/admin/product-pages?product=${product.id}`}>প্রোডাক্ট পেজের লেখা ও রিভিউ<ArrowUpRight size={14} /></Link>}
             <div className="seo-preview">
               <span>{bnNode("nirbhor.com › product › ")}{bnNode(draft.slug || draft.id)}</span>
               <h3>{bnNode(draft.seoTitle || draft.name + " | NIRBHOR")}</h3>

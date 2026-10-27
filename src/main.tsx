@@ -8,3 +8,4 @@ import "./cinematic.css";
 import "./bengali.css";
 import "./brand-refresh.css";
 import "./refinement.css";
+import "./product-editor.css";

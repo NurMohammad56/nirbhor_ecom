@@ -29,7 +29,7 @@ export function useSeo() {
     const params = new URLSearchParams(search);
     const category = params.get("subcategory") || params.get("category");
     const title = product
-      ? product.seoTitle || `${product.name} | ${settings.name}`
+      ? product.seoTitle || `${product.page?.headline || product.name} | ${settings.name}`
       : pathname === "/offers"
         ? `অফার ও কম্বো | ${settings.name}`
       : pathname.startsWith("/admin")
@@ -41,6 +41,7 @@ export function useSeo() {
             : settings.seoTitle;
     const description =
       product?.seoDescription ||
+      product?.page?.shortDescription ||
       product?.description ||
       experience?.description ||
       settings.seoDescription;

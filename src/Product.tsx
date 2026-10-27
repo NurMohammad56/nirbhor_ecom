@@ -1,3 +1,5 @@
+import ProductSections, { ProductRelated } from "./ProductSections";
+import { productPageContent, reviewSummary, reviewSourceLabel, reviewIsVideo } from "./product-page-content";
 import { bnNode, latinDigits, searchText } from "./bn";
 import { DiscountHint } from "./OfferCards";
 import { useEffect, useRef, useState } from "react";
@@ -138,7 +140,7 @@ export function Reviews({ product: p }: { product: Product }) {
   );
   const average = approved.length
     ? approved.reduce((a, r) => a + r.rating, 0) / approved.length
-    : p.rating;
+    : 0;
   const display = approved
     .filter(
       (r) =>
@@ -173,6 +175,7 @@ export function Reviews({ product: p }: { product: Product }) {
         helpful: 0,
         reply: "",
         verified,
+        source: "customer",
       },
       ...x,
     ]);
@@ -184,7 +187,7 @@ export function Reviews({ product: p }: { product: Product }) {
     <section className="product-reviews container section" id="reviews">
       <SectionTitle
         eyebrow="HONEST WORDS. REAL GOODNESS."
-        title={bnNode("From our community.")}
+        title={bnNode(productPageContent(p).reviewsTitle)}
       />
       <div className="reviews-overview">
         <div>
@@ -193,11 +196,11 @@ export function Reviews({ product: p }: { product: Product }) {
           </span>
           <div>
             <span className="stars">
-              {bnNode(average ? "★★★★★" : "A new good find")}
+              {bnNode(average ? Array.from({length:5},(_,i)=>i<Math.round(average)?"★":"☆").join("") : "A new good find")}
             </span>
             <p>
-              {bnNode(approved.length || p.reviews
-                ? `${approved.length || p.reviews} customer reviews`
+              {bnNode(approved.length
+                ? `${approved.length} customer reviews`
                 : "Be the first to share your experience")}
             </p>
           </div>
@@ -214,12 +217,12 @@ export function Reviews({ product: p }: { product: Product }) {
             </button>
           )))}
         </div>
-        <div>
+        {productPageContent(p).allowReviews && <div>
           <h3>{bnNode("A little feedback goes a long way.")}</h3>
           <p>{bnNode("Share the good. Help someone choose.")}</p>
           <Button variant="outline" onClick={() => setModal(true)}>{bnNode("Write a review ")}<Plus size={15} />
           </Button>
-        </div>
+        </div>}
       </div>
       <div className="reviews-toolbar">
         <div className="filter-chips">
@@ -262,7 +265,8 @@ export function Reviews({ product: p }: { product: Product }) {
               </span>
               <strong>{bnNode(r.name)}</strong>
               {r.demo && <span className="review-demo-badge">নমুনা রিভিউ</span>}
-              {bnNode(!r.demo && r.verified && (
+              {!r.demo && r.source === "admin" && <span className="review-demo-badge">স্টোর থেকে যোগ করা</span>}
+              {bnNode(!r.demo && r.source !== "admin" && r.verified && (
                 <span>
                   <Check size={12} />{bnNode(" Verified purchase")}</span>
               ))}
@@ -282,7 +286,7 @@ export function Reviews({ product: p }: { product: Product }) {
               <h3>{bnNode(r.title)}</h3>
               <p>{bnNode(r.text)}</p>
               {bnNode(r.media &&
-                (r.media.startsWith("data:video") ? (
+                (reviewIsVideo(r.media) ? (
                   <video src={r.media} controls className="review-media" />
                 ) : (
                   <img
@@ -378,6 +382,7 @@ function QuickOrder({
   const s = useStore(), { settings, profile, products } = s,
     placeOrder = usePlaceOrder(),
     navigate = useNavigate();
+  const page = productPageContent(p);
   const [zone, setZone] = useState("Dhaka");
   const totals = cartTotals(
     [{ id: p.id, quantity: 1, variant }],
@@ -392,8 +397,8 @@ function QuickOrder({
       <div className="container quick-order-inner">
         <div>
           <span className="eyebrow">{bnNode("GOODNESS IS JUST A FEW DETAILS AWAY")}</span>
-          <h2>{bnNode("From our hands")}<br />{bnNode("to your home.")}</h2>
-          <p>{bnNode("No account needed. A simple order,")}<br />{bnNode("a confirmation call, and a little care at every step.")}</p>
+          <h2>{page.quickOrderTitle ? bnNode(page.quickOrderTitle) : <>{bnNode("From our hands")}<br />{bnNode("to your home.")}</>}</h2>
+          <p className="preserve-lines">{page.quickOrderText ? bnNode(page.quickOrderText) : <>{bnNode("No account needed. A simple order,")}<br />{bnNode("a confirmation call, and a little care at every step.")}</>}</p>
           <span className="secure-note">
             <ShieldCheck size={17} />{bnNode(" Cash on delivery · No advance payment")}</span>
           <div className="quick-order-selection">
@@ -480,7 +485,7 @@ function QuickOrder({
             variant="gold"
             className="full"
             disabled={!p.stock || !settings.cod}
-          >{bnNode("Confirm order · ")}{bnNode(money(totals.total))} <ArrowRight size={16} />
+          >{bnNode(page.quickOrderButtonText ? page.quickOrderButtonText + " · " : "Confirm order · ")}{bnNode(money(totals.total))} <ArrowRight size={16} />
           </Button>
           {bnNode(!settings.cod && (
             <p className="field-error">{bnNode("Cash on delivery is currently unavailable. Please use the standard checkout.")}</p>
@@ -544,100 +549,10 @@ export default function ProductPage({
   const variant = variants.find((v) => v.label === selected) || variants[0],
     price = variant?.price || p.price;
   const gallery = [...new Set([p.image, ...p.images])].filter(Boolean);
+  const page = productPageContent(p), stats = reviewSummary(p.id, s.reviews);
   const buy = () => {
     s.addToCart(p.id, quantity, variant.label);
     if (p.stock >= quantity) navigate("/checkout");
-  };
-  const sections: Record<string, React.ReactNode> = {
-    source: (
-      <section className="source-story" key="source">
-        <div className="container source-story-grid">
-          <div>
-            <span className="eyebrow">{bnNode("EVERY JAR HAS AN ORIGIN")}</span>
-            <h2>{bnNode("From a wild place.")}<br />{bnNode("With a little care.")}</h2>
-            <p>{bnNode("Deep in the Sundarbans, bees follow the rhythm of seasonal blossoms. Our honey keeps the character of that landscape: its floral aroma, golden colour, and beautiful natural variation.")}</p>
-            <div className="batch-info">
-              <div>
-                <span>{bnNode("ORIGIN")}</span>
-                <b>{bnNode(p.source)}{bnNode(", Bangladesh")}</b>
-              </div>
-              <div>
-                <span>{bnNode("BATCH")}</span>
-                <b>{bnNode("SH-26-10 · Autumn harvest")}</b>
-              </div>
-              <div>
-                <span>{bnNode("INGREDIENTS")}</span>
-                <b>{bnNode("100% raw honey. That’s all.")}</b>
-              </div>
-            </div>
-          </div>
-          <div className="source-photo">
-            <img
-              src="/assets/source.webp"
-              alt={bnNode("Sunlight filtering through a lush green forest")}
-              loading="lazy"
-            />
-            <span>
-              <MapPin size={14} />{bnNode(" Rooted in nature. Traced to its source.")}</span>
-          </div>
-        </div>
-      </section>
-    ),
-    trust: (
-      <section className="container section campaign-benefits" key="trust">
-        <SectionTitle
-          eyebrow="SIMPLE REASONS. HONEST GOODNESS."
-          title={bnNode("Just what you want. Nothing you don’t.")}
-        />
-        <div className="benefit-grid">
-          {bnNode([
-            [
-              Leaf,
-              "Naturally full of character",
-              "Raw, unfiltered, and beautifully different from batch to batch.",
-            ],
-            [
-              MapPin,
-              "A source you can see",
-              "Origin and batch details, shared with every jar.",
-            ],
-            [
-              ShieldCheck,
-              "Packed with a little care",
-              "A sealed glass jar and protective doorstep-ready packaging.",
-            ],
-            [
-              Truck,
-              "Easy from here",
-              "Simple ordering. Cash on delivery. Across Bangladesh.",
-            ],
-          ].map(([Icon, t, d]) => {
-            const I = Icon as typeof Leaf;
-            return (
-              <div key={String(t)}>
-                <I size={25} strokeWidth={1.4} />
-                <h3>{bnNode(String(t))}</h3>
-                <p>{bnNode(String(d))}</p>
-              </div>
-            );
-          }))}
-        </div>
-      </section>
-    ),
-    reviews: <Reviews product={p} key="reviews" />,
-    faq: (
-      <section className="container section campaign-faq" key="faq">
-        <div>
-          <span className="eyebrow">{bnNode("A LITTLE CLARITY")}</span>
-          <h2>{bnNode("Good questions.")}<br />{bnNode("Honest answers.")}</h2>
-          <p>{bnNode("Still curious?")}{bnNode(" ")}
-            <Link to="/contact" className="text-link">{bnNode("We’re here to help ")}<ArrowUpRight size={13} />
-            </Link>
-          </p>
-        </div>
-        <Faq campaign />
-      </section>
-    ),
   };
   return (
     <>
@@ -710,9 +625,9 @@ export default function ProductPage({
             <div className="product-purchase">
               <div className="pdp-topline">
                 <span className="eyebrow">
-                  {bnNode(campaign
+                  {bnNode(page.kicker || (campaign
                     ? "THE SUNDARBAN HARVEST EDIT"
-                    : p.brand + " · " + p.subcategory)}
+                    : p.brand + " · " + p.subcategory))}
                 </span>
                 <button
                   className={`icon-btn ${s.wishlist.includes(p.id) ? "saved" : ""}`}
@@ -728,32 +643,14 @@ export default function ProductPage({
               {bnNode(campaign && config?.discount && (
                 <Badge tone="warm">{bnNode(config.label)}</Badge>
               ))}
-              <h1>{bnNode(campaign ? config?.headline : p.name)}</h1>
+              <h1>{bnNode(page.headline || (campaign ? config?.headline : p.name))}</h1>
               {bnNode(campaign && (
                 <h3 className="campaign-product-name">
                   {bnNode(p.name)}{bnNode(" · ")}{bnNode(p.weight)}
                 </h3>
               ))}
-              <a className="pdp-rating" href="#reviews">
-                {bnNode(p.reviews > 0 ? (
-                  <>
-                    <span className="stars">{bnNode("★★★★★")}</span>
-                    <b>{bnNode(p.rating.toFixed(1))}</b>
-                    <span>{bnNode("(")}{bnNode(p.reviews)}{bnNode(" customer reviews)")}</span>
-                  </>
-                ) : (
-                  <>
-                    <span>{bnNode("New to Nirbhor")}</span>
-                    <span>{bnNode("·")}</span>
-                    <span>{bnNode("Share your first impression")}</span>
-                  </>
-                ))}
-              </a>
-              <p className="product-description">
-                {bnNode(campaign
-                  ? "Raw, unfiltered honey from the wild blossoms of the Sundarbans. Rich in character, full of natural flavour, with absolutely nothing added."
-                  : p.description)}
-              </p>
+              {page.showRating && (campaign ? config?.reviews : page.sections.find(s => s.id === "reviews")?.enabled) && <a className="pdp-rating" href="#reviews">{stats.count ? <><span className="stars">{Array.from({length:5},(_,i)=>i<Math.round(stats.average)?"★":"☆").join("")}</span><b>{bnNode(stats.average.toFixed(1))}</b><span>({bnNode(stats.count)}টি রিভিউ)</span></> : <span>এখনও রিভিউ নেই - প্রথম মতামত দিন</span>}</a>}
+              <p className="product-description preserve-lines">{bnNode(page.shortDescription || p.description)}</p>
               <div className="pdp-price">
                 <b>{bnNode(money(price))}</b>
                 {bnNode(p.oldPrice > price && (!campaign || config?.discount) && (
@@ -812,7 +709,7 @@ export default function ProductPage({
                   )))}
                 </div>
               </div>
-              {bnNode((!campaign || config?.stock || config?.urgency) && (
+              {bnNode(page.showStock && (!campaign || config?.stock || config?.urgency) && (
                 <div className={`stock-message ${p.stock ? "" : "out"}`}>
                   <span />
                   {bnNode(p.stock
@@ -843,35 +740,20 @@ export default function ProductPage({
                   }
                 >
                   {bnNode(campaign && config?.quickOrder
-                    ? "Order now · Cash on delivery"
-                    : "Add to your bag")}{bnNode(" ")}
+                    ? page.orderButtonText || "Order now · Cash on delivery"
+                    : page.addToCartText || "Add to your bag")}{bnNode(" ")}
                   <ArrowRight size={17} />
                 </Button>
               </div>
-              {bnNode(!campaign && (
+              {bnNode(!campaign && page.showBuyNow && (
                 <Button
                   variant="outline"
                   className="full buy-now"
                   disabled={!p.stock || !variant.stock}
                   onClick={buy}
-                >{bnNode("Buy it now")}</Button>
+                >{bnNode(page.buyNowText || "Buy it now")}</Button>
               ))}
-              <div className="pdp-assurances">
-                <span>
-                  <Truck size={17} />
-                  <div>
-                    <b>{bnNode("A little care, delivered.")}</b>
-                    <small>{bnNode("Dhaka 1-2 days · Nationwide 3-5 days")}</small>
-                  </div>
-                </span>
-                <span>
-                  <ShieldCheck size={17} />
-                  <div>
-                    <b>{bnNode("Pay when it’s at your door.")}</b>
-                    <small>{bnNode("Cash on delivery · Easy support")}</small>
-                  </div>
-                </span>
-              </div>
+              {page.showAssurances && <div className="pdp-assurances">{page.assurances.map((item,index)=><span key={index}>{index % 2 ? <ShieldCheck size={17}/> : <Truck size={17}/>}<div><b>{bnNode(item.title)}</b><small>{bnNode(item.text)}</small></div></span>)}</div>}
               <div className="pdp-fineprint">
                 <span>
                   <Check size={12} />{bnNode(" ")}
@@ -889,224 +771,12 @@ export default function ProductPage({
             </div>
           </div>
         </div>
-        {bnNode(campaign ? (
-          <>
-            <div className="campaign-proof">
-              <div className="container">
-                {bnNode([
-                  ["1,248+", "Happy orders"],
-                  ["4.9 / 5", "A little love from our customers"],
-                  ["100% raw", "Nothing added. Nothing hidden."],
-                  ["Cash on delivery", "A simpler way to shop"],
-                ].map(([v, t]) => (
-                  <div key={v}>
-                    <b>{bnNode(v)}</b>
-                    <span>{bnNode(t)}</span>
-                  </div>
-                )))}
-              </div>
-            </div>
-            {bnNode(config?.blockOrder.map((key) =>
-              (config as any)[key] ? sections[key] : null,
-            ))}
-            {bnNode(config?.quickOrder && (
-              <QuickOrder product={p} variant={variant.label} />
-            ))}
-          </>
-        ) : (
-          <>
-            <section className="container section product-information">
-              <div className="detail-tabs">
-                {bnNode([
-                  "The details",
-                  p.category === "Clothing & Style"
-                    ? "Fabric & care"
-                    : p.category === "Home & Living"
-                      ? "Materials & care"
-                      : "Ingredients & origin",
-                  "Delivery & returns",
-                ].map((t) => (
-                  <button
-                    key={t}
-                    className={tab === t ? "active" : ""}
-                    onClick={() => setTab(t)}
-                  >
-                    {bnNode(t)}
-                  </button>
-                )))}
-              </div>
-              <div className="detail-tab-content">
-                {bnNode(tab === "The details" ? (
-                  <>
-                    <div>
-                      <h2>{bnNode("A little more about your good find.")}</h2>
-                      <p>{bnNode(p.description)}</p>
-                      <p>{bnNode("Every item is checked and carefully packed by our team. Good things deserve a little attention.")}</p>
-                    </div>
-                    <dl>
-                      {bnNode(p.details &&
-                        Object.entries(p.details).map(([key, value]) => (
-                          <div key={key}>
-                            <dt>{bnNode(key)}</dt>
-                            <dd>{bnNode(value)}</dd>
-                          </div>
-                        )))}
-                      <div>
-                        <dt>{bnNode("Brand")}</dt>
-                        <dd>{bnNode(p.brand)}</dd>
-                      </div>
-                      <div>
-                        <dt>{bnNode("Size / weight")}</dt>
-                        <dd>{bnNode(p.weight)}</dd>
-                      </div>
-                      <div>
-                        <dt>{bnNode("Source")}</dt>
-                        <dd>{bnNode(p.source)}</dd>
-                      </div>
-                      <div>
-                        <dt>{bnNode("Product type")}</dt>
-                        <dd>{bnNode(p.type)}</dd>
-                      </div>
-                      <div>
-                        <dt>{bnNode("Good to know")}</dt>
-                        <dd>{bnNode(p.dietary)}</dd>
-                      </div>
-                      <div>
-                        <dt>{bnNode("Colour")}</dt>
-                        <dd>{bnNode(p.color)}</dd>
-                      </div>
-                    </dl>
-                  </>
-                ) : [
-                    "Ingredients & origin",
-                    "Fabric & care",
-                    "Materials & care",
-                  ].includes(tab) ? (
-                  <>
-                    <div>
-                      <h2>
-                        {bnNode(p.category === "Clothing & Style"
-                          ? "A closer look at the fabric."
-                          : p.category === "Home & Living"
-                            ? "Made for the way you live."
-                            : p.category === "Beauty & Care"
-                              ? "Get to know your daily care."
-                              : "Honest origins. Clear ingredients.")}
-                      </h2>
-                      <p>
-                        {bnNode(p.category === "Organic Food"
-                          ? `Made with ${p.name.toLowerCase()}. No unnecessary additives. Please check the packaging for allergen and batch information.`
-                          : "Considered materials, carefully selected for everyday use. Follow the included care instructions to help your good find last longer.")}
-                      </p>
-                      <Badge>{bnNode(p.dietary)}</Badge>
-                    </div>
-                    <dl>
-                      <div>
-                        <dt>{bnNode("Source")}</dt>
-                        <dd>{bnNode(p.source)}</dd>
-                      </div>
-                      <div>
-                        <dt>{bnNode("Batch")}</dt>
-                        <dd>{bnNode("NBR-26-10")}</dd>
-                      </div>
-                      <div>
-                        <dt>{bnNode("Storage / care")}</dt>
-                        <dd>{bnNode("Cool, dry place. Away from direct sun.")}</dd>
-                      </div>
-                    </dl>
-                  </>
-                ) : (
-                  <>
-                    <div>
-                      <h2>{bnNode("Goodness, delivered with care.")}</h2>
-                      <p>{bnNode("Dhaka: 1-2 working days · ")}{bnNode(money(s.settings.dhaka))}
-                        <br />{bnNode("Outside Dhaka: 3-5 working days ·")}{bnNode(" ")}
-                        {bnNode(money(s.settings.outside))}
-                        <br />{bnNode(`${money(s.settings.freeShipping)}-এর বেশি কেনাকাটায় ফ্রি ডেলিভারি।`)}</p>
-                      <Link to="/page/shipping" className="text-link">{bnNode("Our delivery promise ")}<ArrowUpRight size={14} />
-                      </Link>
-                    </div>
-                    <div>
-                      <h3>{bnNode("A little reassurance.")}</h3>
-                      <p>{bnNode("Received a damaged or incorrect item? Contact us within 48 hours with your order number and photos. Our team will make it right.")}</p>
-                      <Link to="/page/returns" className="text-link">{bnNode("Returns & refunds ")}<ArrowUpRight size={14} />
-                      </Link>
-                    </div>
-                  </>
-                ))}
-              </div>
-            </section>
-            <Reviews product={p} />
-            <section className="container section">
-              <SectionTitle
-                eyebrow="A LITTLE BETTER TOGETHER"
-                title={bnNode("Make it a good little bundle.")}
-              />
-              <div className="together-row">
-                {bnNode([
-                  p,
-                  ...s.products
-                    .filter(
-                      (x) =>
-                        x.category === p.category &&
-                        x.id !== p.id &&
-                        x.stock > 0,
-                    )
-                    .slice(0, 2),
-                ].map((x, i) => (
-                  <div key={x.id}>
-                    {bnNode(i > 0 && <Plus size={20} />)}
-                    <img src={x.image} alt={bnNode(x.name)} />
-                    <span>
-                      <b>{bnNode(x.name)}</b>
-                      <small>{bnNode(money(x.price))}</small>
-                    </span>
-                    <label>
-                      <input
-                        type="checkbox"
-                        aria-label={bnNode(`Include ${x.name} in bundle`)}
-                        defaultChecked
-                        data-bundle={x.id}
-                      />
-                    </label>
-                  </div>
-                )))}
-                <Button
-                  onClick={() => {
-                    document
-                      .querySelectorAll<HTMLInputElement>(
-                        "[data-bundle]:checked",
-                      )
-                      .forEach((el) => s.addToCart(el.dataset.bundle!));
-                    s.setDrawer(true);
-                  }}
-                >{bnNode("Add selected to bag ")}<ShoppingBag size={16} />
-                </Button>
-              </div>
-            </section>
-          </>
-        ))}
-        <section className="container section">
-          <SectionTitle
-            eyebrow="A FEW MORE GOOD FINDS"
-            title={bnNode("A little more your kind of good.")}
-            link={`/shop?category=${encodeURIComponent(p.category)}`}
-            label="Explore the collection"
-          />
-          <div className="product-grid four">
-            {bnNode(s.products
-              .filter(
-                (x) =>
-                  x.id !== p.id &&
-                  x.status === "Published" &&
-                  x.category === p.category,
-              )
-              .slice(0, 4)
-              .map((p) => (
-                <ProductCard key={p.id} product={p} />
-              )))}
-          </div>
-        </section>
+        {campaign ? <>
+          {page.showProof && page.proof.length > 0 && <div className="campaign-proof"><div className="container">{page.proof.map((item, index) => <div key={index}><b>{bnNode(item.value)}</b><span>{bnNode(item.label)}</span></div>)}</div></div>}
+          <ProductSections product={p} campaign config={config} />
+          {config?.quickOrder && <QuickOrder product={p} variant={variant.label} />}
+          {page.sections.find(s => s.id === "related")?.enabled && <ProductRelated product={p} />}
+        </> : <ProductSections product={p} />}
       </main>
       {bnNode(campaign && config?.sticky && (
         <div className="sticky-order">
@@ -1127,7 +797,7 @@ export default function ProductPage({
                       ?.scrollIntoView({ behavior: "smooth" })
                   : (s.addToCart(p.id, 1, variant.label), s.setDrawer(true))
               }
-            >{bnNode("A little goodness, please ")}<ArrowRight size={16} />
+            >{bnNode(page.orderButtonText || "A little goodness, please ")}<ArrowRight size={16} />
             </Button>
           </div>
         </div>

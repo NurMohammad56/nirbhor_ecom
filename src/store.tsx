@@ -1,5 +1,7 @@
 import { bnNode } from "./bn";
 import { eligibleCouponItems } from "./order-logic";
+import { seedCombos, seedDiscounts, comboAvailable, comboPacks, comboIssues, promotionSavings, offerActive } from "./promotions";
+import type { ComboOffer, DiscountRule, Promotions } from "./promotions";
 import { migrateDepartmentState } from "./department-state";
 import { migrateSceneState } from "./scene-state";
 import { migrateBengaliState } from "./bn-state";
@@ -67,6 +69,12 @@ function usePersist<T>(
 }
 type Event = { id: string; name: string; detail: string; date: string };
 type State = {
+  combos: ComboOffer[];
+  setCombos: Dispatch<SetStateAction<ComboOffer[]>>;
+  discounts: DiscountRule[];
+  setDiscounts: Dispatch<SetStateAction<DiscountRule[]>>;
+  addCombo: (id: string) => boolean;
+  updateCombo: (id: string, packs: number) => void;
   products: Product[];
   setProducts: Dispatch<SetStateAction<Product[]>>;
   categories: Category[];
@@ -121,6 +129,7 @@ type State = {
 const Context = createContext<State>(null!);
 export const useStore = () => useContext(Context);
 export function StoreProvider({ children }: { children: ReactNode }) {
+  const [combos, setCombos] = usePersist("combos", seedCombos), [discounts, setDiscounts] = usePersist("discounts", seedDiscounts);
   const [products, setProducts] = usePersist("products", seedProducts),
     [categories, setCategories] = usePersist("categories", seedCategories),
     [campaigns, setCampaigns] = usePersist("campaigns", seedCampaigns),
@@ -169,14 +178,14 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       return;
     }
     const selected = variant || p.weight;
-    const exists = cart.find((x) => x.id === id && x.variant === selected);
+    const exists = cart.find((x) => !x.comboId && x.id === id && x.variant === selected);
     const inCart = cart
       .filter((x) => x.id === id)
       .reduce((n, x) => n + x.quantity * variantUnits(x.variant), 0);
     const option = productVariants(p).find((v) => v.label === selected);
     if (
       inCart + quantity * variantUnits(selected) > p.stock ||
-      (exists?.quantity || 0) + quantity > (option?.stock ?? p.stock)
+      cart.filter(i => i.id === id && i.variant === selected).reduce((n, i) => n + i.quantity, 0) + quantity > (option?.stock ?? p.stock)
     ) {
       toast(`Only ${p.stock} available in this batch.`);
       return;
@@ -184,7 +193,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setCart((x) =>
       exists
         ? x.map((y) =>
-            y.id === id && y.variant === selected
+              !y.comboId && y.id === id && y.variant === selected
               ? { ...y, quantity: y.quantity + quantity }
               : y,
           )
@@ -192,6 +201,18 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     );
     track("AddToCart", p.name);
     toast(`${p.name} added to your bag`);
+  };
+  const updateCombo = (id: string, packs: number) => {
+    const offer = combos.find(c => c.id === id);
+    if (packs <= 0) { setCart(x => x.filter(i => i.comboId !== id)); return; }
+    if (!offer || !comboAvailable(offer, products, cart.filter(i => i.comboId !== id), packs)) { toast("এই পরিমাণ কম্বোর জন্য পর্যাপ্ত স্টক নেই অথবা অফারটি শেষ হয়েছে।"); return; }
+    setCart(x => [...x.filter(i => i.comboId !== id), ...offer.items.map(i => ({ id: i.productId, variant: i.variant, quantity: i.quantity * packs, comboId: id }))]);
+  };
+  const addCombo = (id: string) => {
+    const offer = combos.find(c => c.id === id);
+    const packs = offer ? comboPacks(offer, cart) + 1 : 1;
+    if (!offer || !comboAvailable(offer, products, cart.filter(i => i.comboId !== id), packs)) { toast("এই কম্বোটি এখন পাওয়া যাচ্ছে না। স্টক ও মেয়াদ দেখে আবার চেষ্টা করুন।"); return false; }
+    updateCombo(id, packs); track("AddToCart", `Combo: ${offer.name}`); toast("কম্বোটি ব্যাগে যোগ হয়েছে।"); return true;
   };
   useEffect(() => {
     const onFull = () =>
@@ -216,6 +237,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   return (
     <Context.Provider
       value={{
+        combos, setCombos, discounts, setDiscounts, addCombo, updateCombo,
         products,
         setProducts,
         categories,
@@ -281,15 +303,17 @@ export function cartTotals(
   settings: Settings,
   zone = "Dhaka",
   coupon?: Coupon,
+  promotions?: Promotions,
 ) {
   const price = (i: CartItem) => {
     const p = products.find((p) => p.id === i.id);
     return i.unitPrice ?? (p ? itemPrice(p, i.variant) : 0);
   };
   const subtotal = cart.reduce((n, i) => n + price(i) * i.quantity, 0);
-  const eligible = coupon ? eligibleCouponItems(coupon, cart, products) : [];
+  const promo = promotionSavings(cart.filter(i => products.some(p => p.id === i.id)), products, promotions);
+  const eligible = coupon ? eligibleCouponItems(coupon, cart, products).filter(i => !promo.blocked.has(i) && (!coupon.excludeSale || products.find(p => p.id === i.id)!.oldPrice <= products.find(p => p.id === i.id)!.price)) : [];
   const eligibleSubtotal = eligible.reduce(
-    (n, i) => n + price(i) * i.quantity,
+    (n, i) => n + (promo.remaining.get(i) ?? price(i) * i.quantity),
     0,
   );
   let discount = 0;
@@ -301,15 +325,20 @@ export function cartTotals(
     discount = Math.min(eligibleSubtotal, coupon.value);
   if (coupon?.type === "Buy 2 get 1") {
     const units = eligible
-      .flatMap((i) => Array(Math.min(i.quantity, 1000)).fill(price(i)))
+      .flatMap((i) => Array(Math.min(i.quantity, 1000)).fill((promo.remaining.get(i) ?? price(i) * i.quantity) / i.quantity))
       .sort((a, b) => a - b);
     discount = units
       .slice(0, Math.floor(units.length / 3))
       .reduce((n, p) => n + p, 0);
   }
+  if (coupon?.maxDiscount) discount = Math.min(discount, coupon.maxDiscount);
+  discount = Math.round(Math.min(eligibleSubtotal, discount));
+  const couponDiscount = discount;
+  discount += promo.comboDiscount + promo.automaticDiscount;
   const shipping =
     subtotal === 0 ||
     subtotal >= settings.freeShipping ||
+    promo.freeShipping ||
     (coupon?.type === "Free shipping" && eligibleSubtotal > 0)
       ? 0
       : zone === "Dhaka"
@@ -322,6 +351,9 @@ export function cartTotals(
     shipping,
     tax,
     total: subtotal - discount + shipping + tax,
+    couponDiscount,
+    couponEligibleSubtotal: eligibleSubtotal,
+    savings: [...promo.savings, ...(couponDiscount > 0 ? [{ name: `কুপন ${coupon!.code}`, amount: couponDiscount }] : [])],
   };
 }
 export function usePlaceOrder() {
@@ -337,7 +369,9 @@ export function usePlaceOrder() {
     items: CartItem[];
     coupon?: Coupon;
   }) => {
+    if (comboIssues(input.items, s.products, s.combos).length) { s.toast("কম্বো অফারটি বদলেছে অথবা শেষ হয়েছে। ব্যাগে ফিরে কম্বোটি সরিয়ে আবার যোগ করুন।"); return; }
     const counts: Record<string, number> = {};
+    const variantCounts: Record<string, number> = {};
     for (const item of input.items) {
       const p = s.products.find((p) => p.id === item.id);
       if (
@@ -352,7 +386,9 @@ export function usePlaceOrder() {
       counts[item.id] =
         (counts[item.id] || 0) + item.quantity * variantUnits(item.variant);
       const v = productVariants(p).find((v) => v.label === item.variant);
-      if (v && item.quantity > v.stock) {
+      const key = item.id + ":" + item.variant;
+      variantCounts[key] = (variantCounts[key] || 0) + item.quantity;
+      if (!v || variantCounts[key] > v.stock) {
         s.toast(`${p.name}: this option no longer has enough stock.`);
         return;
       }
@@ -386,11 +422,10 @@ export function usePlaceOrder() {
         !c ||
         !c.active ||
         c.uses >= c.limit ||
-        new Date(c.start) > new Date() ||
-        new Date(c.end + "T23:59:59") < new Date() ||
+        !offerActive(c) ||
         sub < c.minimum ||
         used >= c.perUser ||
-        !eligibleCouponItems(c, input.items, s.products).length
+        cartTotals(input.items, s.products, s.settings, input.zone, c, s).couponEligibleSubtotal <= 0
       ) {
         s.toast(
           "This offer is no longer eligible for your order. Please remove it or choose another code.",
@@ -404,6 +439,7 @@ export function usePlaceOrder() {
       s.settings,
       input.zone,
       input.coupon,
+      s,
     );
     const order: Order = {
       id: `NBR-${Math.max(4821, ...s.orders.map((o) => Number(o.id.split("-")[1]) || 0)) + 1}`,
@@ -425,6 +461,7 @@ export function usePlaceOrder() {
       couponCode: input.coupon?.code,
       subtotal: totals.subtotal,
       discount: totals.discount,
+      offerSavings: totals.savings,
       shipping: totals.shipping,
       total: totals.total,
       status: "Placed",

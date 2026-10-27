@@ -1263,6 +1263,8 @@ export function DiscountsAdmin() {
                 scope: String(f.get("scope")),
                 start: String(f.get("start")),
                 end: String(f.get("end")),
+                maxDiscount: Number(f.get("maxDiscount")),
+                excludeSale: !!f.get("excludeSale"),
               };
               if (item.start > item.end) {
                 s.toast("The end date should be after the start.");
@@ -1310,6 +1312,7 @@ export function DiscountsAdmin() {
                   defaultValue={edit === "new" ? 500 : edit.minimum}
                 />
               </label>
+              <label className="field">সর্বোচ্চ ছাড় (৳)<input type="number" min="0" name="maxDiscount" defaultValue={edit === "new" ? 0 : edit.maxDiscount || 0} /><small>০ হলে সীমা নেই</small></label>
               <label className="field">{bnNode("Usage limit")}<input
                   type="number"
                   min="1"
@@ -1346,7 +1349,7 @@ export function DiscountsAdmin() {
                   type="date"
                   name="start"
                   required
-                  defaultValue={edit === "new" ? "2026-10-26" : edit.start}
+                  defaultValue={edit === "new" ? new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Dhaka" }) : edit.start}
                 />
               </label>
               <label className="field">{bnNode("End date")}<input
@@ -1363,6 +1366,7 @@ export function DiscountsAdmin() {
                 type="checkbox"
                 defaultChecked={edit === "new" || edit.active}
               />{bnNode("Active on the storefront")}</label>
+            <label className="check-label"><input name="excludeSale" type="checkbox" defaultChecked={edit !== "new" && edit.excludeSale} />আগে থেকে ছাড় থাকা পণ্যে কুপন প্রযোজ্য হবে না</label>
             <p className="small muted">{bnNode("Buy 2 get 1 makes every third eligible item free, starting with the lowest-priced items.")}</p>
             <Button type="submit">{bnNode("Save offer ")}<Check size={16} />
             </Button>

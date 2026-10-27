@@ -1,4 +1,5 @@
 import { bnNode, latinDigits, searchText } from "./bn";
+import { DiscountHint } from "./OfferCards";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
@@ -374,7 +375,7 @@ function QuickOrder({
   product: Product;
   variant: string;
 }) {
-  const { settings, profile, products } = useStore(),
+  const s = useStore(), { settings, profile, products } = s,
     placeOrder = usePlaceOrder(),
     navigate = useNavigate();
   const [zone, setZone] = useState("Dhaka");
@@ -383,6 +384,8 @@ function QuickOrder({
     products,
     settings,
     zone,
+    undefined,
+    s,
   );
   return (
     <section className="quick-order-section" id="quick-order">
@@ -466,6 +469,7 @@ function QuickOrder({
             <span>{bnNode("Delivery")}</span>
             <b>{bnNode(totals.shipping ? money(totals.shipping) : "On us")}</b>
           </div>
+          {totals.savings.map((saving, index) => <div className="summary-line green offer-saving-line" key={index}><span>{bnNode(saving.name)}</span><b>- {bnNode(money(saving.amount))}</b></div>)}
           <label className="check-label terms-label">
             <input type="checkbox" required />
             <span>{bnNode("I agree to the ")}<Link to="/page/terms">{bnNode("terms")}</Link>{bnNode(" and")}{bnNode(" ")}
@@ -761,6 +765,7 @@ export default function ProductPage({
                 ))}
               </div>
               <span className="small muted">{bnNode("All prices include applicable taxes.")}</span>
+              <DiscountHint product={p} />
               {bnNode(campaign && config?.countdown && <Countdown end={config.end} />)}
               <div className="variant-section">
                 <div className="variant-heading">

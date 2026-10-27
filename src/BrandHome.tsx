@@ -20,6 +20,7 @@ import CinematicHero from "./CinematicHero";
 import { Botanical } from "./SceneMotion";
 import CategoryRail from "./CategoryRail";
 import CustomerVoices from "./CustomerVoices";
+import { ComboShowcase } from "./OfferCards";
 
 export default function BrandHome() {
   const { products, categories, banners, content } = useStore();
@@ -129,6 +130,7 @@ export default function BrandHome() {
           )))}
         </div>
       </section>
+      <ComboShowcase />
       <CustomerVoices />
       <section className="brand-story-wrap botanical-stage">
         <Botanical kind="dry" className="story-botanical" />

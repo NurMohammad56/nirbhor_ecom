@@ -18,6 +18,8 @@ import { ArrowRight, Leaf } from "lucide-react";
 import { StoreProvider, useStore } from "./store";
 import { Header, Footer, CartDrawer, Button, Empty } from "./ui";
 import Home from "./BrandHome";
+import OffersPage from "./OffersPage";
+import { usePageReveal } from "./usePageReveal";
 import Catalog, { Wishlist, Categories, Offers } from "./Catalog";
 import ProductPage from "./Product";
 import {
@@ -32,6 +34,7 @@ import {
 const Admin = lazy(() => import("./Admin"));
 import { About, Contact, Help, StaticPage } from "./Public";
 function AppContent() {
+  usePageReveal();
   useSeo();
   const { department, experience } = useDepartment();
   const location = useLocation(),
@@ -139,7 +142,7 @@ function AppContent() {
             ]))}
             <Route path="/shop" element={<Catalog />} />
             <Route path="/categories" element={<Categories />} />
-            <Route path="/offers" element={<Offers />} />
+            <Route path="/offers" element={<OffersPage />} />
             <Route path="/product/:id" element={<ProductPage />} />
             <Route
               path="/campaign/:id"

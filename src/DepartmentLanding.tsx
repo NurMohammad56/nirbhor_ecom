@@ -17,6 +17,7 @@ import { Badge, Button, Empty, ProductCard } from "./ui";
 import { Botanical, useSceneMotion } from "./SceneMotion";
 import CategoryRail from "./CategoryRail";
 import CustomerVoices from "./CustomerVoices";
+import { ComboShowcase } from "./OfferCards";
 
 const questions: Record<string, [string, string][]> = {
   organic: [
@@ -173,6 +174,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
           </div>
         </div>
       </section>
+      <ComboShowcase category={category.name} />
       <CustomerVoices category={category.name} />
       <section className="container brand-section department-editorial botanical-stage">
         <div className="department-editorial-image">

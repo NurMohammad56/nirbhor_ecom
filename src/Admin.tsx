@@ -1,4 +1,5 @@
 import BrandLogo from "./BrandLogo";
+import OffersAdmin from "./OffersAdmin";
 import { bnNode, latinDigits, searchText } from "./bn";
 import DepartmentExperiencesAdmin from "./DepartmentExperiencesAdmin";
 import { descendants } from "./category-tree";
@@ -117,6 +118,7 @@ const navGroups: {
     label: "GROW YOUR STORE",
     items: [
       ["Campaigns", "/admin/campaigns", Sparkles],
+      ["কম্বো ও অফার", "/admin/offers", Layers],
       ["Discounts", "/admin/discounts", Tag],
       ["Reviews", "/admin/reviews", Star],
       ["Banners & sliders", "/admin/banners", Image],
@@ -407,7 +409,9 @@ export default function Admin() {
           ) : section === "customers" ? (
             <CustomersAdmin />
           ) : section === "discounts" ? (
-            <DiscountsAdmin />
+            <OffersAdmin key="discounts" initialTab="discounts" />
+          ) : section === "offers" ? (
+            <OffersAdmin key="offers" />
           ) : section === "campaigns" ? (
             <CampaignsAdmin />
           ) : section === "banners" ? (

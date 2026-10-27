@@ -30,6 +30,8 @@ export function useSeo() {
     const category = params.get("subcategory") || params.get("category");
     const title = product
       ? product.seoTitle || `${product.name} | ${settings.name}`
+      : pathname === "/offers"
+        ? `অফার ও কম্বো | ${settings.name}`
       : pathname.startsWith("/admin")
         ? `Commerce Admin | ${settings.name}`
         : category

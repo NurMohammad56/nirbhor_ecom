@@ -46,6 +46,7 @@ export type CartItem = {
   unitPrice?: number;
   productName?: string;
   image?: string;
+  comboId?: string;
 };
 export type Order = {
   id: string;
@@ -71,6 +72,7 @@ export type Order = {
   tax?: number;
   couponCode?: string;
   stockReleased?: boolean;
+  offerSavings?: { name: string; amount: number }[];
 };
 export type Review = {
   id: string;
@@ -149,6 +151,8 @@ export type Coupon = {
   end: string;
   scope: string;
   perUser: number;
+  maxDiscount?: number;
+  excludeSale?: boolean;
 };
 export type Banner = {
   id: string;

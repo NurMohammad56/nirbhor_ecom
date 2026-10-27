@@ -1,4 +1,5 @@
 import BrandLogo from "./BrandLogo";
+import { ComboCartGroups } from "./OfferCards";
 import { bnNode } from "./bn";
 import { productHref } from "./departments";
 import { descendants } from "./category-tree";
@@ -769,7 +770,7 @@ export function CartDrawer() {
     };
   }, [drawer]);
   if (!drawer) return null;
-  const total = cartTotals(cart, products, settings);
+  const total = cartTotals(cart, products, settings, "Dhaka", undefined, s);
   return (
     <div
       className="drawer-backdrop"
@@ -800,7 +801,7 @@ export function CartDrawer() {
             <div className="shipping-progress">
               <Truck size={18} />
               <span>
-                {bnNode(total.subtotal >= settings.freeShipping ? (
+                {bnNode(total.shipping === 0 ? (
                   "Your order qualifies for free delivery!"
                 ) : (
                   <>{bnNode("You’re")}{bnNode(" ")}
@@ -808,12 +809,14 @@ export function CartDrawer() {
                 ))}
               </span>
               <progress
-                value={Math.min(total.subtotal, settings.freeShipping)}
+                value={total.shipping === 0 ? settings.freeShipping : Math.min(total.subtotal, settings.freeShipping)}
                 max={settings.freeShipping}
               />
             </div>
             <div className="drawer-items">
+              <ComboCartGroups compact />
               {bnNode(cart.map((item, i) => {
+                if (item.comboId) return null;
                 const p = products.find((p) => p.id === item.id);
                 if (!p) return null;
                 return (
@@ -857,7 +860,8 @@ export function CartDrawer() {
                 <b>{bnNode("Subtotal")}</b>
                 <b>{bnNode(money(total.subtotal))}</b>
               </div>
-              <p className="small muted">{bnNode("Delivery and discounts calculated at checkout.")}</p>
+              {total.discount > 0 && <div className="summary-line green"><span>অফারে সাশ্রয়</span><b>- {bnNode(money(total.discount))}</b></div>}
+              <p className="small muted">{total.discount > 0 ? <>অফারের পরে পণ্যের দাম {bnNode(money(total.subtotal - total.discount))}। ডেলিভারি চেকআউটে দেখাবে।</> : bnNode("Delivery and discounts calculated at checkout.")}</p>
               <Button
                 className="full"
                 onClick={() => {

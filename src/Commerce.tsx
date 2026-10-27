@@ -1,4 +1,6 @@
 import { bnNode, latinDigits, searchText } from "./bn";
+import { ComboCartGroups } from "./OfferCards";
+import { offerActive } from "./promotions";
 import { useUpdateOrder } from "./inventory-actions";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
@@ -61,25 +63,25 @@ import {
   Quantity,
   SectionTitle,
 } from "./ui";
-function couponError(c: Coupon | undefined, subtotal: number) {
+function couponError(c: Coupon | undefined, subtotal: number, eligible = true) {
   if (!c || !c.active) return "That code isn’t available. Try NIRBHOR10.";
   if (
-    new Date(c.start) > new Date() ||
-    new Date(c.end + "T23:59:59") < new Date()
+    !offerActive(c)
   )
     return "This little offer is outside its valid dates.";
   if (c.uses >= c.limit) return "This offer has reached its usage limit.";
   if (subtotal < c.minimum)
     return `Add a little more - this code needs an order of ${money(c.minimum)}.`;
+  if (!eligible) return "এই পণ্য বা কম্বোর সঙ্গে কুপনটি ব্যবহার করা যাবে না।";
   return "";
 }
 function useCoupon(subtotal: number) {
-  const { coupons } = useStore();
+  const s = useStore(), { coupons, cart, products, settings } = s;
   const [code, setCode] = useState(
     () => sessionStorage.getItem("nirbhor-coupon") || "",
   );
   const c = coupons.find((c) => c.code === code);
-  const coupon = code && !couponError(c, subtotal) ? c : undefined;
+  const coupon = code && !couponError(c, subtotal, !!c && cartTotals(cart, products, settings, "Dhaka", c, s).couponEligibleSubtotal > 0) ? c : undefined;
   return {
     code,
     coupon,
@@ -99,7 +101,8 @@ function CouponField({
   code: string;
   setCode: (s: string) => void;
 }) {
-  const { coupons, toast } = useStore();
+  const s = useStore(), { coupons, toast, cart, products, settings } = s;
+  const errorFor = (c: Coupon | undefined) => couponError(c, subtotal, !!c && cartTotals(cart, products, settings, "Dhaka", c, s).couponEligibleSubtotal > 0);
   const [input, setInput] = useState(code),
     [error, setError] = useState("");
   return (
@@ -109,10 +112,7 @@ function CouponField({
           <Check size={15} />
           <span>
             {bnNode(code)}{bnNode(" ")}
-            {bnNode(couponError(
-              coupons.find((c) => c.code === code),
-              subtotal,
-            )
+            {bnNode(errorFor(coupons.find((c) => c.code === code))
               ? "· Not eligible yet"
               : "applied")}
           </span>
@@ -143,7 +143,7 @@ function CouponField({
               onClick={() => {
                 const value = input.trim().toUpperCase();
                 const c = coupons.find((c) => c.code === value);
-                const error = couponError(c, subtotal);
+                const error = errorFor(c);
                 if (error) {
                   setError(error);
                   return;
@@ -177,7 +177,7 @@ function OrderSummary({
   children?: ReactNode;
   order?: Order;
 }) {
-  const { products, settings } = useStore();
+  const s = useStore(), { products, settings } = s;
   const t = order
     ? {
         subtotal: order.subtotal,
@@ -185,8 +185,9 @@ function OrderSummary({
         shipping: order.shipping,
         tax: order.tax || 0,
         total: order.total,
+        savings: order.offerSavings || [],
       }
-    : cartTotals(items, products, settings, zone, coupon);
+    : cartTotals(items, products, settings, zone, coupon, s);
   return (
     <div className="order-summary">
       <h3>{bnNode("A little look at your order.")}</h3>
@@ -203,6 +204,7 @@ function OrderSummary({
                 <div>
                   <b>{bnNode(p.name)}</b>
                   <small>{bnNode(item.variant)}</small>
+                  {item.comboId && <small className="combo-line-label">কম্বোতে অন্তর্ভুক্ত</small>}
                 </div>
                 <strong>
                   {bnNode(money(
@@ -221,12 +223,13 @@ function OrderSummary({
           <span>{bnNode("Subtotal")}</span>
           <b>{bnNode(money(t.subtotal))}</b>
         </div>
-        {bnNode(t.discount > 0 && (
+        {bnNode(t.discount > 0 && !t.savings.length && (
           <div className="summary-line green">
             <span>{bnNode("A little saving")}</span>
             <b>{bnNode("− ")}{bnNode(money(t.discount))}</b>
           </div>
         ))}
+        {t.savings.map((saving, index) => <div className="summary-line green offer-saving-line" key={index}><span>{bnNode(saving.name)}</span><b>- {bnNode(money(saving.amount))}</b></div>)}
         <div className="summary-line">
           <span>{bnNode("Delivery")}</span>
           <b>
@@ -258,9 +261,9 @@ export function Cart() {
   const s = useStore(),
     { cart, setCart, products, settings } = s;
   const [zone, setZone] = useState("Dhaka");
-  const subtotal = cartTotals(cart, products, settings, zone).subtotal;
+  const subtotal = cartTotals(cart, products, settings, zone, undefined, s).subtotal;
   const { code, coupon, setCode } = useCoupon(subtotal);
-  const t = cartTotals(cart, products, settings, zone, coupon);
+  const t = cartTotals(cart, products, settings, zone, coupon, s);
   return (
     <main className="container page-space cart-page">
       <Breadcrumb items={[{ label: "Your bag" }]} />
@@ -276,7 +279,7 @@ export function Cart() {
             <div className="shipping-progress cart-shipping">
               <Truck size={20} />
               <span>
-                {bnNode(subtotal >= settings.freeShipping ? (
+                {bnNode(t.shipping === 0 ? (
                   "A little extra: your delivery is on us."
                 ) : (
                   <>{bnNode("You’re ")}<b>{bnNode(money(settings.freeShipping - subtotal))}</b>{bnNode(" away from free delivery.")}</>
@@ -284,15 +287,17 @@ export function Cart() {
               </span>
               <progress
                 max={settings.freeShipping}
-                value={Math.min(subtotal, settings.freeShipping)}
+                value={t.shipping === 0 ? settings.freeShipping : Math.min(subtotal, settings.freeShipping)}
               />
             </div>
-            <div className="cart-table-header">
+            <ComboCartGroups />
+            {cart.some(item => !item.comboId) && <div className="cart-table-header">
               <span>{bnNode("Your good finds")}</span>
               <span>{bnNode("Quantity")}</span>
               <span>{bnNode("Total")}</span>
-            </div>
+            </div>}
             {bnNode(cart.map((item, i) => {
+              if (item.comboId) return null;
               const p = products.find((p) => p.id === item.id);
               return (
                 p && (
@@ -438,9 +443,9 @@ export function Checkout() {
     [saved, setSaved] = useState(""),
     [error, setError] = useState(""),
     [submitting, setSubmitting] = useState(false);
-  const subtotal = cartTotals(cart, products, settings).subtotal;
+  const subtotal = cartTotals(cart, products, settings, "Dhaka", undefined, s).subtotal;
   const { code, coupon, setCode } = useCoupon(subtotal);
-  const t = cartTotals(cart, products, settings, zone, coupon);
+  const t = cartTotals(cart, products, settings, zone, coupon, s);
   useEffect(() => {
     s.track("InitiateCheckout", String(subtotal));
   }, []);

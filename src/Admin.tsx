@@ -1,4 +1,5 @@
 import BrandLogo from "./BrandLogo";
+import { bestSelling, productSales } from "./best-selling";
 import OffersAdmin from "./OffersAdmin";
 import ProductPageAdmin from "./ProductPageAdmin";
 import { bnNode, latinDigits, searchText } from "./bn";
@@ -497,213 +498,66 @@ export function SalesChart({ period = "7" }: { period?: string }) {
   );
 }
 function Overview() {
-  const s = useStore(),
-    { orders, products } = s;
+  const s = useStore(), { orders, products } = s;
   const [period, setPeriod] = useState("7");
-  const total = orders
-    .filter((o) => o.status !== "Cancelled")
-    .reduce((n, o) => n + o.total, 0);
-  return (
-    <>
-      <AdminTitle
-        eyebrow="MONDAY, OCTOBER 26, 2026"
-        title={bnNode("A good day to grow, Nur.")}
-        text="Here’s a little look at what’s happening in your store."
-      >
-        <select
-          aria-label={bnNode("Dashboard period")}
-          value={period}
-          onChange={(e) => setPeriod(e.target.value)}
-        >
-          <option value="7">{bnNode("Last 7 days")}</option>
-          <option value="30">{bnNode("Last 30 days")}</option>
-          <option value="90">{bnNode("Last 90 days")}</option>
-        </select>
-        <Button to="/admin/products?new=1">
-          <Plus size={16} />{bnNode("Add product")}</Button>
-      </AdminTitle>
-      <div className="admin-overview-notice">
-        <span>
-          <Sparkles size={16} />
-          <b>{bnNode("Your store, at a glance.")}</b>{bnNode(" Live local records meet sample performance data.")}</span>
-        <Link to="/" target="_blank">{bnNode("Preview storefront ")}<ArrowUpRight size={14} />
-        </Link>
-      </div>
-      <div className="stats-grid">
-        <Stat
-          label="Total revenue"
-          value={money(total)}
-          change="12.8%"
-          icon={TrendingUp}
-          caption="local order records"
-        />
-        <Stat
-          label="Total orders"
-          value={String(orders.length)}
-          change="8.4%"
-          icon={ShoppingBag}
-          caption="in your preview store"
-        />
-        <Stat
-          label="Conversion rate"
-          value={period === "7" ? "3.84%" : period === "30" ? "3.62%" : "3.41%"}
-          change="0.6%"
-          icon={MousePointerIcon}
-          caption="sample performance"
-        />
-        <Stat
-          label="Average order value"
-          value={money(total / Math.max(1, orders.length))}
-          change="4.2%"
-          icon={Users}
-          caption="local order records"
-        />
-      </div>
-      <div className="dashboard-main-grid">
-        <Panel
-          title={bnNode("A little growth, every day.")}
-          subtitle="Sales performance · sample chart"
-          action={
-            <div className="chart-legend">
-              <span />{bnNode("Revenue ")}<span />{bnNode("Previous period")}</div>
-          }
-          className="sales-panel"
-        >
-          <div className="sales-chart-total">
-            <strong>
-              {bnNode(money(
-                period === "7" ? 128420 : period === "30" ? 542180 : 1684200,
-              ))}
-            </strong>
-            <Badge>{bnNode("↗ 12.8% this period")}</Badge>
-          </div>
-          <SalesChart period={period} />
-        </Panel>
-        <Panel
-          title={bnNode("Your store’s pulse.")}
-          subtitle="A few things to keep an eye on."
-          className="store-pulse"
-        >
-          <div className="pulse-score">
-            <span>
-              <Activity size={27} />
-            </span>
-            <div>
-              <b>{bnNode("Looking good.")}</b>
-              <small>{bnNode("Everything in its little place.")}</small>
-            </div>
-          </div>
-          {bnNode([
-            [
-              "Orders to confirm",
-              orders.filter((o) => o.status === "Placed").length,
-              "/admin/orders",
-            ],
-            [
-              "Running a little low",
-              products.filter((p) => p.stock > 0 && p.stock < 10).length,
-              "/admin/inventory",
-            ],
-            [
-              "Reviews to read",
-              s.reviews.filter((r) => r.status === "Pending").length,
-              "/admin/reviews",
-            ],
-          ].map(([t, n, u]) => (
-            <Link key={String(t)} to={String(u)}>
-              <span>{bnNode(t)}</span>
-              <b>{bnNode(n)}</b>
-              <ChevronRight size={14} />
-            </Link>
-          )))}
-          <div className="pulse-pixel">
-            <span className="small">{bnNode("META PIXEL")}</span>
-            <Badge tone="neutral">{bnNode("Local preview")}</Badge>
-            <p>{bnNode("Events are collected locally.")}<br />{bnNode("Connect tracking in the backend phase.")}</p>
-            <Link className="text-link" to="/admin/pixel">{bnNode("View event activity ")}<ArrowUpRight size={13} />
-            </Link>
-          </div>
-        </Panel>
-      </div>
-      <div className="dashboard-bottom-grid">
-        <Panel
-          title={bnNode("Fresh from the checkout.")}
-          subtitle="Your most recent orders."
-          action={
-            <Link className="text-link" to="/admin/orders">{bnNode("All orders ")}<ArrowUpRight size={14} />
-            </Link>
-          }
-        >
-          <RecentOrders orders={orders.slice(0, 5)} />
-        </Panel>
-        <Panel
-          title={bnNode("A few crowd favourites.")}
-          subtitle="Sample product performance"
-          action={
-            <Link
-              className="icon-btn"
-              to="/admin/analytics"
-              aria-label={bnNode("Product performance")}
-            >
-              <ArrowUpRight size={17} />
-            </Link>
-          }
-        >
-          <div className="top-products">
-            {bnNode(products.slice(0, 4).map((p, i) => (
-              <div key={p.id}>
-                <span className="rank">{bnNode("0")}{bnNode(i + 1)}</span>
-                <img src={p.image} alt={bnNode("")} />
-                <div>
-                  <strong>{bnNode(p.name)}</strong>
-                  <span>{bnNode(p.reviews)}{bnNode(" sample sales")}</span>
-                </div>
-                <b>{bnNode(money(p.price * p.reviews))}</b>
-              </div>
-            )))}
-          </div>
-        </Panel>
-      </div>
-      <div className="admin-quick-links">
-        {bnNode([
-          [
-            Package,
-            "Grow your catalogue",
-            "Add something good to the shelves.",
-            "/admin/products",
-          ],
-          [
-            Sparkles,
-            "Plan a little campaign",
-            "Give your good finds a moment.",
-            "/admin/campaigns",
-          ],
-          [
-            FileText,
-            "Make it your story",
-            "Fine-tune the words on your storefront.",
-            "/admin/content",
-          ],
-        ].map(([I, t, d, u]) => {
-          const Icon = I as typeof Package;
-          return (
-            <Link to={String(u)} key={String(t)}>
-              <span>
-                <Icon size={22} />
-              </span>
-              <div>
-                <h4>{bnNode(String(t))}</h4>
-                <p>{bnNode(String(d))}</p>
-              </div>
-              <ArrowUpRight size={17} />
-            </Link>
-          );
-        }))}
-      </div>
-    </>
-  );
+  const days = Number(period), now = new Date(), since = new Date(now);
+  since.setHours(0, 0, 0, 0); since.setDate(since.getDate() - days + 1);
+  const records = orders.filter(o => { const date = new Date(o.date).getTime(); return date >= since.getTime() && date <= now.getTime(); });
+  const active = records.filter(o => o.status !== "Cancelled" && o.status !== "Returned");
+  const total = active.reduce((sum, o) => sum + o.total, 0);
+  const pending = orders.filter(o => o.status === "Placed").length;
+  const sales = productSales(records), top = bestSelling(products, records, 4).filter(p => (sales.get(p.id) || 0) > 0);
+  const buckets = Array.from({ length: 7 }, (_, i) => {
+    const start = new Date(since); start.setDate(start.getDate() + Math.floor(i * days / 7));
+    const finish = new Date(since); finish.setDate(finish.getDate() + Math.floor((i + 1) * days / 7));
+    return { date: start, total: active.filter(o => new Date(o.date) >= start && new Date(o.date) < finish).reduce((sum, o) => sum + o.total, 0) };
+  });
+  const peak = Math.max(1, ...buckets.map(b => b.total));
+  return <div className="admin-overview">
+    <AdminTitle title="আপনার স্টোর, এক নজরে" text="অর্ডার, পণ্য ও আজকের করণীয়।">
+      <select aria-label={bnNode("Dashboard period")} value={period} onChange={e => setPeriod(e.target.value)}>
+        <option value="7">গত ৭ দিন</option><option value="30">গত ৩০ দিন</option><option value="90">গত ৯০ দিন</option>
+      </select>
+      <Button to="/admin/products?new=1"><Plus size={16}/>{bnNode("Add product")}</Button>
+    </AdminTitle>
+    <div className="dashboard-context"><span>এই ব্রাউজারে সংরক্ষিত রেকর্ড। প্রাথমিক নমুনা অর্ডার অন্তর্ভুক্ত।</span><Link to="/" target="_blank">স্টোর দেখুন <ArrowUpRight size={14}/></Link></div>
+    <div className="stats-grid">
+      <Stat label="অর্ডারের মূল্য" value={money(total)} icon={TrendingUp} caption="বাতিল ও ফেরত বাদে"/>
+      <Stat label="মোট অর্ডার" value={String(records.length)} icon={ShoppingBag} caption="নির্বাচিত সময়ের মধ্যে"/>
+      <Stat label="নিশ্চিত করার অপেক্ষায়" value={String(pending)} icon={ClipboardList} caption="সব চলমান অর্ডার"/>
+      <Stat label="গড় অর্ডারের মূল্য" value={money(total / Math.max(1, active.length))} icon={BarChart3} caption="বাতিল ও ফেরত বাদে"/>
+    </div>
+    <div className="dashboard-main-grid">
+      <Panel title="অর্ডারের চিত্র" subtitle="নির্বাচিত সময়ের অর্ডারের মূল্য" className="sales-panel">
+        <div className="dashboard-chart-summary"><strong>{bnNode(money(total))}</strong><span>{bnNode(active.length)}টি অর্ডার</span></div>
+        {active.length ? <div className="dashboard-bars" role="img" aria-label={"অর্ডারের মূল্য: " + buckets.map(b => b.date.toLocaleDateString("bn-BD", { day: "numeric", month: "short" }) + " " + money(b.total)).join(", ")}>
+          {buckets.map((b, i) => <div className="dashboard-bar" key={i} title={b.date.toLocaleDateString("bn-BD") + ": " + money(b.total)}><div><i style={{ height: (b.total / peak * 100) + "%" }}/></div><span>{b.date.toLocaleDateString("bn-BD", { day: "numeric", month: "short" })}</span></div>)}
+        </div> : <p className="dashboard-chart-empty">এই সময়ে কোনো অর্ডার পাওয়া যায়নি।</p>}
+      </Panel>
+      <Panel title="এখন যা করা দরকার" subtitle="প্রয়োজনীয় কাজগুলো এক জায়গায়">
+        <div className="dashboard-task-list">
+          <Link to="/admin/orders"><ShoppingBag size={19}/><span>অর্ডার নিশ্চিত করুন</span><b>{bnNode(pending)}</b><ChevronRight size={15}/></Link>
+          <Link to="/admin/inventory"><Package size={19}/><span>কম স্টকের পণ্য</span><b>{bnNode(products.filter(p => p.stock < 10 && p.status === "Published").length)}</b><ChevronRight size={15}/></Link>
+          <Link to="/admin/reviews"><MessageSquare size={19}/><span>রিভিউ দেখুন</span><b>{bnNode(s.reviews.filter(r => r.status === "Pending").length)}</b><ChevronRight size={15}/></Link>
+          <Link to="/admin/offers"><Tag size={19}/><span>কম্বো ও ডিসকাউন্ট</span><ChevronRight size={15}/></Link>
+        </div>
+      </Panel>
+    </div>
+    <div className="dashboard-bottom-grid">
+      <Panel title="সাম্প্রতিক অর্ডার" subtitle="সর্বশেষ পাঁচটি অর্ডার" action={<Link className="text-link" to="/admin/orders">সব অর্ডার <ArrowUpRight size={14}/></Link>}>
+        <RecentOrders orders={[...orders].sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0,5)}/>
+      </Panel>
+      <Panel title="বেশি অর্ডার হওয়া পণ্য" subtitle="নিশ্চিত অর্ডার অনুযায়ী" action={<Link className="icon-btn" to="/admin/products" aria-label="পণ্য দেখুন"><ArrowUpRight size={17}/></Link>}>
+        {top.length ? <div className="top-products">{top.map((p, i) => <div key={p.id}><span className="rank">{bnNode(i + 1)}</span><img src={p.image} alt=""/><div><strong>{bnNode(p.name)}</strong><span>{bnNode(sales.get(p.id))}টি পণ্য অর্ডার হয়েছে</span></div><Link className="icon-btn" to={"/admin/product-pages?product=" + p.id} aria-label={bnNode(p.name) + " সম্পাদনা"}><ArrowUpRight size={16}/></Link></div>)}</div> : <p className="dashboard-ranked-empty">অর্ডার নিশ্চিত হলে এখানে জনপ্রিয় পণ্য দেখা যাবে।</p>}
+      </Panel>
+    </div>
+    <div className="admin-quick-links">{[
+      [Package, "পণ্য যোগ করুন", "ক্যাটালগ সাজিয়ে নিন", "/admin/products?new=1"],
+      [Palette, "প্রোডাক্ট পেজ সাজান", "লেখা, ছবি ও রিভিউ", "/admin/product-pages"],
+      [Tag, "অফার তৈরি করুন", "কম্বো ও ছাড় নির্ধারণ", "/admin/offers"],
+    ].map(([Icon, title, text, url]) => { const I = Icon as typeof Package; return <Link to={String(url)} key={String(url)}><span><I size={21}/></span><div><h4>{String(title)}</h4><p>{String(text)}</p></div><ArrowUpRight size={17}/></Link>; })}</div>
+  </div>;
 }
-const MousePointerIcon = TrendingUp;
 function RecentOrders({ orders }: { orders: Order[] }) {
   return (
     <div className="table-scroll">

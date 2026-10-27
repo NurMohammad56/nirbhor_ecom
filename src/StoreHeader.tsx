@@ -133,7 +133,7 @@ export default function StoreHeader() {
               aria-expanded={mega}
               onClick={() => setMega(!mega)}
               onMouseEnter={() => setMega(true)}
-            >{bnNode("Discover ")}<ChevronDown size={11} />
+            ><span className="nav-label">{bnNode("Discover")}</span><ChevronDown size={13} />
             </button>
             {bnNode(visible.map((d) => (
               <Link
@@ -141,10 +141,10 @@ export default function StoreHeader() {
                 key={d.slug}
                 className={department?.slug === d.slug ? "active" : ""}
               >
-                {bnNode(d.name === "Home" ? "Home & living" : d.name)}
+                <span className="nav-label">{bnNode(d.name === "Home" ? "Home & living" : d.name)}</span>
               </Link>
             )))}
-            <Link className="brand-nav-offers" to="/offers">{bnNode("Offers")}<span />
+            <Link className="brand-nav-offers" to="/offers"><span className="nav-label">{bnNode("Offers")}</span><i aria-hidden="true"/>
             </Link>
           </nav>
           <div className="header-search brand-header-search" ref={searchRef}>

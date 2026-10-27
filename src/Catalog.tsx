@@ -1,4 +1,5 @@
 import { bnNode, searchText, latinDigits } from "./bn";
+import TopSellingRail from "./TopSellingRail";
 import { useDepartment } from "./useDepartment";
 import {
   departments,
@@ -485,6 +486,7 @@ export default function Catalog() {
           ))}
         </div>
       </section>
+      {category && !department && !subcategory && !query && categories.some(c => c.name === category && !c.parent && c.active) && <TopSellingRail category={category}/>}
       <div className="container catalog-layout">
         <aside className={`filters ${mobileFilters ? "mobile-open" : ""}`}>
           {bnNode(filters)}

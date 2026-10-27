@@ -1,4 +1,5 @@
 import { reviewSummary } from "./product-page-content";
+import QuickOrderButton from "./QuickOrderButton";
 import BrandLogo from "./BrandLogo";
 import { ComboCartGroups } from "./OfferCards";
 import { bnNode } from "./bn";
@@ -301,6 +302,7 @@ export function ProductCard({
             <Plus size={17} />
           </button>
         </div>
+        <QuickOrderButton product={p} variant={variant}/>
       </div>
     </article>
   );

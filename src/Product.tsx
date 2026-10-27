@@ -1,4 +1,5 @@
 import ProductSections, { ProductRelated } from "./ProductSections";
+import QuickOrderButton from "./QuickOrderButton";
 import { productPageContent, reviewSummary, reviewSourceLabel, reviewIsVideo } from "./product-page-content";
 import { bnNode, latinDigits, searchText } from "./bn";
 import { DiscountHint } from "./OfferCards";
@@ -753,6 +754,7 @@ export default function ProductPage({
                   onClick={buy}
                 >{bnNode(page.buyNowText || "Buy it now")}</Button>
               ))}
+              {!campaign && page.showBuyNow && <QuickOrderButton product={p} variant={variant.label} quantity={quantity} className="pdp-express-order"/>}
               {page.showAssurances && <div className="pdp-assurances">{page.assurances.map((item,index)=><span key={index}>{index % 2 ? <ShieldCheck size={17}/> : <Truck size={17}/>}<div><b>{bnNode(item.title)}</b><small>{bnNode(item.text)}</small></div></span>)}</div>}
               <div className="pdp-fineprint">
                 <span>

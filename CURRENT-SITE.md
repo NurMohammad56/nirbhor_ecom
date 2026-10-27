@@ -1,5 +1,26 @@
 # বর্তমান প্রকাশিত নির্ভর সাইট
 
+## সর্বশেষ প্রকাশ - ২৭ অক্টোবর ২০২৬
+
+ব্যবহারকারীর অনুরোধে সর্বশেষ আপডেটসহ নতুন সাইট প্রকাশ করা হয়েছে।
+
+- সাইট: https://nirbhor-store-updated.palerain64.chatgpt.site
+- অ্যাডমিন: https://nirbhor-store-updated.palerain64.chatgpt.site/admin
+- প্রোডাক্ট পেজ এডিটর: https://nirbhor-store-updated.palerain64.chatgpt.site/admin/product-pages
+- অফার স্টুডিও: https://nirbhor-store-updated.palerain64.chatgpt.site/admin/offers
+- বর্তমান প্রকাশের সোর্স: `C:\Users\bdcalling\Downloads\E-commerce\sites\nirbhor-updated`
+- Site ID: `appgprj_6ae04bcedab881918716df4efecbf2b7`
+- প্রকাশিত কমিট: `3aa15cbcc8ba0ba433603230897c4efb058cfa82`
+- ডিপ্লয়মেন্ট: `appgdep_6ae04c57b3388191b0e51fc726105074` (সফল)
+
+ক্যাটাগরির জনপ্রিয় পণ্যের অটো-স্লাইডার, মাউস ড্র্যাগ ও টাচ সোয়াইপ, কুইক অর্ডার, ন্যাভবার অ্যালাইনমেন্ট এবং পরিচ্ছন্ন অ্যাডমিন ড্যাশবোর্ড অন্তর্ভুক্ত। প্রোডাকশন বিল্ড সফল।
+
+পরবর্তী প্রকাশের জন্য উপরের নতুন সোর্স ফোল্ডারের `.openai/hosting.json` এবং Git checkout ব্যবহার করুন। মূল `E-commerce/.openai/hosting.json` পুরোনো সাইটের পরিচয় বহন করে। নতুন ডোমেইনে আগের ডোমেইনের localStorage ডেটা স্বয়ংক্রিয়ভাবে স্থানান্তর হয় না।
+
+## আগের প্রকাশের রেকর্ড
+
+নিচের অংশটি ইতিহাস হিসেবে সংরক্ষিত। বর্তমান সাইটের জন্য উপরের পরিচয় ব্যবহার করুন।
+
 ২৭ অক্টোবর ২০২৬: ব্যবহারকারীর অনুরোধে বর্তমান সংযোগে নতুন সাইট হিসেবে সর্বশেষ প্রোডাক্ট পেজ, রিভিউ, কম্বো ও ডিসকাউন্টের কাজ প্রকাশ করা হয়েছে।
 
 - স্টোর: https://nirbhor-commerce-current.spicyyak.chatgpt.site

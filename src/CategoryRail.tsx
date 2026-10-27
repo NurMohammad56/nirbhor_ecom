@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { bnNode } from "./bn";
 import { useReducedMotion } from "./SceneMotion";
+import { useDragScroll } from "./useDragScroll";
 
 export type CategoryRailItem = { id: string; name: string; image: string; to: string; department?: boolean };
 
@@ -10,7 +11,8 @@ export default function CategoryRail({ items, label = "ক্যাটাগর�
   const windowRef = useRef<HTMLDivElement>(null), groupRef = useRef<HTMLDivElement>(null), distance = useRef(0);
   const [copies, setCopies] = useState(2), [hovered, setHovered] = useState(false), [focused, setFocused] = useState(false), [stopped, setStopped] = useState(false), [inView, setInView] = useState(false), [hidden, setHidden] = useState(document.hidden);
   const reduced = useReducedMotion();
-  const paused = reduced || hovered || focused || stopped || !inView || hidden;
+  const drag = useDragScroll(windowRef);
+  const paused = reduced || hovered || focused || stopped || drag.interacting || !inView || hidden;
   useEffect(() => {
     const viewport = windowRef.current, group = groupRef.current;
     if (!viewport || !group) return;
@@ -46,18 +48,18 @@ export default function CategoryRail({ items, label = "ক্যাটাগর�
     if (direction < 0 && viewport.scrollLeft < 10 && !reduced) viewport.scrollLeft = distance.current;
     viewport.scrollBy({ left: direction * 230, behavior: reduced ? "instant" : "smooth" });
   };
-  return <div className="category-rail" aria-label={label} onTouchStart={() => setStopped(true)} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} onFocusCapture={() => setFocused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
-    <div className="category-rail-window" ref={windowRef} data-motion={paused ? "paused" : "playing"}>
+  return <div className="category-rail" aria-label={label} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} onFocusCapture={() => setFocused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
+    <div className="category-rail-window drag-scroll" ref={windowRef} data-motion={paused ? "paused" : "playing"} data-dragging={drag.dragging} tabIndex={0} role="region" aria-label={label + " - টেনে দেখুন"} {...drag.handlers}>
       <div className="category-rail-track">
         {Array.from({ length: reduced ? 1 : copies }, (_, copy) => <div className="category-rail-group" ref={copy === 0 ? groupRef : undefined} key={copy} aria-hidden={copy ? true : undefined}>
           {items.map(item => <Link className={`category-rail-card ${item.department && copy === 0 ? "brand-department-card" : ""}`} to={item.to} key={item.id} tabIndex={copy ? -1 : undefined}>
-            <div className="category-rail-image"><img src={item.image} alt="" loading="lazy" /><span><ArrowUpRight size={17} /></span></div>
+            <div className="category-rail-image"><img src={item.image} alt="" loading="lazy" draggable={false} /><span><ArrowUpRight size={17} /></span></div>
             <strong>{bnNode(item.name)}</strong>
           </Link>)}
         </div>)}
       </div>
     </div>
-    <div className="category-rail-controls"><span>ক্যাটাগরি বেছে নিন</span><div>
+    <div className="category-rail-controls"><span>টেনে আরও দেখুন</span><div>
       <button className="icon-btn" aria-label="আগের ক্যাটাগরি" onClick={() => step(-1)}><ChevronLeft size={18} /></button>
       <button className="icon-btn rail-pause" aria-label={stopped || reduced ? "ক্যাটাগরি স্লাইড চালু করুন" : "ক্যাটাগরি স্লাইড থামান"} aria-pressed={stopped || reduced} disabled={reduced} onClick={() => setStopped(!stopped)}>{stopped || reduced ? <Play size={14} /> : <Pause size={14} />}</button>
       <button className="icon-btn" aria-label="পরের ক্যাটাগরি" onClick={() => step(1)}><ChevronRight size={18} /></button>

@@ -16,6 +16,7 @@ import {
 import { Badge, Button, Empty, ProductCard } from "./ui";
 import { Botanical, useSceneMotion } from "./SceneMotion";
 import CategoryRail from "./CategoryRail";
+import TopSellingRail from "./TopSellingRail";
 import CustomerVoices from "./CustomerVoices";
 import { ComboShowcase } from "./OfferCards";
 
@@ -155,6 +156,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
         <div className="brand-section-heading"><h2>{bnNode("Categories")}</h2><Link className="brand-underlined" to={departmentShopHref(d)}>{bnNode("All products")}<ArrowUpRight size={16} /></Link></div>
         <CategoryRail label={bnNode(d.name)+" ক্যাটাগরি"} items={subcategories.map(c=>({id:c.id,name:c.name,image:c.image || items.find(p=>p.subcategory===c.name)?.image || exp.heroImage,to:departmentShopHref(d,c.name)}))} />
       </section>
+      <TopSellingRail category={category.name}/>
       <section className="department-product-edit">
         <div className="container brand-section">
           <div className="brand-section-heading">

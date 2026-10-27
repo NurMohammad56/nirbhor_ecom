@@ -109,3 +109,14 @@ test("switching products protects unsaved page changes", async ({ page }) => {
   await page.getByLabel("যে পণ্যের পেজ সম্পাদনা করবেন", { exact: true }).selectOption("p2");
   await expect(page.getByLabel("ডিটেইলস পেজের শিরোনাম", { exact: true })).toHaveValue("");
 });
+
+test("switching products resets the together selection to the current product", async ({ page }) => {
+  await page.goto("/organic/product/p2");
+  await page.locator("[data-product-section=related] .product-name").filter({ hasText: bn("Ajwa Dates") }).click();
+  await expect(page).toHaveURL(/organic\/product\/p3/);
+  await expect(page.getByRole("checkbox", { name: `${bn("Ajwa Dates")} একসঙ্গে কিনুন`, exact: true })).toBeChecked();
+  await expect(page.locator(".together-row input:checked")).toHaveCount(1);
+  await page.getByRole("button", { name: "নির্বাচিত পণ্য ব্যাগে নিন", exact: true }).click();
+  await expect(page.locator(".bag-item")).toHaveCount(1);
+  await expect(page.locator(".bag-item")).toContainText(bn("Ajwa Dates"));
+});

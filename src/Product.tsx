@@ -773,10 +773,10 @@ export default function ProductPage({
         </div>
         {campaign ? <>
           {page.showProof && page.proof.length > 0 && <div className="campaign-proof"><div className="container">{page.proof.map((item, index) => <div key={index}><b>{bnNode(item.value)}</b><span>{bnNode(item.label)}</span></div>)}</div></div>}
-          <ProductSections product={p} campaign config={config} />
+          <ProductSections key={p.id} product={p} campaign config={config} />
           {config?.quickOrder && <QuickOrder product={p} variant={variant.label} />}
           {page.sections.find(s => s.id === "related")?.enabled && <ProductRelated product={p} />}
-        </> : <ProductSections product={p} />}
+        </> : <ProductSections key={p.id} product={p} />}
       </main>
       {bnNode(campaign && config?.sticky && (
         <div className="sticky-order">

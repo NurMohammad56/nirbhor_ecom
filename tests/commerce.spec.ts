@@ -56,7 +56,7 @@ test("catalog filters, typo search, sort and wishlist are usable", async ({
   await page.getByLabel(bn("In stock only")).click();
   await expect(page.getByLabel(bn("In stock only"))).toBeChecked();
   await page.getByLabel(bn("Maximum price"), { exact: true }).fill("500");
-  await expect(page.locator(".product-card")).toHaveCount(6);
+  await expect(page.locator(".product-card")).toHaveCount(9);
   await page.getByRole("button", { name: bn("List view") }).click();
   await expect(page.locator(".list-view")).toBeVisible();
 });

@@ -10,6 +10,7 @@ import { reviewSourceLabel } from "./product-page-content";
 import { bnNode } from "./bn";
 import { Badge, Breadcrumb, Button, Empty, Quantity } from "./ui";
 import { ComboCard } from "./OfferCards";
+import { comboPurpose, comboHasProducts } from "./combo-purpose";
 
 export default function ComboLanding() {
   const { id } = useParams(), s = useStore(), navigate = useNavigate();
@@ -27,7 +28,8 @@ export default function ComboLanding() {
   const count = offer.items.reduce((n, item) => n + item.quantity, 0), landing = offer.landing;
   const headline = landing?.headline || (offer.id === "combo-morning" ? "সকালের ছোট্ট আয়োজন,\nএকসঙ্গে আরও ভালো।" : offer.id === "combo-pantry" ? "রান্নাঘরের পছন্দগুলো,\nএকসঙ্গে বেছে নিন।" : offer.name);
   const reviews = s.reviews.filter(r => r.status === "Approved" && offer.items.some(item => item.productId === r.productId)).slice(0, 3);
-  const other = s.combos.filter(c => c.id !== id && offerActive(c)).slice(0, 2);
+  const purpose = comboPurpose(offer, s.products);
+  const other = s.combos.filter(c => c.id !== id && offerActive(c) && comboHasProducts(c, s.products)).sort((a,b) => Number(comboPurpose(b, s.products) === purpose) - Number(comboPurpose(a, s.products) === purpose)).slice(0, 2);
   const order = (checkout = false) => { if (s.addCombo(offer.id, packs)) checkout ? navigate("/checkout") : s.setDrawer(true); };
   const questions = [
     ["কম্বোতে কী কী পাব?", "নিচের পণ্যের তালিকায় প্রতিটি আইটেম, ভ্যারিয়েন্ট ও পরিমাণ দেওয়া আছে। অর্ডারেও একই নির্বাচন দেখানো হবে।"],
@@ -39,7 +41,7 @@ export default function ComboLanding() {
     <div className="container"><Breadcrumb items={[{ label: "অফার ও কম্বো", to: "/offers" }, { label: offer.name }]}/></div>
     <section className="container combo-landing-hero">
       <div className={`combo-landing-media ${landing?.coverImage ? "has-cover" : ""}`}>
-        {landing?.coverImage ? <img className="combo-cover" src={landing.coverImage} alt={bnNode(offer.name)} fetchPriority="high"/> : <div className="combo-hero-products">{rows.slice(0, 4).map((row, index) => row.product && <Link key={row.productId + row.variant} to={productHref(row.product, s.categories)} className={`combo-hero-item combo-hero-item-${index}`}><img src={row.product.image} alt={bnNode(row.product.name)} fetchPriority={index === 0 ? "high" : "auto"}/><span>{bnNode(row.product.name)}</span></Link>)}</div>}
+        {landing?.coverImage ? <img className="combo-cover" src={landing.coverImage} alt={bnNode(offer.name)} fetchPriority="high"/> : <div className="combo-hero-products" data-count={Math.min(4, rows.length)}>{rows.slice(0, 4).map((row, index) => row.product && <Link key={row.productId + row.variant} to={productHref(row.product, s.categories)} className={`combo-hero-item combo-hero-item-${index}`}><img src={row.product.image} alt={bnNode(row.product.name)} fetchPriority={index === 0 ? "high" : "auto"}/><span>{bnNode(row.product.name)}</span></Link>)}</div>}
         <span className="combo-real-count"><Layers size={16}/>{bnNode(count)}টি আইটেম, এক কম্বোতে</span>
       </div>
       <div className="combo-landing-purchase"><span className="section-kicker"><Layers size={15}/>একসঙ্গে আপনার পছন্দের আয়োজন</span><h1>{bnNode(headline)}</h1>{headline !== offer.name && <p className="combo-original-name">{bnNode(offer.name)}</p>}<p className="combo-intro">{bnNode(landing?.introduction || offer.description || "পছন্দের কিছু জিনিস একসঙ্গে বেছে নিন। কী থাকছে, কতটা পরিমাণ আর মোট কত খরচ - সব দেখেই নিজের আয়োজন সাজান।")}</p>

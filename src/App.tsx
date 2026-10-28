@@ -4,7 +4,7 @@ import DepartmentLanding from "./DepartmentLanding";
 import { departments, departmentForProduct, productHref } from "./departments";
 import { useDepartment } from "./useDepartment";
 import { useSeo } from "./seo";
-import { useEffect, lazy, Suspense } from "react";
+import { useEffect, useRef, lazy, Suspense } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -41,16 +41,22 @@ function AppContent() {
   const location = useLocation(),
     s = useStore();
   const isAdmin = location.pathname.startsWith("/admin");
+  const scrollPath = useRef<string | undefined>(undefined);
   useEffect(() => {
+    const changedPage = scrollPath.current !== location.pathname;
+    scrollPath.current = location.pathname;
     if (location.hash) {
-      setTimeout(
+      const timer = setTimeout(
         () =>
           document
             .getElementById(location.hash.slice(1))
             ?.scrollIntoView({ behavior: "smooth" }),
         150,
       );
-    } else window.scrollTo(0, 0);
+      return () => clearTimeout(timer);
+    } else if (changedPage) window.scrollTo(0, 0);
+  }, [location.pathname, location.hash]);
+  useEffect(() => {
     s.setDrawer(false);
     s.track("PageView", location.pathname + location.search);
   }, [location.pathname, location.search, location.hash]);

@@ -22,6 +22,7 @@ import CategoryRail from "./CategoryRail";
 import CustomerVoices from "./CustomerVoices";
 import { ComboShowcase } from "./OfferCards";
 import ProductCarousel from "./ProductCarousel";
+import RecentlyViewed from "./RecentlyViewed";
 
 export default function BrandHome() {
   const { products, categories, banners, content } = useStore();
@@ -126,6 +127,7 @@ export default function BrandHome() {
         <ProductCarousel items={selected} bare className="brand-edit-products" label="আপনার জন্য বাছাই পণ্য"/>
       </section>
       <ComboShowcase />
+      <RecentlyViewed/>
       <CustomerVoices />
       <section className="brand-story-wrap botanical-stage">
         <Botanical kind="dry" className="story-botanical" />

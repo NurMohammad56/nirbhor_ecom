@@ -9,6 +9,7 @@ export type ComboOffer = {
   active: boolean; featured: boolean; allowCoupon: boolean; freeShipping: boolean;
   limitPerOrder: number;
   landing?: { headline?: string; introduction?: string; story?: string; coverImage?: string };
+  purpose?: import("./combo-purpose").ComboPurpose;
 };
 export type DiscountRule = {
   id: string; name: string; type: "Percentage" | "Fixed amount"; value: number;

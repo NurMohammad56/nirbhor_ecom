@@ -207,7 +207,7 @@ test("the department upgrade preserves previous customer and catalogue data", as
     addresses: JSON.parse(localStorage.getItem("nirbhor-v1-addresses") || "[]"),
   }));
   expect(before.products.find((p: any) => p.id === "p1").price).toBe(999);
-  expect(before.products.length).toBe(24);
+  expect(before.products.length).toBe(27);
   expect(before.cart[0].quantity).toBe(2);
   expect(before.orders.length).toBe(4);
   expect(before.addresses[0].id).toBe("old-address");
@@ -217,7 +217,7 @@ test("the department upgrade preserves previous customer and catalogue data", as
       () =>
         JSON.parse(localStorage.getItem("nirbhor-v1-products") || "[]").length,
     ),
-  ).toBe(24);
+  ).toBe(27);
 });
 
 test("all department templates, listing pages, product pages and editor fit mobile screens", async ({

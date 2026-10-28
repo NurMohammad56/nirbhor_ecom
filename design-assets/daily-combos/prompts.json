@@ -1,0 +1,36 @@
+{
+  "generator": "Built-in image_gen",
+  "references": [
+    "public/brand/nirbhor-logo.png",
+    "public/assets/product-p16-v5.webp"
+  ],
+  "assets": [
+    {
+      "key": "cumin",
+      "name": "জিরা গুঁড়া",
+      "prompt": "Create a new premium photorealistic ecommerce product photograph, landscape 3:2 aspect ratio, crisp high-resolution detail. Reference 1 is the approved Bengali Nirbhor wordmark in dark green with orange sprout; reproduce it faithfully on the label. Reference 2 is a packaging and lighting STYLE reference: use the SAME short cylindrical clear glass spice jar, dark green metal screw lid, cream rectangular paper sticker, thin green-and-orange border, same typography scale and label layout. New product is জিরা গুঁড়া, filled with warm brown ground cumin powder. Same label system: Nirbhor logo at top, divider, Bengali product name EXACTLY \"জিরা গুঁড়া\", descriptor \"নিত্যদিনের রান্নার মসলা\", divider, weight \"নেট পরিমাণ: ২০০ গ্রাম\". Only product name changes across this spice range. Jar on low cream stone block with a wooden scoop of the correct powder and a restrained amount of whole cumin seeds nearby. Warm neutral cream background, soft natural window light, subtle soft leaf shadow, no clutter. Entire lid and base visible, comfortable margins around jar, jar 75% of frame height. No extra jars, no false certification symbols, no health claims, no promo text, no watermarks.",
+      "output": "public/assets/spice-cumin-v1.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 270524
+    },
+    {
+      "key": "coriander",
+      "name": "ধনে গুঁড়া",
+      "prompt": "Create a new premium photorealistic ecommerce product photograph, landscape 3:2 aspect ratio, crisp high-resolution detail. Reference 1 is the approved Bengali Nirbhor wordmark in dark green with orange sprout; reproduce it faithfully on the label. Reference 2 is a packaging and lighting STYLE reference: use the SAME short cylindrical clear glass spice jar, dark green metal screw lid, cream rectangular paper sticker, thin green-and-orange border, same typography scale and label layout. New product is ধনে গুঁড়া, filled with light tan ground coriander powder. Same label system: Nirbhor logo at top, divider, Bengali product name EXACTLY \"ধনে গুঁড়া\", descriptor \"নিত্যদিনের রান্নার মসলা\", divider, weight \"নেট পরিমাণ: ২০০ গ্রাম\". Only product name changes across this spice range. Jar on low cream stone block with a wooden scoop of the correct powder and a restrained amount of whole coriander seeds nearby. Warm neutral cream background, soft natural window light, subtle soft leaf shadow, no clutter. Entire lid and base visible, comfortable margins around jar, jar 75% of frame height. No extra jars, no false certification symbols, no health claims, no promo text, no watermarks.",
+      "output": "public/assets/spice-coriander-v1.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 270918
+    },
+    {
+      "key": "chilli",
+      "name": "মরিচ গুঁড়া",
+      "prompt": "Create a new premium photorealistic ecommerce product photograph, landscape 3:2 aspect ratio, crisp high-resolution detail. Reference 1 is the approved Bengali Nirbhor wordmark in dark green with orange sprout; reproduce it faithfully on the label. Reference 2 is a packaging and lighting STYLE reference: use the SAME short cylindrical clear glass spice jar, dark green metal screw lid, cream rectangular paper sticker, thin green-and-orange border, same typography scale and label layout. New product is মরিচ গুঁড়া, filled with deep vivid red ground chilli powder. Same label system: Nirbhor logo at top, divider, Bengali product name EXACTLY \"মরিচ গুঁড়া\", descriptor \"নিত্যদিনের রান্নার মসলা\", divider, weight \"নেট পরিমাণ: ২০০ গ্রাম\". Only product name changes across this spice range. Jar on low cream stone block with a wooden scoop of the correct powder and a restrained amount of two dried red chillies nearby. Warm neutral cream background, soft natural window light, subtle soft leaf shadow, no clutter. Entire lid and base visible, comfortable margins around jar, jar 75% of frame height. No extra jars, no false certification symbols, no health claims, no promo text, no watermarks.",
+      "output": "public/assets/spice-chilli-v1.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 235116
+    }
+  ]
+}

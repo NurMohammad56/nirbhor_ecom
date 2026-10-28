@@ -7,6 +7,7 @@ import { money } from "./data";
 import { comboAvailable, comboPacks, comboPricing, comboIssues, offerActive } from "./promotions";
 import type { ComboOffer } from "./promotions";
 import type { Product } from "./data";
+import { comboHasProducts } from "./combo-purpose";
 
 export function DiscountHint({ product }: { product: Product }) {
   const { discounts } = useStore();
@@ -35,11 +36,12 @@ export function ComboCard({ offer }: { offer: ComboOffer }) {
 }
 export function ComboShowcase({ category, all = false }: { category?: string; all?: boolean }) {
   const { combos, products } = useStore();
-  const offers = combos.filter(c => offerActive(c) && (all || c.featured) && (!category || c.items.some(i => products.find(p => p.id === i.productId)?.category === category)));
+  const matching = combos.filter(c => offerActive(c) && comboHasProducts(c, products) && (all || c.featured) && (!category || c.items.some(i => products.find(p => p.id === i.productId)?.category === category)));
+  const offers = all ? matching : matching.slice(0, 4);
   if (!offers.length) return null;
   return <section className="container brand-section combo-showcase" id="combo-offers">
     <div className="brand-section-heading"><div><span className="section-kicker"><Layers size={14} />একসঙ্গে আরও ভালো</span><h2>পছন্দের পণ্য, কম্বোতে সাশ্রয়</h2></div>{!all && <Link className="brand-underlined" to="/offers">সব অফার<ArrowUpRight size={16} /></Link>}</div>
-    <div className="combo-grid">{offers.map(offer => <ComboCard offer={offer} key={offer.id} />)}</div>
+    <div className="combo-grid" data-count={offers.length}>{offers.map(offer => <ComboCard offer={offer} key={offer.id} />)}</div>
   </section>;
 }
 export function ComboCartGroups({ compact = false }: { compact?: boolean }) {

@@ -15,5 +15,5 @@ export function usePageReveal() {
     document.documentElement.classList.add("reveal-ready"); watch();
     const changes = new MutationObserver(watch); changes.observe(document.getElementById("main-content")!, { childList: true, subtree: true });
     return () => { observer.disconnect(); changes.disconnect(); document.querySelectorAll("[data-reveal]").forEach(el => { el.removeAttribute("data-reveal"); el.classList.remove("is-revealed"); }); };
-  }, [location.pathname, location.search, reduced]);
+  }, [location.pathname, reduced]);
 }

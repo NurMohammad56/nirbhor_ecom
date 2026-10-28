@@ -1,0 +1,17 @@
+{
+  "tool": "built-in image_gen",
+  "mode": "reference-guided generation",
+  "prompt": "Use case: ads-marketing\nAsset type: large photographic hero banner for the Bengali Nirbhor ecommerce offers page, above its combo collection.\nPrimary request: Create a premium, photorealistic product still life showing the store's useful everyday combos together. A beautifully art-directed yet believable arrangement, editorial ecommerce photography, not a collage or a UI mockup. Native high resolution wide landscape 2560 x 1440.\nInput images: 1 approved Nirbhor brand logo (dark green Bengali lettering with orange sprout); 2 turmeric jar is the exact master jar shape and cream label design; 3 honey jar is a second packaging reference; 4 mixed nuts pouch is the exact pouch and label style. Preserve these identities and matching packaging across all jars.\nScene/backdrop: a deep forest-green studio wall fading into warm olive on the right, warm cream stone tabletop with a linen runner. Low cream stone risers. A single subtle olive branch near the far right edge. Clean, spacious, sophisticated, tactile.\nSubject: on the RIGHT TWO THIRDS, one tall glass honey jar, three shorter matching glass spice jars with green lids holding turmeric, cumin and red chilli; one standing kraft mixed-nuts pouch behind them; a modest ceramic bowl of nuts and one folded linen napkin. The objects are coherent in one photographed space. Actual human-scale products with realistic materials, grounded shadows, light reflections on glass, spices visible. Arrange at different heights, generous breathing room. No cosmetics or clothing products. No random extra ingredients scattered around.\nComposition/framing: wide panoramic website hero. Reserve the LEFT 40 percent as softly lit dark green negative space for real HTML white headline and CTA. Group all products between x=49%-92% and y=25%-82%, with safe margins above and below for responsive cropping. Do not crop lids, pouches or jars. Camera at slightly elevated tabletop angle, not top-down. Products large and crisp. Avoid empty upper sky dominating.\nLighting/mood: warm late-afternoon side lighting from upper right, gentle natural shadows, luxurious warmth, welcoming and trustworthy. Deep greens, ivory, honey amber, spice orange and kraft brown. Realistic photography, no excessive bloom or artificial glow.\nText: only the reference Nirbhor logo and short Bengali product names on matching labels: 'নির্ভর', 'মধু', 'হলুদ গুঁড়া', 'জিরা গুঁড়া', 'মরিচ গুঁড়া', 'মিক্সড নাটস'. Same cream rectangular sticker design and thin green-orange outline on every jar, only names differ. Do NOT add any headline, slogan, prices, discount numbers, sale badges, signage, watermark or other text anywhere in the scene.\nConstraints: reuse the same brand identity and physical packaging from references, never invent quality certifications or health claims. Leave left area free of products. Clean photographic composition, no floating products, no confetti, no coupon graphics.",
+  "references": [
+    "public/brand/nirbhor-logo.png",
+    "public/assets/product-p16-v5.webp",
+    "public/assets/product-p1-v5.webp",
+    "public/assets/product-p2-v5.webp"
+  ],
+  "generated": "C:/Users/bdcalling/.codex/generated_images/01a1769e-dd5c-7583-9d6e-5750846c30ec/exec-54420832-c397-4516-b466-84993cd6d5dc.png",
+  "final": "public/assets/offers-combo-hero-v1.webp",
+  "nativeDimensions": [
+    1672,
+    940
+  ]
+}

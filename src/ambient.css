@@ -8,8 +8,6 @@
 .ambient-art-2 { top: 57%; left: -130px; animation-delay: -9s; animation-direction: alternate-reverse; }
 .ambient-beauty .ambient-art { opacity: .22; }
 .ambient-fashion .ambient-art, .ambient-home .ambient-art { opacity: .23; }
-.brand-atmosphere > .ambient-backdrop .ambient-art-1 { top: 1160px; }
-.brand-atmosphere > .ambient-backdrop .ambient-art-2 { top: auto; bottom: 400px; }
 .department-atmosphere { background: linear-gradient(135deg, #f8f9f2b3, #fbfaf700 38%, #fffdf780); }
 .department-beauty .department-atmosphere { background: linear-gradient(130deg, #fbf3f680, #fbfaf700 45%, #fff9f480); }
 .department-fashion .department-atmosphere { background: linear-gradient(130deg, #f5f1e980, #fbfaf700 45%, #faf6ee80); }

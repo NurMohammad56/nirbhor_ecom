@@ -10,7 +10,7 @@ import { bn } from "./bn";
 
 export function useSeo() {
   const { pathname, search } = useLocation();
-  const { products, settings, categories } = useStore();
+  const { products, settings, categories, combos } = useStore();
   useEffect(() => {
     const department = departmentForLocation(
       pathname,
@@ -27,8 +27,9 @@ export function useSeo() {
         )
       : undefined;
     const params = new URLSearchParams(search);
+    const combo = pathname.startsWith("/combo/") ? combos.find(c => c.id === pathname.split("/").pop() && c.active) : undefined;
     const category = params.get("subcategory") || params.get("category");
-    const title = pathname === "/" ? "নির্ভর" : product
+    const title = pathname === "/" ? "নির্ভর" : combo ? `${combo.landing?.headline || combo.name} | ${settings.name}` : product
       ? product.seoTitle || `${product.page?.headline || product.name} | ${settings.name}`
       : pathname === "/offers"
         ? `অফার ও কম্বো | ${settings.name}`
@@ -40,7 +41,7 @@ export function useSeo() {
             ? `${settings.name} ${department.name} - ${department.tagline}`
             : settings.seoTitle;
     const description =
-      product?.seoDescription ||
+      combo?.landing?.introduction || combo?.description || product?.seoDescription ||
       product?.page?.shortDescription ||
       product?.description ||
       experience?.description ||
@@ -66,7 +67,7 @@ export function useSeo() {
     meta(
       "og:image",
       new URL(
-        product?.image || experience?.heroImage || "/assets/brand-world-v5.webp",
+        combo?.landing?.coverImage || (combo && products.find(p => p.id === combo.items[0]?.productId)?.image) || product?.image || experience?.heroImage || "/assets/brand-world-v5.webp",
         location.origin,
       ).href,
       true,
@@ -119,5 +120,5 @@ export function useSeo() {
       });
       document.head.appendChild(script);
     }
-  }, [pathname, search, products, settings, categories]);
+  }, [pathname, search, products, settings, categories, combos]);
 }

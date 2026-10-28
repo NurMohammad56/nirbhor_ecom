@@ -74,7 +74,7 @@ type State = {
   setCombos: Dispatch<SetStateAction<ComboOffer[]>>;
   discounts: DiscountRule[];
   setDiscounts: Dispatch<SetStateAction<DiscountRule[]>>;
-  addCombo: (id: string) => boolean;
+  addCombo: (id: string, quantity?: number) => boolean;
   updateCombo: (id: string, packs: number) => void;
   products: Product[];
   setProducts: Dispatch<SetStateAction<Product[]>>;
@@ -209,9 +209,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     if (!offer || !comboAvailable(offer, products, cart.filter(i => i.comboId !== id), packs)) { toast("এই পরিমাণ কম্বোর জন্য পর্যাপ্ত স্টক নেই অথবা অফারটি শেষ হয়েছে।"); return; }
     setCart(x => [...x.filter(i => i.comboId !== id), ...offer.items.map(i => ({ id: i.productId, variant: i.variant, quantity: i.quantity * packs, comboId: id }))]);
   };
-  const addCombo = (id: string) => {
+  const addCombo = (id: string, quantity = 1) => {
     const offer = combos.find(c => c.id === id);
-    const packs = offer ? comboPacks(offer, cart) + 1 : 1;
+    const packs = offer ? comboPacks(offer, cart) + quantity : quantity;
+    if (!Number.isInteger(quantity) || quantity < 1) return false;
     if (!offer || !comboAvailable(offer, products, cart.filter(i => i.comboId !== id), packs)) { toast("এই কম্বোটি এখন পাওয়া যাচ্ছে না। স্টক ও মেয়াদ দেখে আবার চেষ্টা করুন।"); return false; }
     updateCombo(id, packs); track("AddToCart", `Combo: ${offer.name}`); toast("কম্বোটি ব্যাগে যোগ হয়েছে।"); return true;
   };

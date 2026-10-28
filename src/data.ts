@@ -102,6 +102,7 @@ export type Category = {
   sort: number;
   departmentSlug?: string;
   experience?: DepartmentExperience;
+  landingSections?: import("./department-sections").CategorySection[];
 };
 export type DepartmentExperience = {
   heroTitle: string;

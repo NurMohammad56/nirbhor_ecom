@@ -19,6 +19,7 @@ import { StoreProvider, useStore } from "./store";
 import { Header, Footer, CartDrawer, Button, Empty } from "./ui";
 import Home from "./BrandHome";
 import OffersPage from "./OffersPage";
+import ComboLanding from "./ComboLanding";
 import { usePageReveal } from "./usePageReveal";
 import Catalog, { Wishlist, Categories, Offers } from "./Catalog";
 import ProductPage from "./Product";
@@ -118,6 +119,7 @@ function AppContent() {
         >
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/combo/:id" element={<ComboLanding />} />
             {bnNode(departments.flatMap((d) => [
               <Route
                 key={d.slug}

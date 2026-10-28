@@ -1,5 +1,7 @@
 import { bnNode, searchText, latinDigits } from "./bn";
 import TopSellingRail from "./TopSellingRail";
+import CategoryCollectionSection from "./CategoryCollectionSection";
+import { categorySections } from "./department-sections";
 import AmbientBackdrop from "./AmbientBackdrop";
 import { useDepartment } from "./useDepartment";
 import {
@@ -432,64 +434,8 @@ export default function Catalog() {
       >{bnNode("Show ")}{bnNode(list.length)}{bnNode(" good finds")}</Button>
     </>
   );
-  return (
-    <div className="ambient-surface catalog-atmosphere">
-      <AmbientBackdrop kind={department?.slug || "main"}/>
-      <section className="catalog-header">
-        <div className="container">
-          <Breadcrumb
-            items={[
-              {
-                label: category || "Shop",
-                to: category
-                  ? `/shop?category=${encodeURIComponent(category)}`
-                  : undefined,
-              },
-              ...(subcategory ? [{ label: subcategory }] : []),
-            ]}
-          />
-          <div className="catalog-heading">
-            <div>
-              <span className="eyebrow">{bnNode("THOUGHTFULLY CHOSEN. FOR YOUR EVERYDAY.")}</span>
-              <h1>{bnNode(title)}</h1>
-              <p>
-                {bnNode(query
-                  ? `${list.length} little discoveries for your everyday.`
-                  : category === "Organic Food"
-                    ? "From nature to your pantry. Honest ingredients, extraordinary everyday goodness."
-                    : experience?.description ||
-                      "Good choices for your pantry, your wardrobe, yourself and your home.")}
-              </p>
-            </div>
-            <div className="catalog-emblem">
-              <CategoryIcon size={26} />
-              <span>{bnNode("EVERYDAY, WELL CHOSEN")}</span>
-            </div>
-          </div>
-          {bnNode(!!department && (
-            <div className="subcategory-chips">
-              <button
-                className={!subcategory ? "active" : ""}
-                onClick={() => set("subcategory", "")}
-              >{bnNode("All ")}{bnNode(department?.name.toLowerCase())}
-              </button>
-              {bnNode(categories
-                .filter((c) => c.parent === category && c.active)
-                .map((c) => (
-                  <button
-                    key={c.id}
-                    className={subcategory === c.name ? "active" : ""}
-                    onClick={() => set("subcategory", c.name)}
-                  >
-                    {bnNode(c.name)}
-                  </button>
-                )))}
-            </div>
-          ))}
-        </div>
-      </section>
-      {category && !department && !subcategory && !query && categories.some(c => c.name === category && !c.parent && c.active) && <TopSellingRail category={category}/>}
-      <div className="container catalog-layout">
+  const configuredCategory = category && !department && !subcategory && !query ? categories.find(c => c.name === category && !c.parent && c.active) : undefined;
+  const catalogBody = (<div className="container catalog-layout">
         <aside className={`filters ${mobileFilters ? "mobile-open" : ""}`}>
           {bnNode(filters)}
         </aside>
@@ -637,7 +583,64 @@ export default function Catalog() {
             </Link>
           </div>
         </section>
-      </div>
+      </div>);
+  return (
+    <div className="ambient-surface catalog-atmosphere">
+      <AmbientBackdrop kind={department?.slug || "main"}/>
+      <section className="catalog-header">
+        <div className="container">
+          <Breadcrumb
+            items={[
+              {
+                label: category || "Shop",
+                to: category
+                  ? `/shop?category=${encodeURIComponent(category)}`
+                  : undefined,
+              },
+              ...(subcategory ? [{ label: subcategory }] : []),
+            ]}
+          />
+          <div className="catalog-heading">
+            <div>
+              <span className="eyebrow">{bnNode("THOUGHTFULLY CHOSEN. FOR YOUR EVERYDAY.")}</span>
+              <h1>{bnNode(title)}</h1>
+              <p>
+                {bnNode(query
+                  ? `${list.length} little discoveries for your everyday.`
+                  : category === "Organic Food"
+                    ? "From nature to your pantry. Honest ingredients, extraordinary everyday goodness."
+                    : experience?.description ||
+                      "Good choices for your pantry, your wardrobe, yourself and your home.")}
+              </p>
+            </div>
+            <div className="catalog-emblem">
+              <CategoryIcon size={26} />
+              <span>{bnNode("EVERYDAY, WELL CHOSEN")}</span>
+            </div>
+          </div>
+          {bnNode(!!department && (
+            <div className="subcategory-chips">
+              <button
+                className={!subcategory ? "active" : ""}
+                onClick={() => set("subcategory", "")}
+              >{bnNode("All ")}{bnNode(department?.name.toLowerCase())}
+              </button>
+              {bnNode(categories
+                .filter((c) => c.parent === category && c.active)
+                .map((c) => (
+                  <button
+                    key={c.id}
+                    className={subcategory === c.name ? "active" : ""}
+                    onClick={() => set("subcategory", c.name)}
+                  >
+                    {bnNode(c.name)}
+                  </button>
+                )))}
+            </div>
+          ))}
+        </div>
+      </section>
+      {configuredCategory ? categorySections(configuredCategory).filter(block => block.enabled).map(block => <div key={block.id} data-block={block.id}>{block.kind === "collection" ? <CategoryCollectionSection block={block}/> : block.id === "products" ? catalogBody : <TopSellingRail category={category}/>}</div>) : catalogBody}
     </div>
   );
 }

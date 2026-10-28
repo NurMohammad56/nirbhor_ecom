@@ -1,5 +1,6 @@
 import ProductSections, { ProductRelated } from "./ProductSections";
 import QuickOrderButton from "./QuickOrderButton";
+import { sellingDescription } from "./merchandising-copy";
 import AmbientBackdrop from "./AmbientBackdrop";
 import { departmentForProduct } from "./departments";
 import { productPageContent, reviewSummary, reviewSourceLabel, reviewIsVideo } from "./product-page-content";
@@ -654,7 +655,7 @@ export default function ProductPage({
                 </h3>
               ))}
               {page.showRating && (campaign ? config?.reviews : page.sections.find(s => s.id === "reviews")?.enabled) && <a className="pdp-rating" href="#reviews">{stats.count ? <><span className="stars">{Array.from({length:5},(_,i)=>i<Math.round(stats.average)?"★":"☆").join("")}</span><b>{bnNode(stats.average.toFixed(1))}</b><span>({bnNode(stats.count)}টি রিভিউ)</span></> : <span>এখনও রিভিউ নেই - প্রথম মতামত দিন</span>}</a>}
-              <p className="product-description preserve-lines">{bnNode(page.shortDescription || p.description)}</p>
+              <p className="product-description preserve-lines">{bnNode(page.shortDescription || sellingDescription(p))}</p>
               <div className="pdp-price">
                 <b>{bnNode(money(price))}</b>
                 {bnNode(p.oldPrice > price && (!campaign || config?.discount) && (

@@ -1,4 +1,5 @@
 import type { Product, Review } from "./data";
+import { sellingDescription } from "./merchandising-copy";
 
 export type ProductBlockId = "benefits" | "details" | "source" | "faq" | "reviews" | "bundle" | "related";
 export type ProductPageContent = {
@@ -22,9 +23,9 @@ export const productBlockNames: Record<ProductBlockId, string> = { benefits: "�
 export function productPageContent(p: Product): ProductPageContent {
   const custom = p.page || {};
   const defaults: ProductPageContent = {
-    headline: "", kicker: "", shortDescription: "", addToCartText: "", buyNowText: "", orderButtonText: "",
+    headline: "", kicker: "", shortDescription: sellingDescription(p), addToCartText: "", buyNowText: "", orderButtonText: "",
     quickOrderTitle: "", quickOrderText: "", quickOrderButtonText: "",
-    assurances: [{ title: "যত্নের সঙ্গে ডেলিভারি", text: "ঢাকায় ১-২ ও ঢাকার বাইরে ৩-৫ কর্মদিবস" }, { title: "পেমেন্ট ও সহায়তা", text: "ডেলিভারি ও পেমেন্টের শর্ত চেকআউটে দেখুন" }],
+    assurances: [{ title: "ডেলিভারির তথ্য", text: "ঠিকানা অনুযায়ী চার্জ অর্ডারের আগে দেখুন" }, { title: "পেমেন্ট ও সহায়তা", text: "ডেলিভারি ও পেমেন্টের শর্ত চেকআউটে দেখুন" }],
     detailsTitle: "পণ্যটি সম্পর্কে আরও জানুন", detailsBody: "", materialsTitle: "উপাদান ও ব্যবহারের তথ্য", materialsBody: "প্যাকেজিংয়ে দেওয়া উপাদান ও ব্যবহারবিধি দেখে নিন। বিস্তারিত জানতে আমাদের সঙ্গে যোগাযোগ করুন।",
     storage: "প্যাকেজিংয়ে দেওয়া সংরক্ষণ ও যত্নের নির্দেশনা অনুসরণ করুন।", ingredients: "", batch: "", deliveryText: "", returnsText: "",
     benefitsTitle: "আপনার পছন্দের আরও কিছু কারণ",

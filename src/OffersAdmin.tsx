@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ComboLandingFields from "./ComboLandingFields";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Check, Copy, Edit3, Layers, Plus, Percent, Trash2, TicketPercent } from "lucide-react";
 import { useStore } from "./store";
@@ -43,6 +44,7 @@ export default function OffersAdmin({ initialTab = "combo" }: { initialTab?: str
     </>}
     {combo && <Modal title="কম্বো অফার সাজান" wide onClose={() => setCombo(undefined)}><form className="combo-editor" onSubmit={e => { e.preventDefault(); saveCombo(); }}>
       <div className="combo-editor-fields"><label className="field">কম্বোর নাম<input required maxLength={80} value={combo.name} onChange={e => patch({ name: e.target.value })} placeholder="যেমন: সকালের সঙ্গী" /></label><label className="field">ছোট বিবরণ<textarea rows={2} maxLength={180} value={combo.description} onChange={e => patch({ description: e.target.value })} /></label>
+        <ComboLandingFields offer={combo} onChange={patch}/>
         <div className="combo-products-title"><h3>কম্বোর পণ্য</h3><button type="button" className="text-link" onClick={() => { const p = live[0]; if (p) patch({ items: [...combo.items, { productId: p.id, variant: p.weight, quantity: 1 }] }); }}><Plus size={15} />পণ্য যোগ করুন</button></div>
         <div className="combo-item-editor-list">{combo.items.map((i, index) => { const p = s.products.find(p => p.id === i.productId); const change = (updates: Partial<typeof i>) => patch({ items: combo.items.map((old, n) => n === index ? { ...old, ...updates } : old) }); return <div className="combo-item-editor" key={index}>
           <label className="field">পণ্য {bnNode(index + 1)}<select aria-label={`কম্বো পণ্য ${index + 1}`} value={i.productId} onChange={e => { const p = live.find(p => p.id === e.target.value)!; change({ productId: p.id, variant: p.weight }); }}>{live.map(p => <option value={p.id} key={p.id}>{bnNode(p.name)}</option>)}</select></label><label className="field">ভ্যারিয়েন্ট<select aria-label={`কম্বো ভ্যারিয়েন্ট ${index + 1}`} value={i.variant} onChange={e => change({ variant: e.target.value })}>{p && productVariants(p).map(v => <option value={v.label} key={v.label}>{bnNode(v.label)} · {bnNode(money(v.price))}</option>)}</select></label><label className="field">পরিমাণ<input aria-label={`কম্বো পরিমাণ ${index + 1}`} type="number" min="1" max="100" required value={i.quantity} onChange={e => change({ quantity: Number(e.target.value) })} /></label><button type="button" className="icon-btn" aria-label={`কম্বো পণ্য ${index + 1} সরান`} onClick={() => patch({ items: combo.items.filter((_, n) => n !== index) })}><Trash2 size={15} /></button></div>; })}</div>

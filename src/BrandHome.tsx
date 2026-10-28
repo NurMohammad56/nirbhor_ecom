@@ -21,6 +21,7 @@ import { Botanical } from "./SceneMotion";
 import CategoryRail from "./CategoryRail";
 import CustomerVoices from "./CustomerVoices";
 import { ComboShowcase } from "./OfferCards";
+import ProductCarousel from "./ProductCarousel";
 
 export default function BrandHome() {
   const { products, categories, banners, content } = useStore();
@@ -40,9 +41,7 @@ export default function BrandHome() {
   const live = products.filter((p) => p.status === "Published");
   const selected =
     edit === "all"
-      ? ["p1", "p20", "p17", "p10"]
-          .map((id) => live.find((p) => p.id === id))
-          .filter((p): p is NonNullable<typeof p> => !!p)
+      ? [...["p1", "p20", "p17", "p10"].map(id => live.find(p => p.id === id)).filter((p): p is NonNullable<typeof p> => !!p), ...live.filter(p => !["p1", "p20", "p17", "p10"].includes(p.id))]
       : live
           .filter(
             (p) =>
@@ -52,7 +51,7 @@ export default function BrandHome() {
                 categories,
               )?.name,
           )
-          .slice(0, 4);
+          ;
   return (
     <main className="brand-home">
       <CinematicHero slides={slides.length ? slides : brandBanners} />
@@ -124,11 +123,7 @@ export default function BrandHome() {
             </button>
           )))}
         </div>
-        <div className="product-grid four brand-edit-products">
-          {bnNode(selected.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          )))}
-        </div>
+        <ProductCarousel items={selected} bare className="brand-edit-products" label="আপনার জন্য বাছাই পণ্য"/>
       </section>
       <ComboShowcase />
       <CustomerVoices />

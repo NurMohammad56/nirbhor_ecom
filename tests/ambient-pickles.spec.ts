@@ -22,9 +22,9 @@ test("pickles join an existing store once without replacing edits or readding me
 
 test("the pickle collection filters to its products and supports normal variants and shopping", async ({ page }) => {
   await page.goto("/organic");
-  await expect(page.locator("#pickles .product-card")).toHaveCount(3);
-  await expect(page.locator(".department-product-edit")).not.toContainText("আমের আচার");
-  await page.locator("#pickles").getByRole("link", { name: "আচার দেখুন", exact: true }).click();
+  await expect(page.locator("#pickles")).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "টক-ঝালে, পরিচিত স্বাদে", exact: true })).toHaveCount(0);
+  await page.locator(".department-subnav").getByRole("link", { name: "আচার", exact: true }).click();
   await expect(page).toHaveURL(/organic\/shop\?subcategory=/);
   await expect(page.locator(".catalog-products .product-card").or(page.locator(".catalog-layout .product-card"))).toHaveCount(3);
   await page.locator(".product-name").filter({ hasText: "আমের আচার" }).click();

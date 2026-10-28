@@ -44,6 +44,7 @@ export default function DepartmentExperiencesAdmin() {
         title={bnNode("Four worlds. One familiar name.")}
         text="Shape the colour, imagery and story of each Nirbhor department."
       >
+        <Button variant="outline" to={"/admin/sections?category=" + d.categoryId}>সেকশন সাজান</Button>
         <Button variant="outline" to={"/" + slug} target="_blank">
           <Eye size={15} />{bnNode("Preview saved page")}</Button>
         <Button

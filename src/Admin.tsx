@@ -4,6 +4,7 @@ import OffersAdmin from "./OffersAdmin";
 import ProductPageAdmin from "./ProductPageAdmin";
 import { bnNode, latinDigits, searchText } from "./bn";
 import DepartmentExperiencesAdmin from "./DepartmentExperiencesAdmin";
+import CategorySectionsAdmin from "./CategorySectionsAdmin";
 import { descendants } from "./category-tree";
 import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
@@ -113,6 +114,7 @@ const navGroups: {
       ["প্রোডাক্ট পেজ", "/admin/product-pages", FileText],
       ["Categories", "/admin/categories", FolderTree],
       ["Category experiences", "/admin/experiences", Palette],
+      ["ক্যাটাগরি সেকশন", "/admin/sections", SlidersHorizontal],
       ["Inventory", "/admin/inventory", Box],
       ["Customers", "/admin/customers", Users],
     ],
@@ -401,6 +403,8 @@ export default function Admin() {
             <Overview />
           ) : section === "experiences" ? (
             <DepartmentExperiencesAdmin />
+          ) : section === "sections" ? (
+            <CategorySectionsAdmin />
           ) : section === "products" ? (
             <ProductsAdmin />
           ) : section === "product-pages" ? (

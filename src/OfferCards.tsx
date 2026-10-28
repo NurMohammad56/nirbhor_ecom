@@ -21,11 +21,11 @@ export function ComboCard({ offer }: { offer: ComboOffer }) {
   const inBag = comboPacks(offer, s.cart);
   return <article className="combo-card" data-offer={offer.id}>
     <div className="combo-card-visual"><div className="combo-card-orbit" />
-      <span className="combo-saving">{bnNode(money(pricing.saving))} সাশ্রয়</span>
+      {pricing.saving > 0 && <span className="combo-saving">{bnNode(money(pricing.saving))} সাশ্রয়</span>}
       <div className="combo-product-collage">{offer.items.slice(0, 3).map((item, index) => { const p = s.products.find(p => p.id === item.productId); return p && <img key={p.id + item.variant} src={p.image} alt={bnNode(p.name)} loading="lazy" style={{ "--order": index } as CSSProperties} />; })}</div>
       <span className="combo-product-count"><Layers size={13} />{bnNode(offer.items.reduce((n, i) => n + i.quantity, 0))}টি পণ্য</span>
     </div>
-    <div className="combo-card-copy"><h3>{bnNode(offer.name)}</h3><p>{bnNode(offer.description)}</p>
+    <div className="combo-card-copy"><h3><Link to={`/combo/${offer.id}`}>{bnNode(offer.name)}</Link></h3><p>{bnNode(offer.description)}</p><Link className="combo-details-link" to={`/combo/${offer.id}`} aria-label={`${offer.name} কম্বোর বিস্তারিত দেখুন`}>বিস্তারিত দেখুন<ArrowUpRight size={14}/></Link>
       <details className="combo-includes"><summary>কম্বোতে যা থাকছে <Plus size={13} /></summary><div>{offer.items.map(item => { const p = s.products.find(p => p.id === item.productId); return p && <span key={p.id + item.variant}>{bnNode(item.quantity)} × {bnNode(p.name)} · {bnNode(item.variant)}</span>; })}</div></details>
       <div className="combo-card-bottom"><div><strong>{bnNode(money(pricing.price))}</strong>{pricing.saving > 0 && <del>{bnNode(money(pricing.subtotal))}</del>}</div>
         <button className="btn" disabled={!available} onClick={() => { if (s.addCombo(offer.id)) s.setDrawer(true); }} aria-label={`${bnNode(offer.name)} কম্বো ব্যাগে যোগ করুন`}>{inBag ? <Check size={16} /> : <Plus size={16} />}{!available ? "স্টক নেই" : inBag ? "আরও যোগ করুন" : "কম্বো নিন"}</button>

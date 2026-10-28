@@ -20,7 +20,9 @@ import TopSellingRail from "./TopSellingRail";
 import CustomerVoices from "./CustomerVoices";
 import { ComboShowcase } from "./OfferCards";
 import AmbientBackdrop from "./AmbientBackdrop";
-import PickleCollection from "./PickleCollection";
+import CategoryCollectionSection from "./CategoryCollectionSection";
+import { categorySections } from "./department-sections";
+import type { BuiltInSectionId } from "./department-sections";
 
 const questions: Record<string, [string, string][]> = {
   organic: [
@@ -107,8 +109,125 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
   const subcategories = categories.filter(
     (c) => c.parent === category.name && c.active,
   );
-  const pickles = d.slug === "organic" ? categories.find(c => c.parent === category.name && (c.id === "sc-pickles" || c.name === "আচার") && c.active) : undefined;
-  const featured = pickles ? items.filter(p => p.subcategory !== pickles.name) : items;
+  const featured = items;
+  const builtIn = {
+    categories: (<section className="container brand-section department-collection-section" id="department-collections">
+        <div className="brand-section-heading"><h2>{bnNode("Categories")}</h2><Link className="brand-underlined" to={departmentShopHref(d)}>{bnNode("All products")}<ArrowUpRight size={16} /></Link></div>
+        <CategoryRail label={bnNode(d.name)+" ক্যাটাগরি"} items={subcategories.map(c=>({id:c.id,name:c.name,image:c.image || items.find(p=>p.subcategory===c.name)?.image || exp.heroImage,to:departmentShopHref(d,c.name)}))} />
+      </section>),
+    bestsellers: (<TopSellingRail category={category.name}/>),
+    products: (<section className="department-product-edit">
+        <div className="container brand-section">
+          <div className="brand-section-heading">
+            <div>
+              
+              <h2>{bnNode("All products")}</h2>
+            </div>
+            <Link className="brand-underlined" to={departmentShopHref(d)}>{bnNode("All good finds ")}<ArrowUpRight size={16} />
+            </Link>
+          </div>
+          <div
+            className={`product-grid department-product-grid ${featured.length >= 4 ? "four" : "three"}`}
+          >
+            {bnNode(featured.map((p) => (
+              <ProductCard key={p.id} product={p} />
+            )))}
+          </div>
+        </div>
+      </section>),
+    combos: (<ComboShowcase category={category.name} />),
+    reviews: (<CustomerVoices category={category.name} />),
+    story: (<section className="container brand-section department-editorial botanical-stage">
+        <div className="department-editorial-image">
+          <img
+            src={d.storyImage}
+            alt={
+              bnNode(d.slug === "organic"
+                ? "A forest full of natural character"
+                : d.slug === "fashion"
+                  ? "A closer look at considered fabric and tailoring"
+                  : d.slug === "beauty"
+                    ? "A closer look at your daily care"
+                    : "Natural linen and thoughtful home details")
+            }
+            loading="lazy"
+          />
+          <span>
+            {bnNode(d.name === "Organic"
+              ? "ORIGINS MATTER."
+              : d.name === "Beauty"
+                ? "A MOMENT FOR YOURSELF."
+                : d.name === "Fashion"
+                  ? "THE DETAILS MAKE THE DIFFERENCE."
+                  : "THE COMFORT IS IN THE DETAILS.")}
+          </span>
+        </div>
+        <div>
+          
+          <h2>
+            {bnNode(exp.storyTitle.split("\n").map((line, i) => (
+              <span key={i}>{bnNode(line)}</span>
+            )))}
+          </h2>
+          <p>{bnNode(exp.storyText)}</p>
+          <div className="department-editorial-details">
+            {bnNode(d.features.map((text) => (
+              <span key={text}>
+                <Check size={13} />
+                {bnNode(text)}
+              </span>
+            )))}
+          </div>
+          <Link
+            to={d.slug === "organic" ? "/page/sourcing" : "/about"}
+            className="brand-underlined"
+          >{bnNode("A little more about our choices ")}<ArrowUpRight size={16} />
+          </Link>
+        </div>
+      </section>),
+    faq: (<section className="department-faq-section botanical-stage">
+        <Botanical kind={d.slug === "organic" ? "leaf" : "dry"} className="editorial-botanical" />
+        <div className="container brand-section department-faq">
+          <div>
+            
+            <h2>{bnNode("Before you")}<br />{bnNode("make it yours.")}</h2>
+            <p>{bnNode("A few helpful details for your next good choice.")}</p>
+            <Link to="/contact" className="brand-underlined">{bnNode("Ask us a question ")}<ArrowUpRight size={15} />
+            </Link>
+          </div>
+          <div className="faq-list">
+            {bnNode(questions[d.slug].map(([q, a]) => (
+              <details key={q}>
+                <summary>
+                  {bnNode(q)}
+                  <span>{bnNode("+")}</span>
+                </summary>
+                <p>{bnNode(a)}</p>
+              </details>
+            )))}
+          </div>
+        </div>
+      </section>),
+    explore: (<section className="container department-switcher">
+        
+        <div>
+          {bnNode(departments
+            .filter(
+              (other) =>
+                other.slug !== d.slug &&
+                categoryForDepartment(other, categories)?.active &&
+                experienceForDepartment(other, categories).enabled,
+            )
+            .map((other) => (
+              <Link to={"/" + other.slug} key={other.slug}>
+                <span>{bnNode("NIRBHOR ")}<b>{bnNode(other.name)}</b>
+                </span>
+                <ArrowUpRight size={18} />
+              </Link>
+            )))}
+        </div>
+      </section>),
+  };
   return (
     <main className={`department-landing department-${d.slug}`}>
       <section ref={sceneRef} className="department-hero-shell immersive-department">
@@ -156,123 +275,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
         </Link>
       </div>
       <div className="ambient-surface department-atmosphere"><AmbientBackdrop kind={d.slug}/>
-      <section className="container brand-section department-collection-section" id="department-collections">
-        <div className="brand-section-heading"><h2>{bnNode("Categories")}</h2><Link className="brand-underlined" to={departmentShopHref(d)}>{bnNode("All products")}<ArrowUpRight size={16} /></Link></div>
-        <CategoryRail label={bnNode(d.name)+" ক্যাটাগরি"} items={subcategories.map(c=>({id:c.id,name:c.name,image:c.image || items.find(p=>p.subcategory===c.name)?.image || exp.heroImage,to:departmentShopHref(d,c.name)}))} />
-      </section>
-      <TopSellingRail category={category.name}/>
-      {d.slug === "organic" && <PickleCollection category={category.name}/>}
-      <section className="department-product-edit">
-        <div className="container brand-section">
-          <div className="brand-section-heading">
-            <div>
-              
-              <h2>{pickles ? "নিত্যদিনের অর্গানিক" : bnNode("All products")}</h2>
-            </div>
-            <Link className="brand-underlined" to={departmentShopHref(d)}>{bnNode("All good finds ")}<ArrowUpRight size={16} />
-            </Link>
-          </div>
-          <div
-            className={`product-grid department-product-grid ${featured.length >= 4 ? "four" : "three"}`}
-          >
-            {bnNode(featured.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            )))}
-          </div>
-        </div>
-      </section>
-      <ComboShowcase category={category.name} />
-      <CustomerVoices category={category.name} />
-      <section className="container brand-section department-editorial botanical-stage">
-        <div className="department-editorial-image">
-          <img
-            src={d.storyImage}
-            alt={
-              bnNode(d.slug === "organic"
-                ? "A forest full of natural character"
-                : d.slug === "fashion"
-                  ? "A closer look at considered fabric and tailoring"
-                  : d.slug === "beauty"
-                    ? "A closer look at your daily care"
-                    : "Natural linen and thoughtful home details")
-            }
-            loading="lazy"
-          />
-          <span>
-            {bnNode(d.name === "Organic"
-              ? "ORIGINS MATTER."
-              : d.name === "Beauty"
-                ? "A MOMENT FOR YOURSELF."
-                : d.name === "Fashion"
-                  ? "THE DETAILS MAKE THE DIFFERENCE."
-                  : "THE COMFORT IS IN THE DETAILS.")}
-          </span>
-        </div>
-        <div>
-          
-          <h2>
-            {bnNode(exp.storyTitle.split("\n").map((line, i) => (
-              <span key={i}>{bnNode(line)}</span>
-            )))}
-          </h2>
-          <p>{bnNode(exp.storyText)}</p>
-          <div className="department-editorial-details">
-            {bnNode(d.features.map((text) => (
-              <span key={text}>
-                <Check size={13} />
-                {bnNode(text)}
-              </span>
-            )))}
-          </div>
-          <Link
-            to={d.slug === "organic" ? "/page/sourcing" : "/about"}
-            className="brand-underlined"
-          >{bnNode("A little more about our choices ")}<ArrowUpRight size={16} />
-          </Link>
-        </div>
-      </section>
-      <section className="department-faq-section botanical-stage">
-        <Botanical kind={d.slug === "organic" ? "leaf" : "dry"} className="editorial-botanical" />
-        <div className="container brand-section department-faq">
-          <div>
-            
-            <h2>{bnNode("Before you")}<br />{bnNode("make it yours.")}</h2>
-            <p>{bnNode("A few helpful details for your next good choice.")}</p>
-            <Link to="/contact" className="brand-underlined">{bnNode("Ask us a question ")}<ArrowUpRight size={15} />
-            </Link>
-          </div>
-          <div className="faq-list">
-            {bnNode(questions[d.slug].map(([q, a]) => (
-              <details key={q}>
-                <summary>
-                  {bnNode(q)}
-                  <span>{bnNode("+")}</span>
-                </summary>
-                <p>{bnNode(a)}</p>
-              </details>
-            )))}
-          </div>
-        </div>
-      </section>
-      <section className="container department-switcher">
-        
-        <div>
-          {bnNode(departments
-            .filter(
-              (other) =>
-                other.slug !== d.slug &&
-                categoryForDepartment(other, categories)?.active &&
-                experienceForDepartment(other, categories).enabled,
-            )
-            .map((other) => (
-              <Link to={"/" + other.slug} key={other.slug}>
-                <span>{bnNode("NIRBHOR ")}<b>{bnNode(other.name)}</b>
-                </span>
-                <ArrowUpRight size={18} />
-              </Link>
-            )))}
-        </div>
-      </section>
+      {categorySections(category).filter(block => block.enabled).map(block => <div className="department-section-slot" data-block={block.id} key={block.id}>{block.kind === "collection" ? <CategoryCollectionSection block={block}/> : builtIn[block.id as BuiltInSectionId]}</div>)}
       </div>
     </main>
   );

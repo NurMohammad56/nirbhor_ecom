@@ -19,6 +19,8 @@ import CategoryRail from "./CategoryRail";
 import TopSellingRail from "./TopSellingRail";
 import CustomerVoices from "./CustomerVoices";
 import { ComboShowcase } from "./OfferCards";
+import AmbientBackdrop from "./AmbientBackdrop";
+import PickleCollection from "./PickleCollection";
 
 const questions: Record<string, [string, string][]> = {
   organic: [
@@ -105,7 +107,8 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
   const subcategories = categories.filter(
     (c) => c.parent === category.name && c.active,
   );
-  const featured = items;
+  const pickles = d.slug === "organic" ? categories.find(c => c.parent === category.name && (c.id === "sc-pickles" || c.name === "আচার") && c.active) : undefined;
+  const featured = pickles ? items.filter(p => p.subcategory !== pickles.name) : items;
   return (
     <main className={`department-landing department-${d.slug}`}>
       <section ref={sceneRef} className="department-hero-shell immersive-department">
@@ -152,17 +155,19 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
         <Link to="/page/shipping">{bnNode("Delivery across Bangladesh ")}<ArrowUpRight size={13} />
         </Link>
       </div>
+      <div className="ambient-surface department-atmosphere"><AmbientBackdrop kind={d.slug}/>
       <section className="container brand-section department-collection-section" id="department-collections">
         <div className="brand-section-heading"><h2>{bnNode("Categories")}</h2><Link className="brand-underlined" to={departmentShopHref(d)}>{bnNode("All products")}<ArrowUpRight size={16} /></Link></div>
         <CategoryRail label={bnNode(d.name)+" ক্যাটাগরি"} items={subcategories.map(c=>({id:c.id,name:c.name,image:c.image || items.find(p=>p.subcategory===c.name)?.image || exp.heroImage,to:departmentShopHref(d,c.name)}))} />
       </section>
       <TopSellingRail category={category.name}/>
+      {d.slug === "organic" && <PickleCollection category={category.name}/>}
       <section className="department-product-edit">
         <div className="container brand-section">
           <div className="brand-section-heading">
             <div>
               
-              <h2>{bnNode("All products")}</h2>
+              <h2>{pickles ? "নিত্যদিনের অর্গানিক" : bnNode("All products")}</h2>
             </div>
             <Link className="brand-underlined" to={departmentShopHref(d)}>{bnNode("All good finds ")}<ArrowUpRight size={16} />
             </Link>
@@ -268,6 +273,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
             )))}
         </div>
       </section>
+      </div>
     </main>
   );
 }

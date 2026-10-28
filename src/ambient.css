@@ -1,0 +1,39 @@
+.ambient-surface { position: relative; }
+/* Keep foreground siblings above the artwork without trapping fixed filters in a stacking context. */
+.ambient-surface > :not(.ambient-backdrop) { position: relative; }
+.ambient-backdrop { position: absolute; inset: 0; overflow: clip; pointer-events: none; user-select: none; }
+.ambient-art { position: absolute; width: clamp(270px, 30vw, 480px); height: auto; opacity: .16; filter: saturate(.8); transform-origin: 70% 80%; animation: ambient-drift 22s ease-in-out infinite alternate; animation-play-state: paused; }
+.ambient-backdrop[data-active="true"] .ambient-art[data-visible="true"] { animation-play-state: running; }
+.ambient-art-1 { top: -35px; right: -65px; transform: rotate(-12deg); }
+.ambient-art-2 { top: 57%; left: -130px; animation-delay: -9s; animation-direction: alternate-reverse; }
+.ambient-beauty .ambient-art { opacity: .22; }
+.ambient-fashion .ambient-art, .ambient-home .ambient-art { opacity: .23; }
+.brand-atmosphere > .ambient-backdrop .ambient-art-1 { top: 1160px; }
+.brand-atmosphere > .ambient-backdrop .ambient-art-2 { top: auto; bottom: 400px; }
+.department-atmosphere { background: linear-gradient(135deg, #f8f9f2b3, #fbfaf700 38%, #fffdf780); }
+.department-beauty .department-atmosphere { background: linear-gradient(130deg, #fbf3f680, #fbfaf700 45%, #fff9f480); }
+.department-fashion .department-atmosphere { background: linear-gradient(130deg, #f5f1e980, #fbfaf700 45%, #faf6ee80); }
+.department-home-living .department-atmosphere { background: linear-gradient(130deg, #f4f1e780, #fbfaf700 45%, #eef1e880); }
+.department-atmosphere .department-product-edit { background: transparent; border-top: 1px solid #dde3d480; }
+.department-atmosphere .department-faq-section { background: #eaf0e66b; }
+.pickle-collection { border-top: 1px solid #e5dfcb; }
+.pickle-collection .section-kicker { color: #a47832; }
+.pickle-collection .brand-section-heading p { font-size: 14px; line-height: 1.9; color: #7a806c; margin-top: 12px; max-width: 460px; }
+.pickle-collection .brand-underlined { flex-shrink: 0; }
+.pickle-collection .product-card { background: #fffdf8; }
+.catalog-atmosphere > .ambient-backdrop .ambient-art-1 { top: 260px; }
+.catalog-atmosphere > .ambient-backdrop .ambient-art-2 { top: auto; bottom: 120px; }
+.pdp-atmosphere > .ambient-backdrop .ambient-art-1 { top: 900px; }
+.pdp-atmosphere > .ambient-backdrop .ambient-art-2 { top: auto; bottom: 360px; }
+@keyframes ambient-drift { from { translate: 0 0; rotate: -2deg; } to { translate: 8px -14px; rotate: 2deg; } }
+@media(max-width: 700px) {
+  .ambient-art { width: 260px; opacity: .11; }
+  .ambient-art-1 { right: -135px; top: 0; }
+  .ambient-art-2 { left: -180px; }
+  .ambient-beauty .ambient-art, .ambient-fashion .ambient-art, .ambient-home .ambient-art { opacity: .15; }
+  .pickle-collection .product-grid { grid-template-columns: 1fr; gap: 18px; }
+  .pickle-collection .brand-section-heading { align-items: flex-start; flex-wrap: wrap; }
+  .pickle-collection .brand-section-heading h2 { font-size: 28px; }
+  .pickle-collection .product-photo { aspect-ratio: 3/2; }
+}
+@media(prefers-reduced-motion: reduce) { .ambient-art { animation: none; } }

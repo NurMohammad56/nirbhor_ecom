@@ -1,5 +1,7 @@
 import ProductSections, { ProductRelated } from "./ProductSections";
 import QuickOrderButton from "./QuickOrderButton";
+import AmbientBackdrop from "./AmbientBackdrop";
+import { departmentForProduct } from "./departments";
 import { productPageContent, reviewSummary, reviewSourceLabel, reviewIsVideo } from "./product-page-content";
 import { bnNode, latinDigits, searchText } from "./bn";
 import { DiscountHint } from "./OfferCards";
@@ -568,7 +570,8 @@ export default function ProductPage({
             </span>
           </div>
         ))}
-      <main>
+      <main className="ambient-surface pdp-atmosphere">
+        <AmbientBackdrop kind={departmentForProduct(p, s.categories)?.slug || "main"}/>
         <div className="container product-page">
           <Breadcrumb
             items={[

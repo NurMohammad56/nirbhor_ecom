@@ -21,6 +21,7 @@ import { Botanical } from "./SceneMotion";
 import CategoryRail from "./CategoryRail";
 import CustomerVoices from "./CustomerVoices";
 import { ComboShowcase } from "./OfferCards";
+import AmbientBackdrop from "./AmbientBackdrop";
 
 export default function BrandHome() {
   const { products, categories, banners, content } = useStore();
@@ -54,7 +55,8 @@ export default function BrandHome() {
           )
           .slice(0, 4);
   return (
-    <main className="brand-home">
+    <main className="brand-home ambient-surface brand-atmosphere">
+      <AmbientBackdrop/>
       <CinematicHero slides={slides.length ? slides : brandBanners} />
       <div className="brand-services container">
         {bnNode([

@@ -1,0 +1,76 @@
+{
+  "generator": "Built-in image_gen tool",
+  "format": "WebP conversion only, no visual edits or resizing; native dimensions and alpha retained.",
+  "assets": [
+    {
+      "name": "ambient-organic-v1",
+      "output": "public/assets/ambient-organic-v1.webp",
+      "subject": "Spinach leaves, coriander, cucumber slice and lime.",
+      "width": 1536,
+      "height": 1024,
+      "alpha": true,
+      "alphaMin": 0,
+      "bytes": 289212
+    },
+    {
+      "name": "ambient-beauty-v1",
+      "output": "public/assets/ambient-beauty-v1.webp",
+      "subject": "Rose petals, translucent glass droplet and blush pebble.",
+      "width": 1536,
+      "height": 1024,
+      "alpha": true,
+      "alphaMin": 0,
+      "bytes": 243674
+    },
+    {
+      "name": "ambient-fashion-v1",
+      "output": "public/assets/ambient-fashion-v1.webp",
+      "subject": "Ivory linen fold and cotton stem.",
+      "width": 1536,
+      "height": 1024,
+      "alpha": true,
+      "alphaMin": 0,
+      "bytes": 299358
+    },
+    {
+      "name": "ambient-home-v1",
+      "output": "public/assets/ambient-home-v1.webp",
+      "subject": "Dry olive twig, seed stems, weathered wood and ceramic bud vase.",
+      "width": 1402,
+      "height": 1122,
+      "alpha": true,
+      "alphaMin": 0,
+      "bytes": 242250
+    },
+    {
+      "name": "pickle-mango-v1",
+      "output": "public/assets/pickle-mango-v1.webp",
+      "subject": "আমের আচার: green mango chunks and mustard spices.",
+      "width": 1536,
+      "height": 1024,
+      "alpha": false,
+      "alphaMin": null,
+      "bytes": 203768
+    },
+    {
+      "name": "pickle-olive-v1",
+      "output": "public/assets/pickle-olive-v1.webp",
+      "subject": "জলপাই আচার: Bangladeshi jolpai fruit and spiced mustard oil.",
+      "width": 1536,
+      "height": 1024,
+      "alpha": false,
+      "alphaMin": null,
+      "bytes": 234838
+    },
+    {
+      "name": "pickle-mixed-v1",
+      "output": "public/assets/pickle-mixed-v1.webp",
+      "subject": "মিক্সড আচার: mango, carrot, green chilli and lime.",
+      "width": 1536,
+      "height": 1024,
+      "alpha": false,
+      "alphaMin": null,
+      "bytes": 200134
+    }
+  ]
+}

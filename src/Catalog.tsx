@@ -1,5 +1,6 @@
 import { bnNode, searchText, latinDigits } from "./bn";
 import TopSellingRail from "./TopSellingRail";
+import AmbientBackdrop from "./AmbientBackdrop";
 import { useDepartment } from "./useDepartment";
 import {
   departments,
@@ -432,7 +433,8 @@ export default function Catalog() {
     </>
   );
   return (
-    <>
+    <div className="ambient-surface catalog-atmosphere">
+      <AmbientBackdrop kind={department?.slug || "main"}/>
       <section className="catalog-header">
         <div className="container">
           <Breadcrumb
@@ -636,7 +638,7 @@ export default function Catalog() {
           </div>
         </section>
       </div>
-    </>
+    </div>
   );
 }
 export function Wishlist() {

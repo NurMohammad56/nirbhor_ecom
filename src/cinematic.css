@@ -30,6 +30,10 @@
 .cinematic-hero .brand-hero-actions > .btn:hover, .immersive-department .department-hero-copy .btn:hover { background: #e3d4aa; border-color: #e3d4aa; transform: translateY(-2px); }
 .cinematic-hero .brand-underlined { color: #fff7e3; border-color: #f7f3e77a; font-size: 13px; }
 .cinema-bottom { position: absolute; bottom: 34px; inset-inline: 0; display: flex; justify-content: space-between; align-items: flex-end; }
+.cinema-arrows { position: absolute; bottom: 30px; inset-inline: 0; display: flex; justify-content: flex-end; gap: 10px; pointer-events: none; }
+.cinematic-hero .cinema-arrows .icon-btn { width: 44px; height: 44px; color: #fff9e7; border: 1px solid #ffffff70; background: #17271d33; backdrop-filter: blur(10px); pointer-events: auto; }
+.cinematic-hero .cinema-arrows .icon-btn:hover { background: #ffffff29; }
+.cinematic-hero .cinema-arrows .icon-btn:focus-visible { outline: 2px solid #f4dca8; outline-offset: 4px; }
 .cinema-scroll { display: flex; align-items: center; gap: 16px; font-size: 9px; line-height: 1.8; letter-spacing: 1.6px; color: #f4efe2; }
 .cinema-scroll > svg { box-sizing: content-box; padding: 13px; border: 1px solid #ffffff5c; border-radius: 50%; }
 .cinematic-hero .brand-carousel-controls { position: static; gap: 17px; color: #fff9e7; font-size: 12px; }

@@ -1,32 +1,36 @@
 import { bn } from "../src/bn";
 import { test, expect } from "@playwright/test";
 
-test("cinematic slides advance automatically and can be paused", async ({ page }) => {
+test("cinematic slides advance with just two arrows and pause while a shopping link has focus", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.clock.install();
   await page.goto("/");
   await expect(page.locator(".brand-hero h1")).toContainText(bn("Good choices."));
   await page.clock.runFor(3100);
   await expect(page.locator(".brand-hero h1")).toContainText(bn("A little care."));
-  await page.getByRole("button", { name: bn("Pause hero carousel"), exact: true }).click();
-  await page.locator(".announcement").click({ position: { x: 2, y: 2 } });
+  await expect(page.locator(".cinema-bottom,.cinematic-hero .brand-carousel-controls")).toHaveCount(0);
+  await expect(page.locator(".cinema-arrows button")).toHaveCount(2);
+  await page.locator(".brand-hero-actions .btn").focus();
   await page.clock.runFor(18000);
   await expect(page.locator(".brand-hero h1")).toContainText(bn("A little care."));
-  await expect(page.getByRole("button", { name: bn("Play hero carousel"), exact: true })).toHaveAttribute("aria-pressed", "true");
-  await page.getByRole("button", { name: bn("Next slide"), exact: true }).click();
+  await page.locator(".announcement").click({ position: { x: 2, y: 2 } });
+  await page.clock.runFor(3100);
   await expect(page.locator(".brand-hero h1")).toContainText(bn("Your everyday."));
 });
 
-test("reduced motion keeps scenes still while allowing manual navigation", async ({ page }) => {
+test("reduced motion keeps scenes still and shopping links remain available", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.clock.install();
   await page.goto("/");
   await page.clock.runFor(18000);
   await expect(page.locator(".brand-hero h1")).toContainText(bn("Good choices."));
-  await expect(page.getByRole("button", { name: bn("Play hero carousel"), exact: true })).toBeDisabled();
+  await expect(page.locator(".cinema-bottom")).toHaveCount(0);
+  await expect(page.locator(".brand-hero-actions .btn")).toBeVisible();
   expect(await page.locator(".cinema-scene.is-active img").evaluate(el => getComputedStyle(el).animationName)).toBe("none");
   await page.getByRole("button", { name: bn("Next slide"), exact: true }).click();
   await expect(page.locator(".brand-hero h1")).toContainText(bn("A little care."));
+  await page.getByRole("button", { name: bn("Previous slide"), exact: true }).click();
+  await expect(page.locator(".brand-hero h1")).toContainText(bn("Good choices."));
   await page.goto("/beauty");
   expect(await page.locator(".serum-orbit img").evaluate(el => getComputedStyle(el).animationName)).toBe("none");
 });

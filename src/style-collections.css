@@ -1,0 +1,34 @@
+.pointer-product-photo > img { transform-origin: var(--zoom-x,50%) var(--zoom-y,50%); transition: transform .2s ease; }
+.pointer-product-photo[data-zoomed="true"] { cursor: zoom-in; }
+.pointer-product-photo[data-zoomed="true"] > img { transform: scale(1.9); }
+html[data-department="sneakers"] .variant-options { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 9px; }
+html[data-department="sneakers"] .variant-options > button { min-width: 0; min-height: 48px; }
+.hero-image-picker { display: flex; flex-direction: column; gap: 11px; }
+.hero-image-upload { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 45px; border: 1px dashed #9eae8e; border-radius: 9px; background: #f6f8ef; color: #425e39; font-size: 13px; cursor: pointer; padding: 11px 15px; }
+.hero-image-upload.is-busy { opacity: .6; pointer-events: none; }
+.hero-image-file { position: absolute; width: 1px; height: 1px; padding: 0; opacity: 0; overflow: hidden; }
+.hero-image-picker:has(.hero-image-file:focus-visible) .hero-image-upload { outline: 2px solid #6c865a; outline-offset: 3px; }
+.hero-image-picker > small { font-size: 11px; color: #7d8b72; line-height: 1.8; }
+.department-sneakers .department-hero-shade { background: linear-gradient(90deg,#171b18df,#171b1870 40%,transparent 75%); }
+.department-watches .department-hero-shade { background: linear-gradient(90deg,#21170fe8,#21170f80 40%,transparent 78%); }
+.digital-showcase-label { font-size: 10px; letter-spacing: 0; line-height: 1.7; color: #fff7e3b8; }
+.cinema-showcase { position: absolute; bottom: 40px; inset-inline: 0; pointer-events: none; }
+.cinema-showcase > span { font-size: 10px; color: #fff8e9c9; background: #15221955; padding: 6px 10px; border: 1px solid #fff5d526; border-radius: 5px; }
+.ambient-sneakers,.ambient-watches { background: linear-gradient(145deg,#f6f6f200, #e9e7df33); }
+.department-switcher > div { grid-template-columns: repeat(3,minmax(0,1fr)); }
+@media(max-width:1400px) {
+  .brand-nav { display: none; }
+  .brand-site-header .mobile-menu { display: inline-flex !important; }
+  .brand-header-search { max-width: none; }
+  .brand-mobile-nav { display: flex; flex-direction: column; position: fixed; top: var(--nav-top,96px) !important; inset-inline: 0; bottom: 0; z-index: 50; padding: 24px max(22px,calc((100vw - 1280px)/2)); overflow-y: auto; background: var(--paper); }
+  .brand-mobile-nav > .search-field { display: flex; align-items: center; gap: 10px; padding: 0 12px; min-height: 46px; flex-shrink: 0; border: 1px solid var(--line); border-radius: 8px; margin-bottom: 14px; }
+  .brand-mobile-nav .search-field input { width: 100%; min-width: 0; border: 0; box-shadow: none; background: transparent; }
+  .brand-mobile-nav > a { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--line); }
+}
+@media(max-width:700px) {
+  .department-switcher > div { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .department-sneakers .department-hero-shade,.department-watches .department-hero-shade { background: linear-gradient(0deg,#191b18e6,#191b18a1 40%,#191b180a 85%); }
+  .digital-showcase-label { max-width: 185px; font-size: 9px; }
+  html[data-department="sneakers"] .subcategory-chips,html[data-department="watches"] .subcategory-chips { margin-right: 0; padding-right: 0; max-width: 100%; }
+}
+@media(prefers-reduced-motion:reduce) { .pointer-product-photo > img { transition: none; } }

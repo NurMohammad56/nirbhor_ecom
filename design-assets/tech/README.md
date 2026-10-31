@@ -1,0 +1,13 @@
+# Nirbhor Tech
+
+Tech is a separate parent department at `/tech` with category ID `c-tech`. It is distinct from Smart Life. Its four subcategories cover audio, computer accessories, gaming and charging. Shared discovery, navigation, mobile navigation, homepage cards and carousel, footer, Bengali/English search, catalogue filters, product pages and checkout include this department.
+
+The reference informed a light peach/lavender studio direction, a large graphite headphone hero, clean product tiles and a headphone editorial panel. Category sections default to categories, popular-product carousel, editorial panel, all products, combos, reviews, FAQ and other departments; admins can reorder, hide or add product sections through `/admin/sections?category=c-tech`. Empty offers/reviews do not fabricate activity. Hero image URL/upload, copy and palette are editable through `/admin/experiences`; uploads and merchant changes remain browser-local prototype data.
+
+Eight clearly marked sample products: headphones, earbuds, keyboard, mouse, speaker, webcam, game controller and charging hub. Prices, inventory and images are demonstrative; supplier-specific specifications, warranties, performance, sales counts and reviews are not invented. Each has its own description, model/compatibility guidance, FAQ, shared ordering, stock reservation and mouse-following magnification. Imported products have no Nirbhor manufacturer branding.
+
+Nine images were generated with the built-in image_gen tool on 2026-10-31: a 1672 x 941 hero and eight 1254 x 1254 product images. They were visually inspected and converted to WebP quality 92 without resizing or visual edits. Final files: `public/assets/tech-*-v1.webp`. Originals remain locally in ignored `design-assets/originals/tech/`. Exact prompts and source/final paths: `prompts.json`.
+
+Validation evidence is retained locally in the Playwright report and `artifacts/tech-qa.json`. The integration suite covers Tech migration, scoped discovery/search, checkout and stock reservation, admin hero/sections/visibility, Bengali three-second home slides, and the existing departments. Browser QA covers 320, 390, 768, 1100, 1366 and 1440 px across landing, catalogue, product, admin and home, including image loading, client errors and page overflow.
+
+Final checks: all 25 tests in the Tech, departments, Bengali, Smart Life and style collections suites passed. All 30 browser page/viewport checks completed without broken images, client errors, header overlaps or horizontal page overflow. The narrow catalogue filter overflow found during QA was fixed and covered by a regression test.

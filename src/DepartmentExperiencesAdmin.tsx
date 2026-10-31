@@ -1,5 +1,6 @@
 import { bnNode } from "./bn";
 import BrandLogo from "./BrandLogo";
+import HeroImagePicker from "./HeroImagePicker";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Check, Eye, Palette } from "lucide-react";
@@ -107,11 +108,7 @@ export default function DepartmentExperiencesAdmin() {
                 rows={3}
               />
             </label>
-            <label className="field">{bnNode("Hero image URL")}<input
-                value={draft.heroImage}
-                onChange={(e) => set("heroImage", e.target.value)}
-              />
-            </label>
+            <HeroImagePicker key={slug} value={draft.heroImage} onChange={value=>set("heroImage",value)}/>
             <label className="field">{bnNode("Announcement text")}<input
                 value={draft.announcement}
                 onChange={(e) => set("announcement", e.target.value)}

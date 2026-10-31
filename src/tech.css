@@ -1,0 +1,36 @@
+/* A quieter studio palette for audio and desk accessories. */
+.department-tech .department-hero-shell { background: #f6eff5; }
+.department-tech .department-hero-shade { background: linear-gradient(90deg,#faf5f1f5 0%,#faf5f1e8 28%,#faf5f14d 50%,transparent 68%); }
+.department-tech .department-hero-copy { max-width: 570px; }
+.department-tech .department-hero-copy h1 { color: var(--department-ink); font-size: clamp(48px,4.7vw,72px); line-height: 1.25; }
+.department-tech .department-hero-copy > p { color: #615870; max-width: 365px; }
+.department-tech .department-hero-copy .btn { background: var(--department-accent); border-color: var(--department-accent); color: white; border-radius: 9px; }
+.department-tech .department-hero-copy .btn:hover { background: var(--department-ink); border-color: var(--department-ink); }
+.department-tech .department-hero-copy .brand-underlined,.department-tech .department-breadcrumb,.department-tech .department-breadcrumb > a,.department-tech .department-scene-footer { color: var(--department-ink); }
+.department-tech .department-scene-footer { justify-content: flex-end; }
+.department-tech .department-immersive-media { transform: translateY(var(--scene-shift)); }
+.department-tech .department-immersive-media > img { object-position: 58% center; }
+.department-tech .department-editorial-image { background: #eeebf4; }
+.department-tech .department-editorial-image > img { object-fit: contain; }
+.department-tech .department-editorial { background: linear-gradient(120deg,#f1edf8,#f9f4f1); border: 1px solid #e8e0f0; border-radius: 20px; padding: 40px; margin-block: 20px 60px; }
+.department-tech .department-editorial-image { border-radius: 15px; }
+.department-tech .department-editorial-image > span { color: #514169; background: #f8f5f4e6; }
+.department-tech .category-rail-card:hover { border-color: var(--department-accent); }
+.ambient-tech { background: linear-gradient(150deg,#f3eff833,transparent 55%); }
+@media(max-width:800px) {
+  .department-tech .department-hero-copy { max-width: 440px; }
+  .department-tech .department-hero-copy h1 { font-size: clamp(42px,6.6vw,60px); }
+}
+@media(max-width:600px) {
+  html[data-department="tech"] .subcategory-chips { max-width: 100%; margin-right: 0; padding-right: 0; }
+  .department-tech .department-editorial { padding: 20px; border-radius: 15px; }
+  .department-tech .department-hero { padding: 270px 0 30px; min-height: 650px; align-items: flex-end; }
+  .department-tech .department-hero-copy h1 { font-size: clamp(36px,10.2vw,52px); letter-spacing: -1px; }
+  .department-tech .department-hero-copy > p { font-size: 14px; margin-top: 16px; }
+  .department-tech .department-hero-copy > div { gap: 18px; }
+  .department-tech .department-immersive-media { bottom: auto; height: 370px; transform: none; }
+  .department-tech .department-immersive-media > img { object-position: 86% top; }
+  .department-tech .department-hero-shade { background: linear-gradient(0deg,#f6eff5 48%,#f6eff500 78%); }
+  .department-tech .department-breadcrumb { position: relative; z-index: 1; }
+}
+@media(prefers-reduced-motion:reduce) { .department-tech .department-immersive-media { transform: none; } }

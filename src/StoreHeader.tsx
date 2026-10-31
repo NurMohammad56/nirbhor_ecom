@@ -1,6 +1,7 @@
 import BrandLogo from "./BrandLogo";
 import { bnNode, searchText, latinDigits } from "./bn";
 import { useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   ArrowRight,
@@ -34,7 +35,8 @@ export default function StoreHeader() {
   const [menu, setMenu] = useState(false),
     [mega, setMega] = useState(false),
     [search, setSearch] = useState(""),
-    [focused, setFocused] = useState(false);
+    [focused, setFocused] = useState(false),
+    [menuTop, setMenuTop] = useState(96);
   const searchRef = useRef<HTMLDivElement>(null);
   const visible = departments.filter(
     (d) =>
@@ -67,8 +69,11 @@ export default function StoreHeader() {
     if (!menu) return;
     const old = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const close = () => setMenu(false);
+    window.addEventListener("resize", close);
     return () => {
       document.body.style.overflow = old;
+      window.removeEventListener("resize", close);
     };
   }, [menu]);
   function submit(e: React.FormEvent) {
@@ -110,7 +115,7 @@ export default function StoreHeader() {
             className="icon-btn mobile-menu"
             aria-label={bnNode(menu ? "Close menu" : "Open menu")}
             aria-expanded={menu}
-            onClick={() => setMenu(!menu)}
+            onClick={event => { setMenuTop(event.currentTarget.closest("header")!.getBoundingClientRect().bottom); setMenu(!menu); }}
           >
             {bnNode(menu ? <X /> : <Menu />)}
           </button>
@@ -320,6 +325,7 @@ export default function StoreHeader() {
       {bnNode(menu && (
         <nav
           className="mobile-nav brand-mobile-nav"
+          style={{"--nav-top": `${menuTop}px`} as CSSProperties}
           aria-label={bnNode("Mobile navigation")}
         >
           <form onSubmit={submit} className="search-field">

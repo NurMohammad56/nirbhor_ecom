@@ -1,5 +1,17 @@
 // Bengali presentation copy. Canonical catalogue/status values remain unchanged.
 export const bnCopy: Record<string, string> = Object.fromEntries(String.raw`
+Tech¦টেক
+Explore tech¦টেক দেখুন
+Search tech…¦টেক পণ্য খুঁজুন
+Tech experience saved.¦টেকের পরিবর্তন সেভ হয়েছে।
+Sneakers¦স্নিকার্স
+Watches¦ঘড়ি
+Explore sneakers¦স্নিকার্স দেখুন
+Explore watches¦ঘড়ি দেখুন
+Search sneakers…¦স্নিকার্স খুঁজুন
+Search watches…¦ঘড়ি খুঁজুন
+Sneakers experience saved.¦স্নিকার্সের পরিবর্তন সেভ হয়েছে।
+Watches experience saved.¦ঘড়ির পরিবর্তন সেভ হয়েছে।
 Smart Life¦স্মার্ট লাইফ
 Explore smart life¦স্মার্ট লাইফ দেখুন
 Search smart life…¦স্মার্ট লাইফে পণ্য খুঁজুন

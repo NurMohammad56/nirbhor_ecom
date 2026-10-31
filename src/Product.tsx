@@ -1,4 +1,5 @@
 import ProductSections, { ProductRelated } from "./ProductSections";
+import ProductPhoto from "./ProductPhoto";
 import QuickOrderButton from "./QuickOrderButton";
 import { sellingDescription } from "./merchandising-copy";
 import AmbientBackdrop from "./AmbientBackdrop";
@@ -591,11 +592,7 @@ export default function ProductPage({
             className={`product-detail ${campaign ? "campaign-detail" : ""}`}
           >
             <div className="gallery">
-              <div className="main-product-photo">
-                <img
-                  src={gallery[imageIndex] || p.image}
-                  alt={bnNode(`${p.name} - view ${imageIndex + 1}`)}
-                />
+              <ProductPhoto src={gallery[imageIndex] || p.image} alt={bnNode(`${p.name} - view ${imageIndex + 1}`)}>
                 <button
                   className="gallery-zoom icon-btn"
                   aria-label={bnNode("Zoom product image")}
@@ -605,7 +602,7 @@ export default function ProductPage({
                 </button>
                 <span className="gallery-caption">
                   <ZoomIn size={13} />{bnNode(" A CLOSER LOOK.")}</span>
-              </div>
+              </ProductPhoto>
               <div className="gallery-thumbnails">
                 {bnNode(gallery.map((img, i) => (
                   <button

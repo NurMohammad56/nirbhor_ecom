@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-31",
+  "tool": "built-in image_gen",
+  "intent": "generate",
+  "assets": [
+    {
+      "key": "hero",
+      "prompt": "Photorealistic premium e-commerce technology hero photograph, landscape 16:9, ultra crisp. Reference mood: clean contemporary headphone campaign in soft peach and lavender. Large unbranded matte graphite over-ear wireless-style headphones on the RIGHT 55 percent of frame, gracefully floating above a rounded pale lavender pedestal, a small silver earbud charging case with two earbuds on a lower pedestal near bottom right. Left 42 percent almost empty warm ivory fading into blush peach, clean negative space for Bengali web headline overlay. Soft lilac architectural arch, refined studio daylight, realistic materials, physically coherent headphone construction, slight product shadow. No text, no letters, no logos, no brand names, no prices, no people, no UI, no additional objects. Luxury product photography rather than sci fi neon, minimal, polished, high resolution, not collage.",
+      "original": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-c74dd1ac-1d8d-4849-a212-5e30ff6bb397.png",
+      "file": "public/assets/tech-hero-v1.webp"
+    },
+    {
+      "key": "headphones",
+      "prompt": "Square photorealistic studio product photograph of ONE pair unbranded matte graphite over-ear headphones, tilted three-quarter angle, cushioned earcups and curved headband, realistic construction. Centered complete object with breathing room, warm off-white background, soft lilac grounded shadow, premium ecommerce catalogue, crisp texture. No text, no logo, no labels, no box, no watermarks, no extra accessories.",
+      "original": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-521ab760-59f9-4f11-b0c7-d1db90b209ca.png",
+      "file": "public/assets/tech-headphones-v1.webp"
+    },
+    {
+      "key": "earbuds",
+      "prompt": "Square photorealistic premium ecommerce studio product photograph. Ivory wireless-style earbuds, one pair and their open pebble-shaped ivory charging case, subtle graphite interior. Centered arrangement on warm off-white surface, soft pale lavender shadow, complete objects and breathing room, crisp realistic construction. No text, no logo, no labels, no packaging, no watermarks.",
+      "original": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-fc1f14a4-ddb2-4519-9d47-bf64ac0bf670.png",
+      "file": "public/assets/tech-earbuds-v1.webp"
+    },
+    {
+      "key": "keyboard",
+      "prompt": "Square photorealistic premium ecommerce studio photograph of an unbranded compact 75 percent mechanical-style keyboard, cream and graphite keycaps with muted lilac escape and enter accent keys, three-quarter angle showing entire keyboard and clean compact silhouette, coherent regular keyboard rows, subtle correctly sized key legends only, no brand logo. Warm off-white studio background, soft shadow, no RGB neon, no box, no price, no other objects.",
+      "original": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-15ed15ab-67ed-4042-a534-665e060b557c.png",
+      "file": "public/assets/tech-keyboard-v1.webp"
+    },
+    {
+      "key": "mouse",
+      "prompt": "Square photorealistic premium ecommerce studio product photograph of a single unbranded graphite ergonomic-style computer mouse, classic gently curved top, scroll wheel, two discreet side buttons, three-quarter front view. Warm off-white background with very soft lilac shadow, centered full object, generous breathing room, crisp realistic plastic finish. No text, logos, packaging, cable, watermarks, other objects.",
+      "original": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-cbd9f4e6-90ff-4527-85c5-36bd9e54c629.png",
+      "file": "public/assets/tech-mouse-v1.webp"
+    },
+    {
+      "key": "speaker",
+      "prompt": "Square photorealistic premium ecommerce studio product photograph of an unbranded compact cylindrical tabletop speaker, warm grey fine woven mesh body, dark grey top with discreet simple round control buttons, a small fabric loop, three-quarter angle. Entire object centered, warm off-white background, soft lilac shadow, realistic details. No text, brand, packaging, glowing neon, extra objects.",
+      "original": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-59491ec5-e132-42fb-b166-ea5e64bd039a.png",
+      "file": "public/assets/tech-speaker-v1.webp"
+    },
+    {
+      "key": "webcam",
+      "prompt": "Square photorealistic premium ecommerce studio product photograph of one unbranded graphite desktop webcam with rounded rectangular body and central camera lens, mounted on its folded adjustable monitor clip, three-quarter front angle. Entire object centered with generous breathing room, warm off-white background, soft lilac grounded shadow, crisp coherent camera construction. No text, no logo, no performance labels, no box, no other objects.",
+      "original": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-8c55261e-3d69-44cf-9811-3d60adbf70f9.png",
+      "file": "public/assets/tech-webcam-v1.webp"
+    },
+    {
+      "key": "controller",
+      "prompt": "Square photorealistic premium ecommerce studio product photograph of one generic unbranded game controller in warm ivory and graphite with muted lilac buttons, two analog thumb sticks, directional pad and four simple unlettered round buttons, shoulder controls, physically coherent original design, three-quarter angle. Warm off-white background, very soft lilac shadow, entire controller centered. No trademarks, logos, words, letters, packaging, neon, watermarks.",
+      "original": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-0ed388a0-daa4-47f4-a6d7-dc7146f76e67.png",
+      "file": "public/assets/tech-controller-v1.webp"
+    },
+    {
+      "key": "charger",
+      "prompt": "Square photorealistic premium ecommerce studio product photograph of a single unbranded compact ivory desktop USB charging hub with four visible USB ports, combination of USB-C and USB-A, softly rounded rectangular housing, attached cord looping neatly behind ending in a simple wall plug, three-quarter angle. Entire device and cord fit frame, warm off-white background, soft lilac shadow, realistic coherent construction. No text, logos, wattage claims, packaging, other products, watermark.",
+      "original": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-3d2fe748-9e8e-45e5-abee-c5b436e467da.png",
+      "file": "public/assets/tech-charger-v1.webp"
+    }
+  ]
+}

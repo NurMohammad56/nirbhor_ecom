@@ -25,6 +25,21 @@ import { categorySections } from "./department-sections";
 import type { BuiltInSectionId } from "./department-sections";
 
 const questions: Record<string, [string, string][]> = {
+  tech: [
+    ["এখানে কী ধরনের টেক পণ্য পাব?", "হেডফোন, ইয়ারবাডস, স্পিকার, কীবোর্ড, মাউস, ওয়েবক্যাম, গেম কন্ট্রোলার ও চার্জিং অ্যাকসেসরিজ। কাজ বা অবসরের প্রয়োজন অনুযায়ী ক্যাটাগরি থেকে বেছে নিন।"],
+    ["আমার ডিভাইসের সঙ্গে কাজ করবে?", "নির্দিষ্ট মডেলের সংযোগ, পোর্ট, অপারেটিং সিস্টেম ও ডিভাইস সাপোর্ট মিলিয়ে নিন। তথ্য না থাকলে অর্ডারের আগে আমাদের কাছে জেনে নিন।"],
+    ["স্পেসিফিকেশন ও ওয়ারেন্টি কোথায় পাব?", "প্রতিটি পণ্যের বিস্তারিত অংশে মডেলের তথ্য দেখুন। ওয়ারেন্টি ও রিটার্নের শর্ত পণ্য অনুযায়ী আলাদা হতে পারে; কেনার আগে নিশ্চিত হয়ে নিন।"],
+  ],
+  sneakers: [
+    ["সাইজ কীভাবে বেছে নেব?", "নির্দিষ্ট মডেলের EU সাইজ, ইনসোলের মাপ ও ফিটমেন্টের তথ্য মিলিয়ে নিন। প্রয়োজন হলে অর্ডারের আগে আমাদের সঙ্গে যোগাযোগ করুন।"],
+    ["উপাদান ও যত্নের তথ্য কোথায় পাব?", "প্রতিটি পণ্যের বিস্তারিত অংশ ও মডেলের ব্যবহারবিধি দেখুন। ছবির রং বা টেক্সচার দেখে নির্দিষ্ট উপাদান অনুমান না করে তথ্য মিলিয়ে নিন।"],
+    ["সাইজ পরিবর্তন করা যাবে?", "অর্ডারের আগে রিটার্ন ও এক্সচেঞ্জের শর্ত দেখে নিন। নির্দিষ্ট পণ্যের তথ্য জানতে সহায়তায় যোগাযোগ করুন।"],
+  ],
+  watches: [
+    ["মুভমেন্ট ও কেসের মাপ কোথায় দেখব?", "পণ্যের বিস্তারিত অংশে নির্দিষ্ট মডেলের তথ্য দেখুন। কোনো তথ্য না থাকলে অর্ডারের আগে জেনে নিন।"],
+    ["ঘড়ি কি পানিতে ব্যবহার করা যাবে?", "পানি-সহনশীলতা মডেল অনুযায়ী আলাদা। নিশ্চিত রেটিং ও নির্মাতার নির্দেশনা ছাড়া পানিতে ব্যবহার করবেন না।"],
+    ["ওয়ারেন্টির শর্ত কী?", "নির্দিষ্ট মডেলের ওয়ারেন্টি ও রিটার্নের শর্ত দেখুন বা আমাদের সঙ্গে যোগাযোগ করুন।"],
+  ],
   "smart-life": [
     ["স্মার্ট লাইফে কী ধরনের পণ্য পাব?", "ঘর পরিষ্কার, রান্নাঘর, সেন্সর লাইট, বাথরুম ও কাপড়ের যত্নের ব্যবহারিক সহায়ক পাবেন। দাম দিয়ে নয়, নিজের প্রয়োজনের কাজটি দিয়ে পছন্দ শুরু করুন।"],
     ["চার্জিং ও মডেলের তথ্য কোথায় দেখব?", "পণ্যের বিস্তারিত অংশে পাওয়ার, মাপ, ব্যবহারবিধি ও প্যাকের তথ্য দেখুন। কোনো তথ্য না থাকলে অর্ডারের আগে আমাদের কাছে জেনে নিন।"],
@@ -147,24 +162,24 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
           <img
             src={d.storyImage}
             alt={
-              bnNode(d.slug === "smart-life" ? "দৈনন্দিন কাজে সেন্সর লাইটের ব্যবহার" : d.slug === "organic"
+              bnNode(d.storyCaption || (d.slug === "smart-life" ? "দৈনন্দিন কাজে সেন্সর লাইটের ব্যবহার" : d.slug === "organic"
                 ? "A forest full of natural character"
                 : d.slug === "fashion"
                   ? "A closer look at considered fabric and tailoring"
                   : d.slug === "beauty"
                     ? "A closer look at your daily care"
-                    : "Natural linen and thoughtful home details")
+                    : "Natural linen and thoughtful home details"))
             }
             loading="lazy"
           />
           <span>
-            {bnNode(d.slug === "smart-life" ? "প্রয়োজনে মানায়, প্রতিদিন কাজে লাগে।" : d.name === "Organic"
+            {bnNode(d.storyCaption || (d.slug === "smart-life" ? "প্রয়োজনে মানায়, প্রতিদিন কাজে লাগে।" : d.name === "Organic"
               ? "ORIGINS MATTER."
               : d.name === "Beauty"
                 ? "A MOMENT FOR YOURSELF."
                 : d.name === "Fashion"
                   ? "THE DETAILS MAKE THE DIFFERENCE."
-                  : "THE COMFORT IS IN THE DETAILS.")}
+                  : "THE COMFORT IS IN THE DETAILS."))}
           </span>
         </div>
         <div>
@@ -191,7 +206,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
         </div>
       </section>),
     faq: (<section className="department-faq-section botanical-stage">
-        {d.slug !== "smart-life" && <Botanical kind={d.slug === "organic" ? "leaf" : "dry"} className="editorial-botanical" />}
+        {!["smart-life","sneakers","watches","tech"].includes(d.slug) && <Botanical kind={d.slug === "organic" ? "leaf" : "dry"} className="editorial-botanical" />}
         <div className="container brand-section department-faq">
           <div>
             
@@ -265,7 +280,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
             </div>
             {bnNode(d.slug === "beauty" && <div className="serum-orbit" aria-hidden="true"><img src="/assets/serum-bare-v5.webp" alt={bnNode("")} /></div>)}
           </div>
-          <div className="department-scene-footer"><a href="#department-collections">{bnNode("SCROLL TO DISCOVER ")}<span>{bnNode("↓")}</span></a></div>
+          <div className="department-scene-footer">{d.showcaseLabel&&<span className="digital-showcase-label">{d.showcaseLabel}</span>}<a href="#department-collections">{bnNode("SCROLL TO DISCOVER ")}<span>{bnNode("↓")}</span></a></div>
         </div>
         {bnNode((d.slug === "organic" || d.slug === "home-living") && <Botanical kind={d.slug === "organic" ? "leaf" : "dry"} className="hero-botanical" />)}
       </section>

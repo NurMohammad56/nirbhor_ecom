@@ -1,0 +1,67 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-10-31",
+  "mode": "new generic product photography and digital showroom concepts",
+  "assets": [
+    {
+      "key": "sneakers-hero",
+      "prompt": "Use case: ads-marketing. Asset type: wide 16:9 photographic digital showroom concept for an online sneaker collection. A beautifully art-directed modern sneaker display alcove, premium matte charcoal walls, warm ash wood floating shelves and cream stone display ledges, subtle warm linear shelf lighting. RIGHT 65 percent shows three neat shelves of original generic unbranded sneakers in ivory, grey, muted rust and black, one pair displayed on a low plinth near the bottom-right. A small elegant metal wall sign reads exactly 'NIRBHOR'. No Nike, Jordan or other third-party marks anywhere. LEFT 40 percent is dark charcoal textured negative space for live white HTML title. Eye-level architectural photography, refined contemporary retail-display styling, plausible proportions, natural side daylight, no people, no cash register, no city storefront/address/window. This is a concept visualization for an ONLINE collection, no claim that a physical shop exists. Keep all display shoes inside crop-safe margins; no excessive clutter, no headline or other text beyond the sign.",
+      "source": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-0ecf97d2-f2a6-4b10-9e44-822f2b0dfed8.png",
+      "final": "public/assets/style-sneakers-hero-v1.webp"
+    },
+    {
+      "key": "watches-hero",
+      "prompt": "Use case: ads-marketing. Asset type: wide 16:9 photographic digital watch showroom concept for an online collection. An intimate premium watch display alcove: dark walnut, smoky glass cabinets, soft champagne brass trim, warm precisely lit shelves. RIGHT 65 percent shows a curated row of original generic unbranded wristwatches on ivory watch cushions and one tasteful layered acrylic display of a generic watch case, face, crystal and movement, like an educational exploded watch sculpture. Physically plausible details, restrained geometry. A small engraved wall plaque reads exactly 'NIRBHOR'. LEFT 42 percent is dark warm walnut negative space for white live HTML title. Eye-level sophisticated architectural/product photography, clear glass reflections, luxurious but believable, no people, no business address, no street view, no logos on watches. This is a digital showroom concept for an ONLINE collection, not a claimed real shop. No Rolex, Cartier or other trademark marks. No writing besides the sign.",
+      "source": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-95d9f7aa-6513-4af3-8ebc-0fddd5f1635a.png",
+      "final": "public/assets/style-watches-hero-v1.webp"
+    },
+    {
+      "key": "sneaker-court",
+      "prompt": "Use case: product-mockup. Asset type: photorealistic ecommerce prototype product photography. Square composition, soft directional studio light, premium tactile materials, crisp fine detail, realistic grounded shadows, quiet warm-grey or ivory background and surface, generous margins. No logos, no brand names, no text, no price labels, no watermark. Original generic design, not a copy of a famous branded product. A pair of original low-top court-style sneakers in warm ivory with soft sage heel panels, simple perforated toe box, stitched layered panels, flat cream laces and a modest off-white rubber cupsole. No swoosh or recognizable brand patterns. One shoe in side profile and the other slightly behind in three-quarter view; entire pair visible.",
+      "source": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-3ae2181a-383a-486c-89dd-27e94192b8b6.png",
+      "final": "public/assets/style-sneaker-court-v1.webp"
+    },
+    {
+      "key": "sneaker-urban",
+      "prompt": "Use case: product-mockup. Asset type: photorealistic ecommerce prototype product photography. Square composition, soft directional studio light, premium tactile materials, crisp fine detail, realistic grounded shadows, quiet warm-grey or ivory background and surface, generous margins. No logos, no brand names, no text, no price labels, no watermark. Original generic design, not a copy of a famous branded product. A pair of original charcoal and slate-grey everyday runner-style sneakers with mesh-look panels, abstract simple overlays, black laces and a sculpted neutral-grey sole. No visible air-bubble logos, swooshes or recognisable brand pattern. One shoe three-quarter angle and one in side profile behind, entire pair in frame.",
+      "source": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-817f22f6-dbc3-4287-9b00-62392a53e245.png",
+      "final": "public/assets/style-sneaker-urban-v1.webp"
+    },
+    {
+      "key": "sneaker-terra",
+      "prompt": "Use case: product-mockup. Asset type: photorealistic ecommerce prototype product photography. Square composition, soft directional studio light, premium tactile materials, crisp fine detail, realistic grounded shadows, quiet warm-grey or ivory background and surface, generous margins. No logos, no brand names, no text, no price labels, no watermark. Original generic design, not a copy of a famous branded product. A pair of original cream and muted terracotta high-top street-style sneakers, unbranded, clean padded ankle collar, ivory laces, simple diagonal panel seams, cream sole. Modern original silhouette, not Jordan or Nike. Show a full pair with one in side profile and the other angled from the back so ankle details are visible.",
+      "source": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-d4ee2777-f806-4343-986e-55f8049792a4.png",
+      "final": "public/assets/style-sneaker-terra-v1.webp"
+    },
+    {
+      "key": "sneaker-knit",
+      "prompt": "Use case: product-mockup. Asset type: photorealistic ecommerce prototype product photography. Square composition, soft directional studio light, premium tactile materials, crisp fine detail, realistic grounded shadows, quiet warm-grey or ivory background and surface, generous margins. No logos, no brand names, no text, no price labels, no watermark. Original generic design, not a copy of a famous branded product. A pair of original minimal everyday knit-look sneakers in oatmeal beige with ivory laces, knitted texture, modest flexible-looking light-grey sole and plain heel pull tabs. No stripes, logos, swooshes or identifiable brand shape. Full pair, front three-quarter view, quiet studio surface.",
+      "source": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-dd6aea97-d1cf-41d4-acad-6959a76b5703.png",
+      "final": "public/assets/style-sneaker-knit-v1.webp"
+    },
+    {
+      "key": "watch-midnight",
+      "prompt": "Use case: product-mockup. Asset type: photorealistic ecommerce prototype product photography. Square composition, soft directional studio light, premium tactile materials, crisp fine detail, realistic grounded shadows, quiet warm-grey or ivory background and surface, generous margins. No logos, no brand names, no text, no price labels, no watermark. Original generic design, not a copy of a famous branded product. One original generic analog wristwatch with a midnight-blue dial, simple silver baton hour markers, three hands, round brushed silver case and matching stainless-steel-look link bracelet curved on a small neutral cushion. No words or logo on dial. Whole bracelet and case visible in three-quarter view, realistic restrained design.",
+      "source": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-f18001e0-3e45-4193-8596-3a904be9b672.png",
+      "final": "public/assets/style-watch-midnight-v1.webp"
+    },
+    {
+      "key": "watch-heritage",
+      "prompt": "Use case: product-mockup. Asset type: photorealistic ecommerce prototype product photography. Square composition, soft directional studio light, premium tactile materials, crisp fine detail, realistic grounded shadows, quiet warm-grey or ivory background and surface, generous margins. No logos, no brand names, no text, no price labels, no watermark. Original generic design, not a copy of a famous branded product. One original generic analog dress wristwatch with a cream dial, simple dark baton hour markers, slender three hands, round brushed silver case and tan leather-look strap with subtle stitching. No words or logo on dial. Display the complete watch in a gentle curve on a warm-grey low display stand.",
+      "source": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-5126ec55-4f62-4a3e-a5d7-abb18eebdb20.png",
+      "final": "public/assets/style-watch-heritage-v1.webp"
+    },
+    {
+      "key": "watch-square",
+      "prompt": "Use case: product-mockup. Asset type: photorealistic ecommerce prototype product photography. Square composition, soft directional studio light, premium tactile materials, crisp fine detail, realistic grounded shadows, quiet warm-grey or ivory background and surface, generous margins. No logos, no brand names, no text, no price labels, no watermark. Original generic design, not a copy of a famous branded product. One original generic wristwatch with a softly rounded square steel-colour case, graphite dial, simple silver baton hour markers and three hands, matching slim link bracelet. Original modern design, no Roman numerals, no exposed signature screws, not a copy of Cartier or any branded watch. Complete bracelet visible curved on a minimal warm-grey watch stand, no text on dial.",
+      "source": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-922582e9-b79e-4515-88d5-f29c8576aab5.png",
+      "final": "public/assets/style-watch-square-v1.webp"
+    },
+    {
+      "key": "watch-rose",
+      "prompt": "Use case: product-mockup. Asset type: photorealistic ecommerce prototype product photography. Square composition, soft directional studio light, premium tactile materials, crisp fine detail, realistic grounded shadows, quiet warm-grey or ivory background and surface, generous margins. No logos, no brand names, no text, no price labels, no watermark. Original generic design, not a copy of a famous branded product. One original generic analog wristwatch with a small round rose-gold-colour case, champagne dial, slender baton hour markers and three hands, elegant matching fine mesh bracelet. No gemstones, logo, numbers, words or brand marks. Whole watch visible, mesh texture crisp, on a small ivory cushion, three-quarter product view.",
+      "source": "C:\\Users\\bdcalling\\.codex\\generated_images\\01a1769e-dd5c-7583-9d6e-5750846c30ec\\exec-c3942586-f7d4-4af6-bdbb-8e955f626e8f.png",
+      "final": "public/assets/style-watch-rose-v1.webp"
+    }
+  ]
+}

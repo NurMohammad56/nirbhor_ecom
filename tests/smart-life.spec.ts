@@ -4,7 +4,7 @@ import { bn } from "../src/bn";
 test("Smart Life joins discovery, navigation, scoped collections and English product search", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator('.brand-department-card[href="/smart-life"]')).toContainText("স্মার্ট লাইফ");
-  await expect(page.locator('.cinema-scene')).toHaveCount(6);
+  await expect(page.locator('.cinema-scene')).toHaveCount(9);
   await page.locator('.brand-nav').getByRole('link', { name: 'স্মার্ট লাইফ', exact: true }).click();
   await expect(page).toHaveURL('/smart-life');
   await expect(page.locator('html')).toHaveAttribute('data-department','smart-life');
@@ -43,7 +43,7 @@ test("Smart Life migration adds once and preserves merchant changes, customer da
   });
   await page.reload(); await page.reload();
   let state=await page.evaluate(()=>({ products:JSON.parse(localStorage.getItem('nirbhor-v1-products')!), categories:JSON.parse(localStorage.getItem('nirbhor-v1-categories')!), banners:JSON.parse(localStorage.getItem('nirbhor-v1-banners')!), cart:JSON.parse(localStorage.getItem('nirbhor-v1-cart')!) }));
-  expect(state.products).toHaveLength(39);
+  expect(state.products).toHaveLength(55);
   expect(state.products.find((p:any)=>p.id==='smart-lint-remover')).toMatchObject({price:1777,description:'আমাদের নিজস্ব পণ্যের তথ্য।'});
   expect(state.products.find((p:any)=>p.id==='p1').price).toBe(999);
   expect(state.categories.filter((c:any)=>c.id.startsWith('c-smart-life'))).toHaveLength(6);
@@ -58,7 +58,7 @@ test("Smart Life migration adds once and preserves merchant changes, customer da
   });
   await page.reload();
   state=await page.evaluate(()=>({ products:JSON.parse(localStorage.getItem('nirbhor-v1-products')!), categories:JSON.parse(localStorage.getItem('nirbhor-v1-categories')!), banners:JSON.parse(localStorage.getItem('nirbhor-v1-banners')!), cart:JSON.parse(localStorage.getItem('nirbhor-v1-cart')!) }));
-  expect(state.products).toHaveLength(38);
+  expect(state.products).toHaveLength(54);
   expect(state.categories.some((c:any)=>c.id==='c-smart-life-4')).toBe(false);
   expect(state.banners.some((b:any)=>b.id==='smart-life-v1')).toBe(false);
 });
@@ -105,7 +105,7 @@ test("admin can edit Smart Life identity and sections and disable its navigation
   await page.getByRole('button',{name:bn('Save changes'),exact:true}).click();
   await page.goto('/');
   await expect(page.locator('.brand-nav a[href="/smart-life"],.brand-department-card[href="/smart-life"]')).toHaveCount(0);
-  await expect(page.locator('.cinema-scene')).toHaveCount(5);
+  await expect(page.locator('.cinema-scene')).toHaveCount(8);
   await page.goto('/smart-life');
   await expect(page.locator('.department-hero')).toHaveCount(0);
 });

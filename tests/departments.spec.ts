@@ -7,7 +7,7 @@ import {
   seedSettings,
 } from "../src/data";
 
-test("the main homepage introduces five distinct, directly accessible departments", async ({
+test("the main homepage introduces eight distinct, directly accessible departments", async ({
   page,
 }) => {
   await page.goto("/");
@@ -15,8 +15,8 @@ test("the main homepage introduces five distinct, directly accessible department
   await expect(page.locator(".brand-hero h1")).toHaveText(
     bn("Good choices.") + bn("A trusted place."),
   );
-  await expect(page.locator(".brand-department-card")).toHaveCount(5);
-  for (const slug of ["organic", "beauty", "fashion", "home-living", "smart-life"])
+  await expect(page.locator(".brand-department-card")).toHaveCount(8);
+  for (const slug of ["organic", "beauty", "fashion", "home-living", "smart-life", "sneakers", "watches", "tech"])
     await expect(
       page.locator(`.brand-department-card[href="/${slug}"]`),
     ).toBeVisible();
@@ -199,7 +199,7 @@ test("the department upgrade preserves previous customer and catalogue data", as
     },
   );
   await page.goto("/");
-  await expect(page.locator(".brand-department-card")).toHaveCount(5);
+  await expect(page.locator(".brand-department-card")).toHaveCount(8);
   const before = await page.evaluate(() => ({
     products: JSON.parse(localStorage.getItem("nirbhor-v1-products") || "[]"),
     cart: JSON.parse(localStorage.getItem("nirbhor-v1-cart") || "[]"),
@@ -207,7 +207,7 @@ test("the department upgrade preserves previous customer and catalogue data", as
     addresses: JSON.parse(localStorage.getItem("nirbhor-v1-addresses") || "[]"),
   }));
   expect(before.products.find((p: any) => p.id === "p1").price).toBe(999);
-  expect(before.products.length).toBe(39);
+  expect(before.products.length).toBe(55);
   expect(before.cart[0].quantity).toBe(2);
   expect(before.orders.length).toBe(4);
   expect(before.addresses[0].id).toBe("old-address");
@@ -217,7 +217,7 @@ test("the department upgrade preserves previous customer and catalogue data", as
       () =>
         JSON.parse(localStorage.getItem("nirbhor-v1-products") || "[]").length,
     ),
-  ).toBe(39);
+  ).toBe(55);
 });
 
 test("all department templates, listing pages, product pages and editor fit mobile screens", async ({

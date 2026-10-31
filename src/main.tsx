@@ -14,3 +14,5 @@ import "./ambient.css";
 import "./commerce-landing.css";
 import "./daily-commerce.css";
 import "./smart-life.css";
+import "./style-collections.css";
+import "./tech.css";

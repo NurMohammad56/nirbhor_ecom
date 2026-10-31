@@ -9,6 +9,8 @@ import { migrateBrandState } from "./brand-state";
 import { migratePantryState } from "./pantry-expansion";
 import { migrateDailyState } from "./daily-expansion";
 import { migrateSmartState } from "./smart-state";
+import { migrateStyleState } from "./style-state";
+import { migrateTechState } from "./tech-state";
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode, Dispatch, SetStateAction } from "react";
 import {
@@ -45,7 +47,7 @@ function usePersist<T>(
   const [value, setValue] = useState<T>(() => {
     try {
       const saved = localStorage.getItem("nirbhor-v1-" + key);
-      return migrateSmartState(key, migrateDailyState(key, migratePantryState(key, migrateBrandState(key, migrateBengaliState(key, migrateSceneState(key, migrateDepartmentState(key, saved ? JSON.parse(saved) : initial)))))));
+      return migrateTechState(key, migrateStyleState(key, migrateSmartState(key, migrateDailyState(key, migratePantryState(key, migrateBrandState(key, migrateBengaliState(key, migrateSceneState(key, migrateDepartmentState(key, saved ? JSON.parse(saved) : initial)))))))));
     } catch {
       return initial;
     }

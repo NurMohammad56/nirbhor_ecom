@@ -51,6 +51,7 @@ export default function CinematicHero({ slides }: { slides: Banner[] }) {
           <button className="icon-btn" aria-label={bnNode("Previous slide")} disabled={slides.length < 2} onClick={() => setSlide(s => (s - 1 + slides.length) % slides.length)}><ChevronLeft size={19}/></button>
           <button className="icon-btn" aria-label={bnNode("Next slide")} disabled={slides.length < 2} onClick={() => setSlide(s => (s + 1) % slides.length)}><ChevronRight size={19}/></button>
         </div>
+        {['/sneakers','/watches'].includes(current.link)&&<div className="cinema-showcase container"><span>ডিজিটাল শোকেস</span></div>}
       </div>
     </section>
   );

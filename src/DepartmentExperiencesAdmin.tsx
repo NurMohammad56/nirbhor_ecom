@@ -95,7 +95,7 @@ export default function DepartmentExperiencesAdmin() {
           subtitle="These details appear on the landing page and carry through the collection."
         >
           <div className="form-stack">
-            <label className="field">{bnNode("Hero headline")}<textarea
+            <label className="field">{bnNode("Hero headline")}<textarea aria-label={bnNode("Hero headline")}
                 value={draft.heroTitle}
                 onChange={(e) => set("heroTitle", e.target.value)}
                 rows={2}

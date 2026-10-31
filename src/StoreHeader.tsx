@@ -46,7 +46,7 @@ export default function StoreHeader() {
       (p) =>
         p.status === "Published" &&
         (!department || p.category === category?.name) &&
-        searchText(p.name + " " + p.subcategory).includes(latinDigits(search).toLowerCase()),
+        searchText(p.name + " " + p.subcategory + " " + p.tags).includes(latinDigits(search).toLowerCase()),
     )
     .slice(0, 4);
   useEffect(() => {

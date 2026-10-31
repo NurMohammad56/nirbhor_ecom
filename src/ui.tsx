@@ -678,6 +678,7 @@ export function Footer() {
               ["Home & living", "/home-living"],
               ["Beauty", "/beauty"],
               ["Fashion", "/fashion"],
+              ["Smart Life", "/smart-life"],
               ["Offers & bundles", "/offers"],
             ].map(([t, u]) => (
               <Link to={u} key={t}>

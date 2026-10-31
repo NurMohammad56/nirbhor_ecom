@@ -1,4 +1,5 @@
 import type { Category, DepartmentExperience, Product } from "./data";
+import { smartDepartment } from "./smart-department";
 
 export type Department = {
   slug: string;
@@ -153,6 +154,7 @@ export const departments: Department[] = [
       enabled: true,
     },
   },
+  smartDepartment,
 ];
 export function categoryForDepartment(d: Department, categories: Category[]) {
   return (

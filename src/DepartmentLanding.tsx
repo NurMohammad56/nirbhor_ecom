@@ -25,6 +25,11 @@ import { categorySections } from "./department-sections";
 import type { BuiltInSectionId } from "./department-sections";
 
 const questions: Record<string, [string, string][]> = {
+  "smart-life": [
+    ["স্মার্ট লাইফে কী ধরনের পণ্য পাব?", "ঘর পরিষ্কার, রান্নাঘর, সেন্সর লাইট, বাথরুম ও কাপড়ের যত্নের ব্যবহারিক সহায়ক পাবেন। দাম দিয়ে নয়, নিজের প্রয়োজনের কাজটি দিয়ে পছন্দ শুরু করুন।"],
+    ["চার্জিং ও মডেলের তথ্য কোথায় দেখব?", "পণ্যের বিস্তারিত অংশে পাওয়ার, মাপ, ব্যবহারবিধি ও প্যাকের তথ্য দেখুন। কোনো তথ্য না থাকলে অর্ডারের আগে আমাদের কাছে জেনে নিন।"],
+    ["ওয়ারেন্টি বা পরিবর্তনের সুযোগ আছে?", "শর্ত পণ্য ও মডেল অনুযায়ী আলাদা হতে পারে। নির্বাচিত পণ্যের ওয়ারেন্টি ও রিটার্নের তথ্য দেখে নিন অথবা সহায়তার জন্য যোগাযোগ করুন।"],
+  ],
   organic: [
     [
       "What can I find in the pantry?",
@@ -142,7 +147,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
           <img
             src={d.storyImage}
             alt={
-              bnNode(d.slug === "organic"
+              bnNode(d.slug === "smart-life" ? "দৈনন্দিন কাজে সেন্সর লাইটের ব্যবহার" : d.slug === "organic"
                 ? "A forest full of natural character"
                 : d.slug === "fashion"
                   ? "A closer look at considered fabric and tailoring"
@@ -153,7 +158,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
             loading="lazy"
           />
           <span>
-            {bnNode(d.name === "Organic"
+            {bnNode(d.slug === "smart-life" ? "প্রয়োজনে মানায়, প্রতিদিন কাজে লাগে।" : d.name === "Organic"
               ? "ORIGINS MATTER."
               : d.name === "Beauty"
                 ? "A MOMENT FOR YOURSELF."
@@ -186,7 +191,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
         </div>
       </section>),
     faq: (<section className="department-faq-section botanical-stage">
-        <Botanical kind={d.slug === "organic" ? "leaf" : "dry"} className="editorial-botanical" />
+        {d.slug !== "smart-life" && <Botanical kind={d.slug === "organic" ? "leaf" : "dry"} className="editorial-botanical" />}
         <div className="container brand-section department-faq">
           <div>
             

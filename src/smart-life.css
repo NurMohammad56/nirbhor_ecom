@@ -1,0 +1,21 @@
+.department-smart-life .department-hero-shade { background: linear-gradient(90deg,#10222fe8,#152b3a8c 38%,#13293600 77%),linear-gradient(0deg,#142732a6,transparent 30%); }
+.department-smart-life .department-features { border-color: #d5e1e5; }
+.department-smart-life .department-atmosphere,
+html[data-department="smart-life"] .catalog-atmosphere,
+html[data-department="smart-life"] .pdp-atmosphere { background: #f6f8f8; }
+.ambient-smart-life::before,
+.ambient-smart-life::after { content: ""; position: absolute; width: min(40vw,500px); height: min(40vw,500px); border: 1px solid #a3c4cd25; border-radius: 50%; box-shadow: 0 0 0 60px #a3c4cd0a,0 0 0 120px #a3c4cd05; }
+.ambient-smart-life::before { top: 240px; right: -240px; }
+.ambient-smart-life::after { bottom: 600px; left: -330px; }
+.department-smart-life .department-editorial-image { border-radius: 17px; overflow: hidden; }
+.department-smart-life .department-faq-section { background: #edf2f3; }
+.department-switcher > div { grid-template-columns: repeat(4,minmax(0,1fr)); }
+html[data-department="smart-life"] .department-logo-mark { color: #245967; }
+@media(min-width:1051px) { .brand-nav { gap: clamp(14px,1.35vw,24px); } }
+@media(max-width:700px) {
+  .department-switcher > div { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .department-smart-life .department-immersive-media > img { object-position: 69% center; }
+  .department-smart-life .department-hero-shade { background: linear-gradient(0deg,#112632e6,#112632b0 38%,#11263220 80%),linear-gradient(90deg,#10222fb0,transparent 80%); }
+  html[data-department="smart-life"] .subcategory-chips { margin-right: 0; padding-right: 0; max-width: 100%; }
+  .ambient-smart-life::before,.ambient-smart-life::after { display: none; }
+}

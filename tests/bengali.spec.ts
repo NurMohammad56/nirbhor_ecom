@@ -27,8 +27,8 @@ test("every department appears in the home carousel at three-second intervals", 
   await page.emulateMedia({reducedMotion:"no-preference"});
   await page.clock.install();
   await page.goto("/");
-  await expect(page.locator(".cinema-scene")).toHaveCount(5);
-  for(const text of ["নিজের জন্য যত্ন।","প্রতিদিনের পোশাক।","প্রকৃতির ভালোবাসা।","ঘর সাজুক"]){
+  await expect(page.locator(".cinema-scene")).toHaveCount(6);
+  for(const text of ["নিজের জন্য যত্ন।","প্রতিদিনের পোশাক।","প্রকৃতির ভালোবাসা।","ঘর সাজুক","প্রতিদিন একটু সহজ।"]){
     await page.clock.runFor(3100);
     await expect(page.locator(".brand-hero h1")).toContainText(text);
   }

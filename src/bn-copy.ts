@@ -1,5 +1,10 @@
 // Bengali presentation copy. Canonical catalogue/status values remain unchanged.
 export const bnCopy: Record<string, string> = Object.fromEntries(String.raw`
+Smart Life¦স্মার্ট লাইফ
+Explore smart life¦স্মার্ট লাইফ দেখুন
+Search smart life…¦স্মার্ট লাইফে পণ্য খুঁজুন
+Explore Smart Life¦স্মার্ট লাইফ দেখুন
+Smart Life experience saved.¦স্মার্ট লাইফের পরিবর্তন সেভ হয়েছে।
 NIRBHOR¦নির্ভর
 Nirbhor¦নির্ভর
 Organic¦অর্গানিক

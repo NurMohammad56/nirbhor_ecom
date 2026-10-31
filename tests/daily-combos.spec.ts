@@ -59,7 +59,7 @@ test("offers support purpose, component search, budget, stock and persistent URL
   await page.getByLabel("স্টকে আছে", { exact: true }).check();
   await expect(page.locator(".combo-card")).toHaveCount(7);
   await page.setViewportSize({ width: 320, height: 800 });
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
 test("spice combo purchase charges the shown savings and cancellation restores every component once", async ({ page }) => {

@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "./SceneMotion";
 
-type Mood = "organic" | "beauty" | "fashion" | "home-living" | "main";
-const pictures: Record<Mood, [string, string]> = {
+type Mood = "organic" | "beauty" | "fashion" | "home-living" | "smart-life" | "main";
+const pictures: Record<Mood, string[]> = {
+  "smart-life": [],
   organic: ["organic", "organic"],
   beauty: ["beauty", "beauty"],
   fashion: ["fashion", "fashion"],

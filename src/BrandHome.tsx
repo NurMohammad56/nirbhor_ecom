@@ -29,10 +29,12 @@ export default function BrandHome() {
   const [edit, setEdit] = useState("all");
   const slides = banners
     .filter(
-      (b) =>
-        b.active &&
+      (b) => {
+        const linked = departments.find(d => b.link.split(/[?#]/)[0] === "/" + d.slug);
+        return b.active && (!linked || (categoryForDepartment(linked, categories)?.active && experienceForDepartment(linked, categories).enabled)) &&
         (!b.start || new Date(b.start) <= new Date()) &&
-        (!b.end || new Date(b.end) >= new Date()),
+        (!b.end || new Date(b.end) >= new Date());
+      },
     )
     .sort((a, b) => a.order - b.order);
   const visibleDepartments = departments.filter((d) => {
@@ -42,7 +44,7 @@ export default function BrandHome() {
   const live = products.filter((p) => p.status === "Published");
   const selected =
     edit === "all"
-      ? [...["p1", "p20", "p17", "p10"].map(id => live.find(p => p.id === id)).filter((p): p is NonNullable<typeof p> => !!p), ...live.filter(p => !["p1", "p20", "p17", "p10"].includes(p.id))]
+      ? [...["p1", "p20", "p17", "p10", "smart-lint-remover"].map(id => live.find(p => p.id === id)).filter((p): p is NonNullable<typeof p> => !!p), ...live.filter(p => !["p1", "p20", "p17", "p10", "smart-lint-remover"].includes(p.id))]
       : live
           .filter(
             (p) =>

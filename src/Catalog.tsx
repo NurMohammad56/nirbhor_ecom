@@ -31,6 +31,7 @@ import {
   Sparkles,
   Ruler,
   Armchair,
+  Zap,
 } from "lucide-react";
 import { useStore } from "./store";
 import { money } from "./data";
@@ -72,7 +73,7 @@ export default function Catalog() {
         ? Sparkles
         : department?.slug === "fashion"
           ? Ruler
-          : department?.slug === "home-living"
+          : department?.slug === "smart-life" ? Zap : department?.slug === "home-living"
             ? Armchair
             : Search;
   const [params, setParams] = useSearchParams();

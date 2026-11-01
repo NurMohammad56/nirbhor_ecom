@@ -10,12 +10,14 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "three": "0.187.0",
     "lucide-react": "^0.468.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.0.0"
   },
   "devDependencies": {
+    "@types/three": "0.187.0",
     "@playwright/test": "^1.51.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

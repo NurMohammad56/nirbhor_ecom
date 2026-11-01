@@ -17,3 +17,4 @@ import "./smart-life.css";
 import "./style-collections.css";
 import "./tech.css";
 import "./atelier.css";
+import "./sneakers.css";

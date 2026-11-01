@@ -5,10 +5,10 @@ const seeds = [
   ["sneaker-urban", "আরবান স্লেট স্নিকার্স", "Urban Slate Runner Sneakers", 2890, "রানার স্টাইল", "চারকোল ও স্লেট টোনে রানার-স্টাইল ডিজাইন। প্যানেল আর সোলের লুক কাছ থেকে দেখে নিজের প্রতিদিনের স্টাইলে মেলান।"],
   ["sneaker-terra", "স্ট্রিট টেরা হাই-টপ", "Street Terra High Top Sneakers", 2790, "হাই-টপ", "ক্রিম ও টেরাকোটা টোনের হাই-টপ সিলুয়েট। লেস আর গোড়ালির কাট দেখে আপনার পছন্দের স্ট্রিট লুক সাজান।"],
   ["sneaker-knit", "ডেইলি নিট স্নিকার্স", "Daily Knit Look Sneakers", 2190, "লো-টপ", "ওটমিল টোন আর নিট-লুক টেক্সচারে সিম্পল একটি জোড়া। ডিজাইন ও ফিটের তথ্য মিলিয়ে নিজের দিনের জন্য বেছে নিন।"],
-  ["watch-midnight", "ক্লাসিক মিডনাইট ঘড়ি", "Classic Midnight Bracelet Watch", 3490, "ব্রেসলেট স্টাইল", "মিডনাইট-ব্লু ডায়াল আর সিলভার টোনের ব্রেসলেট লুক। পোশাকের সঙ্গে মিলিয়ে নিজের পছন্দের খুঁটিনাটি দেখুন।"],
-  ["watch-heritage", "হেরিটেজ ট্যান ঘড়ি", "Heritage Tan Strap Watch", 2990, "স্ট্র্যাপ স্টাইল", "ক্রিম ডায়াল, ট্যান স্ট্র্যাপ-লুক আর সিম্পল মার্কারের আয়োজন। আপনার দৈনন্দিন স্টাইলে শান্ত একটি ছোঁয়া।"],
-  ["watch-square", "সিলভার স্কোয়ার ঘড়ি", "Silver Square Bracelet Watch", 3890, "ব্রেসলেট স্টাইল", "রাউন্ডেড-স্কোয়ার কেস আর গ্রাফাইট ডায়ালের ভিন্ন লুক। আকৃতি, স্ট্র্যাপ ও কবজির ফিট মিলিয়ে পছন্দ করুন।"],
-  ["watch-rose", "রোজ ডায়াল মেশ ঘড়ি", "Rose Dial Mesh Watch", 3290, "মেশ স্টাইল", "রোজ টোনের কেস, শ্যাম্পেন ডায়াল আর মেশ ব্রেসলেটের লুক। ছোট ছোট ডিজাইন ডিটেইলে আপনার পছন্দ খুঁজুন।"],
+  ["watch-midnight", "ক্লাসিক মিডনাইট ঘড়ি", "Classic Midnight Bracelet Watch Men Male", 3490, "পুরুষদের ঘড়ি", "মিডনাইট-ব্লু ডায়াল আর সিলভার টোনের ব্রেসলেট লুক। পোশাকের সঙ্গে মিলিয়ে নিজের পছন্দের খুঁটিনাটি দেখুন।"],
+  ["watch-heritage", "হেরিটেজ ট্যান ঘড়ি", "Heritage Tan Strap Watch Men Male", 2990, "পুরুষদের ঘড়ি", "ক্রিম ডায়াল, ট্যান স্ট্র্যাপ-লুক আর সিম্পল মার্কারের আয়োজন। আপনার দৈনন্দিন স্টাইলে শান্ত একটি ছোঁয়া।"],
+  ["watch-square", "সিলভার স্কোয়ার ঘড়ি", "Silver Square Bracelet Watch Women Female", 3890, "নারীদের ঘড়ি", "রাউন্ডেড-স্কোয়ার কেস আর গ্রাফাইট ডায়ালের ভিন্ন লুক। আকৃতি, স্ট্র্যাপ ও কবজির ফিট মিলিয়ে পছন্দ করুন।"],
+  ["watch-rose", "রোজ ডায়াল মেশ ঘড়ি", "Rose Dial Mesh Watch Women Female", 3290, "নারীদের ঘড়ি", "রোজ টোনের কেস, শ্যাম্পেন ডায়াল আর মেশ ব্রেসলেটের লুক। ছোট ছোট ডিজাইন ডিটেইলে আপনার পছন্দ খুঁজুন।"],
 ] as const;
 export const styleProducts: Product[] = seeds.map(([id,name,english,price,subcategory,description],i) => {
   const sneaker = id.startsWith("sneaker"), image = `/assets/style-${id}-v1.webp`, weight = sneaker ? "EU 40" : "স্ট্যান্ডার্ড";
@@ -20,7 +20,7 @@ export const styleProducts: Product[] = seeds.map(([id,name,english,price,subcat
 });
 export const styleCategories: Category[] = styleDepartments.flatMap((d,index) => [
   {id:d.categoryId,name:d.category,parent:"",description:d.tagline,active:true,image:d.image,sort:5+index,departmentSlug:d.slug,experience:{...d.experience}},
-  ...d.subcategories.map((name,i)=>({id:`${d.categoryId}-${i}`,name,parent:d.category,description:d.tagline,active:true,image:styleProducts.find(p=>p.category===d.category&&p.subcategory===name)!.image,sort:i})),
+  ...d.subcategories.map((name,i)=>({id:`${d.categoryId}-${d.slug==="watches"?(i===0?"men":"women"):i}`,name,parent:d.category,description:d.tagline,active:true,image:styleProducts.find(p=>p.category===d.category&&p.subcategory===name)!.image,sort:i})),
 ]);
 export function migrateStyleState<T>(key: string,value:T):T {
   if(!["products","categories","banners"].includes(key)||!Array.isArray(value))return value;

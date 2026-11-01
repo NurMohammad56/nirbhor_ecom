@@ -1,0 +1,11 @@
+# Storefront and navigation refinement
+
+2026-11-01: replaced the large photographic category dropdown with a bounded directory of eight active main departments, their symbols, current published-product counts and active subcategory links. It has no product or hero photos, backdrop or page scroll lock. Hover traversal uses a short exit delay. Click, pointer departure, outside pointer down, Escape, focus departure, page scrolling, resize and navigation all dismiss it. Keyboard users can open with Enter/Arrow Down, follow normal links, Tab out or restore focus with Escape. A visible close button remains available. Mobile navigation uses compact symbols instead of image cards and supports Escape with focus restoration.
+
+The approved logo and existing photographs are retained. Shared presentation now uses a framed homepage hero, consistent Bengali heading hierarchy, cleaner category image tiles, capsule discovery filters, a stable product name/price/action hierarchy, restrained hover feedback and consistent form/button radii. The story, newsletter and footer have clearer spacing and more compact navigation. Each department keeps its own imagery and accent colours. The homepage has no ambient background artwork. The admin uses a light sidebar with a clear emerald selected state, quieter surfaces and readable data cards.
+
+All shopping, admin data and browser-local persistence behavior is retained. No supplier claims, reviews or sales totals were added. No new images were generated for this refinement.
+
+Validation: the full 82-test Playwright suite passed. Additional browser QA covered 60 route/viewport combinations at 320, 390, 768, 1366 and 1440 px across home, department landing pages, catalogue, offers, combo detail, product detail and admin. The narrow catalogue pagination issue found by that QA was fixed with wrapped controls and a targeted navigation test. Final verification results are in the local Playwright report and `artifacts/polish-qa.json`.
+
+After that pagination correction, all 12 targeted navigation and commerce tests passed. The final repeat of all 60 browser checks completed with no broken images, client errors or horizontal overflow. A mobile menu/bag/Escape check also confirmed that both overlays close and body scrolling is restored.

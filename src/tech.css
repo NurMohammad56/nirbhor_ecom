@@ -29,7 +29,7 @@
   .department-tech .department-hero-copy > p { font-size: 14px; margin-top: 16px; }
   .department-tech .department-hero-copy > div { gap: 18px; }
   .department-tech .department-immersive-media { bottom: auto; height: 370px; transform: none; }
-  .department-tech .department-immersive-media > img { object-position: 86% top; }
+  .department-tech .department-immersive-media > img { object-position: 100% top; }
   .department-tech .department-hero-shade { background: linear-gradient(0deg,#f6eff5 48%,#f6eff500 78%); }
   .department-tech .department-breadcrumb { position: relative; z-index: 1; }
 }

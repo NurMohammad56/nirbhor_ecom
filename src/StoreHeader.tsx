@@ -1,4 +1,5 @@
 import BrandLogo from "./BrandLogo";
+import CategoryMenu, { DepartmentSymbol } from "./CategoryMenu";
 import { bnNode, searchText, latinDigits } from "./bn";
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
@@ -6,8 +7,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   ArrowRight,
   ArrowUpRight,
-  ChevronDown,
-  ChevronRight,
   Heart,
   Menu,
   Search,
@@ -33,11 +32,11 @@ export default function StoreHeader() {
   const location = useLocation(),
     navigate = useNavigate();
   const [menu, setMenu] = useState(false),
-    [mega, setMega] = useState(false),
     [search, setSearch] = useState(""),
     [focused, setFocused] = useState(false),
     [menuTop, setMenuTop] = useState(96);
   const searchRef = useRef<HTMLDivElement>(null);
+  const menuButton = useRef<HTMLButtonElement>(null);
   const visible = departments.filter(
     (d) =>
       categoryForDepartment(d, s.categories)?.active &&
@@ -53,7 +52,6 @@ export default function StoreHeader() {
     .slice(0, 4);
   useEffect(() => {
     setMenu(false);
-    setMega(false);
     setFocused(false);
     setSearch("");
   }, [location.pathname, location.search]);
@@ -70,10 +68,13 @@ export default function StoreHeader() {
     const old = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const close = () => setMenu(false);
+    const escape = (event: KeyboardEvent) => { if (event.key === "Escape") { setMenu(false); menuButton.current?.focus(); } };
     window.addEventListener("resize", close);
+    document.addEventListener("keydown", escape);
     return () => {
       document.body.style.overflow = old;
       window.removeEventListener("resize", close);
+      document.removeEventListener("keydown", escape);
     };
   }, [menu]);
   function submit(e: React.FormEvent) {
@@ -112,6 +113,7 @@ export default function StoreHeader() {
       >
         <div className="container header-main">
           <button
+            ref={menuButton}
             className="icon-btn mobile-menu"
             aria-label={bnNode(menu ? "Close menu" : "Open menu")}
             aria-expanded={menu}
@@ -133,13 +135,7 @@ export default function StoreHeader() {
             ))}
           </div>
           <nav className="brand-nav" aria-label={bnNode("Main navigation")}>
-            <button
-              className={mega ? "active" : ""}
-              aria-expanded={mega}
-              onClick={() => setMega(!mega)}
-              onMouseEnter={() => setMega(true)}
-            ><span className="nav-label">{bnNode("Discover")}</span><ChevronDown size={13} />
-            </button>
+            <CategoryMenu departments={visible} categories={s.categories} products={s.products}/>
             {bnNode(visible.map((d) => (
               <Link
                 to={"/" + d.slug}
@@ -281,46 +277,6 @@ export default function StoreHeader() {
             </div>
           </nav>
         ))}
-        {bnNode(mega && (
-          <div className="brand-mega" onMouseLeave={() => setMega(false)}>
-            <div className="container">
-              {bnNode(visible.map((d) => (
-                <div className="brand-mega-column" key={d.slug}>
-                  <Link to={"/" + d.slug}>
-                    <img
-                      src={experienceForDepartment(d, s.categories).heroImage}
-                      alt={bnNode("")}
-                    />
-                    <strong>{bnNode("Nirbhor ")}{bnNode(d.name)}
-                      <ArrowUpRight size={14} />
-                    </strong>
-                  </Link>
-                  {bnNode(s.categories
-                    .filter(
-                      (c) =>
-                        c.parent ===
-                          categoryForDepartment(d, s.categories)?.name &&
-                        c.active,
-                    )
-                    .slice(0, 5)
-                    .map((c) => (
-                      <Link key={c.id} to={departmentShopHref(d, c.name)}>
-                        {bnNode(c.name)}
-                        <ChevronRight size={11} />
-                      </Link>
-                    )))}
-                </div>
-              )))}
-              <div className="brand-mega-bottom">
-                <Link to="/shop">{bnNode("Explore all products ")}<ArrowUpRight size={14} />
-                </Link>
-                <span>{bnNode("Good choices. One trusted place.")}</span>
-                <Link to="/about">{bnNode("Get to know Nirbhor ")}<ArrowRight size={14} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        ))}
       </header>
       {bnNode(menu && (
         <nav
@@ -342,10 +298,7 @@ export default function StoreHeader() {
           {bnNode(visible.map((d) => (
             <div key={d.slug} className="mobile-department-link">
               <Link to={"/" + d.slug}>
-                <img
-                  src={experienceForDepartment(d, s.categories).heroImage}
-                  alt={bnNode("")}
-                />
+                <span className="department-symbol"><DepartmentSymbol slug={d.slug}/></span>
                 <span>
                   <small>{bnNode("NIRBHOR")}</small>
                   <b>{bnNode(d.name === "Home" ? "Home & living" : d.name)}</b>

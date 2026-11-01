@@ -1218,6 +1218,7 @@ function ProductEditor({
                 </select>
               </label>
               <label className="field">{bnNode("Subcategory")}<select
+                  aria-label={bnNode("Subcategory")}
                   value={draft.subcategory}
                   onChange={(e) => set("subcategory", e.target.value)}
                 >

@@ -98,7 +98,7 @@ export default function BrandHome() {
           <div>
             <h2>{bnNode("Find your kind of good.")}</h2>
           </div>
-          <p>{bnNode("Different corners of your life.")}<br />{bnNode("The same care in every choice.")}</p>
+          <Link className="brand-underlined" to="/categories">সব ক্যাটাগরি<ArrowUpRight size={16}/></Link>
         </div>
         <CategoryRail items={categories.filter(c => !c.parent && c.active).filter(c => { const d = departments.find(item => item.categoryId === c.id); return !d || experienceForDepartment(d, categories).enabled; }).sort((a,b) => a.sort-b.sort).map(c => { const d = departments.find(item => item.categoryId === c.id); return { id:c.id, name:d ? (d.name === "Home" ? "Home & living" : d.name) : c.name, image:d ? experienceForDepartment(d, categories).heroImage : c.image, to:d ? "/"+d.slug : "/shop?category="+encodeURIComponent(c.name), department:!!d }; })} />
       </section>

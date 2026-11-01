@@ -1,6 +1,6 @@
 # Sneakers and watches
 
-Added two parent departments: Sneakers (`c-sneakers`, `/sneakers`) and Watches (`c-watches`, `/watches`), each with its own palette, hero, three subcategories, product carousel, product listing, story, FAQ and editable sections. Navigation, mobile navigation, homepage category rail and carousel, footer, search, scoped product routes and SEO include both departments.
+Added two parent departments: Sneakers (`c-sneakers`, `/sneakers`) and Watches (`c-watches`, `/watches`), each with its own palette, hero, product carousel, product listing, story, FAQ and editable sections. Sneakers has three style subcategories; Watches has two collections: পুরুষদের ঘড়ি and নারীদের ঘড়ি. Navigation, mobile navigation, homepage category rail and carousel, footer, search, scoped product routes and SEO include both departments.
 
 Ten assets were generated with the built-in image_gen tool: two digital showroom concepts and eight individual generic product photographs. No third-party logos or supplier-specific specifications are claimed. Showroom images are visibly labelled as digital showcases, not photographs of an existing physical Nirbhor shop. Exact prompts and final file paths are in `prompts.json`. Final native-resolution assets are `public/assets/style-*-v1.webp` (WebP quality 92, no visual edits or enlargement). Original PNGs remain locally in `design-assets/originals/style-collections/`.
 
@@ -11,3 +11,5 @@ Category hero controls accept an image URL or JPG/PNG/WebP upload. Uploaded imag
 All product detail images now magnify around the mouse position on fine-pointer devices. Leaving the image or changing the photo resets the view; the full-image dialog and touch interaction remain available.
 
 Validation: 70 Playwright tests passed, including migration, scoped discovery/search, size-specific stock reservation, URL/upload persistence, hover movement/reset and touch enlargement. Browser checks covered 320, 390, 768, 1100, 1366 and 1440 px across home, both landings, catalogue, product and admin pages with no client errors, broken images or horizontal page overflow.
+
+Collection refresh (2026-11-01 publication): two sample watches in each audience collection, with reassignment through the existing admin product subcategory control. One-time migration reclassifies known default sample products while retaining custom prices, stock, copy, merchant grouping and subsequent deletions. Unused unchanged default style categories are retired; styles still used by merchant products or customized category records remain available. All 18 related Playwright tests passed; 24 browser page/viewport checks passed without image loading, client error or overflow issues.

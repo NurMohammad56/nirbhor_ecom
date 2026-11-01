@@ -17,11 +17,11 @@ test('Tech is discoverable throughout the store and its catalogue stays separate
   await expect(page.locator('footer a[href="/tech"]')).toBeVisible();
   await page.locator('.brand-nav').getByRole('link',{name:'টেক',exact:true}).click();
   await expect(page).toHaveURL('/tech');
-  await expect(page.locator('.department-hero h1')).toContainText('গানে হারিয়ে যান।');
+  await expect(page.locator('.department-hero h1')).toContainText('আপনার টেক।');
   await expect(page.locator('.department-product-grid .product-card')).toHaveCount(8);
   await expect(page.locator('.department-collection-section .category-rail-card')).toHaveCount(4);
   await expect(page.locator('.top-selling-section .product-rail-window')).toHaveAttribute('data-interval','3000');
-  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content',/tech-hero-v1.webp$/);
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content',/tech-hero-v2.webp$/);
   await page.goto('/tech/shop?subcategory='+encodeURIComponent('অডিও'));
   await expect(page.locator('.catalog-layout .product-card')).toHaveCount(3);
   await page.goto('/tech/shop?q=keyboard');

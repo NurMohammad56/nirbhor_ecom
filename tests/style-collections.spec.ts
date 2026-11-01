@@ -10,7 +10,7 @@ test('sneakers and watches are complete departments with scoped products and con
     await expect(page).toHaveURL('/'+slug);
     await expect(page.locator('.digital-showcase-label')).toContainText('ডিজিটাল শোকেস');
     await expect(page.locator('.department-product-grid .product-card')).toHaveCount(4);
-    await expect(page.locator('.department-collection-section .category-rail-card')).toHaveCount(3);
+    await expect(page.locator('.department-collection-section .category-rail-card')).toHaveCount(slug==='watches'?2:3);
     await expect(page.locator('.top-selling-section .product-rail-window')).toHaveAttribute('data-interval','3000');
     await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content',new RegExp('style-'+slug+'-hero-v1.webp$'));
   }
@@ -33,7 +33,7 @@ test('style migration preserves saved edits and customer data and respects subse
   await page.reload();await page.reload();
   const state=await page.evaluate(()=>({p:JSON.parse(localStorage.getItem('nirbhor-v1-products')!),c:JSON.parse(localStorage.getItem('nirbhor-v1-categories')!),b:JSON.parse(localStorage.getItem('nirbhor-v1-banners')!),cart:JSON.parse(localStorage.getItem('nirbhor-v1-cart')!)}));
   expect(state.p).toHaveLength(55);expect(state.p.find((p:any)=>p.id==='sneaker-court').description).toBe('আমাদের নিজস্ব জোড়া');
-  expect(state.c.filter((c:any)=>c.id.startsWith('c-sneakers')||c.id.startsWith('c-watches'))).toHaveLength(8);
+  expect(state.c.filter((c:any)=>c.id.startsWith('c-sneakers')||c.id.startsWith('c-watches'))).toHaveLength(7);
   expect(state.b).toHaveLength(9);expect(state.cart).toEqual([{id:'p2',variant:'250g',quantity:2}]);
   await page.evaluate(()=>localStorage.setItem('nirbhor-v1-products',JSON.stringify(JSON.parse(localStorage.getItem('nirbhor-v1-products')!).filter((p:any)=>p.id!=='watch-rose'))));
   await page.reload();expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('nirbhor-v1-products')!).some((p:any)=>p.id==='watch-rose'))).toBe(false);

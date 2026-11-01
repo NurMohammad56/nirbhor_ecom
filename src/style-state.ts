@@ -27,7 +27,7 @@ export function migrateStyleState<T>(key: string,value:T):T {
   const marker=`nirbhor-style-v1-${key}`;if(localStorage.getItem(marker))return value;
   const list=value as {id:string;name?:string;parent?:string;order?:number}[];
   const max=Math.max(-1,...list.map(b=>b.order||0));
-  const banners:Banner[]=styleDepartments.map((d,i)=>({id:`${d.slug}-v1`,title:d.experience.heroTitle,subtitle:d.experience.description,cta:d.slug==="sneakers"?"স্নিকার্স দেখুন":"ঘড়ি দেখুন",link:`/${d.slug}`,active:true,image:d.image,order:max+1+i,start:"",end:""}));
+  const banners:Banner[]=styleDepartments.map((d,i)=>({id:`${d.slug}-v1`,title:d.slug==="sneakers"?"নিজের ছন্দে,\nনিজের স্নিকার্সে।":d.experience.heroTitle,subtitle:d.experience.description,cta:d.slug==="sneakers"?"স্নিকার্স দেখুন":"ঘড়ি দেখুন",link:`/${d.slug}`,active:true,image:d.image,order:max+1+i,start:"",end:""}));
   const additions=key==="products"?styleProducts:key==="categories"?styleCategories:banners;
   const next=[...list,...additions.filter(item=>!list.some(old=>old.id===item.id||(key==="categories"&&old.name===(item as Category).name&&old.parent===(item as Category).parent)))];
   localStorage.setItem(`nirbhor-v1-${key}`,JSON.stringify(next));localStorage.setItem(marker,"done");return next as T;

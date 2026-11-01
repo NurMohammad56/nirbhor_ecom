@@ -250,7 +250,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
   };
   return (
     <main className={`department-landing department-${d.slug}`}>
-      {d.slug === "sneakers" ? <SneakerHero experience={exp} shopHref={departmentShopHref(d)}/> : <section data-depth="hero" data-depth-max="18" className="department-hero-shell immersive-department">
+      {d.slug === "sneakers" ? <SneakerHero experience={exp} shopHref={departmentShopHref(d)} categoryName={category.name}/> : <section data-depth="hero" data-depth-max="18" className="department-hero-shell immersive-department">
         <div className="department-immersive-media" aria-hidden="true">
           <img src={exp.heroImage} alt={bnNode("")} fetchPriority="high" />
         </div>

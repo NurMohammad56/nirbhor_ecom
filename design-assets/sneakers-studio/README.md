@@ -1,5 +1,7 @@
 # Nirbhor Sneaker Studio
 
+**Historical implementation:** this experimental Three.js hero was replaced at the customer's request. The active campaign hero and generated asset prompts are documented in `../sneaker-campaign/README.md`. The files below remain as a licensed design reference; the active hero does not import or fetch the model.
+
 Graphite and electric-lime sneaker experience with an actual, lazily loaded Three.js scene. The hero retains the merchant-editable collection photograph as its second view and as the no-WebGL / failed-network fallback.
 
 The model is a clearly labelled **design concept**, not an exact representation of a stocked SKU. Existing product photos, EU sizes, variant stock and order behavior remain authoritative.

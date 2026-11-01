@@ -23,6 +23,7 @@ import CustomerVoices from "./CustomerVoices";
 import { ComboShowcase } from "./OfferCards";
 import ProductCarousel from "./ProductCarousel";
 import RecentlyViewed from "./RecentlyViewed";
+import CollectionStories from "./CollectionStories";
 
 export default function BrandHome() {
   const { products, categories, banners, content } = useStore();
@@ -128,13 +129,14 @@ export default function BrandHome() {
         </div>
         <ProductCarousel items={selected} bare className="brand-edit-products" label="আপনার জন্য বাছাই পণ্য"/>
       </section>
+      <CollectionStories/>
       <ComboShowcase />
       <RecentlyViewed/>
       <CustomerVoices />
       <section className="brand-story-wrap botanical-stage">
         <Botanical kind="dry" className="story-botanical" />
         <div className="container brand-story">
-          <div className="brand-story-image">
+          <div className="brand-story-image" data-depth="image" data-depth-max="18">
             <img
               src="/assets/brand-story-v5.webp"
               alt={bnNode("Carefully wrapping selected everyday products at the Nirbhor packing table")}

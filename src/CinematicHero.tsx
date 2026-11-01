@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Banner } from "./data";
 import { Button } from "./ui";
-import { useReducedMotion, useSceneMotion } from "./SceneMotion";
+import { useReducedMotion } from "./SceneMotion";
 
 export default function CinematicHero({ slides }: { slides: Banner[] }) {
   const [slide, setSlide] = useState(0);
@@ -12,7 +12,7 @@ export default function CinematicHero({ slides }: { slides: Banner[] }) {
   const [hidden, setHidden] = useState(document.hidden);
   const [inView, setInView] = useState(true);
   const reduced = useReducedMotion();
-  const ref = useSceneMotion();
+  const ref = useRef<HTMLElement>(null);
   const remaining = useRef(3000);
   const index = slide % slides.length;
   const current = slides[index];
@@ -35,7 +35,7 @@ export default function CinematicHero({ slides }: { slides: Banner[] }) {
     };
   }, [paused, slide, slides.length]);
   return (
-    <section ref={ref} className={`brand-hero-wrap cinematic-shell ${paused ? "motion-paused" : ""}`} aria-label={bnNode("Welcome to Nirbhor")} aria-roledescription="স্লাইডার"
+    <section ref={ref} data-depth="hero" data-depth-max="18" className={`brand-hero-wrap cinematic-shell ${paused ? "motion-paused" : ""}`} aria-label={bnNode("Welcome to Nirbhor")} aria-roledescription="স্লাইডার"
       onFocusCapture={() => setFocused(true)} onBlurCapture={e => { if (!e.currentTarget.contains(e.relatedTarget)) setFocused(false); }}>
       <div className="brand-hero cinematic-hero">
         <div className="cinema-scene-stack" aria-hidden="true">

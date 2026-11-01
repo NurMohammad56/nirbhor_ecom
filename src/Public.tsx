@@ -32,10 +32,10 @@ export function About() {
           </h1>
           <p>{bnNode("For your pantry, your wardrobe, your rituals, and your home.")}</p>
         </div>
-        <img
+        <div className="about-hero-media" data-depth="image" data-depth-max="18"><img
           src="/assets/brand-world-v5.webp"
           alt={bnNode("A thoughtful selection of pantry, beauty, clothing and home essentials")}
-        />
+        /></div>
       </section>
       <section className="container about-story section">
         <span className="eyebrow">{bnNode("A LITTLE ABOUT NIRBHOR")}</span>

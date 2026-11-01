@@ -21,6 +21,7 @@ import Home from "./BrandHome";
 import OffersPage from "./OffersPage";
 import ComboLanding from "./ComboLanding";
 import { usePageReveal } from "./usePageReveal";
+import { useDepthMotion } from "./useDepthMotion";
 import Catalog, { Wishlist, Categories, Offers } from "./Catalog";
 import ProductPage from "./Product";
 import {
@@ -36,6 +37,7 @@ const Admin = lazy(() => import("./Admin"));
 import { About, Contact, Help, StaticPage } from "./Public";
 function AppContent() {
   usePageReveal();
+  useDepthMotion();
   useSeo();
   const { department, experience } = useDepartment();
   const location = useLocation(),

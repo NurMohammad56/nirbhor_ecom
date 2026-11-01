@@ -14,7 +14,7 @@ import {
   departmentShopHref,
 } from "./departments";
 import { Badge, Button, Empty, ProductCard } from "./ui";
-import { Botanical, useSceneMotion } from "./SceneMotion";
+import { Botanical } from "./SceneMotion";
 import CategoryRail from "./CategoryRail";
 import TopSellingRail from "./TopSellingRail";
 import CustomerVoices from "./CustomerVoices";
@@ -103,7 +103,6 @@ const questions: Record<string, [string, string][]> = {
   ],
 };
 export default function DepartmentLanding({ slug }: { slug?: string }) {
-  const sceneRef = useSceneMotion();
   const params = useParams();
   const { products, categories } = useStore();
   const d = departments.find((d) => d.slug === (slug || params.department));
@@ -158,7 +157,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
     combos: (<ComboShowcase category={category.name} />),
     reviews: (<CustomerVoices category={category.name} />),
     story: (<section className="container brand-section department-editorial botanical-stage">
-        <div className="department-editorial-image">
+        <div className="department-editorial-image" data-depth="image" data-depth-max="18">
           <img
             src={d.storyImage}
             alt={
@@ -250,7 +249,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
   };
   return (
     <main className={`department-landing department-${d.slug}`}>
-      <section ref={sceneRef} className="department-hero-shell immersive-department">
+      <section data-depth="hero" data-depth-max="18" className="department-hero-shell immersive-department">
         <div className="department-immersive-media" aria-hidden="true">
           <img src={exp.heroImage} alt={bnNode("")} fetchPriority="high" />
         </div>

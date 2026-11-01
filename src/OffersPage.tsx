@@ -15,7 +15,7 @@ export default function OffersPage() {
   const tabs = [["all", "সব অফার"], ["combo", "কম্বো"], ["code", "কুপন"], ["sale", "ছাড়ের পণ্য"]];
   return <main className="offers-page">
     <section className="offers-page-intro offers-visual-intro"><div className="container"><Breadcrumb items={[{ label: "অফার" }]} />
-      <div className="offer-hero">
+      <div className="offer-hero" data-depth="offer" data-depth-max="18">
         <img className="offer-hero-photo" src="/assets/offers-combo-hero-v1.webp" width="1672" height="940" alt="নির্ভরের একই লেবেলে মধু, মসলার জার ও মিক্সড নাটসের আয়োজন" fetchPriority="high"/>
         <div className="offer-hero-copy"><span className="section-kicker"><Gift size={16}/>প্রতিদিনের পছন্দ, এক আয়োজনে</span><h1>পছন্দগুলো একসঙ্গে,<br/><span>সাশ্রয়ও সঙ্গে।</span></h1><p>মসলা, নাশতা আর দৈনন্দিন প্রয়োজনের কম্বো।<br/>কী থাকছে, কতটা সাশ্রয় - দেখে বেছে নিন।</p><a className="offer-hero-cta" href="#offer-collection">কম্বো ও অফার দেখুন<ArrowUpRight size={18}/></a></div>
       </div>

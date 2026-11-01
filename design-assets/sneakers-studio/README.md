@@ -17,3 +17,6 @@ The model is a clearly labelled **design concept**, not an exact representation 
 - Pixel ratio capped at 1.5 (1 on coarse pointers). Gentle movement only on fine pointers without reduced-motion preference; other devices render on demand. Animation pauses offscreen and in hidden tabs.
 - Canvas, observers, pointer handlers, RAF, materials, geometry, bitmaps, textures, environment and renderer disposed on exit or context loss; pending model fetch aborted on view changes.
 - Old default palette migrates once; merchant copy, images and custom colors remain intact.
+- Studio touch controls have 44px targets, including on a 320px phone; color dots remain visually restrained inside the larger buttons. Arrow keys rotate the focused preview and Home resets it.
+- Customers can pause the desktop animation, preserving their choice across photo/3D view switches. System reduced-motion and coarse-pointer policies continue to take precedence.
+- A model that stalls for 15 seconds falls back to the merchant photograph, releases its canvas and offers a retry. The photograph and shopping links remain available while loading.

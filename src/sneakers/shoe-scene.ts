@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 
-export type ShoeScene = { rotate: (delta: number) => void; reset: () => void; variant: (index: number) => void; dispose: () => void };
+export type ShoeScene = { rotate: (delta: number) => void; reset: () => void; variant: (index: number) => void; setPaused: (paused: boolean) => void; dispose: () => void };
 
 /** Loaded only inside the sneaker studio. The scene owns and releases every GPU resource. */
 export async function createShoeScene(host: HTMLDivElement, signal: AbortSignal, ready: () => void, failed: () => void): Promise<ShoeScene> {
@@ -26,10 +26,10 @@ export async function createShoeScene(host: HTMLDivElement, signal: AbortSignal,
   const pivot = new THREE.Group(); scene.add(pivot);
   const materials = new Set<THREE.Material>(), geometries = new Set<THREE.BufferGeometry>();
   const textures = new Set<THREE.Texture>();
-  let disposed = false, raf = 0, visible = true, yaw = -.32, pitch = -.08, idle = 0, lastTime = 0;
+  let disposed = false, paused = false, raf = 0, visible = true, yaw = -.32, pitch = -.08, idle = 0, lastTime = 0;
   let shoe: THREE.Object3D | undefined, variants: THREE.Material[] = [];
   const motion = matchMedia("(prefers-reduced-motion: reduce)"), pointer = matchMedia("(pointer:fine)");
-  const animated = () => !motion.matches && pointer.matches;
+  const animated = () => !paused && !motion.matches && pointer.matches;
   function collect(root: THREE.Object3D) { root.traverse(object => { if (object instanceof THREE.Mesh) { geometries.add(object.geometry); (Array.isArray(object.material) ? object.material : [object.material]).forEach(material => materials.add(material)); } }); }
   function disposeModelResources() {
     for (const material of materials) { for (const value of Object.values(material)) if (value instanceof THREE.Texture) textures.add(value); material.dispose(); }
@@ -70,6 +70,7 @@ export async function createShoeScene(host: HTMLDivElement, signal: AbortSignal,
     if (disposed) return; disposed = true; stop(); resize.disconnect(); observer.disconnect();
     document.removeEventListener("visibilitychange", visibility); motion.removeEventListener("change", preference); pointer.removeEventListener("change", preference);
     canvas.removeEventListener("webglcontextlost", lost); canvas.removeEventListener("pointerdown", down); canvas.removeEventListener("pointermove", move); canvas.removeEventListener("pointerup", up); canvas.removeEventListener("pointercancel", up);
+    signal.removeEventListener("abort", dispose);
     disposeModelResources(); environmentTarget.dispose(); renderer.dispose(); renderer.forceContextLoss(); canvas.remove();
   }
   signal.addEventListener("abort", dispose, { once: true });
@@ -87,5 +88,5 @@ export async function createShoeScene(host: HTMLDivElement, signal: AbortSignal,
     shoe.position.copy(center.multiplyScalar(-scale)); shoe.scale.setScalar(scale); pivot.add(shoe);
     render(); ready();
   } catch (error) { dispose(); throw error; }
-  return { rotate(delta) { yaw += delta; render(); }, reset() { yaw = -.32; pitch = -.08; render(); }, variant(index) { const material = variants[index]; if (!material || !shoe) return; shoe.traverse(object => { if (object instanceof THREE.Mesh) object.material = material; }); host.dataset.variant = String(index); render(); }, dispose };
+  return { rotate(delta) { yaw += delta; render(); }, reset() { yaw = -.32; pitch = -.08; render(); }, variant(index) { const material = variants[index]; if (!material || !shoe) return; shoe.traverse(object => { if (object instanceof THREE.Mesh) object.material = material; }); host.dataset.variant = String(index); render(); }, setPaused(value) { paused = value; stop(); render(); }, dispose };
 }

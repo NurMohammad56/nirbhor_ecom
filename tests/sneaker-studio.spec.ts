@@ -74,6 +74,46 @@ test('reduced motion can be changed at runtime and a lost graphics context shows
   await expect(page.locator('.sneaker-studio-poster img')).toBeVisible();
 });
 
+test('customers can pause motion, inspect with the keyboard and keep their pause choice when switching views', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' }); await page.goto('/sneakers');
+  const host = page.locator('.sneaker-canvas'), canvas = host.locator('canvas');
+  await expect(host).toHaveAttribute('data-motion', 'gentle');
+  await page.getByRole('button', { name: 'অ্যানিমেশন থামান', exact: true }).click();
+  await expect(host).toHaveAttribute('data-motion', 'still');
+  const paused = await canvas.screenshot(); expect((await canvas.screenshot()).equals(paused)).toBe(true);
+  const rotation = await host.getAttribute('data-rotation');
+  await host.focus(); await page.keyboard.press('ArrowRight');
+  await expect.poll(() => host.getAttribute('data-rotation')).not.toBe(rotation);
+  await page.keyboard.press('Home'); await expect(host).toHaveAttribute('data-rotation', rotation!);
+  await page.getByRole('button', { name: 'কালেকশনের ছবি', exact: true }).click();
+  await page.getByRole('button', { name: '৩ডি ভিউ', exact: true }).click();
+  await expect(host).toHaveAttribute('data-motion', 'still');
+  await expect(page.getByRole('button', { name: 'অ্যানিমেশন চালু করুন', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await page.getByRole('button', { name: 'অ্যানিমেশন চালু করুন', exact: true }).click();
+  await expect(host).toHaveAttribute('data-motion', 'gentle');
+});
+
+test('a stalled model times out to the photograph and a customer can retry successfully', async ({ page }) => {
+  let release: () => void = () => {}, requested: () => void = () => {};
+  const arrived = new Promise<void>(resolve => { requested = resolve; });
+  let first = true;
+  await page.route('**/sneakers-studio/shoe.glb', async route => {
+    if (!first) { await route.continue(); return; }
+    first = false; requested();
+    await new Promise<void>(resolve => { release = resolve; });
+    await route.abort().catch(() => {});
+  });
+  try {
+    await page.goto('/sneakers'); await arrived;
+    await expect(page.locator('.sneaker-studio-visual')).toHaveAttribute('data-render-state', 'fallback', { timeout: 20000 });
+    await expect(page.locator('.sneaker-canvas canvas')).toHaveCount(0);
+    await expect(page.locator('.sneaker-studio-poster img')).toBeVisible();
+    release(); await page.getByRole('button', { name: 'আবার চেষ্টা করুন', exact: true }).click();
+    await expect(page.locator('.sneaker-studio-visual')).toHaveAttribute('data-render-state', 'ready');
+    await expect(page.locator('.sneaker-canvas canvas')).toHaveCount(1);
+  } finally { release(); }
+});
+
 test.describe('mobile sneaker studio', () => {
   test.use({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
   test('keeps vertical touch scrolling, fits the viewport and retains shopping controls', async ({ page }) => {
@@ -87,5 +127,23 @@ test.describe('mobile sneaker studio', () => {
     await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(before + 30);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await page.getByRole('link', { name: 'জোড়া বেছে নিন', exact: true }).tap(); await expect(page).toHaveURL('/sneakers/shop');
+  });
+
+  test('a small phone has separated 44px touch controls that change color and rotation', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 844 }); await page.goto('/sneakers');
+    const visual = page.locator('.sneaker-studio-visual'), host = page.locator('.sneaker-canvas');
+    await expect(visual).toHaveAttribute('data-render-state', 'ready');
+    const buttons = visual.locator('button:visible');
+    for (const button of await buttons.all()) {
+      const box = (await button.boundingBox())!; expect(box.width).toBeGreaterThanOrEqual(44); expect(box.height).toBeGreaterThanOrEqual(44);
+    }
+    const rectangles = await visual.locator('.sneaker-studio-controls button').evaluateAll(buttons => buttons.map(button => { const b = button.getBoundingClientRect(); return { x: b.x, y: b.y, right: b.right, bottom: b.bottom }; }));
+    for (let i = 0; i < rectangles.length; i++) for (let j = i + 1; j < rectangles.length; j++) {
+      const a = rectangles[i], b = rectangles[j]; expect(a.right <= b.x || b.right <= a.x || a.bottom <= b.y || b.bottom <= a.y).toBe(true);
+    }
+    await page.getByRole('button', { name: 'বিচ', exact: true }).tap(); await expect(host).toHaveAttribute('data-variant', '1');
+    const before = await host.getAttribute('data-rotation'); await page.getByRole('button', { name: 'স্নিকার্স ডানে ঘোরান' }).tap();
+    await expect.poll(() => host.getAttribute('data-rotation')).not.toBe(before);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   });
 });

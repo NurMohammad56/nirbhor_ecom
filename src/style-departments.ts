@@ -5,7 +5,7 @@ export const styleDepartments: Department[] = [
     image: "/assets/style-sneakers-hero-v1.webp", storyImage: "/assets/style-sneaker-court-v1.webp", collectionLabel: "আপনার পরের জোড়া", eyebrow: "স্নিকার্স ও দৈনন্দিন স্টাইল",
     showcaseLabel: "নির্ভর অনলাইন সংগ্রহের ডিজিটাল শোকেস", storyCaption: "ফিট, রং আর খুঁটিনাটি দেখে বেছে নিন।",
     subcategories: ["লো-টপ", "হাই-টপ", "রানার স্টাইল"], features: ["সাইজ বেছে নিন", "ডিজাইনের খুঁটিনাটি", "ফিটমেন্ট জেনে কিনুন"],
-    experience: { heroTitle: "নিজের\nছন্দে।", description: "ক্লিন কোর্ট লুক থেকে স্ট্রিট স্টাইল। রং, ডিজাইন আর সাইজ মিলিয়ে খুঁজে নিন আপনার পরের জোড়া।", heroImage: "/assets/style-sneakers-hero-v1.webp", accent: "#193f30", background: "#f3f0e9", ink: "#20382b", announcement: "স্নিকার্স - প্রতিদিনের পথে নিজের স্টাইল", storyTitle: "পছন্দ শুরু হোক,\nখুঁটিনাটি দেখে।", storyText: "পাশের প্যানেল, লেস, সোলের লুক আর গোড়ালির কাট - কাছ থেকে ডিজাইন দেখুন। তারপর সাইজ ও ফিটমেন্টের তথ্য মিলিয়ে নিজের জন্য বেছে নিন।", enabled: true },
+    experience: { heroTitle: "নিজের ছন্দে,\nনিজের স্নিকার্সে।", description: "ক্লিন কোর্ট লুক থেকে স্ট্রিট স্টাইল। রং, ডিজাইন আর সাইজ মিলিয়ে খুঁজে নিন আপনার পরের জোড়া।", heroImage: "/assets/style-sneakers-hero-v1.webp", accent: "#193f30", background: "#f3f0e9", ink: "#20382b", announcement: "স্নিকার্স - প্রতিদিনের পথে নিজের স্টাইল", storyTitle: "পছন্দ শুরু হোক,\nখুঁটিনাটি দেখে।", storyText: "পাশের প্যানেল, লেস, সোলের লুক আর গোড়ালির কাট - কাছ থেকে ডিজাইন দেখুন। তারপর সাইজ ও ফিটমেন্টের তথ্য মিলিয়ে নিজের জন্য বেছে নিন।", enabled: true },
   },
   {
     slug: "watches", categoryId: "c-watches", category: "Watches", name: "Watches", kicker: "সময় থাকুক নিজের স্টাইলে", tagline: "ডায়াল থেকে স্ট্র্যাপ, পছন্দের প্রতিটি খুঁটিনাটি।",

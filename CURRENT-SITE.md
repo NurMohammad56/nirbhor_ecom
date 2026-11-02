@@ -4,14 +4,18 @@
 
 ব্যবহারকারীর অনুরোধে সর্বশেষ আপডেটসহ নতুন সাইট প্রকাশ করা হয়েছে।
 
-- সাইট: https://nirbhor-store-updated.palerain64.chatgpt.site
-- অ্যাডমিন: https://nirbhor-store-updated.palerain64.chatgpt.site/admin
-- প্রোডাক্ট পেজ এডিটর: https://nirbhor-store-updated.palerain64.chatgpt.site/admin/product-pages
-- অফার স্টুডিও: https://nirbhor-store-updated.palerain64.chatgpt.site/admin/offers
+- সাইট: https://nirbhor-store-updated.nm-bdcalling.chatgpt.site
+- অ্যাডমিন: https://nirbhor-store-updated.nm-bdcalling.chatgpt.site/admin
+- প্রোডাক্ট পেজ এডিটর: https://nirbhor-store-updated.nm-bdcalling.chatgpt.site/admin/product-pages
+- অফার স্টুডিও: https://nirbhor-store-updated.nm-bdcalling.chatgpt.site/admin/offers
 - বর্তমান প্রকাশের সোর্স: `C:\Users\bdcalling\Downloads\E-commerce\sites\nirbhor-updated`
 - Site ID: `appgprj_6ae04bcedab881918716df4efecbf2b7`
-- প্রকাশিত কমিট: `5756004c4f4321dfe5566ba59b7f6ce5380e1ad2`
-- ডিপ্লয়মেন্ট: `appgdep_6ae6faea7bf48191902f0ce95588936d` (সফল)
+- প্রকাশিত কমিট: `37d3fb06ab2759bea8007a57b49c84f3a89bea92`
+- ডিপ্লয়মেন্ট: `appgdep_6ae741c3c26c819180ec505e87b660f0` (সফল)
+
+ব্যবহারকারীর অনুরোধে শুধু স্নিকার্সের হিরো আগের পূর্ণ র‍্যাকের ছবি ও মূল শিরোনামসহ স্ট্যাটিক ডিজাইনে ফিরেছে। স্নিকার্স হিরোতে প্যান/ফ্লোট/প্যারাল্যাক্স বন্ধ। অন্য সেকশনের উপস্থাপন, পণ্য, কাস্টম রং/ছবি/বিবরণ ও অন্যান্য বিভাগের মোশন অক্ষুণ্ণ। ক্যাম্পেইনের পরিচিত ডিফল্ট শিরোনাম একবার আগেরটিতে ফেরে; কাস্টম হেডলাইন বদলায় না। সংশ্লিষ্ট ১৫টি পরীক্ষা, ফোন/ডেস্কটপ প্রিভিউ ও প্রোডাকশন বিল্ড সফল। একই Site ID-এর এই প্রকাশে Sites সার্ভার নতুন `nm-bdcalling.chatgpt.site` লাইভ ঠিকানা দিয়েছে; get_site দিয়ে বর্তমান URL নিশ্চিত করা হয়েছে। পুরোনো `palerain64` URL নিচের অনুচ্ছেদগুলোতে ইতিহাস হিসেবে সংরক্ষিত। SPA fallback অক্ষুণ্ণ। IDE সোর্স সমন্বিত।
+
+রেফারেন্স অনুযায়ী স্নিকার্স ক্যাম্পেইন হিরো: ব্যবহারকারীর দেওয়া Jumpman কম্পোজিশন অনুসরণ করে কেন্দ্রে বড় তির্যক জুতা, পেছনে বড় বাংলা টাইপ, গাঢ় নির্ভর-সবুজ/আইভরি/কমলা, নিচে তিনটি পণ্যের থাম্বনেইল এবং পাশে বাস্তব ভ্যারিয়েন্টের দাম। তিনটি transparent photographic cutout built-in image_gen দিয়ে ক্যাটালগের নমুনা ডিজাইন থেকে তৈরি; অন্য কোম্পানির জুতায় নির্ভরের লোগো যোগ হয়নি। স্টাইল বাছলে ছবি, নাম, দাম, বিস্তারিত লিংক ও দ্রুত অর্ডারের পণ্য একসঙ্গে বদলায়। মোবাইলে হেডলাইন পরিষ্কার, বাটনের টাচ এরিয়া অন্তত ৪৪ পিক্সেল। হালকা CSS float/tilt; নতুন হিরো Three.js বা GLB লোড করে না। অ্যাডমিনের কাস্টম পণ্য/হিরো ছবি ও লেখা অক্ষুণ্ণ; পুরোনো ডিফল্ট শিরোনাম ও রং একবার আপডেট হয়। হোমপেজ ক্যারোসেলের অনুমোদিত লেখা অক্ষুণ্ণ। ৯৪টি পূর্ণ পরীক্ষা, ৩২০–১৯২০ পিক্সেলে ১৮টি পেজ/স্ক্রিনের ফিট এবং প্রোডাকশন বিল্ড সফল। সরাসরি লিংকের SPA fallback সংরক্ষিত। নতুন অ্যাসেট ও পূর্ণ প্রম্পট: `design-assets/sneaker-campaign/README.md`। IDE-র মূল সোর্সও সমন্বিত।
 
 লাইভ সরাসরি লিংকের 404 সংশোধন: `.openai/hosting.json`-এর `static.not_found_handling` এখন `single-page-application`। আগে অনুমোদিত লাইভ HTTP পরীক্ষায় হোমপেজ ও JavaScript 200 হলেও `/sneakers`, `/organic`, বিস্তারিত পণ্য ও `/admin` 404 দিচ্ছিল। সংশোধন প্রকাশের পরে একই লাইভ পরীক্ষায় দশটি পেজ-পাথ (স্নিকার্সের trailing slash, shop, product, offers, combo ও admin/experiences-সহ) HTML app shell এবং HTTP 200 দিচ্ছে; মূল JavaScript-ও সঠিক MIME-এ 200। প্রোডাকশন বিল্ড ও প্যাকেজের হোস্টিং মেটাডেটা যাচাই সফল। অ্যাক্সেস আগের মতোই owner-private। মূল legacy manifest-এর পরিচয় বদলানো হয়নি; বর্তমান প্রকাশে nested source-এর manifest ব্যবহার করতে হবে।
 

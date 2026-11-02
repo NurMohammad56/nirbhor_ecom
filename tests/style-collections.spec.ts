@@ -8,8 +8,7 @@ test('sneakers and watches are complete departments with scoped products and con
   for(const [slug,name] of [['sneakers','স্নিকার্স'],['watches','ঘড়ি']]){
     await page.locator('.brand-nav').getByRole('link',{name,exact:true}).click();
     await expect(page).toHaveURL('/'+slug);
-    if(slug==='sneakers')await expect(page.locator('.campaign-thumbnails button')).toHaveCount(3);
-    else await expect(page.locator('.digital-showcase-label')).toContainText('ডিজিটাল শোকেস');
+    await expect(page.locator('.digital-showcase-label')).toContainText('ডিজিটাল শোকেস');
     await expect(page.locator('.department-product-grid .product-card')).toHaveCount(4);
     await expect(page.locator('.department-collection-section .category-rail-card')).toHaveCount(slug==='watches'?2:3);
     await expect(page.locator('.top-selling-section .product-rail-window')).toHaveAttribute('data-interval','3000');

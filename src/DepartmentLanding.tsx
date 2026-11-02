@@ -23,7 +23,6 @@ import AmbientBackdrop from "./AmbientBackdrop";
 import CategoryCollectionSection from "./CategoryCollectionSection";
 import { categorySections } from "./department-sections";
 import type { BuiltInSectionId } from "./department-sections";
-import SneakerHero from "./sneakers/SneakerHero";
 
 const questions: Record<string, [string, string][]> = {
   tech: [
@@ -250,7 +249,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
   };
   return (
     <main className={`department-landing department-${d.slug}`}>
-      {d.slug === "sneakers" ? <SneakerHero experience={exp} shopHref={departmentShopHref(d)} categoryName={category.name}/> : <section data-depth="hero" data-depth-max="18" className="department-hero-shell immersive-department">
+      <section data-depth={d.slug === "sneakers" ? undefined : "hero"} data-depth-max="18" className="department-hero-shell immersive-department">
         <div className="department-immersive-media" aria-hidden="true">
           <img src={exp.heroImage} alt={bnNode("")} fetchPriority="high" />
         </div>
@@ -283,7 +282,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
           <div className="department-scene-footer">{d.showcaseLabel&&<span className="digital-showcase-label">{d.showcaseLabel}</span>}<a href="#department-collections">{bnNode("SCROLL TO DISCOVER ")}<span>{bnNode("↓")}</span></a></div>
         </div>
         {bnNode((d.slug === "organic" || d.slug === "home-living") && <Botanical kind={d.slug === "organic" ? "leaf" : "dry"} className="hero-botanical" />)}
-      </section>}
+      </section>
       <div className="container department-features">
         {bnNode(d.features.map((text) => (
           <span key={text}>

@@ -1,5 +1,6 @@
 import { reviewSummary } from "./product-page-content";
 import QuickOrderButton from "./QuickOrderButton";
+import { CouponPrice } from "./OfferPrice";
 import BrandLogo from "./BrandLogo";
 import { ComboCartGroups } from "./OfferCards";
 import { bnNode } from "./bn";
@@ -239,10 +240,11 @@ export function ProductCard({
     ? notes["wish-variant-" + p.id] || p.weight
     : p.weight;
   const displayPrice = savedView ? itemPrice(p, variant) : p.price;
+  const offerCode = new URLSearchParams(location.search).get("coupon"), href = productHref(p, categories) + (offerCode ? "?coupon=" + encodeURIComponent(offerCode) : "");
   return (
     <article className={`product-card ${compact ? "compact" : ""}`}>
       <div className="product-photo">
-        <Link to={productHref(p, categories)} aria-label={bnNode(`View ${p.name}`)}>
+        <Link to={href} aria-label={bnNode(`View ${p.name}`)}>
           <img src={p.image} alt={bnNode(p.name)} loading="lazy" />
         </Link>
         {bnNode(p.badge && <Badge tone={p.oldPrice ? "warm" : ""}>{bnNode(p.badge)}</Badge>)}
@@ -273,7 +275,7 @@ export function ProductCard({
             <b>{bnNode(stats.count ? stats.average.toFixed(1) : "New")}</b>
           </span>
         </div>
-        <Link className="product-name" to={productHref(p, categories)}>
+        <Link className="product-name" to={href}>
           {bnNode(p.name)}
         </Link>
         {bnNode(savedView && (
@@ -302,6 +304,7 @@ export function ProductCard({
             <Plus size={17} />
           </button>
         </div>
+        <CouponPrice product={p} variant={variant}/>
         <QuickOrderButton product={p} variant={variant}/>
       </div>
     </article>

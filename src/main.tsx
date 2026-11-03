@@ -18,3 +18,4 @@ import "./style-collections.css";
 import "./tech.css";
 import "./atelier.css";
 import "./sneakers.css";
+import "./commerce-refresh.css";

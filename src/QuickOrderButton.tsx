@@ -8,6 +8,7 @@ import { money, productVariants, variantUnits } from "./data";
 import type { Product } from "./data";
 import { productPageContent } from "./product-page-content";
 import { productHref } from "./departments";
+import { availableCoupon } from "./offer-merchandising";
 import { Button, Modal, Quantity } from "./ui";
 
 export default function QuickOrderButton({ product, variant, quantity = 1, className = "" }: { product: Product; variant?: string; quantity?: number; className?: string }) {
@@ -27,7 +28,9 @@ function QuickOrderDialog({ productId, initialVariant, initialQuantity, onClose 
   const max = Math.max(0, Math.min(variant.stock, Math.floor(p.stock / variantUnits(variant.label))));
   const count = Math.max(1, Math.min(quantity, max || 1));
   const items = [{ id: p.id, variant: variant.label, quantity: count }];
-  const totals = cartTotals(items, s.products, s.settings, zone, undefined, s);
+  const candidate = s.coupons.find(c=>c.code===sessionStorage.getItem("nirbhor-coupon")&&availableCoupon(c));
+  const eligible = candidate && variant.price * count >= candidate.minimum && cartTotals(items,s.products,s.settings,zone,candidate,s).couponEligibleSubtotal>0 ? candidate : undefined;
+  const totals = cartTotals(items, s.products, s.settings, zone, eligible, s);
   const page = productPageContent(p);
   return <Modal title="দ্রুত অর্ডার" onClose={onClose}>
     <form className="express-order" onSubmit={e => {
@@ -35,8 +38,8 @@ function QuickOrderDialog({ productId, initialVariant, initialQuantity, onClose 
       if (submitting.current || !max || !s.settings.cod) return;
       submitting.current = true;
       const data = new FormData(e.currentTarget);
-      const order = placeOrder({ customer: String(data.get("name")).trim(), phone: latinDigits(String(data.get("phone"))).trim(), email: s.profile.email || "", address: String(data.get("address")).trim(), zone, payment: "Cash on delivery", note: "Product quick order", items });
-      if (order) { onClose(); navigate(`/order-success/${order.id}`); }
+      const order = placeOrder({ customer: String(data.get("name")).trim(), phone: latinDigits(String(data.get("phone"))).trim(), email: s.profile.email || "", address: String(data.get("address")).trim(), zone, payment: "Cash on delivery", note: "Product quick order", items, coupon:eligible });
+      if (order) { if(eligible)sessionStorage.removeItem("nirbhor-coupon"); onClose(); navigate(`/order-success/${order.id}`); }
       else submitting.current = false;
     }}>
       <div className="express-product"><img src={variant.image || p.image} alt=""/><div><h3>{bnNode(p.name)}</h3><span>{bnNode(variant.label)}</span><b>{bnNode(money(variant.price))}</b></div></div>

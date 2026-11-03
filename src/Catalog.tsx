@@ -1,4 +1,5 @@
 import { bnNode, searchText, latinDigits } from "./bn";
+import { CouponCollectionNotice } from "./OfferPrice";
 import TopSellingRail from "./TopSellingRail";
 import CategoryCollectionSection from "./CategoryCollectionSection";
 import { categorySections } from "./department-sections";
@@ -447,6 +448,7 @@ export default function Catalog() {
           />
         ))}
         <section className="catalog-results">
+          <CouponCollectionNotice/>
           <div className="results-toolbar">
             <span>
               <b>{bnNode(list.length)}</b>{bnNode(" good finds")}</span>

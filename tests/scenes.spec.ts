@@ -5,17 +5,17 @@ test("cinematic slides advance with just two arrows and pause while a shopping l
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.clock.install();
   await page.goto("/");
-  await expect(page.locator(".brand-hero h1")).toContainText(bn("Good choices."));
+  await expect(page.locator(".home-offer-slider h1")).toContainText("পছন্দের কেনাকাটায়");
   await page.clock.runFor(3100);
-  await expect(page.locator(".brand-hero h1")).toContainText(bn("A little care."));
+  await expect(page.locator(".home-offer-slider h1")).toContainText("অর্গানিক");
   await expect(page.locator(".cinema-bottom,.cinematic-hero .brand-carousel-controls")).toHaveCount(0);
   await expect(page.locator(".cinema-arrows button")).toHaveCount(2);
   await page.locator(".brand-hero-actions .btn").focus();
   await page.clock.runFor(18000);
-  await expect(page.locator(".brand-hero h1")).toContainText(bn("A little care."));
+  await expect(page.locator(".home-offer-slider h1")).toContainText("অর্গানিক");
   await page.locator(".announcement").click({ position: { x: 2, y: 2 } });
   await page.clock.runFor(3100);
-  await expect(page.locator(".brand-hero h1")).toContainText(bn("Your everyday."));
+  await expect(page.locator(".home-offer-slider h1")).toContainText("বিউটি");
 });
 
 test("reduced motion keeps scenes still and shopping links remain available", async ({ page }) => {
@@ -23,16 +23,16 @@ test("reduced motion keeps scenes still and shopping links remain available", as
   await page.clock.install();
   await page.goto("/");
   await page.clock.runFor(18000);
-  await expect(page.locator(".brand-hero h1")).toContainText(bn("Good choices."));
+  await expect(page.locator(".home-offer-slider h1")).toContainText("পছন্দের কেনাকাটায়");
   await expect(page.locator(".cinema-bottom")).toHaveCount(0);
   await expect(page.locator(".brand-hero-actions .btn")).toBeVisible();
   expect(await page.locator(".cinema-scene.is-active img").evaluate(el => getComputedStyle(el).animationName)).toBe("none");
   await page.getByRole("button", { name: bn("Next slide"), exact: true }).click();
-  await expect(page.locator(".brand-hero h1")).toContainText(bn("A little care."));
+  await expect(page.locator(".home-offer-slider h1")).toContainText("অর্গানিক");
   await page.getByRole("button", { name: bn("Previous slide"), exact: true }).click();
-  await expect(page.locator(".brand-hero h1")).toContainText(bn("Good choices."));
+  await expect(page.locator(".home-offer-slider h1")).toContainText("পছন্দের কেনাকাটায়");
   await page.goto("/beauty");
-  expect(await page.locator(".serum-orbit img").evaluate(el => getComputedStyle(el).animationName)).toBe("none");
+  expect(await page.locator(".department-offer-slider .cinema-scene.is-active img").evaluate(el => getComputedStyle(el).animationName)).toBe("none");
 });
 
 test("existing catalogue branding is corrected without replacing custom content or customer data", async ({ page }) => {
@@ -67,6 +67,6 @@ test("existing catalogue branding is corrected without replacing custom content 
   expect(saved.products.find((p: { id: string }) => p.id === "p1").brand).toBe("Nirbhor");
   expect(saved.cart).toEqual([{ id: "p1", quantity: 2, variant: "500g" }]);
   await page.goto("/beauty");
-  await expect(page.locator(".department-hero h1")).toHaveText(bn("My saved beauty headline"));
-  await expect(page.locator(".department-immersive-media img")).toHaveAttribute("src", "/assets/beauty-world-v5.webp");
+  await expect(page.locator(".department-offer-slider h1")).toHaveText(bn("My saved beauty headline"));
+  await expect(page.locator(".department-offer-slider .cinema-scene.is-active img")).toHaveAttribute("src", "/assets/beauty-world-v5.webp");
 });

@@ -23,6 +23,8 @@ import AmbientBackdrop from "./AmbientBackdrop";
 import CategoryCollectionSection from "./CategoryCollectionSection";
 import { categorySections } from "./department-sections";
 import type { BuiltInSectionId } from "./department-sections";
+import CinematicHero from "./CinematicHero";
+import { offerSlides } from "./offer-merchandising";
 
 const questions: Record<string, [string, string][]> = {
   tech: [
@@ -104,7 +106,7 @@ const questions: Record<string, [string, string][]> = {
 };
 export default function DepartmentLanding({ slug }: { slug?: string }) {
   const params = useParams();
-  const { products, categories } = useStore();
+  const store = useStore(), { products, categories } = store;
   const d = departments.find((d) => d.slug === (slug || params.department));
   if (!d) return null;
   const category = categoryForDepartment(d, categories),
@@ -249,7 +251,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
   };
   return (
     <main className={`department-landing department-${d.slug}`}>
-      <section data-depth={d.slug === "sneakers" ? undefined : "hero"} data-depth-max="18" className="department-hero-shell immersive-department">
+      {offerSlides(store,d.slug).length ? <div className="container department-promo-wrap"><CinematicHero slides={offerSlides(store,d.slug)} department/></div> : <section data-depth={d.slug === "sneakers" ? undefined : "hero"} data-depth-max="18" className="department-hero-shell immersive-department">
         <div className="department-immersive-media" aria-hidden="true">
           <img src={exp.heroImage} alt={bnNode("")} fetchPriority="high" />
         </div>
@@ -282,7 +284,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
           <div className="department-scene-footer">{d.showcaseLabel&&<span className="digital-showcase-label">{d.showcaseLabel}</span>}<a href="#department-collections">{bnNode("SCROLL TO DISCOVER ")}<span>{bnNode("↓")}</span></a></div>
         </div>
         {bnNode((d.slug === "organic" || d.slug === "home-living") && <Botanical kind={d.slug === "organic" ? "leaf" : "dry"} className="hero-botanical" />)}
-      </section>
+      </section>}
       <div className="container department-features">
         {bnNode(d.features.map((text) => (
           <span key={text}>

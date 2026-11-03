@@ -66,8 +66,8 @@ function AppContent() {
     const root = document.documentElement;
     root.dataset.department = department?.slug || "main";
     root.style.setProperty("--green", experience?.accent || s.settings.color);
-    root.style.setProperty("--ink", experience?.ink || "#2d332e");
-    root.style.setProperty("--paper", "#fbfaf7");
+    root.style.setProperty("--ink", experience?.ink || "#142D2A");
+    root.style.setProperty("--paper", "#F7FAF9");
     root.style.setProperty(
       "--department-bg",
       experience?.background || "#f0ede5",

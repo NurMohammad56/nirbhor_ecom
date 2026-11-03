@@ -61,8 +61,8 @@ test('merchant hero overrides, custom watch grouping and later removals survive 
     for(const key of ['products','categories','banners'])localStorage.removeItem('nirbhor-collection-refresh-v2-'+key);
   });
   await page.goto('/tech');await page.reload();
-  await expect(page.locator('.department-immersive-media img')).toHaveAttribute('src','/assets/tech-mouse-v1.webp');
-  await expect(page.locator('.department-hero h1')).toHaveText('আমাদের টেক কালেকশন');
+  await expect(page.locator('.department-offer-slider .cinema-scene.is-active img')).toHaveAttribute('src','/assets/tech-mouse-v1.webp');
+  await expect(page.locator('.department-offer-slider h1')).toHaveText('আমাদের টেক কালেকশন');
   const data=await page.evaluate(()=>({p:JSON.parse(localStorage.getItem('nirbhor-v1-products')!),b:JSON.parse(localStorage.getItem('nirbhor-v1-banners')!)}));
   expect(data.p.find((p:any)=>p.id==='watch-rose').subcategory).toBe('নিজস্ব ডিজাইন');
   expect(data.b.find((b:any)=>b.id==='tech-v1')).toMatchObject({title:'আমাদের ব্যানার',image:'/assets/tech-keyboard-v1.webp'});

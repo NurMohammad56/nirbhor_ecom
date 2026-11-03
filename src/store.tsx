@@ -13,6 +13,8 @@ import { migrateStyleState } from "./style-state";
 import { migrateTechState } from "./tech-state";
 import { migrateCollectionRefresh } from "./collection-refresh";
 import { migrateSneakerStudio } from "./sneakers/studio-state";
+import { migrateCommerceTheme } from "./offer-merchandising";
+import { offerDate } from "./promotions";
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode, Dispatch, SetStateAction } from "react";
 import {
@@ -49,7 +51,7 @@ function usePersist<T>(
   const [value, setValue] = useState<T>(() => {
     try {
       const saved = localStorage.getItem("nirbhor-v1-" + key);
-      return migrateSneakerStudio(key, migrateCollectionRefresh(key, migrateTechState(key, migrateStyleState(key, migrateSmartState(key, migrateDailyState(key, migratePantryState(key, migrateBrandState(key, migrateBengaliState(key, migrateSceneState(key, migrateDepartmentState(key, saved ? JSON.parse(saved) : initial)))))))))));
+      return migrateCommerceTheme(key, migrateSneakerStudio(key, migrateCollectionRefresh(key, migrateTechState(key, migrateStyleState(key, migrateSmartState(key, migrateDailyState(key, migratePantryState(key, migrateBrandState(key, migrateBengaliState(key, migrateSceneState(key, migrateDepartmentState(key, saved ? JSON.parse(saved) : initial))))))))))));
     } catch {
       return initial;
     }
@@ -76,6 +78,7 @@ function usePersist<T>(
 }
 type Event = { id: string; name: string; detail: string; date: string };
 type State = {
+  offerClock: number;
   combos: ComboOffer[];
   setCombos: Dispatch<SetStateAction<ComboOffer[]>>;
   discounts: DiscountRule[];
@@ -166,6 +169,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     >("inventoryLog", []);
   const [drawer, setDrawer] = useState(false),
     [toasts, setToasts] = useState<{ id: string; message: string }[]>([]);
+  const [offerClock, setOfferClock] = useState(() => Date.now());
+  useEffect(() => {
+    const now=Date.now(),dates=[...coupons,...combos,...discounts].flatMap(offer=>[offerDate(offer.start),offerDate(offer.end,true)+1]).filter(time=>Number.isFinite(time)&&time>now);
+    const timer=setTimeout(()=>setOfferClock(Date.now()),Math.max(25,Math.min(60000,...dates.map(time=>time-now))));
+    const refresh=()=>{if(!document.hidden)setOfferClock(Date.now());};document.addEventListener("visibilitychange",refresh);
+    return()=>{clearTimeout(timer);document.removeEventListener("visibilitychange",refresh);};
+  },[coupons,combos,discounts,offerClock]);
   const toast = (message: string) => {
     const id = uid("t");
     setToasts((x) => [...x.slice(-2), { id, message }]);
@@ -245,6 +255,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   return (
     <Context.Provider
       value={{
+        offerClock,
         combos, setCombos, discounts, setDiscounts, addCombo, updateCombo,
         products,
         setProducts,

@@ -8,7 +8,7 @@ test("Smart Life joins discovery, navigation, scoped collections and English pro
   await page.locator('.brand-nav').getByRole('link', { name: 'স্মার্ট লাইফ', exact: true }).click();
   await expect(page).toHaveURL('/smart-life');
   await expect(page.locator('html')).toHaveAttribute('data-department','smart-life');
-  await expect(page.locator('.department-hero h1')).toContainText('প্রতিদিন একটু সহজ।');
+  await expect(page.locator('.department-offer-slider h1')).toContainText('স্মার্ট লাইফ');
   await expect(page.locator('.department-collection-section .category-rail-card')).toHaveCount(5);
   await expect(page.locator('.department-product-grid .product-card')).toHaveCount(12);
   await expect(page.locator('.top-selling-section .product-rail-window')).toHaveAttribute('data-interval','3000');
@@ -90,7 +90,7 @@ test("admin can edit Smart Life identity and sections and disable its navigation
   await page.getByLabel(bn('Accent colour'),{exact:true}).fill('#265d70');
   await page.getByRole('button',{name:bn('Save changes'),exact:true}).click();
   await page.goto('/smart-life');
-  await expect(page.locator('.department-hero h1')).toHaveText('প্রয়োজনের কাজে, নিজের পছন্দ।');
+  await expect(page.locator('.department-offer-slider h1')).toHaveText('প্রয়োজনের কাজে, নিজের পছন্দ।');
   expect(await page.locator('html').evaluate(el=>el.style.getPropertyValue('--green'))).toBe('#265d70');
   await page.goto('/admin/sections?category=c-smart-life');
   await page.getByRole('button',{name:'সেকশন যোগ করুন',exact:true}).click();

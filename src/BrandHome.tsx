@@ -15,7 +15,6 @@ import {
   departments,
   experienceForDepartment,
 } from "./departments";
-import { brandBanners } from "./department-state";
 import CinematicHero from "./CinematicHero";
 import { Botanical } from "./SceneMotion";
 import CategoryRail from "./CategoryRail";
@@ -24,20 +23,13 @@ import { ComboShowcase } from "./OfferCards";
 import ProductCarousel from "./ProductCarousel";
 import RecentlyViewed from "./RecentlyViewed";
 import CollectionStories from "./CollectionStories";
+import { offerSlides } from "./offer-merchandising";
+import { FlashSale, HomePromotionTiles } from "./CommercePromotions";
 
 export default function BrandHome() {
-  const { products, categories, banners, content } = useStore();
+  const store = useStore();
+  const { products, categories, content } = store;
   const [edit, setEdit] = useState("all");
-  const slides = banners
-    .filter(
-      (b) => {
-        const linked = departments.find(d => b.link.split(/[?#]/)[0] === "/" + d.slug);
-        return b.active && (!linked || (categoryForDepartment(linked, categories)?.active && experienceForDepartment(linked, categories).enabled)) &&
-        (!b.start || new Date(b.start) <= new Date()) &&
-        (!b.end || new Date(b.end) >= new Date());
-      },
-    )
-    .sort((a, b) => a.order - b.order);
   const visibleDepartments = departments.filter((d) => {
     const c = categoryForDepartment(d, categories);
     return c?.active && experienceForDepartment(d, categories).enabled;
@@ -58,7 +50,7 @@ export default function BrandHome() {
           ;
   return (
     <main className="brand-home">
-      <CinematicHero slides={slides.length ? slides : brandBanners} />
+      <div className="container home-offer-layout"><CinematicHero slides={offerSlides(store)} /><HomePromotionTiles/></div>
       <div className="brand-services container">
         {bnNode([
           {
@@ -104,6 +96,7 @@ export default function BrandHome() {
         <CategoryRail items={categories.filter(c => !c.parent && c.active).filter(c => { const d = departments.find(item => item.categoryId === c.id); return !d || experienceForDepartment(d, categories).enabled; }).sort((a,b) => a.sort-b.sort).map(c => { const d = departments.find(item => item.categoryId === c.id); return { id:c.id, name:d ? (d.name === "Home" ? "Home & living" : d.name) : c.name, image:d ? experienceForDepartment(d, categories).heroImage : c.image, to:d ? "/"+d.slug : "/shop?category="+encodeURIComponent(c.name), department:!!d }; })} />
       </section>
 
+      <FlashSale/>
       <section className="container brand-section brand-everyday-edit">
         <div className="brand-section-heading">
           <div>

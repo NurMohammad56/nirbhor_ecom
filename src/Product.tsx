@@ -1,5 +1,6 @@
 import ProductSections, { ProductRelated } from "./ProductSections";
 import ProductPhoto from "./ProductPhoto";
+import { CouponPrice, CouponCollectionNotice } from "./OfferPrice";
 import QuickOrderButton from "./QuickOrderButton";
 import { sellingDescription } from "./merchandising-copy";
 import AmbientBackdrop from "./AmbientBackdrop";
@@ -664,6 +665,8 @@ export default function ProductPage({
                 ))}
               </div>
               <span className="small muted">{bnNode("All prices include applicable taxes.")}</span>
+              <CouponCollectionNotice/>
+              <CouponPrice product={p} variant={variant.label}/>
               <DiscountHint product={p} />
               {bnNode(campaign && config?.countdown && <Countdown end={config.end} />)}
               <div className="variant-section">

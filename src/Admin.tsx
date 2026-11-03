@@ -1,6 +1,7 @@
 import BrandLogo from "./BrandLogo";
 import { bestSelling, productSales } from "./best-selling";
 import OffersAdmin from "./OffersAdmin";
+import OfferBannersAdmin from "./OfferBannersAdmin";
 import ProductPageAdmin from "./ProductPageAdmin";
 import { bnNode, latinDigits, searchText } from "./bn";
 import DepartmentExperiencesAdmin from "./DepartmentExperiencesAdmin";
@@ -125,6 +126,7 @@ const navGroups: {
       ["Campaigns", "/admin/campaigns", Sparkles],
       ["কম্বো ও অফার", "/admin/offers", Layers],
       ["Discounts", "/admin/discounts", Tag],
+      ["কুপন", "/admin/coupons", Tag],
       ["Reviews", "/admin/reviews", Star],
       ["Banners & sliders", "/admin/banners", Image],
       ["Content", "/admin/content", FileText],
@@ -423,7 +425,13 @@ export default function Admin() {
             <OffersAdmin key="offers" />
           ) : section === "campaigns" ? (
             <CampaignsAdmin />
+          ) : section === "offer-banners" ? (
+            <OfferBannersAdmin />
+          ) : section === "coupons" ? (
+            <DiscountsAdmin />
           ) : section === "banners" ? (
+            <OfferBannersAdmin />
+          ) : section === "manual-banners" ? (
             <BannersAdmin />
           ) : section === "reviews" ? (
             <ReviewsAdmin />

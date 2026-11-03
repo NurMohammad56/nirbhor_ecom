@@ -17,7 +17,7 @@ test('Tech is discoverable throughout the store and its catalogue stays separate
   await expect(page.locator('footer a[href="/tech"]')).toBeVisible();
   await page.locator('.brand-nav').getByRole('link',{name:'টেক',exact:true}).click();
   await expect(page).toHaveURL('/tech');
-  await expect(page.locator('.department-hero h1')).toContainText('আপনার টেক।');
+  await expect(page.locator('.department-offer-slider h1')).toContainText('টেক');
   await expect(page.locator('.department-product-grid .product-card')).toHaveCount(8);
   await expect(page.locator('.department-collection-section .category-rail-card')).toHaveCount(4);
   await expect(page.locator('.top-selling-section .product-rail-window')).toHaveAttribute('data-interval','3000');
@@ -76,8 +76,8 @@ test('admin controls Tech hero, sections and public visibility',async({page})=>{
   await page.getByLabel(bn('Hero headline'),{exact:true}).fill('আমার নতুন টেক কালেকশন');
   await page.getByLabel(bn('Hero image URL'),{exact:true}).fill('/assets/tech-keyboard-v1.webp');
   await page.getByRole('button',{name:bn('Save changes'),exact:true}).click();
-  await page.goto('/tech');await expect(page.locator('.department-hero h1')).toHaveText('আমার নতুন টেক কালেকশন');
-  await expect(page.locator('.department-immersive-media img')).toHaveAttribute('src','/assets/tech-keyboard-v1.webp');
+  await page.goto('/tech');await expect(page.locator('.department-offer-slider h1')).toHaveText('আমার নতুন টেক কালেকশন');
+  await expect(page.locator('.department-offer-slider .cinema-scene.is-active img')).toHaveAttribute('src','/assets/tech-keyboard-v1.webp');
   await page.goto('/admin/sections?category=c-tech');
   await page.getByRole('button',{name:'সেকশন যোগ করুন',exact:true}).click();
   await page.getByLabel('সেকশনের শিরোনাম',{exact:true}).fill('আমার ডেস্ক সেটআপ');

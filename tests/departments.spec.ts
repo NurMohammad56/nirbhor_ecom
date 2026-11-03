@@ -7,43 +7,15 @@ import {
   seedSettings,
 } from "../src/data";
 
-test("the main homepage introduces eight distinct, directly accessible departments", async ({
-  page,
-}) => {
-  await page.goto("/");
-  await expect(page.locator("html")).toHaveAttribute("data-department", "main");
-  await expect(page.locator(".brand-hero h1")).toHaveText(
-    bn("Good choices.") + bn("A trusted place."),
-  );
-  await expect(page.locator(".brand-department-card")).toHaveCount(8);
-  for (const slug of ["organic", "beauty", "fashion", "home-living", "smart-life", "sneakers", "watches", "tech"])
-    await expect(
-      page.locator(`.brand-department-card[href="/${slug}"]`),
-    ).toBeVisible();
-  await expect(page.locator(".brand-story")).toContainText(
-    bn("Selected with purpose"),
-  );
-  await page
-    .locator(".brand-hero-actions")
-    .getByRole("link", { name: bn("Find your everyday"), exact: true })
-    .click();
-  await expect(page).toHaveURL(/#departments$/);
-  await expect
-    .poll(() =>
-      page
-        .locator("#departments")
-        .evaluate((el) => el.getBoundingClientRect().top),
-    )
-    .toBeLessThan(200);
-
-  await page.getByRole("button", { name: bn("Next slide"), exact: true }).click();
-  await expect(page.locator(".brand-hero h1")).toContainText(bn("A little care."));
-  await page.getByRole("link", { name: bn("Explore beauty"), exact: true }).click();
-  await expect(page).toHaveURL(/\/beauty$/);
-  await expect(page.locator("html")).toHaveAttribute(
-    "data-department",
-    "beauty",
-  );
+test("the homepage shows real offers and keeps all departments accessible", async ({page})=>{
+ await page.goto('/');
+ await expect(page.locator('.home-offer-slider h1')).toContainText('পছন্দের কেনাকাটায়');
+ await expect(page.locator('.brand-department-card')).toHaveCount(8);
+ for(const slug of ['organic','beauty','fashion','home-living','smart-life','sneakers','watches','tech'])await expect(page.locator('.brand-department-card[href="/'+slug+'"]')).toBeVisible();
+ await expect(page.locator('.brand-story')).toContainText(bn('Selected with purpose'));
+ await page.locator('.brand-department-card[href="/beauty"]').click();
+ await expect(page).toHaveURL('/beauty');
+ await expect(page.locator('html')).toHaveAttribute('data-department','beauty');
 });
 
 test("department identity persists from a category through its listing and product", async ({
@@ -53,8 +25,8 @@ test("department identity persists from a category through its listing and produ
   const accent = await page
     .locator("html")
     .evaluate((el) => el.style.getPropertyValue("--green"));
-  expect(accent).toBe("#754e63");
-  await page.getByRole("link", { name: bn("Explore beauty"), exact: true }).click();
+  expect(accent).toBe("#0F766E");
+  await page.locator(".department-offer-slider .offer-slide-cta").click();
   await expect(page).toHaveURL(/\/beauty\/shop/);
   await expect(page.locator(".product-card")).toHaveCount(4);
   await page
@@ -129,7 +101,7 @@ test("category experience edits persist without losing category configuration", 
   await page.getByLabel(bn("Accent colour"), { exact: true }).fill("#663d58");
   await page.getByRole("button", { name: bn("Save changes"), exact: true }).click();
   await page.goto("/beauty");
-  await expect(page.locator(".department-hero h1")).toHaveText(
+  await expect(page.locator(".department-offer-slider h1")).toHaveText(
     bn("Care, your way."),
   );
   await expect
@@ -140,7 +112,7 @@ test("category experience edits persist without losing category configuration", 
     )
     .toBe("#663d58");
   await page.reload();
-  await expect(page.locator(".department-hero h1")).toHaveText(
+  await expect(page.locator(".department-offer-slider h1")).toHaveText(
     bn("Care, your way."),
   );
   await page.goto("/admin/categories");
@@ -152,7 +124,7 @@ test("category experience edits persist without losing category configuration", 
     .getByRole("button", { name: bn("Save category"), exact: true })
     .click();
   await page.goto("/beauty");
-  await expect(page.locator(".department-hero h1")).toHaveText(
+  await expect(page.locator(".department-offer-slider h1")).toHaveText(
     bn("Care, your way."),
   );
 });

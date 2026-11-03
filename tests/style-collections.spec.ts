@@ -8,7 +8,7 @@ test('sneakers and watches are complete departments with scoped products and con
   for(const [slug,name] of [['sneakers','স্নিকার্স'],['watches','ঘড়ি']]){
     await page.locator('.brand-nav').getByRole('link',{name,exact:true}).click();
     await expect(page).toHaveURL('/'+slug);
-    await expect(page.locator('.digital-showcase-label')).toContainText('ডিজিটাল শোকেস');
+    await expect(page.locator('.department-offer-slider .cinema-scene')).toHaveCount(3);
     await expect(page.locator('.department-product-grid .product-card')).toHaveCount(4);
     await expect(page.locator('.department-collection-section .category-rail-card')).toHaveCount(slug==='watches'?2:3);
     await expect(page.locator('.top-selling-section .product-rail-window')).toHaveAttribute('data-interval','3000');
@@ -54,12 +54,12 @@ test('sneaker checkout reserves the chosen size only',async({page})=>{
 test('admin can replace a hero by URL or upload and the chosen image persists',async({page})=>{
   await page.goto('/admin/experiences');await page.getByRole('button',{name:'ঘড়ি',exact:true}).click();
   await page.getByLabel(bn('Hero image URL'),{exact:true}).fill('/assets/style-watch-heritage-v1.webp');await page.getByRole('button',{name:bn('Save changes'),exact:true}).click();
-  await page.goto('/watches');await expect(page.locator('.department-immersive-media img')).toHaveAttribute('src','/assets/style-watch-heritage-v1.webp');
+  await page.goto('/watches');await expect(page.locator('.department-offer-slider .cinema-scene.is-active img')).toHaveAttribute('src','/assets/style-watch-heritage-v1.webp');
   await page.goto('/admin/experiences');await page.getByRole('button',{name:'স্নিকার্স',exact:true}).click();
   await page.getByLabel('হিরোর ছবি আপলোড',{exact:true}).setInputFiles('public/assets/style-sneaker-court-v1.webp');
   await expect(page.locator('.experience-preview > img')).toHaveAttribute('src',/^data:image\/webp/);
   await page.getByRole('button',{name:bn('Save changes'),exact:true}).click();await page.goto('/sneakers');await page.reload();
-  await expect(page.locator('.department-immersive-media img')).toHaveAttribute('src',/^data:image\/webp/);
+  await expect(page.locator('.department-offer-slider .cinema-scene.is-active img')).toHaveAttribute('src',/^data:image\/webp/);
 });
 
 test('hover magnification follows the pointer, resets and keeps the full image dialog usable',async({page})=>{

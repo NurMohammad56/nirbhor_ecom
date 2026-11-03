@@ -14,13 +14,13 @@ test('editorial images respond to scrolling while their shopping copy remains st
   expect(Math.abs(after)).toBeLessThanOrEqual(18);
   expect(Math.abs(before-(await card.locator('.collection-story-copy').boundingBox())!.y-120)).toBeLessThan(2);
   await card.click();await expect(page).toHaveURL('/fashion');
-  await expect(page.locator('.immersive-department')).toHaveAttribute('data-depth-active','true');
-  await expect(page.locator('.department-hero-copy .btn')).toBeVisible();
+  await expect(page.locator('.department-offer-slider')).not.toHaveAttribute('data-depth-active','true');
+  await expect(page.locator('.department-offer-slider .offer-slide-cta')).toBeVisible();
 });
 
 test('reduced motion changes reset depth and preserve manual hero navigation',async({page})=>{
   await page.emulateMedia({reducedMotion:'no-preference'});await page.goto('/');
-  const hero=page.locator('.cinematic-shell');await expect(hero).toHaveAttribute('data-depth-active','true');
+  const hero=page.locator('.cinematic-shell');await expect(hero).not.toHaveAttribute('data-depth-active','true');
   await page.emulateMedia({reducedMotion:'reduce'});
   await expect(hero).not.toHaveAttribute('data-depth-active','true');
   expect(await hero.evaluate(el=>el.style.getPropertyValue('--depth-y'))).toBe('');

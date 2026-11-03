@@ -54,7 +54,7 @@ test('autoplay advances at three seconds and stops while a customer focuses the 
 test('offer claims omit exhausted coupons and out-of-stock items with a larger historical discount',()=>{
   const p={...seedProducts[0],id:'offer-p',category:'Organic Food',price:80,oldPrice:100,stock:10,status:'Published' as const};
   const s={products:[p,{...p,id:'empty',price:50,stock:0}],categories:[{id:'c0',name:'Organic Food',parent:'',active:true,description:'',image:p.image,sort:0}],coupons:[{id:'used',code:'USED',type:'Percentage',value:90,minimum:0,active:true,uses:2,limit:2,start:'',end:'',scope:'All products',perUser:1}],combos:[],discounts:[],content:{}};
-  const slides=departmentOffers(s,'organic');expect(slides).toHaveLength(1);expect(slides[0].badge).toBe('সর্বোচ্চ 20% ছাড়');expect(slides[0].link).toContain('collection=offers');
+  const slides=departmentOffers(s,'organic');expect(slides.filter(s=>s.source==='sale')).toHaveLength(1);expect(slides[0].badge).toBe('সর্বোচ্চ 20% ছাড়');expect(slides[0].link).toContain('collection=offers');expect(slides.some(s=>s.source==='coupon')).toBe(false);
 });
 
 for(const width of [320,390])test(`the new storefront, coupon catalogue and banner editor fit ${width}px`,async({page})=>{

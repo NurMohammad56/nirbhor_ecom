@@ -1,0 +1,98 @@
+{
+  "date": "2026-11-03",
+  "mode": "built-in image_gen",
+  "records": [
+    {
+      "slug": "beauty",
+      "asset": "public/assets/campaign-beauty-offer-v1.webp",
+      "prompt": "Use case: ads-marketing. Asset type: original ecommerce category campaign photograph for Nirbhor, beauty. Generate ONE full-frame wide landscape 1536x1024 campaign background. Subject: Unbranded amber serum pipette bottle, blush moisturizer jar and tall frosted white skincare pump on translucent rose-tinted glass plinths. One restrained glossy liquid swirl, macro dew, soft peach and mint palette. Premium beauty advertising, no skin/medical promises. Composition: products fill the RIGHT two thirds, uncluttered calm pale mint negative space on LEFT third for editable Bengali headline. Sophisticated art direction, crisp photographic detail, believable materials, restrained orange accent. No text, no numbers, no sale badges, no watermarks. No Nirbhor branding on imported goods. Not a website screenshot, not a collage or contact sheet. No floating impossible objects."
+    },
+    {
+      "slug": "fashion",
+      "asset": "public/assets/campaign-fashion-offer-v1.webp",
+      "prompt": "Use case: ads-marketing. Asset type: original ecommerce category campaign photograph for Nirbhor, fashion. Generate ONE full-frame wide landscape 1536x1024 campaign background. Subject: A carefully styled warm ivory textured kurta on a slender rail, folded beige linen shirt and sage fabric draped over low architectural blocks. Bright modern fashion editorial, tactile textiles, no people or logos. Clean peach sunlight against pale mint. Composition: products fill the RIGHT two thirds, uncluttered calm pale mint negative space on LEFT third for editable Bengali headline. Sophisticated art direction, crisp photographic detail, believable materials, restrained orange accent. No text, no numbers, no sale badges, no watermarks. No Nirbhor branding on imported goods. Not a website screenshot, not a collage or contact sheet. No floating impossible objects."
+    },
+    {
+      "slug": "home-living",
+      "asset": "public/assets/campaign-home-living-offer-v1.webp",
+      "prompt": "Use case: ads-marketing. Asset type: original ecommerce category campaign photograph for Nirbhor, home-living. Generate ONE full-frame wide landscape 1536x1024 campaign background. Subject: A sculptural sand ceramic vase with one dried branch, cream ceramic cup and bowl, neatly folded oatmeal linen on a modern travertine console. Architectural interior advertising, soft teal shadow, elegant cream sunlight, clean modern composition. Composition: products fill the RIGHT two thirds, uncluttered calm pale mint negative space on LEFT third for editable Bengali headline. Sophisticated art direction, crisp photographic detail, believable materials, restrained orange accent. No text, no numbers, no sale badges, no watermarks. No Nirbhor branding on imported goods. Not a website screenshot, not a collage or contact sheet. No floating impossible objects."
+    },
+    {
+      "slug": "smart-life",
+      "asset": "public/assets/campaign-smart-life-offer-v1.webp",
+      "prompt": "Use case: ads-marketing. Asset type: original ecommerce category campaign photograph for Nirbhor, smart-life. Generate ONE full-frame wide landscape 1536x1024 campaign background. Subject: Realistic touchless white foam soap dispenser, compact cream fabric lint remover, slim motion sensor LED bar and pale sage electric lunchbox on tiered clean stone surfaces. Cordless everyday home tools, neat grouping, warm daylight, teal palette, no logos or invented features. Composition: products fill the RIGHT two thirds, uncluttered calm pale mint negative space on LEFT third for editable Bengali headline. Sophisticated art direction, crisp photographic detail, believable materials, restrained orange accent. No text, no numbers, no sale badges, no watermarks. No Nirbhor branding on imported goods. Not a website screenshot, not a collage or contact sheet. No floating impossible objects."
+    },
+    {
+      "slug": "sneakers",
+      "asset": "public/assets/campaign-sneakers-offer-v1.webp",
+      "prompt": "Use case: ads-marketing. Asset type: original ecommerce category campaign photograph for Nirbhor, sneakers. Generate ONE full-frame wide landscape 1536x1024 campaign background. Subject: An attractive pair of unbranded white and sage low-top court sneakers, one cream chunky runner and one charcoal high-top displayed on clean sculptural staggered stone blocks. Close-up retail footwear editorial, realistic stitches and shoelaces, teal and warm ivory setting, no logos, no shop racks. Composition: products fill the RIGHT two thirds, uncluttered calm pale mint negative space on LEFT third for editable Bengali headline. Sophisticated art direction, crisp photographic detail, believable materials, restrained orange accent. No text, no numbers, no sale badges, no watermarks. No Nirbhor branding on imported goods. Not a website screenshot, not a collage or contact sheet. No floating impossible objects."
+    },
+    {
+      "slug": "watches",
+      "asset": "public/assets/campaign-watches-offer-v1.webp",
+      "prompt": "Use case: ads-marketing. Asset type: original ecommerce category campaign photograph for Nirbhor, watches. Generate ONE full-frame wide landscape 1536x1024 campaign background. Subject: Three unbranded elegant analog watches: black dial on dark leather strap, cream dial on brown leather strap and smaller rose dial with rose metal bracelet. Arranged individually on restrained curved display pillows on warm stone, excellent realistic metal details. Deep teal and champagne palette, premium watch advertising. Composition: products fill the RIGHT two thirds, uncluttered calm pale mint negative space on LEFT third for editable Bengali headline. Sophisticated art direction, crisp photographic detail, believable materials, restrained orange accent. No text, no numbers, no sale badges, no watermarks. No Nirbhor branding on imported goods. Not a website screenshot, not a collage or contact sheet. No floating impossible objects."
+    },
+    {
+      "slug": "tech",
+      "asset": "public/assets/campaign-tech-offer-v1.webp",
+      "prompt": "Use case: ads-marketing. Asset type: original ecommerce category campaign photograph for Nirbhor, tech. Generate ONE full-frame wide landscape 1536x1024 campaign background. Subject: A curated complete modern desk technology collection: graphite over-ear headphones, white earbuds in open case, lavender compact keyboard, graphite ergonomic mouse, slim charging hub and small black desktop speaker. Arranged in disciplined stepped heights with breathing room, premium realistic product advertising, pale mint and lilac highlights. Composition: products fill the RIGHT two thirds, uncluttered calm pale mint negative space on LEFT third for editable Bengali headline. Sophisticated art direction, crisp photographic detail, believable materials, restrained orange accent. No text, no numbers, no sale badges, no watermarks. No Nirbhor branding on imported goods. Not a website screenshot, not a collage or contact sheet. No floating impossible objects."
+    },
+    {
+      "slug": "organic",
+      "asset": "public/assets/campaign-organic-edit-v1.webp",
+      "prompt": "Use case: ads-marketing. Asset type: second distinct ecommerce promotional campaign background for Nirbhor organic category. Generate one 1536x1024 landscape premium photo, not a grid. Subject: A beautifully arranged morning pantry: clear glass honey jar, kraft pouch of nuts, bowl of granola, dates and a glass cup of tea. Identical small cream jar labels with no readable text, dark teal lids. Warm cream breakfast table, restrained teal linen, fresh natural sunlight. Products arranged with generous breathing room on RIGHT two thirds, LEFT third calm blank pale mint for editable Bengali campaign copy. Clean organized modern commercial art direction, crisp materials, beautiful soft realistic shadows. No sale percentage, no text, no price, no logos, no watermark. Do not create a website screenshot, no extra decorations."
+    },
+    {
+      "slug": "beauty",
+      "asset": "public/assets/campaign-beauty-edit-v1.webp",
+      "prompt": "Use case: ads-marketing. Asset type: second distinct ecommerce promotional campaign background for Nirbhor beauty category. Generate one 1536x1024 landscape premium photo, not a grid. Subject: A tall unbranded white skincare pump, clear amber serum and small pale pink skincare tube arranged in a different diagonal composition across translucent glass shelves. One small folded cream towel, soft coral light reflected on a clean teal wall. No clinical claims. Products arranged with generous breathing room on RIGHT two thirds, LEFT third calm blank pale mint for editable Bengali campaign copy. Clean organized modern commercial art direction, crisp materials, beautiful soft realistic shadows. No sale percentage, no text, no price, no logos, no watermark. Do not create a website screenshot, no extra decorations."
+    },
+    {
+      "slug": "fashion",
+      "asset": "public/assets/campaign-fashion-edit-v1.webp",
+      "prompt": "Use case: ads-marketing. Asset type: second distinct ecommerce promotional campaign background for Nirbhor fashion category. Generate one 1536x1024 landscape premium photo, not a grid. Subject: An editorial flat lay of a folded sage linen shirt, warm beige trousers and ivory textured traditional kurta, side by side over a warm cream background, fabric folds with fine realistic detail, warm sun shadow, subtle teal accents, no brands, no people. Products arranged with generous breathing room on RIGHT two thirds, LEFT third calm blank pale mint for editable Bengali campaign copy. Clean organized modern commercial art direction, crisp materials, beautiful soft realistic shadows. No sale percentage, no text, no price, no logos, no watermark. Do not create a website screenshot, no extra decorations."
+    },
+    {
+      "slug": "home-living",
+      "asset": "public/assets/campaign-home-living-edit-v1.webp",
+      "prompt": "Use case: ads-marketing. Asset type: second distinct ecommerce promotional campaign background for Nirbhor home-living category. Generate one 1536x1024 landscape premium photo, not a grid. Subject: A premium dining vignette of stacked pale ceramic bowls, two sand-colored mugs, a beige linen table runner and ribbed glass storage jars on a wooden console. Minimal warm apartment setting, one small dry branch far in background, tidy functional beauty. Products arranged with generous breathing room on RIGHT two thirds, LEFT third calm blank pale mint for editable Bengali campaign copy. Clean organized modern commercial art direction, crisp materials, beautiful soft realistic shadows. No sale percentage, no text, no price, no logos, no watermark. Do not create a website screenshot, no extra decorations."
+    },
+    {
+      "slug": "smart-life",
+      "asset": "public/assets/campaign-smart-life-edit-v1.webp",
+      "prompt": "Use case: ads-marketing. Asset type: second distinct ecommerce promotional campaign background for Nirbhor smart-life category. Generate one 1536x1024 landscape premium photo, not a grid. Subject: A neat small workspace with a forest green mini desktop vacuum, cream mug warmer holding a ceramic cup, compact white ultrasonic cleaning tray and slim sensor light. Premium everyday gadget advertising on pastel mint steps, realistic materials, no spurious screen text. Products arranged with generous breathing room on RIGHT two thirds, LEFT third calm blank pale mint for editable Bengali campaign copy. Clean organized modern commercial art direction, crisp materials, beautiful soft realistic shadows. No sale percentage, no text, no price, no logos, no watermark. Do not create a website screenshot, no extra decorations."
+    },
+    {
+      "slug": "sneakers",
+      "asset": "public/assets/campaign-sneakers-edit-v1.webp",
+      "prompt": "Use case: ads-marketing. Asset type: second distinct ecommerce promotional campaign background for Nirbhor sneakers category. Generate one 1536x1024 landscape premium photo, not a grid. Subject: A dynamic photographic still life of two unbranded chunky running style sneakers, one warm ivory mesh with beige sole and one charcoal mesh with muted sage details. Low diagonal angle, both fully visible, subtle elevated display stands, misty mint studio with soft orange rim light, no text or brand logos. Products arranged with generous breathing room on RIGHT two thirds, LEFT third calm blank pale mint for editable Bengali campaign copy. Clean organized modern commercial art direction, crisp materials, beautiful soft realistic shadows. No sale percentage, no text, no price, no logos, no watermark. Do not create a website screenshot, no extra decorations."
+    },
+    {
+      "slug": "watches",
+      "asset": "public/assets/campaign-watches-edit-v1.webp",
+      "prompt": "Use case: ads-marketing. Asset type: second distinct ecommerce promotional campaign background for Nirbhor watches category. Generate one 1536x1024 landscape premium photo, not a grid. Subject: Two elegant unbranded analog wristwatches in a close photographic arrangement: a rose-gold bracelet watch with pale pink circular dial and a slim rectangular gold-tone watch with cream dial. Tactile beige jewelry display pillows, champagne light, teal background. No logos or written brand names. Products arranged with generous breathing room on RIGHT two thirds, LEFT third calm blank pale mint for editable Bengali campaign copy. Clean organized modern commercial art direction, crisp materials, beautiful soft realistic shadows. No sale percentage, no text, no price, no logos, no watermark. Do not create a website screenshot, no extra decorations."
+    },
+    {
+      "slug": "tech",
+      "asset": "public/assets/campaign-tech-edit-v1.webp",
+      "prompt": "Use case: ads-marketing. Asset type: second distinct ecommerce promotional campaign background for Nirbhor tech category. Generate one 1536x1024 landscape premium photo, not a grid. Subject: A premium clean gaming and work desk still life: lilac mechanical keyboard, graphite mouse, compact black speaker, black game controller, small white webcam and sleek charging hub with cable neatly looped. Distinct composition from headphone hero. Mint and soft lavender studio, realistic product photography. Products arranged with generous breathing room on RIGHT two thirds, LEFT third calm blank pale mint for editable Bengali campaign copy. Clean organized modern commercial art direction, crisp materials, beautiful soft realistic shadows. No sale percentage, no text, no price, no logos, no watermark. Do not create a website screenshot, no extra decorations."
+    },
+    {
+      "slug": "organic",
+      "asset": "public/assets/campaign-organic-offer-v1.webp",
+      "prompt": "Use case: ads-marketing. Generate ONE premium photographic ecommerce campaign background for Nirbhor organic pantry category. Landscape 1536x1024. A generous cinematic close-up still life of clear glass jars of golden honey, mixed nuts and dates, dark teal lids, identical understated cream labels, no readable text, a honey dipper and small spice bowls, tactile pale warm stone, one restrained olive branch. Rich warm sunlight, appetizing real food textures, refined retail advertising art direction, teal and warm orange accents. Products occupy right two-thirds with safe margins; left third calm pale mint blank negative space for editable Bengali marketing headline overlay. No lettering, no discounts, no watermark, no floating objects, no shop or unverifiable organic certification symbols. High resolution crisp details. Single full-frame scene, not a collage."
+    },
+    {
+      "slug": "organic",
+      "stage": "branding edit, both organic assets",
+      "reference": "public/brand/nirbhor-logo.png",
+      "prompt": "Edit image 1 only. Image 2 is the approved Nirbhor Bengali logo reference. On every blank cream label on food jars or pouch in image 1 print the SAME simple label design: exact Bengali নির্ভর wordmark with orange two-leaf mark copied from reference, dark teal ink, small Bengali product name beneath for contents of that jar, very restrained thin teal border. Keep labels identical layout and logo proportions, only product name changes (মধু, মিক্সড নাটস, খেজুর, ঘি as appropriate). Do not use glow from reference. Preserve all product shapes, arrangement, materials, mint background, left negative space, lighting and framing exactly. No added objects, no discount text, no certification claims. Make labels look realistically printed and wrapped around each surface."
+    },
+    {
+      "slug": "organic",
+      "stage": "primary label consistency edit",
+      "reference": "public/assets/campaign-organic-edit-v1.webp",
+      "prompt": "Precise label edit only of image 1. Image 2 is the required master sticker design reference. Change all three ornate scalloped labels in image 1 into the SAME simple horizontal rectangular cream sticker with subtly rounded corners and thin dark teal border shown on the jars in image 2. Match identical logo, typography hierarchy, size proportions and layout of the master label. Orange two-leaf mark above exact নির্ভর Bengali wordmark, product name below: মধু on honey, মিক্সড নাটস on nuts, খেজুর on dates. Keep the original image 1 jar sizes, lids, contents, product locations, mint background, stone, honey dipper, lighting and left blank space EXACTLY unchanged. No other modifications. Photorealistic printing wrapped to glass perspective. No labels with ornamental curved shape."
+    }
+  ]
+}

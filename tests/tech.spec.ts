@@ -17,7 +17,7 @@ test('Tech is discoverable throughout the store and its catalogue stays separate
   await expect(page.locator('footer a[href="/tech"]')).toBeVisible();
   await page.locator('.brand-nav').getByRole('link',{name:'টেক',exact:true}).click();
   await expect(page).toHaveURL('/tech');
-  await expect(page.locator('.department-offer-slider h1')).toContainText('টেক');
+  await expect(page.locator('.department-offer-slider .offer-slide-kicker')).toContainText('টেক');
   await expect(page.locator('.department-product-grid .product-card')).toHaveCount(8);
   await expect(page.locator('.department-collection-section .category-rail-card')).toHaveCount(4);
   await expect(page.locator('.top-selling-section .product-rail-window')).toHaveAttribute('data-interval','3000');

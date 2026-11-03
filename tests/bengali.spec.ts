@@ -30,7 +30,7 @@ test("every department appears in the home carousel at three-second intervals", 
   await expect(page.locator(".cinema-scene")).toHaveCount(9);
   for(const text of ["অর্গানিক","বিউটি","পোশাক","ঘর","স্মার্ট লাইফ","স্নিকার্স","ঘড়ি","টেক"]){
     await page.clock.runFor(3100);
-    await expect(page.locator(".home-offer-slider h1")).toContainText(text);
+    await expect(page.locator(".home-offer-slider .offer-slide-kicker")).toContainText(text);
   }
   await page.clock.runFor(3100);
   await expect(page.locator(".home-offer-slider h1")).toContainText("পছন্দের কেনাকাটায়");

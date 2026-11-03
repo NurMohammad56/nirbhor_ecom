@@ -8,7 +8,7 @@ test("Smart Life joins discovery, navigation, scoped collections and English pro
   await page.locator('.brand-nav').getByRole('link', { name: 'স্মার্ট লাইফ', exact: true }).click();
   await expect(page).toHaveURL('/smart-life');
   await expect(page.locator('html')).toHaveAttribute('data-department','smart-life');
-  await expect(page.locator('.department-offer-slider h1')).toContainText('স্মার্ট লাইফ');
+  await expect(page.locator('.department-offer-slider .offer-slide-kicker')).toContainText('স্মার্ট লাইফ');
   await expect(page.locator('.department-collection-section .category-rail-card')).toHaveCount(5);
   await expect(page.locator('.department-product-grid .product-card')).toHaveCount(12);
   await expect(page.locator('.top-selling-section .product-rail-window')).toHaveAttribute('data-interval','3000');

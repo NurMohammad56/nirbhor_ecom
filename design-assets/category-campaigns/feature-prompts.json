@@ -1,0 +1,48 @@
+{
+  "mode": "built-in image_gen",
+  "purpose": "Replace all eight single-product hero backgrounds with full multi-product campaign scenes",
+  "records": [
+    {
+      "slug": "organic",
+      "asset": "public/assets/campaign-organic-feature-v1.webp",
+      "reference": "public/assets/campaign-organic-offer-v1.webp",
+      "role": "label system and palette reference, not an edit target",
+      "prompt": "Use case: ads-marketing. Generate one original full-frame landscape 1536x1024 ecommerce category hero photograph for Nirbhor organic. Subject: An inviting tea-and-pantry arrangement: a clear jar of loose herbal tea, glass cup of amber tea, jar of honey and small bowl of nuts, one delicate herb sprig. All jars have the SAME rectangular cream sticker with thin dark teal border, the exact Bengali নির্ভর wordmark with orange two-leaf symbol and a small product name beneath. Match label system in reference, but create a completely different tea-focused arrangement. Warm sunlight, pale stone and restrained teal linen. Product group occupies right two-thirds with comfortable margins, left third is calm pale mint negative space for editable Bengali campaign text. Match a refined teal, mint, ivory and restrained orange brand direction. A polished full campaign background, realistic materials, crisp fine detail, generous breathing room. Do not make a single isolated product card, collage, contact sheet, website UI, discount badge, watermark or advertising lettering. Do not put Nirbhor manufacturing branding on imported non-food products."
+    },
+    {
+      "slug": "beauty",
+      "asset": "public/assets/campaign-beauty-feature-v1.webp",
+      "prompt": "Use case: ads-marketing. Generate one original full-frame landscape 1536x1024 ecommerce category hero photograph for Nirbhor beauty. Subject: A beautiful unbranded serum, amber face oil pipette bottle, ivory skincare pump, small blush moisturizer pot and pale olive soap arranged on elegant translucent glass ledges. Warm rose reflections against pale mint, tiny restrained botanical detail. Premium beauty editorial still life with several products, not one isolated bottle. Product group occupies right two-thirds with comfortable margins, left third is calm pale mint negative space for editable Bengali campaign text. Match a refined teal, mint, ivory and restrained orange brand direction. A polished full campaign background, realistic materials, crisp fine detail, generous breathing room. Do not make a single isolated product card, collage, contact sheet, website UI, discount badge, watermark or advertising lettering. Do not put Nirbhor manufacturing branding on imported non-food products."
+    },
+    {
+      "slug": "fashion",
+      "asset": "public/assets/campaign-fashion-feature-v1.webp",
+      "prompt": "Use case: ads-marketing. Generate one original full-frame landscape 1536x1024 ecommerce category hero photograph for Nirbhor fashion. Subject: A refined apparel collection still life: ivory textured kurta hanging on a slender rail, sage cotton overshirt folded on a stone plinth, cream canvas tote and neatly folded linen. Beautiful believable cloth drape, warm daylight and clean warm mint setting. No models, no logos, no text. A cohesive collection, not a single product cutout. Product group occupies right two-thirds with comfortable margins, left third is calm pale mint negative space for editable Bengali campaign text. Match a refined teal, mint, ivory and restrained orange brand direction. A polished full campaign background, realistic materials, crisp fine detail, generous breathing room. Do not make a single isolated product card, collage, contact sheet, website UI, discount badge, watermark or advertising lettering. Do not put Nirbhor manufacturing branding on imported non-food products."
+    },
+    {
+      "slug": "home-living",
+      "asset": "public/assets/campaign-home-living-feature-v1.webp",
+      "prompt": "Use case: ads-marketing. Generate one original full-frame landscape 1536x1024 ecommerce category hero photograph for Nirbhor home-living. Subject: A warm modern table setting with several handmade sand ceramic bowls, cream mugs, neatly folded oatmeal linen napkins and a small elegant vase. Clean travertine table, soft sunlight, a subtle dried stem, modern apartment editorial still life with real texture. Fresh organized and uncluttered. Product group occupies right two-thirds with comfortable margins, left third is calm pale mint negative space for editable Bengali campaign text. Match a refined teal, mint, ivory and restrained orange brand direction. A polished full campaign background, realistic materials, crisp fine detail, generous breathing room. Do not make a single isolated product card, collage, contact sheet, website UI, discount badge, watermark or advertising lettering. Do not put Nirbhor manufacturing branding on imported non-food products."
+    },
+    {
+      "slug": "smart-life",
+      "asset": "public/assets/campaign-smart-life-feature-v1.webp",
+      "prompt": "Use case: ads-marketing. Generate one original full-frame landscape 1536x1024 ecommerce category hero photograph for Nirbhor smart-life. Subject: Several neatly arranged useful household gadgets: a compact charcoal touchless dish-soap dispenser beside a sponge holder, ivory lint remover, pale sage lunch box and a slim motion-sensor light. Clean mint and warm cream stepped studio surfaces, beautiful realistic light, no invented screen text or claims, no logos. Product group occupies right two-thirds with comfortable margins, left third is calm pale mint negative space for editable Bengali campaign text. Match a refined teal, mint, ivory and restrained orange brand direction. A polished full campaign background, realistic materials, crisp fine detail, generous breathing room. Do not make a single isolated product card, collage, contact sheet, website UI, discount badge, watermark or advertising lettering. Do not put Nirbhor manufacturing branding on imported non-food products."
+    },
+    {
+      "slug": "sneakers",
+      "asset": "public/assets/campaign-sneakers-feature-v1.webp",
+      "prompt": "Use case: ads-marketing. Generate one original full-frame landscape 1536x1024 ecommerce category hero photograph for Nirbhor sneakers. Subject: A premium curated footwear campaign: ivory knitted everyday sneakers, a white and sage court sneaker and a charcoal high-top, arranged on sculptural low clean display blocks. Distinct new composition, realistic shoelaces and stitching, pale mint studio, warm orange reflected edge light, all shoes unbranded. Multiple products in one cohesive editorial photograph, not a rack. Product group occupies right two-thirds with comfortable margins, left third is calm pale mint negative space for editable Bengali campaign text. Match a refined teal, mint, ivory and restrained orange brand direction. A polished full campaign background, realistic materials, crisp fine detail, generous breathing room. Do not make a single isolated product card, collage, contact sheet, website UI, discount badge, watermark or advertising lettering. Do not put Nirbhor manufacturing branding on imported non-food products."
+    },
+    {
+      "slug": "watches",
+      "asset": "public/assets/campaign-watches-feature-v1.webp",
+      "prompt": "Use case: ads-marketing. Generate one original full-frame landscape 1536x1024 ecommerce category hero photograph for Nirbhor watches. Subject: A premium mixed men's and women's analog watch collection: a rose dial watch with fine rose-gold mesh strap, silver rectangular dial watch and a black dial leather-strap watch, displayed on staggered cream jewelry forms. Mint and champagne palette, beautiful metal reflections, no logos or brand names, several watches elegantly composed. Product group occupies right two-thirds with comfortable margins, left third is calm pale mint negative space for editable Bengali campaign text. Match a refined teal, mint, ivory and restrained orange brand direction. A polished full campaign background, realistic materials, crisp fine detail, generous breathing room. Do not make a single isolated product card, collage, contact sheet, website UI, discount badge, watermark or advertising lettering. Do not put Nirbhor manufacturing branding on imported non-food products."
+    },
+    {
+      "slug": "tech",
+      "asset": "public/assets/campaign-tech-feature-v1.webp",
+      "prompt": "Use case: ads-marketing. Generate one original full-frame landscape 1536x1024 ecommerce category hero photograph for Nirbhor tech. Subject: A fresh complete desk-accessory collection campaign: ivory charging hub and neatly looped cable, lavender compact keyboard, graphite ergonomic mouse, small webcam, rounded speaker and one game controller. Beautifully arranged on pale stone and glass steps, soft mint and lilac studio, warm accent light, realistic premium product photography, no logos or screen text. Product group occupies right two-thirds with comfortable margins, left third is calm pale mint negative space for editable Bengali campaign text. Match a refined teal, mint, ivory and restrained orange brand direction. A polished full campaign background, realistic materials, crisp fine detail, generous breathing room. Do not make a single isolated product card, collage, contact sheet, website UI, discount badge, watermark or advertising lettering. Do not put Nirbhor manufacturing branding on imported non-food products."
+    }
+  ]
+}

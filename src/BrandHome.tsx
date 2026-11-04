@@ -25,6 +25,8 @@ import RecentlyViewed from "./RecentlyViewed";
 import CollectionStories from "./CollectionStories";
 import { offerSlides } from "./offer-merchandising";
 import { FlashSale, HomePromotionTiles } from "./CommercePromotions";
+import {ShoppingShortcuts,CouponShelf,BudgetFinds} from "./ShoppingDiscovery";
+import OfferRibbon from "./OfferRibbon";
 
 export default function BrandHome() {
   const store = useStore();
@@ -83,6 +85,8 @@ export default function BrandHome() {
           </div>
         )))}
       </div>
+      <OfferRibbon/>
+      <ShoppingShortcuts/>
       <section
         className="container brand-section department-discovery"
         id="departments"
@@ -97,6 +101,7 @@ export default function BrandHome() {
       </section>
 
       <FlashSale/>
+      <CouponShelf/>
       <section className="container brand-section brand-everyday-edit">
         <div className="brand-section-heading">
           <div>
@@ -122,6 +127,7 @@ export default function BrandHome() {
         </div>
         <ProductCarousel items={selected} bare className="brand-edit-products" label="আপনার জন্য বাছাই পণ্য"/>
       </section>
+      <BudgetFinds/>
       <CollectionStories/>
       <ComboShowcase />
       <RecentlyViewed/>

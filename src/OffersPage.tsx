@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { ArrowUpRight, Check, Copy, Gift, TicketPercent, Sparkles } from "lucide-react";
 import { useStore } from "./store";
 import { bnNode } from "./bn";
@@ -9,7 +9,9 @@ import ComboExplorer from "./ComboExplorer";
 import { Breadcrumb, ProductCard } from "./ui";
 
 export default function OffersPage() {
-  const s = useStore(), [tab, setTab] = useState("all"), [copied, setCopied] = useState("");
+  const s = useStore(), [params,setParams]=useSearchParams(), [copied, setCopied] = useState("");
+  const requested=params.get("tab")||"all", tab=["all","combo","code","sale"].includes(requested)?requested:"all";
+  const setTab=(next:string)=>{const p=new URLSearchParams(params);if(next==="all")p.delete("tab");else p.set("tab",next);setParams(p,{preventScrollReset:true});};
   const coupons = s.coupons.filter(c => offerActive(c) && c.uses < c.limit);
   const rules = s.discounts.filter(offerActive);
   const tabs = [["all", "সব অফার"], ["combo", "কম্বো"], ["code", "কুপন"], ["sale", "ছাড়ের পণ্য"]];

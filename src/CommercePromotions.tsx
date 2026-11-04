@@ -6,6 +6,8 @@ import { money } from "./data";
 import { availableCoupon, couponConditions, rememberOffer } from "./offer-merchandising";
 import { comboAvailable, comboPricing } from "./promotions";
 import ProductCarousel from "./ProductCarousel";
+import {useRef} from "react";
+import {useAmbientMotion} from "./useAmbientMotion";
 
 export function HomePromotionTiles(){
   const s=useStore(),combo=s.combos.find(c=>c.featured&&comboAvailable(c,s.products)&&comboPricing(c,s.products).saving>0),coupon=s.coupons.find(c=>availableCoupon(c)&&c.type==="Free shipping"),p=combo&&s.products.find(p=>p.id===combo.items[0]?.productId);
@@ -13,6 +15,7 @@ export function HomePromotionTiles(){
 }
 export function FlashSale(){
   const s=useStore(),products=s.products.filter(p=>p.status==="Published"&&p.stock>0&&p.oldPrice>p.price);
+  const ref=useRef<HTMLElement>(null),enabled=!!products.length&&s.content["flash-sale-hidden"]!=="yes",moving=useAmbientMotion(ref,enabled);
   if(!products.length||s.content["flash-sale-hidden"]==="yes")return null;
-  return <section className="container flash-sale-section" aria-labelledby="flash-title"><div className="flash-sale-heading"><div><span><Zap size={17}/>চলছে সাশ্রয়ের আয়োজন</span><h2 id="flash-title">{s.content["flash-sale-title"]||"আজকের অফার, আপনার পছন্দে"}</h2></div><Link to="/shop?collection=offers">সব ছাড়ের পণ্য<ArrowUpRight size={16}/></Link></div><ProductCarousel items={products.slice(0,12)} bare label="চলতি ছাড়ের পণ্য" className="flash-sale-products"/></section>;
+  return <section ref={ref} className="container flash-sale-section" data-ambient={moving?"playing":"paused"} aria-labelledby="flash-title"><div className="flash-sale-heading"><div><span><Zap size={17}/>চলছে সাশ্রয়ের আয়োজন</span><h2 id="flash-title">{s.content["flash-sale-title"]||"আজকের অফার, আপনার পছন্দে"}</h2><p className="flash-sale-summary">{bnNode(products.length+"টি পণ্যে বর্তমান ছাড়")}<span>পছন্দ মিলিয়ে বেছে নিন</span></p></div><Link to="/shop?collection=offers">সব ছাড়ের পণ্য<ArrowUpRight size={16}/></Link></div><ProductCarousel items={products.slice(0,12)} bare label="চলতি ছাড়ের পণ্য" className="flash-sale-products"/></section>;
 }

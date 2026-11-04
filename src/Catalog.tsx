@@ -1,5 +1,6 @@
 import { bnNode, searchText, latinDigits } from "./bn";
 import { CouponCollectionNotice } from "./OfferPrice";
+import {bestSelling} from "./best-selling";
 import TopSellingRail from "./TopSellingRail";
 import CategoryCollectionSection from "./CategoryCollectionSection";
 import { categorySections } from "./department-sections";
@@ -61,7 +62,7 @@ function distance(a: string, b: string): number {
 }
 export default function Catalog() {
   const navigate = useNavigate();
-  const { products, categories, track } = useStore();
+  const { products, categories, track, orders } = useStore();
   const {
     department,
     category: departmentCategory,
@@ -178,6 +179,7 @@ export default function Catalog() {
       );
     const sort =
       params.get("sort") || (collection === "new" ? "newest" : "bestselling");
+    if(sort==="bestselling")return bestSelling(list,orders,list.length);
     return list.sort((a, b) =>
       sort === "price-low"
         ? a.price - b.price
@@ -195,7 +197,7 @@ export default function Catalog() {
                     ? 1
                     : b.reviews - a.reviews,
     );
-  }, [products, params.toString(), category, categories]);
+  }, [products, params.toString(), category, categories, orders]);
   useEffect(() => {
     setPage(1);
   }, [params.toString()]);

@@ -245,9 +245,9 @@ export function ProductCard({
     <article className={`product-card ${compact ? "compact" : ""}`}>
       <div className="product-photo">
         <Link to={href} aria-label={bnNode(`View ${p.name}`)}>
-          <img src={p.image} alt={bnNode(p.name)} loading="lazy" />
+          <img src={p.image} alt={bnNode(p.name)} loading="lazy" decoding="async" width="640" height="640" />
         </Link>
-        {bnNode(p.badge && <Badge tone={p.oldPrice ? "warm" : ""}>{bnNode(p.badge)}</Badge>)}
+        {p.stock>0&&p.oldPrice>displayPrice ? <Badge tone="warm actual-discount">{bnNode(Math.floor((p.oldPrice-displayPrice)/p.oldPrice*100)+"% ছাড়")}</Badge> : bnNode(p.badge && <Badge tone="">{bnNode(p.badge)}</Badge>)}
         <button
           className={`wish-btn ${wishlist.includes(p.id) ? "saved" : ""}`}
           aria-label={bnNode(`${wishlist.includes(p.id) ? "Remove" : "Save"} ${p.name} ${wishlist.includes(p.id) ? "from" : "to"} wishlist`)}

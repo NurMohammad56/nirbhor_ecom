@@ -20,3 +20,5 @@ import "./atelier.css";
 import "./sneakers.css";
 import "./commerce-refresh.css";
 import "./category-campaigns.css";
+import "./shopping-discovery.css";
+import "./color-motion.css";

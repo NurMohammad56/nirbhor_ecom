@@ -7,10 +7,12 @@ import { rememberOffer } from "./offer-merchandising";
 import { offerDate } from "./promotions";
 import type { OfferSlide } from "./offer-merchandising";
 import { money } from "./data";
+import { useStableHero } from "./useStableHero";
 
 export default function CinematicHero({slides,department=false}:{slides:OfferSlide[];department?:boolean}){
   const [slide,setSlide]=useState(0),[focused,setFocused]=useState(false),[hovered,setHovered]=useState(false),[hidden,setHidden]=useState(document.hidden),[visible,setVisible]=useState(true);
   const ref=useRef<HTMLElement>(null),remaining=useRef(3000),reduced=useReducedMotion(),index=slides.length?slide%slides.length:0,current=slides[index],paused=reduced||focused||hovered||hidden||!visible;
+  useStableHero(ref,slides);
   useEffect(()=>{const visibility=()=>setHidden(document.hidden);document.addEventListener("visibilitychange",visibility);const observer=new IntersectionObserver(([entry])=>setVisible(entry.isIntersecting));if(ref.current)observer.observe(ref.current);return()=>{observer.disconnect();document.removeEventListener("visibilitychange",visibility);};},[]);
   useEffect(()=>{remaining.current=3000;},[slide]);
   useEffect(()=>{if(paused||slides.length<2)return;const started=performance.now(),timer=setTimeout(()=>setSlide(n=>(n+1)%slides.length),remaining.current);return()=>{clearTimeout(timer);remaining.current=Math.max(0,remaining.current-(performance.now()-started));};},[paused,slide,slides.length]);

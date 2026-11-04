@@ -1,5 +1,6 @@
 import ProductSections, { ProductRelated } from "./ProductSections";
 import ProductPhoto from "./ProductPhoto";
+import {DeliveryPreview,ProductShare,ProductStickyPurchase} from "./ProductExperience";
 import { CouponPrice, CouponCollectionNotice } from "./OfferPrice";
 import QuickOrderButton from "./QuickOrderButton";
 import { sellingDescription } from "./merchandising-copy";
@@ -533,6 +534,7 @@ export default function ProductPage({
       s.track("ViewContent", p.name);
     }
   }, [id]);
+  const purchaseActions=useRef<HTMLDivElement>(null);
   if (!p)
     return (
       <main className="container page-space">
@@ -593,7 +595,7 @@ export default function ProductPage({
             className={`product-detail ${campaign ? "campaign-detail" : ""}`}
           >
             <div className="gallery">
-              <ProductPhoto src={gallery[imageIndex] || p.image} alt={bnNode(`${p.name} - view ${imageIndex + 1}`)}>
+              <ProductPhoto onSwipe={gallery.length>1?direction=>setImageIndex(i=>(i+direction+gallery.length)%gallery.length):undefined} src={gallery[imageIndex] || p.image} alt={bnNode(`${p.name} - view ${imageIndex + 1}`)}>
                 <button
                   className="gallery-zoom icon-btn"
                   aria-label={bnNode("Zoom product image")}
@@ -632,7 +634,7 @@ export default function ProductPage({
                     ? "THE SUNDARBAN HARVEST EDIT"
                     : p.brand + " · " + p.subcategory))}
                 </span>
-                <button
+                <div className="pdp-topline-actions"><ProductShare/><button
                   className={`icon-btn ${s.wishlist.includes(p.id) ? "saved" : ""}`}
                   aria-label={bnNode("Save product to wishlist")}
                   onClick={() => s.toggleWish(p.id, variant.label)}
@@ -641,7 +643,7 @@ export default function ProductPage({
                     size={21}
                     fill={s.wishlist.includes(p.id) ? "currentColor" : "none"}
                   />
-                </button>
+                </button></div>
               </div>
               {bnNode(campaign && config?.discount && (
                 <Badge tone="warm">{bnNode(config.label)}</Badge>
@@ -724,7 +726,7 @@ export default function ProductPage({
                     : "A little pause. Currently out of stock.")}
                 </div>
               ))}
-              <div className="pdp-add-row">
+              <div className="pdp-add-row" ref={purchaseActions}>
                 {bnNode(!campaign && (
                   <Quantity
                     value={quantity}
@@ -760,6 +762,7 @@ export default function ProductPage({
               ))}
               {!campaign && page.showBuyNow && <QuickOrderButton product={p} variant={variant.label} quantity={quantity} className="pdp-express-order"/>}
               {page.showAssurances && <div className="pdp-assurances">{page.assurances.map((item,index)=><span key={index}>{index % 2 ? <ShieldCheck size={17}/> : <Truck size={17}/>}<div><b>{bnNode(item.title)}</b><small>{bnNode(item.text)}</small></div></span>)}</div>}
+              {!campaign && page.showAssurances && variant.stock>0 && <DeliveryPreview product={p} variant={variant.label} quantity={quantity}/>}
               <div className="pdp-fineprint">
                 <span>
                   <Check size={12} />{bnNode(" ")}
@@ -784,6 +787,7 @@ export default function ProductPage({
           {page.sections.find(s => s.id === "related")?.enabled && <ProductRelated product={p} />}
         </> : <ProductSections key={p.id} product={p} />}
       </main>
+      {!campaign && page.showBuyNow && <ProductStickyPurchase product={p} variant={variant.label} quantity={quantity} price={price} target={purchaseActions} canBuy={p.stock>=quantity && variant.stock>=quantity} onAdd={()=>{s.addToCart(p.id,quantity,variant.label);s.setDrawer(true);}}/>}
       {bnNode(campaign && config?.sticky && (
         <div className="sticky-order">
           <div className="container">

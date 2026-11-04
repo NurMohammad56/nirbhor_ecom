@@ -1,0 +1,52 @@
+/* More breathing room for delivery information, including the leading truck. */
+.product-purchase .pdp-assurances{padding:18px 20px;gap:22px;}
+.product-purchase .pdp-assurances>span{min-width:0;gap:12px;}
+.product-purchase .pdp-assurances>span>svg{flex-shrink:0;margin-inline-start:2px;}
+.pdp-topline-actions{display:flex;gap:6px;align-items:center;flex-shrink:0;}
+.product-share{color:#0f766e;transition:background .2s,transform .2s;}
+.product-share:hover{background:#e1f1ec;transform:translateY(-2px);}
+.delivery-preview{margin-top:22px;padding:22px;border:1px solid #dbe7df;border-radius:18px;background:linear-gradient(125deg,#f1f7f2,#fff7ed);color:#23443e;}
+.delivery-preview-heading{display:flex;align-items:center;gap:12px;}
+.delivery-preview-icon{display:grid;place-items:center;flex-shrink:0;width:42px;height:42px;border-radius:13px;background:#0f766e;color:white;box-shadow:0 5px 14px #0f766e1a;}
+.delivery-preview-heading h2{font-size:17px;line-height:1.5;margin:0;font-weight:600;}
+.delivery-preview-heading p{font-size:12px;margin:3px 0 0;color:#65766c;}
+.delivery-zone-label{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:20px 0 12px;font-size:13px;}
+.delivery-zone-label>span{display:flex;align-items:center;gap:6px;}
+.delivery-zone-label select{width:170px;min-height:42px;padding:8px 12px;background:white;border:1px solid #ccdbd0;border-radius:9px;font:inherit;color:#23443e;cursor:pointer;}
+.delivery-preview-totals{margin:0;font-size:13px;}
+.delivery-preview-totals>div{display:flex;justify-content:space-between;gap:15px;padding:7px 0;}
+.delivery-preview-totals dd{margin:0;font-weight:600;white-space:nowrap;}
+.delivery-preview-totals .delivery-preview-total{margin-top:7px;padding-top:14px;border-top:1px solid #d5e1d6;font-size:17px;}
+.delivery-saving{color:#0f766e;}
+.delivery-preview-progress{margin-top:18px;font-size:12px;}
+.delivery-preview-progress>div{display:flex;justify-content:space-between;gap:14px;align-items:center;}
+.delivery-preview-progress a{display:flex;align-items:center;gap:4px;flex-shrink:0;text-decoration:underline;text-underline-offset:4px;}
+.delivery-preview-progress progress{display:block;width:100%;height:5px;margin-top:10px;border:0;border-radius:9px;overflow:hidden;background:#dbe5db;accent-color:#0f766e;}
+.delivery-preview-progress progress::-webkit-progress-bar{background:#dbe5db;}
+.delivery-preview-progress progress::-webkit-progress-value{background:linear-gradient(90deg,#0f766e,#81ad8b);border-radius:9px;transition:width .3s;}
+.delivery-preview-note{display:block;margin-top:14px;color:#68766d;font-size:11px;}
+.pdp-sticky-purchase{position:fixed;bottom:0;left:0;width:100%;z-index:55;background:#ffffffed;backdrop-filter:blur(18px);border-top:2px solid #b8d8ca;box-shadow:0 -10px 40px #173c3410;padding:12px 0 calc(12px + env(safe-area-inset-bottom));animation:purchase-enter .25s ease-out;}
+.pdp-sticky-inner{display:flex;align-items:center;gap:14px;}
+.pdp-sticky-inner>img{object-fit:cover;border-radius:9px;}
+.pdp-sticky-copy{min-width:0;flex:1;display:grid;gap:4px;}
+.pdp-sticky-copy>b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px;}
+.pdp-sticky-copy>span{color:#6b786f;font-size:12px;}
+.pdp-sticky-copy strong{margin-left:12px;color:#0f766e;font-size:15px;}
+body:has([role="dialog"]) .pdp-sticky-purchase{display:none;}
+body:has(.product-page) footer{padding-bottom:95px;}
+@keyframes purchase-enter{from{transform:translateY(100%);}to{transform:translateY(0);}}
+@media(max-width:600px){
+ .product-purchase .pdp-assurances{padding:16px 18px;align-items:flex-start;}
+ .delivery-preview{padding:17px;border-radius:14px;}
+ .delivery-zone-label{gap:8px;font-size:12px;}
+ .delivery-zone-label select{width:145px;}
+ .delivery-preview-heading h2{font-size:16px;}
+ .pdp-sticky-inner{gap:9px;}
+ .pdp-sticky-inner>img{width:36px;height:36px;}
+ .pdp-sticky-inner .btn{min-height:44px;padding:10px 13px;font-size:12px;gap:7px;}
+ .pdp-sticky-inner .btn>svg:last-child{display:none;}
+ .pdp-sticky-copy>b{font-size:12px;}
+ .pdp-sticky-copy>span{font-size:10px;}
+ .pdp-sticky-copy strong{font-size:12px;margin-left:5px;}
+}
+@media(prefers-reduced-motion:reduce){.pdp-sticky-purchase{animation:none;}.product-share,.delivery-preview-progress progress::-webkit-progress-value{transition:none;}}

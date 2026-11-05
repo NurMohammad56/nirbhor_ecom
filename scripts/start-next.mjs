@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {spawn} from 'node:child_process';
+const standalone=path.resolve('.next/standalone');
+if(!fs.existsSync(path.join(standalone,'server.js')))throw Error('Run npm run build first.');
+fs.cpSync('public',path.join(standalone,'public'),{recursive:true});
+fs.mkdirSync(path.join(standalone,'.next'),{recursive:true});fs.cpSync('.next/static',path.join(standalone,'.next/static'),{recursive:true});
+const args=process.argv.slice(2),portIndex=args.indexOf('--port');
+const child=spawn(process.execPath,[path.join(standalone,'server.js')],{stdio:'inherit',env:{...process.env,HOSTNAME:process.env.HOSTNAME||'0.0.0.0',PORT:portIndex>=0?args[portIndex+1]:process.env.PORT||'3000'}});
+child.on('exit',code=>process.exit(code??1));for(const event of ['SIGINT','SIGTERM'])process.on(event,()=>child.kill(event));

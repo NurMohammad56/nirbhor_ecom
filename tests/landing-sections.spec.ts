@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { bn } from "../src/bn";
+import { bn } from "../src/lib/bn";
 
 test("admin adds, orders and hides category sections with selected products and a working all-products link", async ({ page }) => {
   await page.goto("/admin/sections?category=c0");

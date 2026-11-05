@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { bn } from "../src/bn";
+import { bn } from "../src/lib/bn";
 
 test("pickles join an existing store once without replacing edits or readding merchant deletions", async ({ page }) => {
   await page.goto("/");

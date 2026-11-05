@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { bn } from "../src/bn";
+import { bn } from "../src/lib/bn";
 
 test("category rail moves continuously, pauses on hover and resumes on leaving", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "no-preference" });

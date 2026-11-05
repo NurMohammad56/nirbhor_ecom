@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-import {bn} from '../src/bn';
+import {bn} from '../src/lib/bn';
 
 test('catalogue pagination fits a narrow phone and remains usable',async({page})=>{
   await page.setViewportSize({width:320,height:844});await page.goto('/shop');await page.evaluate(()=>document.fonts.ready);

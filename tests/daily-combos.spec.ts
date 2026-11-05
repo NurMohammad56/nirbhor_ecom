@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { bn } from "../src/bn";
+import { bn } from "../src/lib/bn";
 
 test("daily catalog migration preserves edits and does not resurrect deleted products or combos", async ({ page }) => {
   await page.goto("/offers");

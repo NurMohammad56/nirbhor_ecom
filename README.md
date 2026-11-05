@@ -1,6 +1,27 @@
-# NIRBHOR Commerce — Frontend
+# নির্ভর - Next.js Commerce
 
-A complete, responsive ecommerce frontend built around the supplied green-and-cream NIRBHOR design references. React 19, TypeScript, Vite, React Router, and Lucide icons.
+A complete, responsive ecommerce frontend built around the supplied green-and-cream NIRBHOR design references. Next.js 16 App Router, React 19, TypeScript and shared feature modules.
+
+## Run the project
+
+Node.js 22 LTS is recommended. From this folder:
+
+```sh
+npm ci
+npm run dev
+# production Node server
+npm run build
+npm start
+# checks
+npm run typecheck
+npm run test:e2e
+```
+
+Development uses port 3000 by default. Playwright can target another server with `PLAYWRIGHT_BASE_URL`.
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the App Router, feature, component, provider and data structure. `src/main.tsx`, `src/App.tsx`, Vite and React Router were removed. Existing URLs, assets, browser storage keys and Bengali presentation are retained.
+
+`npm run build:sites` packages native Next output for the existing Cloudflare-based Sites host through OpenNext. Keep the registered Site identity in its own checkout; the workspace root is a local IDE copy, not a second publication target. No environment variables are required for this browser-local frontend. Database-backed accounts, payments and shared merchant persistence are still a later backend phase.
 
 ## Category experience prototype
 

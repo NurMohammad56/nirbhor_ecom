@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-import {bn} from '../src/bn';
+import {bn} from '../src/lib/bn';
 
 test('each department has three generated campaign backgrounds, real product picks and working feature links',async({page})=>{
   for(const slug of ['organic','beauty','fashion','home-living','smart-life','sneakers','watches','tech']){

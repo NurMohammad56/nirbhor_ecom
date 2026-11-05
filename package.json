@@ -4,26 +4,31 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview --host 0.0.0.0",
-    "test:e2e": "playwright test"
+    "dev": "next dev --hostname 0.0.0.0",
+    "build": "next build --webpack",
+    "start": "node scripts/start-next.mjs",
+    "typecheck": "next typegen && tsc --noEmit",
+    "preview": "node scripts/start-next.mjs",
+    "test:e2e": "playwright test",
+    "build:cloudflare": "opennextjs-cloudflare build",
+    "build:sites": "node scripts/build-sites.mjs"
   },
   "dependencies": {
     "three": "0.187.0",
     "lucide-react": "^0.468.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.0.0"
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "next": "16.4.5"
   },
   "devDependencies": {
     "@types/three": "0.187.0",
     "@playwright/test": "^1.51.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "@vitejs/plugin-react": "^4.3.0",
     "sharp": "^0.35.5",
     "typescript": "~5.7.2",
-    "vite": "^6.0.0"
+    "@types/node": "^22.0.0",
+    "@opennextjs/cloudflare": "1.20.16",
+    "wrangler": "^4.0.0"
   }
 }

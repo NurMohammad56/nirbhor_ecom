@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {execFileSync} from 'node:child_process';
+const root=process.cwd();
+const run=(file,args)=>execFileSync(process.execPath,[file,...args],{cwd:root,stdio:'inherit',env:{...process.env,WRANGLER_SEND_METRICS:'false'}});
+run('node_modules/next/dist/bin/next',['build','--webpack']);
+run('node_modules/@opennextjs/cloudflare/dist/cli/index.js',['build','--skipNextBuild']);
+const dist=path.resolve(root,'dist');
+if(path.dirname(dist)!==path.resolve(root)||path.basename(dist)!=='dist')throw Error('Unexpected build output path');
+fs.rmSync(dist,{recursive:true,force:true});fs.mkdirSync(path.join(dist,'server'),{recursive:true});
+run('node_modules/wrangler/bin/wrangler.js',['deploy','--dry-run','--outdir','dist/server']);
+fs.renameSync(path.join(dist,'server/worker.js'),path.join(dist,'server/index.js'));
+fs.cpSync('.open-next/assets',path.join(dist,'client'),{recursive:true});
+fs.mkdirSync(path.join(dist,'.openai'),{recursive:true});fs.copyFileSync('.openai/hosting.json',path.join(dist,'.openai/hosting.json'));
+console.log('Next.js Worker and static assets prepared for Sites.');

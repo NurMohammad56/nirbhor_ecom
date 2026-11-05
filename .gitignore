@@ -9,3 +9,13 @@ design-assets/originals/
 .openai/*.local.*
 .DS_Store
 *.log
+
+.next/
+
+.open-next/
+
+.wrangler/
+
+.env*
+
+.dev.vars

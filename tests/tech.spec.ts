@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { bn } from '../src/bn';
+import { bn } from '../src/lib/bn';
 
 test('Tech catalogue filters stay inside a narrow mobile viewport',async({page})=>{
   await page.setViewportSize({width:320,height:844});

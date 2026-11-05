@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { bn } from "../src/bn";
+import { bn } from "../src/lib/bn";
 
 test("Smart Life joins discovery, navigation, scoped collections and English product search", async ({ page }) => {
   await page.goto("/");

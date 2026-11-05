@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.beforeEach(async({page})=>{await page.addInitScript(()=>{const c=JSON.parse(localStorage.getItem('nirbhor-v1-content')||'{}');c['welcome-offer-popup']=JSON.stringify({version:2,items:[]});localStorage.setItem('nirbhor-v1-content',JSON.stringify(c));});});
-import { bn } from "../src/bn";
+import { bn } from "../src/lib/bn";
 
 test("mouse dragging a category scrolls without opening a link; click and keyboard still work", async ({ page }) => {
   await page.setViewportSize({ width: 1000, height: 900 });

@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-import {bn} from '../src/bn';
+import {bn} from '../src/lib/bn';
 
 test('delivery estimate follows region and quantity with actual free-shipping threshold',async({page})=>{
  await page.goto('/product/p2');

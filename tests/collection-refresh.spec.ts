@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { bn } from '../src/bn';
+import { bn } from '../src/lib/bn';
 
 test('watch audience collections filter independently and merchants can reassign a product',async({page})=>{
   await page.goto('/watches');

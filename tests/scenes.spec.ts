@@ -1,4 +1,4 @@
-import { bn } from "../src/bn";
+import { bn } from "../src/lib/bn";
 import { test, expect } from "@playwright/test";
 
 test("cinematic slides advance with just two arrows and pause while a shopping link has focus", async ({ page }) => {

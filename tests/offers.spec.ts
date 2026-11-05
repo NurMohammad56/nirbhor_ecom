@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
-import { bn } from "../src/bn";
-import { cartTotals } from "../src/store";
-import { seedProducts, seedSettings } from "../src/data";
-import { comboAvailable, offerActive, seedCombos } from "../src/promotions";
-import type { DiscountRule } from "../src/promotions";
+import { bn } from "../src/lib/bn";
+import { cartTotals } from "../src/providers/store-provider";
+import { seedProducts, seedSettings } from "../src/data/catalog";
+import { comboAvailable, offerActive, seedCombos } from "../src/lib/promotions";
+import type { DiscountRule } from "../src/lib/promotions";
 
 test("offer dates, caps, exclusions and stacking follow the configured rules", () => {
   expect(offerActive({ active: true, start: "2026-10-27", end: "2026-10-27" }, Date.parse("2026-10-26T18:00:00Z"))).toBe(true);

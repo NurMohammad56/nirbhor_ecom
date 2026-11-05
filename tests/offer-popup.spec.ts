@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
-import {defaultPopup,popupConfigKey} from '../src/offer-popup';
-import type {OfferPopupConfig} from '../src/offer-popup';
-import {bn} from '../src/bn';
+import {defaultPopup,popupConfigKey} from '../src/lib/offer-popup';
+import type {OfferPopupConfig} from '../src/lib/offer-popup';
+import {bn} from '../src/lib/bn';
 
 async function setup(page:import('@playwright/test').Page,config:Partial<OfferPopupConfig>={}){
  await page.addInitScript(({key,config})=>{

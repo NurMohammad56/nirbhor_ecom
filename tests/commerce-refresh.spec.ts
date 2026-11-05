@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { bn } from '../src/bn';
-import { departmentOffers } from '../src/offer-merchandising';
-import { seedProducts } from '../src/data';
+import { bn } from '../src/lib/bn';
+import { departmentOffers } from '../src/lib/offer-merchandising';
+import { seedProducts } from '../src/data/catalog';
 
 test('the home and all eight departments advertise real scoped offers with working destinations',async({page})=>{
   await page.goto('/');await expect(page.locator('.home-offer-slider .cinema-scene')).toHaveCount(9);

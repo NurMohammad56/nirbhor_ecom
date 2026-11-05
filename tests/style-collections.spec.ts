@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { bn } from '../src/bn';
+import { bn } from '../src/lib/bn';
 
 test('sneakers and watches are complete departments with scoped products and configurable digital showcases',async({page})=>{
   await page.goto('/');

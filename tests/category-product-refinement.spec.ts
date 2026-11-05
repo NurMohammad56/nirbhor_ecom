@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-import {bn} from '../src/bn';
+import {bn} from '../src/lib/bn';
 test.beforeEach(async({page})=>{await page.addInitScript(()=>{const content=JSON.parse(localStorage.getItem('nirbhor-v1-content')||'{}');content['welcome-offer-popup']=JSON.stringify({version:2,items:[]});localStorage.setItem('nirbhor-v1-content',JSON.stringify(content));});});
 
 test('selected parent contains its children before the next parent and child filters toggle correctly',async({page})=>{

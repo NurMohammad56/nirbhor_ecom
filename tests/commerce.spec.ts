@@ -1,4 +1,4 @@
-import { bn } from "../src/bn";
+import { bn } from "../src/lib/bn";
 import { test, expect } from "@playwright/test";
 test("customer completes a variant-aware, discounted guest order and tracks it", async ({
   page,
@@ -44,9 +44,9 @@ test("catalog filters, typo search, sort and wishlist are usable", async ({
   await page.goto("/shop?q=honee");
   await expect(page.locator(".product-card")).toHaveCount(3);
   await page.getByLabel(bn("Sort products")).selectOption("price-low");
-  await expect(page.locator(".product-name").first()).toHaveText(
-    bn("Sundarban Raw Honey"),
-  );
+  const prices=await page.locator('.product-name').allTextContents();
+  const orderedPrices=await page.evaluate(names=>{const products=JSON.parse(localStorage.getItem('nirbhor-v1-products')!);return names.map(name=>products.find((p:any)=>p.name===name).price);},prices);
+  expect(orderedPrices).toEqual([...orderedPrices].sort((a,b)=>a-b));
   await page.getByLabel(bn("Save Sundarban Raw Honey to wishlist")).click();
   await page.goto("/wishlist");
   await expect(page.locator(".product-name")).toHaveText(bn("Sundarban Raw Honey"));

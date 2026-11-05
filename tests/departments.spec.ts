@@ -1,11 +1,11 @@
-import { bn } from "../src/bn";
+import { bn } from "../src/lib/bn";
 import { test, expect } from "@playwright/test";
 import {
   seedProducts,
   seedCategories,
   seedOrders,
   seedSettings,
-} from "../src/data";
+} from "../src/data/catalog";
 
 test("the homepage shows real offers and keeps all departments accessible", async ({page})=>{
  await page.goto('/');

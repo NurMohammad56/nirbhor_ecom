@@ -1,0 +1,7 @@
+# Grouped catalog filters and product gallery information
+
+Catalog category filters now render active parent groups with their own nested children directly beneath them. Only one parent group can be open at a time: opening or selecting another parent closes the previous group's children. Clicking the current disclosure can close it. The selected parent opens automatically, and choosing a child selects its parent as well. Deeper active descendants are nested safely with cycle protection. Category counts use published products, as before. Child-only URLs infer their active root category so the selected checkbox and expanded group agree with the results. Other filters, sorting and department routes remain available.
+
+The standard product gallery now has a useful information card after the thumbnails: the current selected pack plus up to three admin-configured specification rows. It links to enabled details, review and FAQ sections and to existing support. The card uses existing product data; it adds no ratings, claims or fulfillment promises. Campaign layouts retain their existing composition. On mobile the summary appears after purchase controls so the price and buying actions are not pushed farther down.
+
+Validation covers grouped ordering, expansion/collapse, child selection/deselection, switching departments through a child, direct child URLs, admin content compatibility, selected-size updates, section navigation and focus, narrow-screen layout and existing commerce/product flows.

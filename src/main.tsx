@@ -25,3 +25,5 @@ import "./color-motion.css";
 
 import "./product-experience.css";
 import "./offer-popup.css";
+
+import "./catalog-product-refinement.css";

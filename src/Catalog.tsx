@@ -1,3 +1,4 @@
+import CategoryFilterTree from "./CategoryFilterTree";
 import { bnNode, searchText, latinDigits } from "./bn";
 import { CouponCollectionNotice } from "./OfferPrice";
 import {bestSelling} from "./best-selling";
@@ -12,7 +13,7 @@ import {
   departmentShopHref,
   categoryForDepartment,
 } from "./departments";
-import { descendants } from "./category-tree";
+import { descendants, rootCategoryFor } from "./category-tree";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import {
@@ -83,8 +84,8 @@ export default function Catalog() {
     [view, setView] = useState("grid"),
     [page, setPage] = useState(1),
     [extra, setExtra] = useState(false);
-  const category = params.get("category") || departmentCategory?.name || "",
-    subcategory = params.get("subcategory") || "",
+  const subcategory = params.get("subcategory") || "";
+  const category = params.get("category") || departmentCategory?.name || rootCategoryFor(categories,subcategory)?.name || "",
     query = params.get("q") || "",
     collection = params.get("collection") || "";
   const activeKeys = [
@@ -227,14 +228,7 @@ export default function Catalog() {
       <div className="filter-group">
         <h4>{bnNode("Category ")}<ChevronDown size={14} />
         </h4>
-        {bnNode(categories
-          .filter((c) => !c.parent && c.active)
-          .map((c) => (
-            <label className="check-label" key={c.id}>
-              <input
-                type="checkbox"
-                checked={category === c.name}
-                onChange={() => {
+        <CategoryFilterTree categories={categories} products={products} category={category} subcategory={subcategory} onParent={c=>{
                   if (department) {
                     if (category === c.name) {
                       navigate("/shop");
@@ -255,33 +249,7 @@ export default function Catalog() {
                   if (category === c.name) p.delete("category");
                   else p.set("category", c.name);
                   setParams(p);
-                }}
-              />
-              <span>{bnNode(c.name)}</span>
-              <span className="muted">
-                {
-                  bnNode(products.filter(
-                    (p) => p.category === c.name && p.status === "Published",
-                  ).length)
-                }
-              </span>
-            </label>
-          )))}
-        {bnNode(category &&
-          categories
-            .filter((c) => c.parent === category && c.active)
-            .map((c) => (
-              <label className="check-label sub-filter" key={c.id}>
-                <input
-                  type="checkbox"
-                  checked={subcategory === c.name}
-                  onChange={() =>
-                    set("subcategory", subcategory === c.name ? "" : c.name)
-                  }
-                />
-                <span>{bnNode(c.name)}</span>
-              </label>
-            )))}
+                }} onChild={(root,child)=>{const next=new URLSearchParams(params);next.set('category',root.name);if(category===root.name&&subcategory===child.name)next.delete('subcategory');else next.set('subcategory',child.name);if(department&&departmentCategory?.name!==root.name){const target=departments.find(d=>categoryForDepartment(d,categories)?.id===root.id);navigate((target?departmentShopHref(target):'/shop')+'?'+next.toString());}else setParams(next);}}/>
       </div>
       <div className="filter-group">
         <h4>{bnNode("Price range ")}<span>{bnNode("BDT")}</span>

@@ -1,3 +1,4 @@
+import ProductGallerySummary from "./ProductGallerySummary";
 import ProductSections, { ProductRelated } from "./ProductSections";
 import ProductPhoto from "./ProductPhoto";
 import {DeliveryPreview,ProductShare,ProductStickyPurchase} from "./ProductExperience";
@@ -626,6 +627,7 @@ export default function ProductPage({
                     <Play size={22} />{bnNode("Watch the story")}</button>
                 ))}
               </div>
+              {!campaign && <ProductGallerySummary product={p} variant={variant.label}/>}
             </div>
             <div className="product-purchase">
               <div className="pdp-topline">

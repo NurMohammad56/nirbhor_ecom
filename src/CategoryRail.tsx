@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { bnNode } from "./bn";
 import { useReducedMotion } from "./SceneMotion";
 import { useDragScroll } from "./useDragScroll";
@@ -9,10 +9,10 @@ export type CategoryRailItem = { id: string; name: string; image: string; to: st
 
 export default function CategoryRail({ items, label = "ক্যাটাগরি" }: { items: CategoryRailItem[]; label?: string }) {
   const windowRef = useRef<HTMLDivElement>(null), groupRef = useRef<HTMLDivElement>(null), distance = useRef(0);
-  const [copies, setCopies] = useState(2), [hovered, setHovered] = useState(false), [focused, setFocused] = useState(false), [stopped, setStopped] = useState(false), [inView, setInView] = useState(false), [hidden, setHidden] = useState(document.hidden);
+  const [copies, setCopies] = useState(2), [hovered, setHovered] = useState(false), [focused, setFocused] = useState(false), [inView, setInView] = useState(false), [hidden, setHidden] = useState(document.hidden);
   const reduced = useReducedMotion();
   const drag = useDragScroll(windowRef);
-  const paused = reduced || hovered || focused || stopped || drag.interacting || !inView || hidden;
+  const paused = reduced || hovered || focused || drag.interacting || !inView || hidden;
   useEffect(() => {
     const viewport = windowRef.current, group = groupRef.current;
     if (!viewport || !group) return;
@@ -61,7 +61,6 @@ export default function CategoryRail({ items, label = "ক্যাটাগর�
     </div>
     <div className="category-rail-controls"><span>টেনে আরও দেখুন</span><div>
       <button className="icon-btn" aria-label="আগের ক্যাটাগরি" onClick={() => step(-1)}><ChevronLeft size={18} /></button>
-      <button className="icon-btn rail-pause" aria-label={stopped || reduced ? "ক্যাটাগরি স্লাইড চালু করুন" : "ক্যাটাগরি স্লাইড থামান"} aria-pressed={stopped || reduced} disabled={reduced} onClick={() => setStopped(!stopped)}>{stopped || reduced ? <Play size={14} /> : <Pause size={14} />}</button>
       <button className="icon-btn" aria-label="পরের ক্যাটাগরি" onClick={() => step(1)}><ChevronRight size={18} /></button>
     </div></div>
   </div>;

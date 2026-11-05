@@ -1,3 +1,4 @@
+import GallerySummaryEditor from "./GallerySummaryEditor";
 import { useState } from "react";
 import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { ArrowDown, ArrowUp, ArrowUpRight, Check, Eye, FileText, Image, Layers, Plus, Save, Star, Trash2, Type, Upload } from "lucide-react";
@@ -30,7 +31,7 @@ function PageEditor({ id, choose, preview }: { id: string; choose: (id: string) 
   const save = (open = false) => {
     if (!media.image.trim()) { setError("মূল ছবির লিংক দিন বা ছবি আপলোড করুন।"); setTab("media"); return false; }
     if (![media.image, ...media.images, media.video, draft.sourceImage].every(validAsset)) { setError("ছবি ও ভিডিওর সঠিক লিংক দিন।"); setTab("media"); return false; }
-    const pairLists = [draft.benefits.map(i => [i.title, i.text]), draft.assurances.map(i => [i.title, i.text]), draft.faqs.map(i => [i.question, i.answer]), draft.specifications.map(i => [i.label, i.value]), draft.proof.map(i => [i.label, i.value])];
+    const pairLists = [draft.benefits.map(i => [i.title, i.text]), draft.assurances.map(i => [i.title, i.text]), draft.faqs.map(i => [i.question, i.answer]), draft.specifications.map(i => [i.label, i.value]), ...(draft.gallerySummaryMode==='custom'?[draft.gallerySummaryFacts.map(i=>[i.label,i.value])]:[]), draft.proof.map(i => [i.label, i.value])];
     if (pairLists.some(list => list.some(row => row.some(v => !v.trim())))) { setError("যোগ করা প্রতিটি সারির দুইটি ঘর পূরণ করুন, অথবা খালি সারিটি সরিয়ে দিন।"); return false; }
     s.setProducts(list => list.map(p => p.id === id ? { ...p, ...media, images: [...new Set(media.images.filter(Boolean))], page: draft } : p));
     setDirty(false); setError(""); s.toast("পণ্যের ডিটেইলস পেজ সেভ হয়েছে।"); if (open) preview(); return true;
@@ -59,6 +60,7 @@ function PageEditor({ id, choose, preview }: { id: string; choose: (id: string) 
         <section className="page-form-panel"><h2>সার্চ ও শেয়ারিংয়ের লেখা</h2><label className="field">SEO শিরোনাম<input maxLength={70} value={media.seoTitle} placeholder={draft.headline || bnNode(product.name)} onChange={e => updateMedia({ seoTitle: e.target.value })} /></label><label className="field">মেটা বর্ণনা<textarea rows={3} maxLength={180} value={media.seoDescription} placeholder={draft.shortDescription || bnNode(product.description)} onChange={e => updateMedia({ seoDescription: e.target.value })} /></label><p className="page-editor-hint">খালি রাখলে পেজের শিরোনাম ও সংক্ষিপ্ত বর্ণনা ব্যবহার হবে।</p></section>
       </>}
       {tab === "details" && <>
+ <GallerySummaryEditor value={draft} onChange={update}/>
         <section className="page-form-panel"><h2>বিস্তারিত বর্ণনা</h2>{text("detailsTitle", "বিস্তারিত অংশের শিরোনাম")}{text("detailsBody", "বিস্তারিত বর্ণনার লেখা", true, bnNode(product.description))}<PairEditor title="পণ্যের তথ্য" labels={["তথ্যের নাম", "তথ্যের মান"]} rows={draft.specifications.map(i => ({ first: i.label, second: i.value }))} onChange={rows => update({ specifications: rows.map(i => ({ label: i.first, value: i.second })) })} /></section>
         <section className="page-form-panel"><h2>উপাদান ও যত্ন</h2>{text("materialsTitle", "উপাদান অংশের শিরোনাম")}{text("materialsBody", "উপাদান ও ব্যবহারবিধি", true)}{text("ingredients", "উপাদানের তালিকা", true)}{text("storage", "সংরক্ষণ ও যত্নের নির্দেশনা", true)}{text("batch", "ব্যাচের তথ্য")}</section>
         <section className="page-form-panel"><h2>উৎসের গল্প</h2>{text("sourceTitle", "উৎসের গল্পের শিরোনাম")}{text("sourceText", "উৎসের গল্প", true, bnNode(product.description))}{text("sourceCaption", "উৎসের ছবির ক্যাপশন")}</section>

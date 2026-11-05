@@ -27,3 +27,4 @@ import "./product-experience.css";
 import "./offer-popup.css";
 
 import "./catalog-product-refinement.css";
+import "./shopping-polish.css";

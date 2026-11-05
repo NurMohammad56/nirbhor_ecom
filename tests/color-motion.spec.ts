@@ -1,12 +1,12 @@
 import {test,expect} from '@playwright/test';
+test.beforeEach(async({page})=>{await page.addInitScript(()=>{const c=JSON.parse(localStorage.getItem('nirbhor-v1-content')||'{}');c['welcome-offer-popup']=JSON.stringify({version:2,items:[]});localStorage.setItem('nirbhor-v1-content',JSON.stringify(c));});});
 
-test('the live-benefit ribbon moves, pauses for reading and supports a deliberate stop',async({page})=>{
+test('the live-benefit ribbon moves, pauses for reading and resumes when the pointer leaves',async({page})=>{
  await page.emulateMedia({reducedMotion:'no-preference'});await page.goto('/');const ribbon=page.locator('.offer-ribbon'),track=ribbon.locator('.offer-ribbon-track');
  await ribbon.scrollIntoViewIfNeeded();await expect(ribbon).toHaveAttribute('data-motion','playing');
  const first=await track.evaluate(el=>getComputedStyle(el).transform);await expect.poll(()=>track.evaluate(el=>getComputedStyle(el).transform)).not.toBe(first);
  await ribbon.hover();await expect(ribbon).toHaveAttribute('data-motion','paused');const frozen=await track.evaluate(el=>getComputedStyle(el).transform);await page.waitForTimeout(180);expect(await track.evaluate(el=>getComputedStyle(el).transform)).toBe(frozen);
- await ribbon.getByRole('button',{name:'সুবিধার স্ট্রিপ থামান',exact:true}).click();await page.mouse.move(1,1);await ribbon.getByRole('button').blur();await expect(ribbon.getByRole('button')).toHaveAttribute('aria-pressed','true');await expect(ribbon).toHaveAttribute('data-motion','paused');
- await ribbon.getByRole('button',{name:'সুবিধার স্ট্রিপ চালু করুন',exact:true}).click();await page.mouse.move(1,1);await ribbon.getByRole('button').blur();await expect(ribbon).toHaveAttribute('data-motion','playing');
+ await expect(ribbon.getByRole('button')).toHaveCount(0);await page.mouse.move(0,0);await expect(ribbon).toHaveAttribute('data-motion','playing');
  await ribbon.locator('.offer-ribbon-group:not([aria-hidden]) a').first().focus();await expect(ribbon).toHaveAttribute('data-motion','paused');await expect(ribbon.locator('.offer-ribbon-group[aria-hidden=true]')).toHaveAttribute('inert','');
 });
 

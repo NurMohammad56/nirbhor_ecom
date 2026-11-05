@@ -88,6 +88,12 @@ export default function Catalog() {
   const category = params.get("category") || departmentCategory?.name || rootCategoryFor(categories,subcategory)?.name || "",
     query = params.get("q") || "",
     collection = params.get("collection") || "";
+  const legacyBudget=params.get('stock')==='true'&&params.get('sort')==='price-low'&&[500,1000,2000].includes(Number(params.get('max')))?params.get('max'):null;
+  const budgetCap=Math.max(0,Number(params.get('budget')||legacyBudget)||0);
+  const budgetProducts=useMemo(()=>budgetCap?products.filter(p=>p.status==='Published'&&p.stock>0&&p.price<=budgetCap):products,[products,budgetCap]);
+  const facetProducts=budgetCap?budgetProducts.filter(p=>(!category||p.category===category)&&(!subcategory||p.subcategory===subcategory||descendants(categories,subcategory).has(p.subcategory))):products;
+  const facetCategories=budgetCap?categories.filter(c=>budgetProducts.some(p=>!c.parent?p.category===c.name:p.subcategory===c.name||descendants(categories,c.name).has(p.subcategory))):categories;
+  const priceCeiling=budgetCap||3000;
   const activeKeys = [
     "subcategory",
     "min",
@@ -104,7 +110,7 @@ export default function Catalog() {
     "color",
     "custom",
   ];
-  const title = query
+  const title = budgetCap&&!category&&!subcategory ? money(budgetCap)+" এর মধ্যে পছন্দের পণ্য" : query
     ? `Results for “${query}”`
     : subcategory ||
       category ||
@@ -117,13 +123,14 @@ export default function Catalog() {
             : "All the everyday good.");
   function set(key: string, value: string) {
     const p = new URLSearchParams(params);
+    if(budgetCap){p.set('budget',String(budgetCap));p.set('stock','true');if(key==='max'&&value)value=String(Math.min(budgetCap,Math.max(0,Number(value)||0)));}
     if (value) p.set(key, value);
     else p.delete(key);
     setParams(p);
     setPage(1);
   }
   const list = useMemo(() => {
-    let list = products.filter((p) => p.status === "Published");
+    let list = budgetProducts.filter((p) => p.status === "Published");
     if (category) list = list.filter((p) => p.category === category);
     if (subcategory)
       list = list.filter(
@@ -198,15 +205,16 @@ export default function Catalog() {
                     ? 1
                     : b.reviews - a.reviews,
     );
-  }, [products, params.toString(), category, categories, orders]);
+  }, [products, budgetCap, params.toString(), category, categories, orders]);
   useEffect(() => {
     setPage(1);
   }, [params.toString()]);
-  const active = activeKeys.filter((k) => params.get(k));
+  const active = activeKeys.filter((k) => params.get(k)&&(!budgetCap||!["max","stock"].includes(k)));
   const totalPages = Math.ceil(list.length / 9);
   const clear = () => {
     const p = new URLSearchParams();
-    if (category) p.set("category", category);
+    if (category&&!budgetCap) p.set("category", category);
+    if(budgetCap){p.set("budget",String(budgetCap));p.set("max",String(budgetCap));p.set("stock","true");p.set("sort","price-low");}
     if (query) p.set("q", query);
     if (collection) p.set("collection", collection);
     setParams(p);
@@ -225,11 +233,12 @@ export default function Catalog() {
           <X size={20} />
         </button>
       </div>
+      {budgetCap>0&&<div className="budget-filter-context"><b>{bnNode(money(budgetCap))} এর মধ্যে</b><span>এই বাজেটের পণ্যের জন্য ফিল্টার</span><Link to="/shop">সব পণ্য দেখুন<ArrowUpRight size={12}/></Link></div>}
       <div className="filter-group">
         <h4>{bnNode("Category ")}<ChevronDown size={14} />
         </h4>
-        <CategoryFilterTree categories={categories} products={products} category={category} subcategory={subcategory} onParent={c=>{
-                  if (department) {
+        <CategoryFilterTree categories={facetCategories} products={budgetProducts} category={category} subcategory={subcategory} onParent={c=>{
+                  if (department&&!budgetCap) {
                     if (category === c.name) {
                       navigate("/shop");
                       return;
@@ -249,7 +258,7 @@ export default function Catalog() {
                   if (category === c.name) p.delete("category");
                   else p.set("category", c.name);
                   setParams(p);
-                }} onChild={(root,child)=>{const next=new URLSearchParams(params);next.set('category',root.name);if(category===root.name&&subcategory===child.name)next.delete('subcategory');else next.set('subcategory',child.name);if(department&&departmentCategory?.name!==root.name){const target=departments.find(d=>categoryForDepartment(d,categories)?.id===root.id);navigate((target?departmentShopHref(target):'/shop')+'?'+next.toString());}else setParams(next);}}/>
+                }} onChild={(root,child)=>{const next=new URLSearchParams(params);next.set('category',root.name);if(category===root.name&&subcategory===child.name)next.delete('subcategory');else next.set('subcategory',child.name);if(department&&!budgetCap&&departmentCategory?.name!==root.name){const target=departments.find(d=>categoryForDepartment(d,categories)?.id===root.id);navigate((target?departmentShopHref(target):'/shop')+'?'+next.toString());}else setParams(next);}}/>
       </div>
       <div className="filter-group">
         <h4>{bnNode("Price range ")}<span>{bnNode("BDT")}</span>
@@ -259,9 +268,9 @@ export default function Catalog() {
           className="range-input"
           type="range"
           min="0"
-          max="3000"
+          max={priceCeiling}
           step="50"
-          value={params.get("max") || 3000}
+          value={Math.min(Number(params.get("max")||priceCeiling),priceCeiling)}
           onChange={(e) => set("max", e.target.value)}
         />
         <div className="price-inputs">
@@ -279,8 +288,8 @@ export default function Catalog() {
               aria-label={bnNode("Maximum price")}
               type="number"
               min="0"
-              placeholder={bnNode("৳ 3,000")}
-              value={params.get("max") || ""}
+              max={budgetCap||undefined} placeholder={bnNode(money(priceCeiling))}
+              value={budgetCap?Math.min(Number(params.get("max")||budgetCap),budgetCap):params.get("max")||""}
               onChange={(e) => set("max", e.target.value)}
             />
           </label>
@@ -291,19 +300,19 @@ export default function Catalog() {
         <label className="check-label">
           <input
             type="checkbox"
-            checked={!!params.get("stock")}
+            checked={!!budgetCap||!!params.get("stock")} disabled={!!budgetCap}
             onChange={(e) => set("stock", e.target.checked ? "in" : "")}
           />{bnNode("In stock only")}</label>
       </div>
       <div className="filter-group">
         <h4>{bnNode("A little extra goodness")}</h4>
-        <label className="check-label">
+        {(!budgetCap||facetProducts.some(p=>p.oldPrice>p.price&&(p.oldPrice-p.price)/p.oldPrice>=.1))&&<label className="check-label">
           <input
             type="checkbox"
             checked={!!params.get("discount")}
             onChange={(e) => set("discount", e.target.checked ? "10" : "")}
-          />{bnNode("10% off or more")}</label>
-        <label className="check-label">
+          />{bnNode("10% off or more")}</label>}
+        {(!budgetCap||facetProducts.some(p=>p.rating>=4.8))&&<label className="check-label">
           <input
             type="checkbox"
             checked={!!params.get("rating")}
@@ -311,7 +320,7 @@ export default function Catalog() {
           />
           <span>
             <span className="stars">{bnNode("★★★★")}</span>{bnNode(" 4.8 & above")}</span>
-        </label>
+        </label>}
       </div>
       <div className="filter-group">
         <h4>{bnNode("Source / origin")}</h4>
@@ -321,7 +330,7 @@ export default function Catalog() {
           onChange={(e) => set("source", e.target.value)}
         >
           <option value="">{bnNode("All origins")}</option>
-          {bnNode([...new Set(products.map((p) => p.source))].map((x) => (
+          {bnNode([...new Set(facetProducts.map((p) => p.source).filter(Boolean))].map((x) => (
             <option key={x} value={x}>{bnNode(x)}</option>
           )))}
         </select>
@@ -352,7 +361,7 @@ export default function Catalog() {
                   onChange={(e) => set(k, e.target.value)}
                 >
                   <option value="">{bnNode("Any")}</option>
-                  {bnNode([...new Set(products.map((p) => p[k]))].map((x) => (
+                  {bnNode([...new Set(facetProducts.map((p) => p[k]).filter(Boolean))].map((x) => (
                     <option key={x} value={x}>{bnNode(x)}</option>
                   )))}
                 </select>
@@ -364,7 +373,7 @@ export default function Catalog() {
               onChange={(e) => set("delivery", e.target.value)}
             >
               <option value="">{bnNode("All Bangladesh")}</option>
-              <option value={"Same-day"}>{bnNode("Same-day")}</option>
+              {(!budgetCap||facetProducts.some(p=>["Dhaka","Local farms"].includes(p.source)))&&<option value={"Same-day"}>{bnNode("Same-day")}</option>}
             </select>
           </label>
           <label className="field">{bnNode("Custom attribute / tag")}<input
@@ -406,7 +415,7 @@ export default function Catalog() {
       >{bnNode("Show ")}{bnNode(list.length)}{bnNode(" good finds")}</Button>
     </>
   );
-  const configuredCategory = category && !department && !subcategory && !query ? categories.find(c => c.name === category && !c.parent && c.active) : undefined;
+  const configuredCategory = !budgetCap && category && !department && !subcategory && !query ? categories.find(c => c.name === category && !c.parent && c.active) : undefined;
   const catalogBody = (<div className="container catalog-layout">
         <aside className={`filters ${mobileFilters ? "mobile-open" : ""}`}>
           {bnNode(filters)}

@@ -1,3 +1,5 @@
+import GallerySummaryEditor from "./GallerySummaryEditor";
+import {productPageContent} from "./product-page-content";
 import BrandLogo from "./BrandLogo";
 import { bestSelling, productSales } from "./best-selling";
 import OffersAdmin from "./OffersAdmin";
@@ -1109,7 +1111,7 @@ function ProductEditor({
       wide
     >
       <div className="editor-tabs">
-        {bnNode(["The basics", "Media & details", "Variants", "SEO & experience"].map(
+        {bnNode(["The basics", "Media & details", "Variants", "ছবির নিচের তথ্য", "SEO & experience"].map(
           (t) => (
             <button
               key={t}
@@ -1132,6 +1134,8 @@ function ProductEditor({
             setTab("The basics");
             return;
           }
+          const pageContent=productPageContent(draft);
+          if(pageContent.gallerySummaryMode==='custom'&&pageContent.gallerySummaryFacts.some(r=>!r.label.trim()||!r.value.trim())){s.toast('কার্ডের প্রতিটি তথ্যের নাম ও মান পূরণ করুন।');setTab('ছবির নিচের তথ্য');return;}
           const record = { ...draft, variants };
           s.setProducts((x) =>
             product
@@ -1409,7 +1413,7 @@ function ProductEditor({
             >
               <Plus size={15} />{bnNode("Add a variant")}</Button>
           </div>
-        ) : (
+        ) : tab === "ছবির নিচের তথ্য" ? <GallerySummaryEditor value={productPageContent(draft)} onChange={patch=>set("page",{...draft.page,...patch})}/> : (
           <div className="form-stack">
             <label className="field">{bnNode("SEO title")}<input
                 maxLength={70}

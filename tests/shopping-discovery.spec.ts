@@ -1,4 +1,6 @@
 import {test,expect} from '@playwright/test';
+
+test.beforeEach(async({page})=>{await page.addInitScript(()=>{const c=JSON.parse(localStorage.getItem('nirbhor-v1-content')||'{}');c['welcome-offer-popup']=JSON.stringify({version:2,items:[]});localStorage.setItem('nirbhor-v1-content',JSON.stringify(c));});});
 import {productSales} from '../src/best-selling';
 
 for(const width of [1440,1024,768,390,320])test(`every slide keeps its hero and following content stationary at ${width}px`,async({page})=>{

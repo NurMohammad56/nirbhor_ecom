@@ -3,6 +3,7 @@ import { sellingDescription } from "./merchandising-copy";
 
 export type ProductBlockId = "benefits" | "details" | "source" | "faq" | "reviews" | "bundle" | "related";
 export type ProductPageContent = {
+ showGallerySummary:boolean;gallerySummaryTitle:string;gallerySummaryText:string;gallerySummaryMode:'auto'|'custom';gallerySummaryFacts:{label:string;value:string}[];gallerySummaryShowPack:boolean;gallerySummaryShowLinks:boolean;gallerySummaryShowSupport:boolean;
   headline: string; kicker: string; shortDescription: string;
   addToCartText: string; buyNowText: string; orderButtonText: string;
   quickOrderTitle: string; quickOrderText: string; quickOrderButtonText: string;
@@ -23,6 +24,7 @@ export const productBlockNames: Record<ProductBlockId, string> = { benefits: "�
 export function productPageContent(p: Product): ProductPageContent {
   const custom = p.page || {};
   const defaults: ProductPageContent = {
+ showGallerySummary:true,gallerySummaryTitle:'কেনার আগে এক নজরে',gallerySummaryText:'',gallerySummaryMode:'auto',gallerySummaryFacts:[],gallerySummaryShowPack:true,gallerySummaryShowLinks:true,gallerySummaryShowSupport:true,
     headline: "", kicker: "", shortDescription: sellingDescription(p), addToCartText: "", buyNowText: "", orderButtonText: "",
     quickOrderTitle: "", quickOrderText: "", quickOrderButtonText: "",
     assurances: [{ title: "ডেলিভারির তথ্য", text: "ঠিকানা অনুযায়ী চার্জ অর্ডারের আগে দেখুন" }, { title: "পেমেন্ট ও সহায়তা", text: "ডেলিভারি ও পেমেন্টের শর্ত চেকআউটে দেখুন" }],

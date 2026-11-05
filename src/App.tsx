@@ -1,5 +1,6 @@
 import { bnNode, latinDigits } from "./bn";
 import StoreHeader from "./StoreHeader";
+import OfferPopup from "./OfferPopup";
 import DepartmentLanding from "./DepartmentLanding";
 import { departments, departmentForProduct, productHref } from "./departments";
 import { useDepartment } from "./useDepartment";
@@ -196,6 +197,7 @@ function AppContent() {
         <>
           <Footer />
           <CartDrawer />
+          <OfferPopup />
         </>
       ))}
     </>

@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Upload } from "lucide-react";
 import { bnNode } from "./bn";
 
-export default function HeroImagePicker({value,onChange}:{value:string;onChange:(value:string)=>void}) {
+export default function HeroImagePicker({value,onChange,label='Hero image URL',uploadLabel='হিরোর ছবি আপলোড'}:{value:string;onChange:(value:string)=>void;label?:string;uploadLabel?:string}) {
   const id=useId(),request=useRef(0),[busy,setBusy]=useState(false),[error,setError]=useState("");
   useEffect(()=>()=>{request.current++;},[]);
   async function upload(file?:File) {
@@ -27,9 +27,9 @@ export default function HeroImagePicker({value,onChange}:{value:string;onChange:
     finally {if(request.current===token)setBusy(false);}
   }
   return <div className="hero-image-picker">
-    <label className="field">{bnNode('Hero image URL')}<input aria-label={bnNode('Hero image URL')} value={value.startsWith('data:')?'':value} placeholder={value.startsWith('data:')?'কম্পিউটার থেকে বাছাই করা ছবি':'https://…'} onChange={e=>{request.current++;setBusy(false);setError('');onChange(e.target.value);}}/></label>
+    <label className="field">{bnNode(label)}<input aria-label={bnNode(label)} value={value.startsWith('data:')?'':value} placeholder={value.startsWith('data:')?'কম্পিউটার থেকে বাছাই করা ছবি':'https://…'} onChange={e=>{request.current++;setBusy(false);setError('');onChange(e.target.value);}}/></label>
     <label className={`hero-image-upload ${busy?'is-busy':''}`} htmlFor={id}><Upload size={16}/>{busy?'ছবি প্রস্তুত হচ্ছে…':'কম্পিউটার থেকে ছবি বেছে নিন'}</label>
-    <input id={id} className="hero-image-file" type="file" accept="image/jpeg,image/png,image/webp" disabled={busy} aria-label="হিরোর ছবি আপলোড" onChange={e=>{const file=e.target.files?.[0];e.target.value='';void upload(file);}}/>
+    <input id={id} className="hero-image-file" type="file" accept="image/jpeg,image/png,image/webp" disabled={busy} aria-label={uploadLabel} onChange={e=>{const file=e.target.files?.[0];e.target.value='';void upload(file);}}/>
     <small>JPG, PNG বা WebP। ছবি বেছে নিয়ে পেজ সেভ করুন।</small>
     {error&&<p className="field-error" role="alert">{error}</p>}
   </div>;

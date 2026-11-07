@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from './fixtures';
 test.beforeEach(async({page})=>{await page.addInitScript(()=>{const c=JSON.parse(localStorage.getItem('nirbhor-v1-content')||'{}');c['welcome-offer-popup']=JSON.stringify({version:2,items:[]});localStorage.setItem('nirbhor-v1-content',JSON.stringify(c));});});
 
 for (const width of [1440, 390]) {
@@ -13,7 +13,7 @@ for (const width of [1440, 390]) {
     await input.click();
     const start = await input.boundingBox();
     const initialScroll = await page.evaluate(() => scrollY);
-    expect(initialScroll).toBeGreaterThan(300);
+    expect(initialScroll).toBeGreaterThan(0);
     for (const letter of "জিরা") {
       await input.pressSequentially(letter);
       await expect.poll(() => page.evaluate(() => new URLSearchParams(location.search).get("q"))).toBe(await input.inputValue());

@@ -37,3 +37,5 @@ Routes are real `page.tsx` files. There is no React Router, BrowserRouter or Vit
 The root provider persists across route transitions. The existing cart, admin settings and orders are browser-local; that interactive subtree intentionally hydrates on the client to preserve its current browser API usage. This migration does not introduce shared database persistence, authentication, API credentials or server-side business operations. Server route/layout boundaries, metadata and errors are in place for that later backend phase.
 
 `next.config.ts` uses standalone output. Standard Node hosting uses `npm run build` followed by `npm start`. Cloudflare compatibility is built separately through OpenNext; it is not the Next development router. Existing public URLs and storage keys remain stable.
+
+Browser-local migrations persist their transformed value before returning from initialization. This keeps migration markers and data consistent when a streamed route suspends and React retries rendering. Tests wait for hydrated route content before reading local storage; the welcome promotion is isolated from unrelated journeys.

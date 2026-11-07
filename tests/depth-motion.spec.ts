@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures';
 
 test('editorial images respond to scrolling while their shopping copy remains stable',async({page})=>{
   await page.emulateMedia({reducedMotion:'no-preference'});await page.goto('/');

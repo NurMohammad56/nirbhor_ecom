@@ -3,7 +3,7 @@ import path from 'node:path';
 import {execFileSync} from 'node:child_process';
 const root=process.cwd();
 const run=(file,args)=>execFileSync(process.execPath,[file,...args],{cwd:root,stdio:'inherit',env:{...process.env,WRANGLER_SEND_METRICS:'false'}});
-run('node_modules/next/dist/bin/next',['build','--webpack']);
+if(!process.argv.includes('--skip-next-build'))run('node_modules/next/dist/bin/next',['build','--webpack']);
 run('node_modules/@opennextjs/cloudflare/dist/cli/index.js',['build','--skipNextBuild']);
 const dist=path.resolve(root,'dist');
 if(path.dirname(dist)!==path.resolve(root)||path.basename(dist)!=='dist')throw Error('Unexpected build output path');

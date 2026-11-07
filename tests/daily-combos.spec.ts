@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from './fixtures';
 import { bn } from "../src/lib/bn";
 
 test("daily catalog migration preserves edits and does not resurrect deleted products or combos", async ({ page }) => {

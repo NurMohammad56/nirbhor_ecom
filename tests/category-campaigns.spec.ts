@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures';
 import {bn} from '../src/lib/bn';
 
 test('each department has three generated campaign backgrounds, real product picks and working feature links',async({page})=>{

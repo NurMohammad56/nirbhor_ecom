@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures';
 import {defaultPopup,popupConfigKey} from '../src/lib/offer-popup';
 import type {OfferPopupConfig} from '../src/lib/offer-popup';
 import {bn} from '../src/lib/bn';
@@ -108,10 +108,10 @@ test('mobile popup fits 320px, scrolls on short screens and respects device cont
 test('admin rejects unsafe destinations and invalid time ranges',async({page})=>{
  await setup(page,{enabled:false});await page.goto('/admin/offer-popup');
  await page.getByLabel('বাটনের লিংক (ঐচ্ছিক)').fill('javascript:alert(1)');
- await page.getByRole('button',{name:'পপআপ সেভ করুন',exact:true}).click();await expect(page.getByRole('alert')).toContainText('সঠিক পেজ বা https:// লিংক দিন');
+ await page.getByRole('button',{name:'পপআপ সেভ করুন',exact:true}).click();await expect(page.locator('.field-error[role="alert"]')).toContainText('সঠিক পেজ বা https:// লিংক দিন');
  await page.getByLabel('বাটনের লিংক (ঐচ্ছিক)').fill('/offers');
  await page.getByLabel('শুরুর সময় (বাংলাদেশ)').fill('2030-01-02T00:00');await page.getByLabel('শেষের সময় (বাংলাদেশ)').fill('2030-01-01T00:00');
- await page.getByRole('button',{name:'পপআপ সেভ করুন',exact:true}).click();await expect(page.getByRole('alert')).toContainText('শেষের সময়');
+ await page.getByRole('button',{name:'পপআপ সেভ করুন',exact:true}).click();await expect(page.locator('.field-error[role="alert"]')).toContainText('শেষের সময়');
 });
 
 test('each new document entry shows again, but internal navigation does not',async({page,context})=>{

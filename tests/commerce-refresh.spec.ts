@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 import { bn } from '../src/lib/bn';
 import { departmentOffers } from '../src/lib/offer-merchandising';
 import { seedProducts } from '../src/data/catalog';

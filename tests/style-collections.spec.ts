@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 import { bn } from '../src/lib/bn';
 
 test('sneakers and watches are complete departments with scoped products and configurable digital showcases',async({page})=>{

@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from './fixtures';
 import { bn } from "../src/lib/bn";
 import { cartTotals } from "../src/providers/store-provider";
 import { seedProducts, seedSettings } from "../src/data/catalog";

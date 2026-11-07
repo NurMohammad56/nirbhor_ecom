@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from './fixtures';
 import { bn } from "../src/lib/bn";
 
 test("category rail moves continuously, pauses on hover and resumes on leaving", async ({ page }) => {

@@ -1,5 +1,5 @@
 import { bn } from "../src/lib/bn";
-import { test, expect } from "@playwright/test";
+import { test, expect } from './fixtures';
 
 test("cancellation restores stock once and reopening reserves it again", async ({
   page,

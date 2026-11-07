@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 import { bn } from '../src/lib/bn';
 
 test('watch audience collections filter independently and merchants can reassign a product',async({page})=>{

@@ -1,5 +1,5 @@
 import { bn } from "../src/lib/bn";
-import { test, expect } from "@playwright/test";
+import { test, expect } from './fixtures';
 test("customer completes a variant-aware, discounted guest order and tracks it", async ({
   page,
 }) => {

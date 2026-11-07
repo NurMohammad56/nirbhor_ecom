@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from './fixtures';
 import { bn } from "../src/lib/bn";
 
 test("admin adds, orders and hides category sections with selected products and a working all-products link", async ({ page }) => {

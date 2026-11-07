@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from './fixtures';
 import { bn } from "../src/lib/bn";
 
 test("Smart Life joins discovery, navigation, scoped collections and English product search", async ({ page }) => {

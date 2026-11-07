@@ -1,3 +1,21 @@
+# Next.js migration - 5 November 2026
+
+The IDE workspace and published Site now use Next.js 16.4.5 App Router with React 19. The former Vite entry and React Router runtime were removed. See [ARCHITECTURE.md](ARCHITECTURE.md).
+
+- Site: https://nirbhor-store-updated.nm-bdcalling.chatgpt.site
+- Source checkout: `sites/nirbhor-updated`
+- Project: `appgprj_6ae04bcedab881918716df4efecbf2b7`
+- Commit: `fcbdc3e5d3e8085ea0ca576c4670a0f2aa2763c6`
+- Deployment: `appgdep_6aeca4008b6c8191bb9754043e9afe04` (succeeded)
+- Saved version: `appgprj_6ae04bcedab881918716df4efecbf2b7~appgver_8bbbd213244c81919acc47fb105fbda9`
+- Native Next production build and type checks passed. Full regression: 140/142 initially passed; the two migration failures were fixed and verified again. Final Cloudflare Worker regression: 19/19 passed.
+- Existing browser-local merchant/customer state and owner-private access are retained. A shared database backend is not part of this migration.
+- Run locally: `npm run dev`. Production: `npm run build`, then `npm start`.
+
+The root's legacy hosting identity remains untouched. Publish only from the source checkout above.
+
+---
+
 # বর্তমান প্রকাশিত নির্ভর সাইট
 
 ## সর্বশেষ প্রকাশ - ৫ নভেম্বর ২০২৬

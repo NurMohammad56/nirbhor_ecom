@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from './fixtures';
 import { bn } from "../src/lib/bn";
 
 test("pickles join an existing store once without replacing edits or readding merchant deletions", async ({ page }) => {

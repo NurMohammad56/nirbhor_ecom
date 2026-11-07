@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 import { bn } from '../src/lib/bn';
 
 test('Tech catalogue filters stay inside a narrow mobile viewport',async({page})=>{

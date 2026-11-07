@@ -1,5 +1,5 @@
 import { bn } from "../src/lib/bn";
-import { test, expect } from "@playwright/test";
+import { test, expect } from './fixtures';
 
 test("cinematic slides advance with just two arrows and pause while a shopping link has focus", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "no-preference" });

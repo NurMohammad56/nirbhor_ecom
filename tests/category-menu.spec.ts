@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures';
 import {bn} from '../src/lib/bn';
 
 test('catalogue pagination fits a narrow phone and remains usable',async({page})=>{

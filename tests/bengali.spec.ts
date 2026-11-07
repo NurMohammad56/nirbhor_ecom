@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from './fixtures';
 
 test("Bengali search, navigation and validation work with Bengali mobile digits", async ({page}) => {
   await page.goto("/");

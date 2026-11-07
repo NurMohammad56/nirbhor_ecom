@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from './fixtures';
 import { bn } from "../src/lib/bn";
 
 const savePage = async (page: import("@playwright/test").Page) => page.locator(".page-editor-save").getByRole("button", { name: "পরিবর্তন সেভ করুন", exact: true }).click();

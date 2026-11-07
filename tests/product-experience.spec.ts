@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures';
 import {bn} from '../src/lib/bn';
 
 test('delivery estimate follows region and quantity with actual free-shipping threshold',async({page})=>{

@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures';
 import {bn} from '../src/lib/bn';
 test.beforeEach(async({page})=>{await page.addInitScript(()=>{const content=JSON.parse(localStorage.getItem('nirbhor-v1-content')||'{}');content['welcome-offer-popup']=JSON.stringify({version:2,items:[]});localStorage.setItem('nirbhor-v1-content',JSON.stringify(content));});});
 

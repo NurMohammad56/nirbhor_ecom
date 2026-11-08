@@ -1,4 +1,5 @@
 "use client";
+import {imageVariants} from "@/lib/image-variants";
 import { Link } from "@/lib/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { useStore } from "@/providers/store-provider";
@@ -17,7 +18,7 @@ export default function CollectionStories(){
     <div className="collection-story-grid" data-count={items.length}>{items.map(d=>{
       const exp=experienceForDepartment(d,categories);
       return <Link className={`collection-story collection-story-${d.slug}`} to={'/'+d.slug} key={d.slug} data-depth="collection" data-depth-max="18">
-        <div className="collection-story-media" aria-hidden="true"><img src={exp.heroImage} alt="" loading="lazy" decoding="async"/></div>
+        <div className="collection-story-media" aria-hidden="true"><img {...imageVariants(exp.heroImage,'(max-width:700px) 100vw, 50vw')} src={exp.heroImage} alt="" loading="lazy" decoding="async"/></div>
         <div className="collection-story-copy"><span>{bnNode(d.name==='Home'?'Home & living':d.name)}</span><h3>{(titles[d.slug]||exp.heroTitle).split('\n').map((line,index)=><span key={index}>{bnNode(line)}</span>)}</h3><span className="collection-story-action">কালেকশন দেখুন<ArrowUpRight size={18}/></span></div>
       </Link>;
     })}</div>

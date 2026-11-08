@@ -25,7 +25,7 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for the App Router, feature, component, p
 
 ## Category experience prototype
 
-The main homepage now presents NIRBHOR as a multi-category brand. It includes a newly generated cross-category hero, four department entrances, a curated product edit, and the brand's selection and packing story.
+The main homepage now presents NIRBHOR as a multi-category brand. It includes an offer-driven photographic hero, nine-department interactive discovery, a curated product edit, and the brand's selection and packing story.
 
 | Department | Landing        | Catalogue           | Design direction                                   |
 | ---------- | -------------- | ------------------- | -------------------------------------------------- |
@@ -33,6 +33,11 @@ The main homepage now presents NIRBHOR as a multi-category brand. It includes a 
 | Beauty     | `/beauty`      | `/beauty/shop`      | Blush, dusty plum, skincare still life             |
 | Fashion    | `/fashion`     | `/fashion/shop`     | Charcoal, warm neutrals, fashion editorial imagery |
 | Home       | `/home-living` | `/home-living/shop` | Sand, clay, tactile home photography               |
+| Smart life | `/smart-life` | `/smart-life/shop` | Mineral workbench and useful daily products |
+| Sneakers | `/sneakers` | `/sneakers/shop` | Terra product lookbook and size selection |
+| Watches | `/watches` | `/watches/shop` | Bronze watch presentation and audience discovery |
+| Tech | `/tech` | `/tech/shop` | Dark workbench and interactive product selection |
+| Perfume | `/perfume` | `/perfume/shop` | Fragrance families and visual scent layers |
 
 Department colours and navigation continue into product and campaign pages. Old product and campaign URLs remain usable. Fashion samples include size selection, a size guide and fabric details. Different departments share one bag, customer account and neutral checkout.
 
@@ -49,7 +54,7 @@ npm install
 npm run dev
 ```
 
-Open **http://localhost:5173**. The admin workspace is **/admin**. Customer sign-in includes an **Explore a demo customer account** button. The mobile OTP demonstration uses **961204**.
+Open **http://localhost:3000**. The admin workspace is **/admin**. Customer sign-in includes an **Explore a demo customer account** button. The mobile OTP demonstration uses **961204**.
 
 ```sh
 npm run build       # TypeScript verification and production bundle
@@ -95,19 +100,16 @@ To reset the demo, clear this origin's site data in your browser. To preserve it
 
 ## Structure
 
-- `src/data.ts` — typed models and fixtures
-- `src/store.tsx` — persistent state, cart, promotion calculations and order placement
-- `src/order-logic.ts`, `src/inventory-actions.ts`, `src/category-tree.ts` — shared rules
-- `src/ui.tsx` — shared storefront components and accessible overlays
-- `src/Home.tsx`, `src/Catalog.tsx`, `src/Product.tsx`, `src/Commerce.tsx`, `src/Public.tsx` — customer screens
-- `src/Admin.tsx`, `src/AdminMore.tsx` — admin screens and editors
-- `src/styles.css`, `src/commerce.css`, `src/admin.css` — responsive design system
-- `public/assets`, `public/fonts` — locally served, optimised assets
-- `tests/commerce.spec.ts` — browser workflow checks
-- `tests/departments.spec.ts` — category navigation, palette continuity, mixed checkout, editor persistence, migration and mobile checks
-- `src/BrandHome.tsx`, `src/DepartmentLanding.tsx`, `src/StoreHeader.tsx` — multi-category storefront prototype
-- `src/departments.ts`, `src/department-state.ts`, `src/useDepartment.ts` — department configuration, migration and context
-- `src/DepartmentExperiencesAdmin.tsx`, `src/departments.css` — category experience editing and design
+- `src/app/` - native Next.js App Router pages, layouts, loading and error states
+- `src/data/catalog.ts` - typed catalogue models and prototype fixtures
+- `src/providers/store-provider.tsx` - persistent browser-local commerce state
+- `src/lib/` - pricing, inventory, navigation, department configuration and design tokens
+- `src/components/` - shared storefront components, navigation and accessible overlays
+- `src/features/home`, `catalog`, `departments`, `products`, `offers` - discovery and shopping screens
+- `src/features/commerce`, `content`, `admin` - purchase/account flows, public content and merchant editors
+- `src/styles/` - shared foundations and feature styles; see `DESIGN_SYSTEM.md`
+- `public/assets`, `public/fonts` - local photography, responsive variants and fonts
+- `tests/` - browser workflow, merchant controls, responsive and motion regression checks
 
 See [ASSETS.md](ASSETS.md) for image creation prompts and image / font sources.
 
@@ -119,7 +121,7 @@ The V3 storage migration updates only known demo image references and the former
 
 ## Signature commerce and perfume
 
-The shared visual layer is `src/styles/signature-commerce.css`. It refines the home campaign, navigation, cards, actions and admin surfaces. Perfume is a ninth department at `/perfume` and `/perfume/shop`, with three clearly labeled conceptual products and generated imagery. All use the existing cart and checkout.
+The shared visual tokens and components are defined in `src/styles/design-system.css`, `src/styles/world-editorial.css`, `src/styles/commerce-pages.css` and `src/lib/design-system.ts`; specialist fragrance presentation lives in `src/styles/perfume-experience.css`. See `DESIGN_SYSTEM.md`, `DESIGN_RESEARCH.md`, `UI_AUDIT.md` and `REDESIGN_QA.md` for the redesign decisions, protected flows and measured checks. Regenerate stock thumbnail sizes with `node scripts/prepare-image-variants.mjs` when stock WebP assets change. Perfume is a ninth department at `/perfume` and `/perfume/shop`, with three clearly labeled conceptual products and generated imagery. All use the existing cart and checkout.
 
 `src/lib/perfume-state.ts` appends seed data once, preserving merchant edits and later removals. `PerfumeExperience.tsx` supplies the category hero, scent-family finder and homepage feature. Existing category section controls decide whether the scent studio (`story`) and product/review blocks appear.
 

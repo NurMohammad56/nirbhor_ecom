@@ -1,4 +1,5 @@
 "use client";
+import {imageVariants} from "@/lib/image-variants";
 import { reviewSummary } from "@/lib/product-page-content";
 import QuickOrderButton from "@/features/products/QuickOrderButton";
 import { CouponPrice } from "@/features/offers/OfferPrice";
@@ -249,7 +250,7 @@ export function ProductCard({
     <article className={`product-card ${compact ? "compact" : ""}`}>
       <div className="product-photo">
         <Link to={href} aria-label={bnNode(`View ${p.name}`)}>
-          <img src={p.image} alt={bnNode(p.name)} loading="lazy" decoding="async" width="640" height="640" />
+          <img {...imageVariants(p.image)} src={p.image} alt={bnNode(p.name)} loading="lazy" decoding="async" width="640" height="640" />
         </Link>
         {p.stock>0&&p.oldPrice>displayPrice ? <Badge tone="warm actual-discount">{bnNode(Math.floor((p.oldPrice-displayPrice)/p.oldPrice*100)+"% ছাড়")}</Badge> : bnNode(p.badge && <Badge tone="">{bnNode(p.badge)}</Badge>)}
         <button
@@ -429,7 +430,7 @@ export function Header() {
                       key={p.id}
                       to={productHref(p, categories)}
                     >
-                      <img src={p.image} alt={bnNode("")} />
+                      <img {...imageVariants(p.image)} src={p.image} alt={bnNode("")} />
                       <div>
                         {bnNode(p.name)}
                         <small>{bnNode(p.weight)}</small>
@@ -651,7 +652,7 @@ export function Footer() {
   return (
     <>
       <Newsletter />
-      <footer className="site-footer">
+      <footer className="site-footer" aria-label="নির্ভর সেবা ও তথ্য">
         <div className="container footer-grid">
           <div className="footer-brand">
             <Link to="/" className="wordmark">
@@ -663,18 +664,11 @@ export function Footer() {
                 href={settings.social}
                 target="_blank"
                 rel="noreferrer"
-                aria-label={bnNode("Facebook")}
+                aria-label={bnNode(settings.social.includes('instagram')?"Instagram":"Facebook")}
               >
-                <Facebook size={17} />
+                {settings.social.includes('instagram')?<Instagram size={17}/>:<Facebook size={17}/>}
               </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label={bnNode("Instagram")}
-              >
-                <Instagram size={17} />
-              </a>
+
             </div>
           </div>
           <div>
@@ -689,6 +683,7 @@ export function Footer() {
               ["Sneakers", "/sneakers"],
               ["Watches", "/watches"],
               ["Tech", "/tech"],
+              ["পারফিউম", "/perfume"],
               ["Offers & bundles", "/offers"],
             ].map(([t, u]) => (
               <Link to={u} key={t}>
@@ -736,12 +731,7 @@ export function Footer() {
         </div>
         <div className="container footer-bottom">
           <span>{bnNode("© ")}{bnNode(new Date().getFullYear())} {bnNode(settings.name)}{bnNode(". Thoughtfully, always.")}</span>
-          <span className="payment-marks">
-            <span>{bnNode("CASH ON DELIVERY")}</span>
-            <b>{bnNode("bKash")}</b>
-            <b>{bnNode("VISA")}</b>
-            <span>{bnNode("◉ Mastercard")}</span>
-          </span>
+          <span className="payment-marks">{settings.cod && <span>ক্যাশ অন ডেলিভারি</span>}{settings.online && <span>অনলাইন পেমেন্ট প্রিভিউ</span>}</span>
           <span>{bnNode("Good choices. Good living.")}</span>
         </div>
       </footer>
@@ -840,7 +830,7 @@ export function CartDrawer() {
                       to={`/product/${p.id}`}
                       onClick={() => setDrawer(false)}
                     >
-                      <img src={p.image} alt={bnNode(p.name)} />
+                      <img {...imageVariants(p.image)} src={p.image} alt={bnNode(p.name)} />
                     </Link>
                     <div>
                       <strong>{bnNode(p.name)}</strong>

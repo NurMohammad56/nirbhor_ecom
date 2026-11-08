@@ -1,4 +1,5 @@
 "use client";
+import {imageVariants} from "@/lib/image-variants";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@/lib/navigation";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
@@ -54,7 +55,7 @@ export default function CategoryRail({ items, label = "ক্যাটাগর�
       <div className="category-rail-track">
         {Array.from({ length: reduced ? 1 : copies }, (_, copy) => <div className="category-rail-group" ref={copy === 0 ? groupRef : undefined} key={copy} aria-hidden={copy ? true : undefined}>
           {items.map(item => <Link className={`category-rail-card ${item.department && copy === 0 ? "brand-department-card" : ""}`} to={item.to} key={item.id} tabIndex={copy ? -1 : undefined}>
-            <div className="category-rail-image"><img src={item.image} alt="" loading="lazy" draggable={false} /><span><ArrowUpRight size={17} /></span></div>
+            <div className="category-rail-image"><img {...imageVariants(item.image,'180px')} src={item.image} alt="" loading="lazy" draggable={false} /><span><ArrowUpRight size={17} /></span></div>
             <strong>{bnNode(item.name)}</strong>
           </Link>)}
         </div>)}

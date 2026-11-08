@@ -1,4 +1,6 @@
 "use client";
+import {imageVariants} from "@/lib/image-variants";
+import {DepartmentGallery} from "@/features/departments/WorldEditorial";
 import {PerfumeInvitation} from "@/features/departments/PerfumeExperience";
 import { bnNode } from "@/lib/bn";
 import { useState } from "react";
@@ -102,6 +104,7 @@ export default function BrandHome() {
         <CategoryRail items={categories.filter(c => !c.parent && c.active).filter(c => { const d = departments.find(item => item.categoryId === c.id); return !d || experienceForDepartment(d, categories).enabled; }).sort((a,b) => a.sort-b.sort).map(c => { const d = departments.find(item => item.categoryId === c.id); return { id:c.id, name:d ? (d.name === "Home" ? "Home & living" : d.name) : c.name, image:d ? experienceForDepartment(d, categories).heroImage : c.image, to:d ? "/"+d.slug : "/shop?category="+encodeURIComponent(c.name), department:!!d }; })} />
       </section>
 
+      <DepartmentGallery/>
       <FlashSale/>
       <CouponShelf/>
       <section className="container brand-section brand-everyday-edit">
@@ -140,7 +143,7 @@ export default function BrandHome() {
         <div className="container brand-story">
           <div className="brand-story-image" data-depth="image" data-depth-max="18">
             <img
-              src="/assets/brand-story-v5.webp"
+              {...imageVariants('/assets/brand-story-v5.webp','(max-width:700px) 100vw, 50vw')} src="/assets/brand-story-v5.webp"
               alt={bnNode("Carefully wrapping selected everyday products at the Nirbhor packing table")}
               loading="lazy"
             />

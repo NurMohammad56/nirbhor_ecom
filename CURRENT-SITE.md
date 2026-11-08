@@ -1,3 +1,19 @@
+# নির্ভর - Commerce redesign - ৮ নভেম্বর ২০২৬
+
+হোমপেজ, নেভিগেশন, ৯টি ডিপার্টমেন্ট, ক্যাটালগ/PDP, কার্ট-চেকআউট, অ্যাকাউন্ট, পাবলিক পেজ ও অ্যাডমিনের শেয়ার করা ডিজাইন আপডেট। নতুন ইন্টার‌্যাকটিভ category gallery, editorial product selection, fragrance keyboard tabs ও responsive WebP variants যুক্ত হয়েছে।
+
+- Site: https://nirbhor-store-updated.nm-bdcalling.chatgpt.site
+- Live smoke check: home, Tech, Sneakers, Perfume and perfume PDP returned 200 and hydrated without client exceptions.
+- Source commit: `6a6cc30a78dce3f3abbb15d6fc454460000d75e8`
+- Deployment: `appgdep_6af04c357714819190610a93dde827eb` (succeeded)
+- Saved version: `appgprj_6ae04bcedab881918716df4efecbf2b7~appgver_a57a4f886e64819194278be4e2bb0eb1`
+- Next production build / TypeScript passed; 156 browser tests passed; 23 bundled Worker tests passed; 192 responsive page/viewport states checked without overflow, broken images or client exceptions.
+- Details: [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md), [DESIGN_RESEARCH.md](DESIGN_RESEARCH.md), [UI_AUDIT.md](UI_AUDIT.md), [REDESIGN_QA.md](REDESIGN_QA.md).
+- IDE root code mirrored with baseline hash checks. Its legacy hosting identity and AGENTS instructions remain unchanged. Publish only from `sites/nirbhor-updated`.
+- Existing localStorage commerce/authentication/payment previews remain frontend-only. No production backend or payment gateway was added.
+
+---
+
 # Signature commerce ও পারফিউম - ৮ নভেম্বর ২০২৬
 
 হোমপেজ, নেভিগেশন, পণ্যের কার্ড, বাটন ও অ্যাডমিনের shared design আপডেট করা হয়েছে। নতুন নবম বিভাগ `/perfume`, তিনটি নমুনা পণ্য, scent-family finder, interactive top/heart/base notes এবং admin controls যুক্ত হয়েছে।

@@ -1,4 +1,5 @@
 "use client";
+import WorldEditorial from "@/features/departments/WorldEditorial";
 import {PerfumeHero,ScentStudio} from "@/features/departments/PerfumeExperience";
 import { bnNode } from "@/lib/bn";
 import { Link, useParams } from "@/lib/navigation";
@@ -161,54 +162,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
       </section>),
     combos: (<ComboShowcase category={category.name} />),
     reviews: (<CustomerVoices category={category.name} />),
-    story: d.slug === "perfume" ? <ScentStudio/> : (<section className="container brand-section department-editorial botanical-stage">
-        <div className="department-editorial-image" data-depth="image" data-depth-max="18">
-          <img
-            src={d.storyImage}
-            alt={
-              bnNode(d.storyCaption || (d.slug === "smart-life" ? "দৈনন্দিন কাজে সেন্সর লাইটের ব্যবহার" : d.slug === "organic"
-                ? "A forest full of natural character"
-                : d.slug === "fashion"
-                  ? "A closer look at considered fabric and tailoring"
-                  : d.slug === "beauty"
-                    ? "A closer look at your daily care"
-                    : "Natural linen and thoughtful home details"))
-            }
-            loading="lazy"
-          />
-          <span>
-            {bnNode(d.storyCaption || (d.slug === "smart-life" ? "প্রয়োজনে মানায়, প্রতিদিন কাজে লাগে।" : d.name === "Organic"
-              ? "ORIGINS MATTER."
-              : d.name === "Beauty"
-                ? "A MOMENT FOR YOURSELF."
-                : d.name === "Fashion"
-                  ? "THE DETAILS MAKE THE DIFFERENCE."
-                  : "THE COMFORT IS IN THE DETAILS."))}
-          </span>
-        </div>
-        <div>
-          
-          <h2>
-            {bnNode(exp.storyTitle.split("\n").map((line, i) => (
-              <span key={i}>{bnNode(line)}</span>
-            )))}
-          </h2>
-          <p>{bnNode(exp.storyText)}</p>
-          <div className="department-editorial-details">
-            {bnNode(d.features.map((text) => (
-              <span key={text}>
-                <Check size={13} />
-                {bnNode(text)}
-              </span>
-            )))}
-          </div>
-          <Link
-            to={d.slug === "organic" ? "/page/sourcing" : "/about"}
-            className="brand-underlined"
-          >{bnNode("A little more about our choices ")}<ArrowUpRight size={16} />
-          </Link>
-        </div>
-      </section>),
+    story: d.slug === "perfume" ? <ScentStudio/> : <div className="container world-story-wrap"><WorldEditorial slug={d.slug}/></div>,
     faq: (<section className="department-faq-section botanical-stage">
         {!["smart-life","sneakers","watches","tech"].includes(d.slug) && <Botanical kind={d.slug === "organic" ? "leaf" : "dry"} className="editorial-botanical" />}
         <div className="container brand-section department-faq">

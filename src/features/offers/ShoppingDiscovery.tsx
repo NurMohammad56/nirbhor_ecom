@@ -1,4 +1,5 @@
 "use client";
+import {imageVariants} from "@/lib/image-variants";
 import {useState} from "react";
 import {Link} from "@/lib/navigation";
 import {ArrowUpRight,Check,Copy,Gift,Sparkles,TicketPercent,TrendingUp,Wallet} from "lucide-react";
@@ -9,7 +10,7 @@ import {availableCoupon,couponConditions,rememberOffer} from "@/lib/offer-mercha
 
 export function ShoppingShortcuts(){
   const items=[{label:"চলতি ছাড়",text:"ছাড়ের পণ্য একসঙ্গে",to:"/shop?collection=offers",image:"sale"},{label:"কম্বো অফার",text:"একসঙ্গে কেনার সাশ্রয়",to:"/offers?tab=combo",image:"combo"},{label:"নতুন বাছাই",text:"কালেকশনের নতুন সংযোজন",to:"/shop?collection=new",image:"new"},{label:"বেশি অর্ডারের পণ্য",text:"অর্ডার অনুযায়ী সাজানো",to:"/shop?collection=bestsellers",image:"popular"}];
-  return <nav className="container shopping-shortcuts" aria-label="কেনাকাটার শর্টকাট">{items.map(({label,text,to,image})=><Link key={to} to={to}><img className="shortcut-photo" src={"/assets/shop-shortcut-"+image+"-v1.webp"} alt="" width="64" height="64"/><span><b>{label}</b><small>{text}</small></span><ArrowUpRight size={16}/></Link>)}</nav>;
+  return <nav className="container shopping-shortcuts" aria-label="কেনাকাটার শর্টকাট">{items.map(({label,text,to,image})=><Link key={to} to={to}><img {...imageVariants('/assets/shop-shortcut-'+image+'-v1.webp','70px')} className="shortcut-photo" src={"/assets/shop-shortcut-"+image+"-v1.webp"} alt="" width="64" height="64"/><span><b>{label}</b><small>{text}</small></span><ArrowUpRight size={16}/></Link>)}</nav>;
 }
 
 export function CouponShelf(){
@@ -26,5 +27,5 @@ export function BudgetFinds(){
  const live=s.products.filter(p=>p.status==="Published"&&p.stock>0);
  const groups=[500,1000,2000].map(cap=>{const products=live.filter(p=>p.price<=cap).sort((a,b)=>a.price-b.price);const preferred=products.filter(p=>p.price>cap/2).sort((a,b)=>b.price-a.price);return {cap,products,art:[...preferred,...products].filter((p,i,list)=>list.findIndex(item=>item.id===p.id)===i).slice(0,3)};}).filter(g=>g.products.length);
  if(!groups.length)return null;
- return <section className="container budget-finds" aria-labelledby="budget-heading"><div className="shopping-section-heading"><div><span><Wallet size={15}/>বাজেট থাকুক আপনার হাতে</span><h2 id="budget-heading">ছোট বাজেটেও ভালো পছন্দ</h2></div><Link to="/shop?sort=price-low">সব পণ্য<ArrowUpRight size={16}/></Link></div><div className="budget-finds-grid">{groups.map(({cap,products,art})=><Link className="budget-find-card" key={cap} to={"/shop?budget="+cap+"&max="+cap+"&stock=true&sort=price-low"}><div className="budget-find-copy"><span>আপনার বাজেট</span><h3>{bnNode(money(cap))}<small>এর মধ্যে</small></h3><p>{bnNode(products.length+"টি পণ্য")} · {bnNode(money(products[0].price))} থেকে</p><b>পছন্দগুলো দেখুন<ArrowUpRight size={15}/></b></div><div className="budget-find-art" aria-hidden="true">{art.map(p=><img key={p.id} src={p.image} alt="" width="140" height="160" loading="lazy" decoding="async"/>)}</div></Link>)}</div></section>;
+ return <section className="container budget-finds" aria-labelledby="budget-heading"><div className="shopping-section-heading"><div><span><Wallet size={15}/>বাজেট থাকুক আপনার হাতে</span><h2 id="budget-heading">ছোট বাজেটেও ভালো পছন্দ</h2></div><Link to="/shop?sort=price-low">সব পণ্য<ArrowUpRight size={16}/></Link></div><div className="budget-finds-grid">{groups.map(({cap,products,art})=><Link className="budget-find-card" key={cap} to={"/shop?budget="+cap+"&max="+cap+"&stock=true&sort=price-low"}><div className="budget-find-copy"><span>আপনার বাজেট</span><h3>{bnNode(money(cap))}<small>এর মধ্যে</small></h3><p>{bnNode(products.length+"টি পণ্য")} · {bnNode(money(products[0].price))} থেকে</p><b>পছন্দগুলো দেখুন<ArrowUpRight size={15}/></b></div><div className="budget-find-art" aria-hidden="true">{art.map(p=><img {...imageVariants(p.image,'180px')} key={p.id} src={p.image} alt="" width="140" height="160" loading="lazy" decoding="async"/>)}</div></Link>)}</div></section>;
 }

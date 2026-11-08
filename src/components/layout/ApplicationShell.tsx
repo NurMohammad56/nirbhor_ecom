@@ -8,6 +8,7 @@ import {useDepartment} from '@/hooks/useDepartment';
 import {useSeo} from '@/hooks/seo';
 import {usePageReveal} from '@/hooks/usePageReveal';
 import {useDepthMotion} from '@/hooks/useDepthMotion';
+import {visualTheme} from "@/lib/design-system";
 import StoreHeader from '@/components/StoreHeader';
 import OfferPopup from '@/features/offers/OfferPopup';
 import {Footer,CartDrawer} from '@/components/ui';
@@ -40,10 +41,15 @@ export default function ApplicationShell({children}:{children:ReactNode}) {
   }, [location.pathname, location.search, location.hash]);
   useEffect(() => {
     const root = document.documentElement;
+    const theme = visualTheme(department?.slug,experience?.accent || (!department?s.settings.color:undefined));
     root.dataset.department = department?.slug || "main";
+    root.dataset.page = location.pathname.split("/")[1] || "home";
+    root.style.setProperty("--world-accent",theme.accent);
+    root.style.setProperty("--world-surface",theme.surface);
+    root.style.setProperty("--world-ink",theme.ink);
     root.style.setProperty("--green", experience?.accent || s.settings.color);
     root.style.setProperty("--ink", experience?.ink || "#142D2A");
-    root.style.setProperty("--paper", "#F7FAF9");
+    root.style.setProperty("--paper", "#f7f6f2");
     root.style.setProperty(
       "--department-bg",
       experience?.background || "#f0ede5",
@@ -54,6 +60,7 @@ export default function ApplicationShell({children}:{children:ReactNode}) {
     );
     root.style.setProperty("--department-ink", experience?.ink || "#2d332e");
   }, [
+    location.pathname,
     s.settings.color,
     department?.slug,
     experience?.accent,

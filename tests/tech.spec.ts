@@ -47,7 +47,7 @@ test('Tech migration appends once while preserving merchant content, customer st
   });
   await page.reload();await page.reload();
   const state=await page.evaluate(()=>({p:JSON.parse(localStorage.getItem('nirbhor-v1-products')!),c:JSON.parse(localStorage.getItem('nirbhor-v1-categories')!),b:JSON.parse(localStorage.getItem('nirbhor-v1-banners')!),cart:JSON.parse(localStorage.getItem('nirbhor-v1-cart')!)}));
-  expect(state.p).toHaveLength(55);expect(state.p.find((p:any)=>p.id==='tech-headphones').description).toBe('নিজের দোকানের লেখা');
+  expect(state.p).toHaveLength(58);expect(state.p.find((p:any)=>p.id==='tech-headphones').description).toBe('নিজের দোকানের লেখা');
   expect(state.c.filter((c:any)=>c.id.startsWith('c-tech'))).toHaveLength(5);
   expect(state.c.find((c:any)=>c.id==='c-tech').experience.heroImage).toBe('/assets/tech-earbuds-v1.webp');
   expect(state.b).toHaveLength(9);expect(state.cart).toEqual([{id:'p2',variant:'250g',quantity:2}]);
@@ -88,6 +88,6 @@ test('admin controls Tech hero, sections and public visibility',async({page})=>{
   await page.getByRole('switch',{name:new RegExp(bn('Department landing is enabled'))}).uncheck();
   await page.getByRole('button',{name:bn('Save changes'),exact:true}).click();
   await page.goto('/');await expect(page.locator('.brand-nav a[href="/tech"],.brand-department-card[href="/tech"]')).toHaveCount(0);
-  await expect(page.locator('.cinema-scene')).toHaveCount(8);
+  await expect(page.locator('.cinema-scene')).toHaveCount(9);
   await page.goto('/tech');await expect(page.locator('.department-hero')).toHaveCount(0);
 });

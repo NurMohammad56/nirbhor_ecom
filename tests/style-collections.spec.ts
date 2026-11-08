@@ -3,8 +3,8 @@ import { bn } from '../src/lib/bn';
 
 test('sneakers and watches are complete departments with scoped products and configurable digital showcases',async({page})=>{
   await page.goto('/');
-  await expect(page.locator('.brand-department-card')).toHaveCount(8);
-  await expect(page.locator('.cinema-scene')).toHaveCount(9);
+  await expect(page.locator('.brand-department-card')).toHaveCount(9);
+  await expect(page.locator('.cinema-scene')).toHaveCount(10);
   for(const [slug,name] of [['sneakers','স্নিকার্স'],['watches','ঘড়ি']]){
     await page.locator('.brand-nav').getByRole('link',{name,exact:true}).click();
     await expect(page).toHaveURL('/'+slug);
@@ -32,7 +32,7 @@ test('style migration preserves saved edits and customer data and respects subse
   });
   await page.reload();await page.reload();
   const state=await page.evaluate(()=>({p:JSON.parse(localStorage.getItem('nirbhor-v1-products')!),c:JSON.parse(localStorage.getItem('nirbhor-v1-categories')!),b:JSON.parse(localStorage.getItem('nirbhor-v1-banners')!),cart:JSON.parse(localStorage.getItem('nirbhor-v1-cart')!)}));
-  expect(state.p).toHaveLength(55);expect(state.p.find((p:any)=>p.id==='sneaker-court').description).toBe('আমাদের নিজস্ব জোড়া');
+  expect(state.p).toHaveLength(58);expect(state.p.find((p:any)=>p.id==='sneaker-court').description).toBe('আমাদের নিজস্ব জোড়া');
   expect(state.c.filter((c:any)=>c.id.startsWith('c-sneakers')||c.id.startsWith('c-watches'))).toHaveLength(7);
   expect(state.b).toHaveLength(9);expect(state.cart).toEqual([{id:'p2',variant:'250g',quantity:2}]);
   await page.evaluate(()=>localStorage.setItem('nirbhor-v1-products',JSON.stringify(JSON.parse(localStorage.getItem('nirbhor-v1-products')!).filter((p:any)=>p.id!=='watch-rose'))));

@@ -39,3 +39,5 @@ The root provider persists across route transitions. The existing cart, admin se
 `next.config.ts` uses standalone output. Standard Node hosting uses `npm run build` followed by `npm start`. Cloudflare compatibility is built separately through OpenNext; it is not the Next development router. Existing public URLs and storage keys remain stable.
 
 Browser-local migrations persist their transformed value before returning from initialization. This keeps migration markers and data consistent when a streamed route suspends and React retries rendering. Tests wait for hydrated route content before reading local storage; the welcome promotion is isolated from unrelated journeys.
+
+Perfume uses the same department routing and commerce state. Its optional fragrance fields live in `ProductPageContent`, are editable in ProductPageAdmin and render through FragranceNotes. All motion respects reduced-motion preferences and ambient work pauses outside the viewport.

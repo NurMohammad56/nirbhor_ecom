@@ -1,4 +1,5 @@
 "use client";
+import {migratePerfumeState} from "@/lib/perfume-state";
 import { bnNode } from "@/lib/bn";
 import { eligibleCouponItems } from "@/lib/order-logic";
 import { seedCombos, seedDiscounts, comboAvailable, comboPacks, comboIssues, promotionSavings, offerActive } from "@/lib/promotions";
@@ -52,7 +53,7 @@ function usePersist<T>(
   const [value, setValue] = useState<T>(() => {
     try {
       const saved = localStorage.getItem("nirbhor-v1-" + key);
-      const migrated = migrateCommerceTheme(key, migrateSneakerStudio(key, migrateCollectionRefresh(key, migrateTechState(key, migrateStyleState(key, migrateSmartState(key, migrateDailyState(key, migratePantryState(key, migrateBrandState(key, migrateBengaliState(key, migrateSceneState(key, migrateDepartmentState(key, saved ? JSON.parse(saved) : initial))))))))))));
+      const migrated = migratePerfumeState(key, migrateCommerceTheme(key, migrateSneakerStudio(key, migrateCollectionRefresh(key, migrateTechState(key, migrateStyleState(key, migrateSmartState(key, migrateDailyState(key, migratePantryState(key, migrateBrandState(key, migrateBengaliState(key, migrateSceneState(key, migrateDepartmentState(key, saved ? JSON.parse(saved) : initial)))))))))))));
       // A Suspense retry may discard this state initializer after migrations set their markers.
       // Persist its result in the same synchronous transaction so retries read migrated data.
       localStorage.setItem("nirbhor-v1-" + key, JSON.stringify(migrated));

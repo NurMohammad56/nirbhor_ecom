@@ -9,7 +9,7 @@ import { categoryForDepartment, departmentShopHref, experienceForDepartment } fr
 import { bnNode } from "@/lib/bn";
 
 export function DepartmentSymbol({slug,size=20}:{slug:string;size?:number}) {
-  const symbols:Record<string,typeof Leaf>={organic:Leaf,beauty:Flower2,fashion:Shirt,"home-living":Armchair,"smart-life":Zap,sneakers:Footprints,watches:Watch,tech:Monitor};
+  const symbols:Record<string,typeof Leaf>={organic:Leaf,beauty:Flower2,fashion:Shirt,"home-living":Armchair,"smart-life":Zap,sneakers:Footprints,watches:Watch,tech:Monitor,perfume:Flower2};
   const Icon=symbols[slug]||Layers3;
   return <Icon size={size} strokeWidth={1.6}/>;
 }

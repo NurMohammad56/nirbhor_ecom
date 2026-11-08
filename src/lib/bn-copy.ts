@@ -1,5 +1,7 @@
 // Bengali presentation copy. Canonical catalogue/status values remain unchanged.
 export const bnCopy: Record<string, string> = Object.fromEntries(String.raw`
+Perfume¦পারফিউম
+Explore perfume¦পারফিউম দেখুন
 Tech¦টেক
 Explore tech¦টেক দেখুন
 Search tech…¦টেক পণ্য খুঁজুন

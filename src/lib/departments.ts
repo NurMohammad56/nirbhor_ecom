@@ -1,6 +1,7 @@
 import type { Category, DepartmentExperience, Product } from "@/data/catalog";
 import { smartDepartment } from "@/lib/smart-department";
 import { styleDepartments } from "@/lib/style-departments";
+import {perfumeDepartment} from "@/lib/perfume-department";
 import { techDepartment } from "@/lib/tech-department";
 
 export type Department = {
@@ -161,6 +162,7 @@ export const departments: Department[] = [
   smartDepartment,
   ...styleDepartments,
   techDepartment,
+  perfumeDepartment,
 ];
 export function categoryForDepartment(d: Department, categories: Category[]) {
   return (

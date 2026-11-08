@@ -26,6 +26,7 @@ import "@/styles/product-experience.css";
 import "@/styles/offer-popup.css";
 import "@/styles/catalog-product-refinement.css";
 import "@/styles/shopping-polish.css";
+import "@/styles/signature-commerce.css";
 export const metadata:Metadata={title:'নির্ভর',description:'অর্গানিক খাবার, বিউটি, পোশাক ও ঘরের প্রয়োজনীয় পণ্য - সব একসঙ্গে নির্ভরে।',icons:{icon:'/brand/nirbhor-icon.png'}};
 export const viewport:Viewport={width:'device-width',initialScale:1,themeColor:'#0F766E'};
 export default function RootLayout({children}:{children:ReactNode}){return <html lang="bn-BD"><body><Suspense fallback={<div className="route-loading">লোড হচ্ছে...</div>}><Providers>{children}</Providers></Suspense></body></html>;}

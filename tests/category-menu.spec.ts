@@ -14,7 +14,7 @@ test('the category directory is compact, image-free and closes when the pointer 
   const trigger=page.getByRole('button',{name:bn('Discover'),exact:true}),panel=page.locator('#category-directory');
   await trigger.hover();await expect(panel).toBeVisible();
   await expect(panel.locator('img')).toHaveCount(0);
-  await expect(panel.locator('.category-directory-group')).toHaveCount(8);
+  await expect(panel.locator('.category-directory-group')).toHaveCount(9);
   expect((await panel.boundingBox())!.height).toBeLessThan(550);
   const bounds=(await panel.boundingBox())!;await page.mouse.move(bounds.x+15,bounds.y+40);
   await expect(panel).toBeVisible();
@@ -45,7 +45,7 @@ test('compact navigation uses small symbols and closes with Escape',async({page}
   await page.setViewportSize({width:390,height:844});await page.goto('/');
   const trigger=page.getByRole('button',{name:bn('Open menu'),exact:true});await trigger.click();
   const menu=page.locator('.brand-mobile-nav');await expect(menu).toBeVisible();
-  await expect(menu.locator('img')).toHaveCount(0);await expect(menu.locator('.mobile-department-link')).toHaveCount(8);
+  await expect(menu.locator('img')).toHaveCount(0);await expect(menu.locator('.mobile-department-link')).toHaveCount(9);
   await page.keyboard.press('Escape');await expect(menu).toHaveCount(0);await expect(trigger).toBeFocused();
   expect(await page.evaluate(()=>document.body.style.overflow)).not.toBe('hidden');
 });

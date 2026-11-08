@@ -10,7 +10,7 @@ import {
 test("the homepage shows real offers and keeps all departments accessible", async ({page})=>{
  await page.goto('/');
  await expect(page.locator('.home-offer-slider h1')).toContainText('পছন্দের কেনাকাটায়');
- await expect(page.locator('.brand-department-card')).toHaveCount(8);
+ await expect(page.locator('.brand-department-card')).toHaveCount(9);
  for(const slug of ['organic','beauty','fashion','home-living','smart-life','sneakers','watches','tech'])await expect(page.locator('.brand-department-card[href="/'+slug+'"]')).toBeVisible();
  await expect(page.locator('.brand-story')).toContainText(bn('Selected with purpose'));
  await page.locator('.brand-department-card[href="/beauty"]').click();
@@ -171,7 +171,7 @@ test("the department upgrade preserves previous customer and catalogue data", as
     },
   );
   await page.goto("/");
-  await expect(page.locator(".brand-department-card")).toHaveCount(8);
+  await expect(page.locator(".brand-department-card")).toHaveCount(9);
   const before = await page.evaluate(() => ({
     products: JSON.parse(localStorage.getItem("nirbhor-v1-products") || "[]"),
     cart: JSON.parse(localStorage.getItem("nirbhor-v1-cart") || "[]"),
@@ -179,7 +179,7 @@ test("the department upgrade preserves previous customer and catalogue data", as
     addresses: JSON.parse(localStorage.getItem("nirbhor-v1-addresses") || "[]"),
   }));
   expect(before.products.find((p: any) => p.id === "p1").price).toBe(999);
-  expect(before.products.length).toBe(55);
+  expect(before.products.length).toBe(58);
   expect(before.cart[0].quantity).toBe(2);
   expect(before.orders.length).toBe(4);
   expect(before.addresses[0].id).toBe("old-address");
@@ -189,7 +189,7 @@ test("the department upgrade preserves previous customer and catalogue data", as
       () =>
         JSON.parse(localStorage.getItem("nirbhor-v1-products") || "[]").length,
     ),
-  ).toBe(55);
+  ).toBe(58);
 });
 
 test("all department templates, listing pages, product pages and editor fit mobile screens", async ({

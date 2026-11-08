@@ -116,3 +116,13 @@ See [ASSETS.md](ASSETS.md) for image creation prompts and image / font sources.
 The home hero now uses a full-width photographic carousel with crossfades, a pausable progress indicator and four direct department links. Each department has a full-width image hero with white copy and gentle scroll motion; Beauty includes a floating unbranded serum. Motion respects reduced-motion preferences and the carousel pauses when hovered, focused, offscreen or in a hidden tab. Header and admin typography, borders and contrast are stronger.
 
 The V3 storage migration updates only known demo image references and the former Nirbhor brand on Beauty/Clothing products. Custom supplier brands, uploaded images, prices, category copy, cart and customer data are preserved. Beauty and clothing use ?Imported collection? until actual supplier information is added. Generated photography is presentation material for this frontend, not a representation of verified commercial stock. Exact prompts and files: `design-assets/V3-PROMPTS.md`.
+
+## Signature commerce and perfume
+
+The shared visual layer is `src/styles/signature-commerce.css`. It refines the home campaign, navigation, cards, actions and admin surfaces. Perfume is a ninth department at `/perfume` and `/perfume/shop`, with three clearly labeled conceptual products and generated imagery. All use the existing cart and checkout.
+
+`src/lib/perfume-state.ts` appends seed data once, preserving merchant edits and later removals. `PerfumeExperience.tsx` supplies the category hero, scent-family finder and homepage feature. Existing category section controls decide whether the scent studio (`story`) and product/review blocks appear.
+
+In `/admin/experiences`, choose পারফিউম to change the hero image, title and description or disable the world. In `/admin/product-pages`, choose a perfume and open তথ্য ও FAQ to edit/hide its fragrance profile, sample label, top/heart/base notes and source explanation. Prices, variants and inventory remain in `/admin/products`. Generated photos do not carry Nirbhor labels on imported products.
+
+Fragrance notes describe an olfactory profile, not an ingredient/allergen list. No verified longevity, reviews or manufacturer claims are invented. Replace conceptual prices, photos and profiles with verified supplier data before using them as actual merchandise. Source review and exact built-in image-generation prompts: `design-assets/signature-perfume/`.

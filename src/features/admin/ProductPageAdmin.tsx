@@ -1,4 +1,5 @@
 "use client";
+import FragranceEditor from "@/features/admin/FragranceEditor";
 import GallerySummaryEditor from "@/features/admin/GallerySummaryEditor";
 import { useState } from "react";
 import { useNavigate, useSearchParams, Link } from "@/lib/navigation";
@@ -62,6 +63,7 @@ function PageEditor({ id, choose, preview }: { id: string; choose: (id: string) 
       </>}
       {tab === "details" && <>
  <GallerySummaryEditor value={draft} onChange={update}/>
+ {(product.category === "Perfume" || draft.showFragrance) && <FragranceEditor value={draft} onChange={update}/>}
         <section className="page-form-panel"><h2>বিস্তারিত বর্ণনা</h2>{text("detailsTitle", "বিস্তারিত অংশের শিরোনাম")}{text("detailsBody", "বিস্তারিত বর্ণনার লেখা", true, bnNode(product.description))}<PairEditor title="পণ্যের তথ্য" labels={["তথ্যের নাম", "তথ্যের মান"]} rows={draft.specifications.map(i => ({ first: i.label, second: i.value }))} onChange={rows => update({ specifications: rows.map(i => ({ label: i.first, value: i.second })) })} /></section>
         <section className="page-form-panel"><h2>উপাদান ও যত্ন</h2>{text("materialsTitle", "উপাদান অংশের শিরোনাম")}{text("materialsBody", "উপাদান ও ব্যবহারবিধি", true)}{text("ingredients", "উপাদানের তালিকা", true)}{text("storage", "সংরক্ষণ ও যত্নের নির্দেশনা", true)}{text("batch", "ব্যাচের তথ্য")}</section>
         <section className="page-form-panel"><h2>উৎসের গল্প</h2>{text("sourceTitle", "উৎসের গল্পের শিরোনাম")}{text("sourceText", "উৎসের গল্প", true, bnNode(product.description))}{text("sourceCaption", "উৎসের ছবির ক্যাপশন")}</section>

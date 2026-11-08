@@ -1,0 +1,31 @@
+{
+  "mode": "built-in image_gen",
+  "assets": [
+    {
+      "key": "hero",
+      "file": "public/assets/perfume-hero-v1.webp",
+      "prompt": "Create a photorealistic luxury fragrance editorial photograph, widescreen landscape 3:2, extremely high detail for an ecommerce hero. Large sculptural clear glass perfume bottle filled with warm amber liquid and a refined gold spherical cap, slightly turned, positioned right of center on a veined travertine plinth. Two smaller contrasting bottles behind, one smoky emerald fluted glass, one blush rose glass. Beautiful caustics and realistic glass refraction, warm champagne spotlight on deep forest green to black background, shadowed left third deliberately quiet for Bengali HTML headline overlay. Restrained jasmine sprig, bergamot half and two fine sandalwood pieces in foreground, no clutter, exceptional luxury fragrance campaign art direction. NO text, NO brand, NO logo, NO watermark, no UI. These are unbranded conceptual imported fragrance display bottles, never Nirbhor branded."
+    },
+    {
+      "key": "amber",
+      "file": "public/assets/perfume-amber-v1.webp",
+      "prompt": "Photorealistic luxury fragrance product photograph, square composition. One clear thick rectangular glass perfume bottle filled with amber liquid, rounded shoulders, spherical champagne gold cap, small blank cream label absolutely NO writing or brand. Warm beige travertine pedestal, sandalwood and a vanilla pod beside it, subtle warm sunlight glass caustics, exquisite realistic expensive product editorial. Entire bottle centered with generous margins. No text, logo, watermark. Conceptual sample imported perfume."
+    },
+    {
+      "key": "rose",
+      "file": "public/assets/perfume-rose-v1.webp",
+      "prompt": "Photorealistic luxury fragrance product photograph, square. One blush rose oval faceted glass perfume bottle with pearl cream cap, tiny blank label NO text or logos. Soft pink rose and white jasmine blossom beside travertine pedestal. Dusty mauve and pale champagne background, delicate light, intricate glass refraction, clean premium photographic composition, entire bottle centered with margins. Conceptual sample imported fragrance. No watermark."
+    },
+    {
+      "key": "noir",
+      "file": "public/assets/perfume-noir-v1.webp",
+      "prompt": "Photorealistic luxury fragrance product photograph, square. One smoky emerald translucent ribbed glass perfume bottle, geometric black cap, small blank brass label absolutely no writing or logo. A bergamot half, few leaves and two dark wood pieces beside it. Deep forest green and bronze background, beautiful natural raking light, precise realistic glass reflections. Entire bottle centered with generous margins. Expensive elegant conceptual imported fragrance, no text or watermark."
+    },
+    {
+      "key": "notes",
+      "file": "public/assets/perfume-notes-v1.webp",
+      "prompt": "Photorealistic luxury fragrance botanical still life, landscape 3:2. Very pale warm ivory background, three separate clean clusters along the lower half: sliced bergamot with one leaf on left, soft pink rose with white jasmine blossoms in center, fine sandalwood with a vanilla pod on right. Broad empty spaces between the clusters and above. Realistic textures and soft natural shadows, sophisticated editorial photograph. No bottles, no text, no labels or logos, no watermark."
+    }
+  ],
+  "note": "Original generated PNGs retained under CODEX_HOME/generated_images. WebP files optimized without upscaling."
+}

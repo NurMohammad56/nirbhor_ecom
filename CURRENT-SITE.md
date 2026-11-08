@@ -1,3 +1,19 @@
+# Signature commerce ও পারফিউম - ৮ নভেম্বর ২০২৬
+
+হোমপেজ, নেভিগেশন, পণ্যের কার্ড, বাটন ও অ্যাডমিনের shared design আপডেট করা হয়েছে। নতুন নবম বিভাগ `/perfume`, তিনটি নমুনা পণ্য, scent-family finder, interactive top/heart/base notes এবং admin controls যুক্ত হয়েছে।
+
+- Site: https://nirbhor-store-updated.nm-bdcalling.chatgpt.site
+- Perfume: https://nirbhor-store-updated.nm-bdcalling.chatgpt.site/perfume
+- Source commit: `7d1859adc6a35cf93bbdaaaf17b0d6aaa42d93ff`
+- Deployment: `appgdep_6aeffd3280148191b1be610271149afc` (succeeded)
+- Saved version: `appgprj_6ae04bcedab881918716df4efecbf2b7~appgver_8c39c5e4e648819182378da70042ba4e`
+- Production build ও TypeScript checks passed. Full regression: 144 passed initially; four legacy product-count assertions updated for the three new sample products and all four passed on rerun. Perfume Worker tests: 6/6 passed.
+- Hero settings: `/admin/experiences` > পারফিউম। Scent profile: `/admin/product-pages` > perfume product > তথ্য ও FAQ। দাম/স্টক: `/admin/products`।
+- Built-in image_gen: five optimized assets at `public/assets/perfume-*-v1.webp`; exact prompts and research at `design-assets/signature-perfume/`.
+- Perfume photos, prices and profiles remain clearly marked samples. Existing local merchant/customer state and owner-private sharing remain unchanged.
+
+---
+
 # Next.js migration - 5 November 2026
 
 The IDE workspace and published Site now use Next.js 16.4.5 App Router with React 19. The former Vite entry and React Router runtime were removed. See [ARCHITECTURE.md](ARCHITECTURE.md).

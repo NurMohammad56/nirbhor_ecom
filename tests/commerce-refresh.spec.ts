@@ -4,7 +4,7 @@ import { departmentOffers } from '../src/lib/offer-merchandising';
 import { seedProducts } from '../src/data/catalog';
 
 test('the home and all eight departments advertise real scoped offers with working destinations',async({page})=>{
-  await page.goto('/');await expect(page.locator('.home-offer-slider .cinema-scene')).toHaveCount(9);
+  await page.goto('/');await expect(page.locator('.home-offer-slider .cinema-scene')).toHaveCount(10);
   await expect(page.locator('.home-offer-slider .offer-slide-saving')).toHaveText('১০% ছাড়');
   await expect(page.locator('.home-offer-slider .offer-slide-conditions')).toContainText('ন্যূনতম ৳৫০০');
   await expect(page.locator('.flash-sale-section .product-card').first()).toBeVisible();

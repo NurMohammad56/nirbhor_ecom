@@ -3,6 +3,7 @@ import { sellingDescription } from "@/lib/merchandising-copy";
 
 export type ProductBlockId = "benefits" | "details" | "source" | "faq" | "reviews" | "bundle" | "related";
 export type ProductPageContent = {
+ showFragrance:boolean;fragranceSample:boolean;fragranceFamily:string;fragranceConcentration:string;fragranceTopNotes:string;fragranceHeartNotes:string;fragranceBaseNotes:string;fragranceContext:string;
  showGallerySummary:boolean;gallerySummaryTitle:string;gallerySummaryText:string;gallerySummaryMode:'auto'|'custom';gallerySummaryFacts:{label:string;value:string}[];gallerySummaryShowPack:boolean;gallerySummaryShowLinks:boolean;gallerySummaryShowSupport:boolean;
   headline: string; kicker: string; shortDescription: string;
   addToCartText: string; buyNowText: string; orderButtonText: string;
@@ -24,6 +25,7 @@ export const productBlockNames: Record<ProductBlockId, string> = { benefits: "�
 export function productPageContent(p: Product): ProductPageContent {
   const custom = p.page || {};
   const defaults: ProductPageContent = {
+ showFragrance:false,fragranceSample:false,fragranceFamily:"",fragranceConcentration:"",fragranceTopNotes:"",fragranceHeartNotes:"",fragranceBaseNotes:"",fragranceContext:"",
  showGallerySummary:true,gallerySummaryTitle:'কেনার আগে এক নজরে',gallerySummaryText:'',gallerySummaryMode:'auto',gallerySummaryFacts:[],gallerySummaryShowPack:true,gallerySummaryShowLinks:true,gallerySummaryShowSupport:true,
     headline: "", kicker: "", shortDescription: sellingDescription(p), addToCartText: "", buyNowText: "", orderButtonText: "",
     quickOrderTitle: "", quickOrderText: "", quickOrderButtonText: "",

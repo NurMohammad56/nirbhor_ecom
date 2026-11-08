@@ -9,6 +9,7 @@ import { sellingDescription } from "@/lib/merchandising-copy";
 import AmbientBackdrop from "@/components/AmbientBackdrop";
 import { departmentForProduct } from "@/lib/departments";
 import { productPageContent, reviewSummary, reviewSourceLabel, reviewIsVideo } from "@/lib/product-page-content";
+import FragranceNotes from "@/features/products/FragranceNotes";
 import { bnNode, latinDigits, searchText } from "@/lib/bn";
 import { DiscountHint } from "@/features/offers/OfferCards";
 import { useEffect, useRef, useState } from "react";
@@ -628,6 +629,7 @@ export default function ProductPage({
                     <Play size={22} />{bnNode("Watch the story")}</button>
                 ))}
               </div>
+              {!campaign && <FragranceNotes product={p}/>}
               {!campaign && <ProductGallerySummary product={p} variant={variant.label}/>}
             </div>
             <div className="product-purchase">
@@ -651,6 +653,7 @@ export default function ProductPage({
               {bnNode(campaign && config?.discount && (
                 <Badge tone="warm">{bnNode(config.label)}</Badge>
               ))}
+              {page.showFragrance && page.fragranceSample && <span className="fragrance-sample-tag">নমুনা পণ্য ও মূল্য</span>}
               <h1>{bnNode(page.headline || (campaign ? config?.headline : p.name))}</h1>
               {bnNode(campaign && (
                 <h3 className="campaign-product-name">

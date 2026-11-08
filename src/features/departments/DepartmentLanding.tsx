@@ -1,4 +1,5 @@
 "use client";
+import {PerfumeHero,ScentStudio} from "@/features/departments/PerfumeExperience";
 import { bnNode } from "@/lib/bn";
 import { Link, useParams } from "@/lib/navigation";
 import {
@@ -48,6 +49,7 @@ const questions: Record<string, [string, string][]> = {
     ["চার্জিং ও মডেলের তথ্য কোথায় দেখব?", "পণ্যের বিস্তারিত অংশে পাওয়ার, মাপ, ব্যবহারবিধি ও প্যাকের তথ্য দেখুন। কোনো তথ্য না থাকলে অর্ডারের আগে আমাদের কাছে জেনে নিন।"],
     ["ওয়ারেন্টি বা পরিবর্তনের সুযোগ আছে?", "শর্ত পণ্য ও মডেল অনুযায়ী আলাদা হতে পারে। নির্বাচিত পণ্যের ওয়ারেন্টি ও রিটার্নের তথ্য দেখে নিন অথবা সহায়তার জন্য যোগাযোগ করুন।"],
   ],
+  perfume: [["কোন সুগন্ধ দিয়ে শুরু করব?","সতেজ ঘ্রাণ পছন্দ হলে ফ্রেশ ও সিট্রাস, ফুলের আবেশ চাইলে ফ্লোরাল, আর উষ্ণতা চাইলে উডি ও অ্যাম্বার বিভাগটি দেখুন।"],["টপ, হার্ট ও বেস নোট কী?","এগুলো ঘ্রাণের বিভিন্ন অনুভব বোঝানোর বর্ণনা। নোট পণ্যের উপাদান বা অ্যালার্জেনের সম্পূর্ণ তালিকা নয়।"],["স্থায়িত্ব ও আসল পণ্যের তথ্য কীভাবে জানব?","ব্র্যান্ড, পরিমাণ, ঘনত্ব ও প্রস্তুতকারকের তথ্য পণ্যের বিস্তারিত অংশে মিলিয়ে নিন। ত্বক ও আবহাওয়াভেদে সুগন্ধের অভিজ্ঞতা বদলাতে পারে।"]],
   organic: [
     [
       "What can I find in the pantry?",
@@ -159,7 +161,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
       </section>),
     combos: (<ComboShowcase category={category.name} />),
     reviews: (<CustomerVoices category={category.name} />),
-    story: (<section className="container brand-section department-editorial botanical-stage">
+    story: d.slug === "perfume" ? <ScentStudio/> : (<section className="container brand-section department-editorial botanical-stage">
         <div className="department-editorial-image" data-depth="image" data-depth-max="18">
           <img
             src={d.storyImage}
@@ -252,7 +254,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
   };
   return (
     <main className={`department-landing department-${d.slug}`}>
-      {offerSlides(store,d.slug).length ? <div className="container department-promo-wrap"><CinematicHero slides={offerSlides(store,d.slug)} department/></div> : <section data-depth={d.slug === "sneakers" ? undefined : "hero"} data-depth-max="18" className="department-hero-shell immersive-department">
+      {d.slug === "perfume" ? <div className="container perfume-hero-wrap"><PerfumeHero/></div> : offerSlides(store,d.slug).length ? <div className="container department-promo-wrap"><CinematicHero slides={offerSlides(store,d.slug)} department/></div> : <section data-depth={d.slug === "sneakers" ? undefined : "hero"} data-depth-max="18" className="department-hero-shell immersive-department">
         <div className="department-immersive-media" aria-hidden="true">
           <img src={exp.heroImage} alt={bnNode("")} fetchPriority="high" />
         </div>

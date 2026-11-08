@@ -1,4 +1,5 @@
 "use client";
+import {PerfumeInvitation} from "@/features/departments/PerfumeExperience";
 import { bnNode } from "@/lib/bn";
 import { useState } from "react";
 import { Link } from "@/lib/navigation";
@@ -128,6 +129,7 @@ export default function BrandHome() {
         </div>
         <ProductCarousel items={selected} bare className="brand-edit-products" label="আপনার জন্য বাছাই পণ্য"/>
       </section>
+      <PerfumeInvitation/>
       <BudgetFinds/>
       <CollectionStories/>
       <ComboShowcase />

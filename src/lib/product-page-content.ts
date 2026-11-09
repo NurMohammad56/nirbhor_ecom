@@ -4,6 +4,9 @@ import { sellingDescription } from "@/lib/merchandising-copy";
 export type ProductBlockId = "benefits" | "details" | "source" | "faq" | "reviews" | "bundle" | "related";
 export type ProductPageContent = {
  showFragrance:boolean;fragranceSample:boolean;fragranceFamily:string;fragranceConcentration:string;fragranceTopNotes:string;fragranceHeartNotes:string;fragranceBaseNotes:string;fragranceContext:string;
+ fragranceKicker:string;fragranceTitle:string;fragranceIntro:string;fragranceShowNoteImages:boolean;
+ fragranceTopDescription:string;fragranceHeartDescription:string;fragranceBaseDescription:string;
+ fragranceTopImage:string;fragranceHeartImage:string;fragranceBaseImage:string;fragranceOccasion:string;fragranceUsage:string;
  showGallerySummary:boolean;gallerySummaryTitle:string;gallerySummaryText:string;gallerySummaryMode:'auto'|'custom';gallerySummaryFacts:{label:string;value:string}[];gallerySummaryShowPack:boolean;gallerySummaryShowLinks:boolean;gallerySummaryShowSupport:boolean;
   headline: string; kicker: string; shortDescription: string;
   addToCartText: string; buyNowText: string; orderButtonText: string;
@@ -26,6 +29,9 @@ export function productPageContent(p: Product): ProductPageContent {
   const custom = p.page || {};
   const defaults: ProductPageContent = {
  showFragrance:false,fragranceSample:false,fragranceFamily:"",fragranceConcentration:"",fragranceTopNotes:"",fragranceHeartNotes:"",fragranceBaseNotes:"",fragranceContext:"",
+ fragranceKicker:'সুগন্ধকে একটু চিনে নিন',fragranceTitle:'প্রতিটি নোটে, আলাদা অনুভব।',fragranceIntro:'টপ, হার্ট ও বেস নোট বেছে ঘ্রাণের বর্ণনা পড়ুন। নিজের পছন্দের সঙ্গে মিলিয়ে নিন।',fragranceShowNoteImages:true,
+ fragranceTopDescription:'প্রথম পরিচয়ের ঘ্রাণকে টপ নোট বলা হয়। এই প্রোফাইলের শুরুর অনুভব এখানে তুলে ধরা হয়েছে।',fragranceHeartDescription:'সুগন্ধের মাঝের চরিত্রকে হার্ট নোট বলা হয়। ফুলেল, মসলাদার বা অন্য যে আবেশটি পণ্যে বর্ণিত আছে, সেটি এখানে দেখুন।',fragranceBaseDescription:'সুগন্ধের গভীর, শেষের চরিত্রকে বেস নোট বলা হয়। ত্বক ও পরিবেশভেদে ঘ্রাণের অভিজ্ঞতা আলাদা হতে পারে।',
+ fragranceTopImage:'',fragranceHeartImage:'',fragranceBaseImage:'',fragranceOccasion:'',fragranceUsage:'',
  showGallerySummary:true,gallerySummaryTitle:'কেনার আগে এক নজরে',gallerySummaryText:'',gallerySummaryMode:'auto',gallerySummaryFacts:[],gallerySummaryShowPack:true,gallerySummaryShowLinks:true,gallerySummaryShowSupport:true,
     headline: "", kicker: "", shortDescription: sellingDescription(p), addToCartText: "", buyNowText: "", orderButtonText: "",
     quickOrderTitle: "", quickOrderText: "", quickOrderButtonText: "",

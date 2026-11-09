@@ -17,7 +17,7 @@ test('fragrance note tabs support keyboard navigation and skip missing merchant 
  await tabs.getByRole('tab').first().focus();await page.keyboard.press('ArrowRight');await expect(tabs.getByRole('tab').nth(1)).toBeFocused();
  await expect(tabs.getByRole('tab').nth(1)).toHaveAttribute('aria-selected','true');await page.keyboard.press('End');await expect(tabs.getByRole('tab').last()).toBeFocused();
  await page.evaluate(()=>{const items=JSON.parse(localStorage.getItem('nirbhor-v1-products')!);const p=items.find((p:any)=>p.id==='perfume-amber');p.page={...p.page,fragranceTopNotes:'',fragranceHeartNotes:'',fragranceBaseNotes:'Cedar'};localStorage.setItem('nirbhor-v1-products',JSON.stringify(items));});
- await page.reload();await expect(page.locator('.scent-layer-tabs [aria-selected=true]')).toHaveText('বেস নোট');await expect(page.locator('.scent-layer-panel h3')).toHaveText('Cedar');
+ await page.reload();await expect(page.locator('.scent-layer-tabs [aria-selected=true]')).toHaveAccessibleName('বেস নোট');await expect(page.locator('.scent-layer-panel h3')).toHaveText('Cedar');
 });
 
 test('hidden departments and disabled editorial sections stay under merchant control',async({page})=>{

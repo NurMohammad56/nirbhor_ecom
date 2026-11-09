@@ -3,7 +3,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Upload } from "lucide-react";
 import { bnNode } from "@/lib/bn";
 
-export default function HeroImagePicker({value,onChange,label='Hero image URL',uploadLabel='হিরোর ছবি আপলোড'}:{value:string;onChange:(value:string)=>void;label?:string;uploadLabel?:string}) {
+export default function HeroImagePicker({value,onChange,label='Hero image URL',uploadLabel='হিরোর ছবি আপলোড',maxWidth=1920,maxHeight=1280}:{value:string;onChange:(value:string)=>void;label?:string;uploadLabel?:string;maxWidth?:number;maxHeight?:number}) {
   const id=useId(),request=useRef(0),[busy,setBusy]=useState(false),[error,setError]=useState("");
   useEffect(()=>()=>{request.current++;},[]);
   async function upload(file?:File) {
@@ -16,7 +16,7 @@ export default function HeroImagePicker({value,onChange,label='Hero image URL',u
       const bitmap=await createImageBitmap(file);
       let data:string;
       try {
-        const ratio=Math.min(1,1920/bitmap.width,1280/bitmap.height),canvas=document.createElement('canvas');
+        const ratio=Math.min(1,maxWidth/bitmap.width,maxHeight/bitmap.height),canvas=document.createElement('canvas');
         canvas.width=Math.max(1,Math.round(bitmap.width*ratio));canvas.height=Math.max(1,Math.round(bitmap.height*ratio));
         const context=canvas.getContext('2d');if(!context)throw Error('Canvas unavailable');
         context.drawImage(bitmap,0,0,canvas.width,canvas.height);data=canvas.toDataURL('image/webp',.86);

@@ -9,7 +9,7 @@ import {money,itemPrice} from '@/data/catalog';
 import {bnNode} from '@/lib/bn';
 import {fragranceNotes,matchesFragranceNote,perfumeCollectionHero} from '@/lib/fragrance-discovery';
 import {productPageContent} from '@/lib/product-page-content';
-import {BotanicalSprite} from '@/features/products/FragranceDiagram';
+import {BotanicalSprite} from '@/components/BotanicalSprite';
 
 export function PerfumeHero(){
  const s=useStore(),d=departments.find(d=>d.slug==='perfume')!,category=categoryForDepartment(d,s.categories),exp=experienceForDepartment(d,s.categories),p=s.products.find(p=>p.id==='perfume-amber'&&p.status==='Published'&&p.category===category?.name)||s.products.find(p=>p.category===category?.name&&p.status==='Published'),ref=useRef<HTMLElement>(null),moving=useAmbientMotion(ref),custom=exp.heroImage!=='/assets/perfume-hero-v1.webp',notes=p?productPageContent(p):null;

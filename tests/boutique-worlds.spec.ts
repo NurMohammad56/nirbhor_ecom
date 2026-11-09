@@ -26,7 +26,7 @@ test('perfume categories use botanical pictures and jasmine discovery uses saved
 test('perfume removes the anatomy section while collection links and product note diagrams remain usable',async({page})=>{
  await page.goto('/perfume');await expect(page.getByText('THE ANATOMY OF A SCENT',{exact:true})).toHaveCount(0);await expect(page.locator('.department-section-slot[data-block="story"]')).toHaveCount(0);await expect(page.locator('.perfume-edge-botanicals img')).toHaveCount(2);
  await page.locator('.perfume-text-link').click();await expect(page).toHaveURL(/#department-collections$/);await expect(page.locator('.fragrance-families')).toBeInViewport();
- await page.goto('/perfume/product/perfume-rose');await expect(page.locator('.fragrance-notes .fragrance-callout')).toHaveCount(3);await page.locator('.fragrance-callout.note-1').click();await expect(page.locator('.fragrance-callout.note-1')).toHaveAttribute('aria-pressed','true');await expect(page.locator('.fragrance-context')).toContainText('নমুনা');
+ await page.goto('/perfume/product/perfume-rose');await expect(page.locator('.fragrance-notes [role="tab"]')).toHaveCount(3);await page.getByRole('tab',{name:'হার্ট নোট',exact:true}).click();await expect(page.getByRole('tabpanel',{name:'হার্ট নোট',exact:true})).toContainText('গোলাপ, জুঁই');await expect(page.locator('.fragrance-context')).toContainText('নমুনা');
 });
 
 test('the footwear offer strip preserves configured coupon destinations',async({page})=>{

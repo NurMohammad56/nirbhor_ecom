@@ -1,3 +1,34 @@
+# নির্ভর - Editable fragrance profile cards - ৯ নভেম্বর ২০২৬
+
+পারফিউমের বিস্তারিত পেজে পুরোনো floating-bottle diagram সরিয়ে নতুন তথ্যভিত্তিক কার্ড: editable শিরোনাম/পরিচিতি, তিনটি নোট ট্যাব, নোটের ছবি ও বিস্তারিত ব্যাখ্যা, ঘ্রাণের ধরন/ঘনত্ব এবং optional ব্যবহার/উপযোগিতার তথ্য।
+
+- Site: https://nirbhor-store-updated.nm-bdcalling.chatgpt.site/perfume/product/perfume-amber
+- Admin: `/admin/product-pages?product=perfume-amber` > তথ্য ও FAQ > পারফিউমের সুগন্ধের প্রোফাইল। প্রতিটি নোটের ছবি upload/URL/remove, সব নতুন লেখা, ছবি দেখানো/লুকানো এবং পুরো সেকশন চালু/বন্ধ নিয়ন্ত্রণ আছে।
+- Source commit: `eb2f31d42b3692753a0ae48253a0d625e15cb3fa`
+- Deployment: `appgdep_6af12fc9cd788191bc93d21cbd54689d` (succeeded)
+- Published smoke check: home, Tech, Sneakers, Perfume, the updated perfume PDP and the profile editor returned HTTP 200 and hydrated without client exceptions; new editor controls were present and the old diagram was absent.
+- Saved version: `appgprj_6ae04bcedab881918716df4efecbf2b7~appgver_c771a70062d08191b52da60875ceae82`
+- Checks: native build and source/root TypeScript passed; full native run 167 passed plus eight test-selector ambiguities corrected, then all 19 cases in affected files passed. Exact Worker suite 40/40 passed. Twenty responsive PDP/editor states passed without overflow, missing images or client exceptions.
+- Existing IDs, prices, saved product edits, visibility, storage keys and purchasing remain unchanged. No new backend or dependency was introduced. Root code mirrored with pre-edit hash checks; its legacy hosting identity is unchanged.
+- Implementation, changed files and precise QA record: [BOUTIQUE_REDESIGN.md](BOUTIQUE_REDESIGN.md).
+
+---
+
+# নির্ভর - Perfume section cleanup - ৯ নভেম্বর ২০২৬
+
+পারফিউম landing থেকে THE ANATOMY OF A SCENT/studio section সরানো হয়েছে। হিরোর secondary link কালেকশনে যায়। বিদ্যমান শুকনো ডালের asset দিয়ে দুই পাশে হালকা decoration যোগ হয়েছে; মোবাইলে ছোট ও কম opacity। পণ্যের বিস্তারিত পেজের notes/diagram, admin profile edits, ordering এবং custom collection blocks বজায় আছে।
+
+- Site: https://nirbhor-store-updated.nm-bdcalling.chatgpt.site/perfume
+- Source commit: `b6aeb4cdbf80986244b06648b67a86aae6481440`
+- Deployment: `appgdep_6af122dafd20819197ddba5bfbdd5fc4` (succeeded)
+- Published smoke check: home, Tech, Sneakers, Perfume and perfume PDP returned HTTP 200 and hydrated without client exceptions.
+- Saved version: `appgprj_6ae04bcedab881918716df4efecbf2b7~appgver_9857c7ae53588191aa7d675a0f1e265e`
+- Native production build passed; 29 native browser tests and 29 exact Worker-bundle tests passed. 20 responsive page/viewport states passed without overflow, broken images or client exceptions. Root TypeScript check passed.
+- Source/root changes mirrored with baseline file hashes; existing owner-private audience and root legacy hosting manifest remain unchanged.
+- Implementation and check details: [BOUTIQUE_REDESIGN.md](BOUTIQUE_REDESIGN.md).
+
+---
+
 # নির্ভর - Bold sneaker and aquatic perfume heroes - ৮ নভেম্বর ২০২৬
 
 স্নিকার্সে গাঢ় forest/petrol রঙ, উজ্জ্বল amber/mint accent; গোল outline ও round image crop সরানো হয়েছে। পারফিউমে নতুন aquatic hero: সাতটি unbranded বোতল ত্রিভুজ বিন্যাসে, ফুল, চন্দন, শুকনো ডাল ও পানির আলো। ছবিগুলো ছোট করে মোট সাতটি ঘ্রাণভিত্তিক কালেকশন দেখানো হয়। Admin hero/category uploads, saved notes, pricing ও কেনাকাটার আচরণ বজায় আছে।

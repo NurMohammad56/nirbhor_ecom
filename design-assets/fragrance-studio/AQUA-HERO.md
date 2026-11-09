@@ -1,0 +1,11 @@
+# Aquatic seven-bottle collection campaign
+
+Generated with the built-in image_gen tool on 8 November 2026. No API/CLI fallback was used. This is an unbranded campaign visual, not seven new inventory records or a claim that the sample products have these exact bottles.
+
+Final asset: `public/assets/fragrance/aqua-collection-v3.webp`, 1536 x 1024, WebP quality 88. The original is retained at `C:/Users/bdcalling/.codex/generated_images/01a1769e-dd5c-7583-9d6e-5750846c30ec/exec-dfd2273b-b1f1-4dea-bfbe-72882a1fd49d.png`.
+
+The seven bottles, triangular arrangement, flowers, dry branch and water lighting were visually inspected. Only encoding/size optimization was performed after generation. No competitor mark or fictitious product certification was added.
+
+## Exact prompt
+
+Use case: ads-marketing. Asset type: premium perfume ecommerce hero photography, wide landscape 3:2, highest detail. Create a genuinely premium editorial still life with EXACTLY SEVEN elegant unbranded glass perfume bottles arranged as a clear triangular pyramid composition: one taller central bottle at the apex toward back, two medium bottles in middle row, four bottles subtly staggered in the broad foreground base. All seven clearly visible and distinct, not stacked physically. Mix amber square glass, blush pink oval glass, emerald glass, transparent pale blue glass, small champagne and dark sapphire bottles with refined silver or gold caps, blank discreet labels, absolutely no text or logos. Scene: translucent aqua water and deep petrol-blue reflections on a wet glass plinth, rippled water caustic light. Tasteful small real jasmine blossoms and a pale rose at the base, bergamot half, a few sandalwood pieces and an elegant sparse dry branch on one side. Restrained botanical styling, don't obscure bottles. Cool luminous ice-blue highlights, rich teal shadows, warm amber liquid contrast. Studio perfume campaign, photoreal glass refraction and water, precise sharp edges, no illustration. Composition fills the image attractively with generous breathing space around the triangle and no clipped caps, front view slightly elevated. Background seamless watery teal-blue, brighter pale aqua around bottle silhouettes, not beige, not pastel peach. No lettering, no claims, no badges, no UI, no shop, no people, no extra bottles, no circular disk behind them.

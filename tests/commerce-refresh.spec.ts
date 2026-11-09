@@ -3,12 +3,12 @@ import { bn } from '../src/lib/bn';
 import { departmentOffers } from '../src/lib/offer-merchandising';
 import { seedProducts } from '../src/data/catalog';
 
-test('the home and all eight departments advertise real scoped offers with working destinations',async({page})=>{
+test('the home and campaign-based departments advertise real scoped offers with working destinations',async({page})=>{
   await page.goto('/');await expect(page.locator('.home-offer-slider .cinema-scene')).toHaveCount(10);
   await expect(page.locator('.home-offer-slider .offer-slide-saving')).toHaveText('১০% ছাড়');
   await expect(page.locator('.home-offer-slider .offer-slide-conditions')).toContainText('ন্যূনতম ৳৫০০');
   await expect(page.locator('.flash-sale-section .product-card').first()).toBeVisible();
-  for(const slug of ['organic','beauty','fashion','home-living','smart-life','sneakers','watches','tech']){
+  for(const slug of ['organic','beauty','fashion','home-living','smart-life','watches','tech']){
     await page.goto('/'+slug);await expect(page.locator('.department-offer-slider .cinema-scene')).toHaveCount(3);
     const href=await page.locator('.offer-slide-cta').getAttribute('href');expect(href).toMatch(new RegExp(`^/${slug}/shop\\?(collection=offers|coupon=)`));
     await page.locator('.offer-slide-cta').click();await expect(page.locator('.catalog-layout .product-card').first()).toBeVisible();

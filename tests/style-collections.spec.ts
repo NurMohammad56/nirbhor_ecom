@@ -8,7 +8,7 @@ test('sneakers and watches are complete departments with scoped products and con
   for(const [slug,name] of [['sneakers','স্নিকার্স'],['watches','ঘড়ি']]){
     await page.locator('.brand-nav').getByRole('link',{name,exact:true}).click();
     await expect(page).toHaveURL('/'+slug);
-    await expect(page.locator('.department-offer-slider .cinema-scene')).toHaveCount(3);
+    if(slug==='sneakers'){await expect(page.locator('.footwear-hero')).toBeVisible();await expect(page.locator('.footwear-picker button')).toHaveCount(4);}else await expect(page.locator('.department-offer-slider .cinema-scene')).toHaveCount(3);
     await expect(page.locator('.department-product-grid .product-card')).toHaveCount(4);
     await expect(page.locator('.department-collection-section .category-rail-card')).toHaveCount(slug==='watches'?2:3);
     await expect(page.locator('.top-selling-section .product-rail-window')).toHaveAttribute('data-interval','3000');
@@ -59,7 +59,7 @@ test('admin can replace a hero by URL or upload and the chosen image persists',a
   await page.getByLabel('হিরোর ছবি আপলোড',{exact:true}).setInputFiles('public/assets/style-sneaker-court-v1.webp');
   await expect(page.locator('.experience-preview > img')).toHaveAttribute('src',/^data:image\/webp/);
   await page.getByRole('button',{name:bn('Save changes'),exact:true}).click();await page.goto('/sneakers');await page.reload();
-  await expect(page.locator('.department-offer-slider .cinema-scene.is-active img')).toHaveAttribute('src',/^data:image\/webp/);
+  await expect(page.locator('.footwear-merchant-photo img')).toHaveAttribute('src',/^data:image\/webp/);
 });
 
 test('hover magnification follows the pointer, resets and keeps the full image dialog usable',async({page})=>{

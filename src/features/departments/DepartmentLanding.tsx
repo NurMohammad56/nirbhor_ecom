@@ -1,6 +1,7 @@
 "use client";
 import WorldEditorial from "@/features/departments/WorldEditorial";
-import {PerfumeHero,ScentStudio} from "@/features/departments/PerfumeExperience";
+import FootwearHero,{SneakerEditorial} from '@/features/sneakers/FootwearHero';
+import {PerfumeHero,PerfumeFamilies} from "@/features/departments/PerfumeExperience";
 import { bnNode } from "@/lib/bn";
 import { Link, useParams } from "@/lib/navigation";
 import {
@@ -136,7 +137,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
   );
   const featured = items;
   const builtIn = {
-    categories: (<section className="container brand-section department-collection-section" id="department-collections">
+    categories: d.slug==='perfume' ? <PerfumeFamilies/> : (<section className="container brand-section department-collection-section" id="department-collections">
         <div className="brand-section-heading"><h2>{bnNode("Categories")}</h2><Link className="brand-underlined" to={departmentShopHref(d)}>{bnNode("All products")}<ArrowUpRight size={16} /></Link></div>
         <CategoryRail label={bnNode(d.name)+" ক্যাটাগরি"} items={subcategories.map(c=>({id:c.id,name:c.name,image:c.image || items.find(p=>p.subcategory===c.name)?.image || exp.heroImage,to:departmentShopHref(d,c.name)}))} />
       </section>),
@@ -162,7 +163,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
       </section>),
     combos: (<ComboShowcase category={category.name} />),
     reviews: (<CustomerVoices category={category.name} />),
-    story: d.slug === "perfume" ? <ScentStudio/> : <div className="container world-story-wrap"><WorldEditorial slug={d.slug}/></div>,
+    story: d.slug === "perfume" ? null : d.slug==='sneakers' ? <SneakerEditorial categoryName={category.name} experience={exp}/> : <div className="container world-story-wrap"><WorldEditorial slug={d.slug}/></div>,
     faq: (<section className="department-faq-section botanical-stage">
         {!["smart-life","sneakers","watches","tech"].includes(d.slug) && <Botanical kind={d.slug === "organic" ? "leaf" : "dry"} className="editorial-botanical" />}
         <div className="container brand-section department-faq">
@@ -208,7 +209,7 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
   };
   return (
     <main className={`department-landing department-${d.slug}`}>
-      {d.slug === "perfume" ? <div className="container perfume-hero-wrap"><PerfumeHero/></div> : offerSlides(store,d.slug).length ? <div className="container department-promo-wrap"><CinematicHero slides={offerSlides(store,d.slug)} department/></div> : <section data-depth={d.slug === "sneakers" ? undefined : "hero"} data-depth-max="18" className="department-hero-shell immersive-department">
+      {d.slug === 'sneakers' ? <div className="container footwear-hero-wrap"><FootwearHero experience={exp} shopHref={departmentShopHref(d)} categoryName={category.name}/></div> : d.slug === "perfume" ? <div className="container perfume-hero-wrap"><PerfumeHero/></div> : offerSlides(store,d.slug).length ? <div className="container department-promo-wrap"><CinematicHero slides={offerSlides(store,d.slug)} department/></div> : <section data-depth={d.slug === "sneakers" ? undefined : "hero"} data-depth-max="18" className="department-hero-shell immersive-department">
         <div className="department-immersive-media" aria-hidden="true">
           <img src={exp.heroImage} alt={bnNode("")} fetchPriority="high" />
         </div>
@@ -253,7 +254,8 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
         </Link>
       </div>
       <div className="ambient-surface department-atmosphere"><AmbientBackdrop kind={d.slug}/>
-      {categorySections(category).filter(block => block.enabled).map(block => <div className="department-section-slot" data-block={block.id} key={block.id}>{block.kind === "collection" ? <CategoryCollectionSection block={block}/> : builtIn[block.id as BuiltInSectionId]}</div>)}
+      {d.slug==='perfume'&&<div className="perfume-edge-botanicals" aria-hidden="true"><Botanical kind="dry" className="perfume-edge-left"/><Botanical kind="dry" className="perfume-edge-right"/></div>}
+      {categorySections(category).filter(block => block.enabled && !(d.slug==='perfume'&&block.kind!=='collection'&&block.id==='story')).map(block => <div className="department-section-slot" data-block={block.id} key={block.id}>{block.kind === "collection" ? <CategoryCollectionSection block={block}/> : builtIn[block.id as BuiltInSectionId]}</div>)}
       </div>
     </main>
   );

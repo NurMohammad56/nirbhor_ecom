@@ -1,4 +1,5 @@
 "use client";
+import {matchesFragranceNote,fragranceNotes} from '@/lib/fragrance-discovery';
 import CategoryFilterTree from "@/features/catalog/CategoryFilterTree";
 import { bnNode, searchText, latinDigits } from "@/lib/bn";
 import { CouponCollectionNotice } from "@/features/offers/OfferPrice";
@@ -95,7 +96,7 @@ export default function Catalog() {
   const facetProducts=budgetCap?budgetProducts.filter(p=>(!category||p.category===category)&&(!subcategory||p.subcategory===subcategory||descendants(categories,subcategory).has(p.subcategory))):products;
   const facetCategories=budgetCap?categories.filter(c=>budgetProducts.some(p=>!c.parent?p.category===c.name:p.subcategory===c.name||descendants(categories,c.name).has(p.subcategory))):categories;
   const priceCeiling=budgetCap||3000;
-  const activeKeys = [
+  const activeKeys = ['note',
     "subcategory",
     "min",
     "max",
@@ -111,7 +112,7 @@ export default function Catalog() {
     "color",
     "custom",
   ];
-  const title = budgetCap&&!category&&!subcategory ? money(budgetCap)+" এর মধ্যে পছন্দের পণ্য" : query
+  const title = department?.slug==='perfume'&&params.get('note') ? (fragranceNotes.find(n=>n.id===params.get('note'))?.name||'সুগন্ধের নোট')+' - পছন্দের সুগন্ধ' : budgetCap&&!category&&!subcategory ? money(budgetCap)+" এর মধ্যে পছন্দের পণ্য" : query
     ? `Results for “${query}”`
     : subcategory ||
       category ||
@@ -132,6 +133,7 @@ export default function Catalog() {
   }
   const list = useMemo(() => {
     let list = budgetProducts.filter((p) => p.status === "Published");
+    if(department?.slug==='perfume'&&params.get('note'))list=list.filter(p=>matchesFragranceNote(p,params.get('note')!));
     if (category) list = list.filter((p) => p.category === category);
     if (subcategory)
       list = list.filter(
@@ -488,7 +490,7 @@ export default function Catalog() {
                           ? `${params.get(k)}%+ off`
                           : k === "rating"
                             ? `${params.get(k)}★ & up`
-                            : params.get(k))}
+                            : k === 'note' ? fragranceNotes.find(n=>n.id===params.get(k))?.name || params.get(k) : params.get(k))}
                   <X size={12} />
                 </button>
               )))}

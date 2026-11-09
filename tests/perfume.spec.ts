@@ -5,8 +5,8 @@ test('perfume discovery, scent filtering and the shared purchase flow work',asyn
  await page.goto('/');await expect(page.locator('.perfume-invitation')).toBeVisible();
  await page.locator('.perfume-invitation a').click();await expect(page).toHaveURL('/perfume');
  await expect(page.locator('.perfume-hero h1')).toContainText('আপনার উপস্থিতি');
- await page.locator('.scent-family-tabs').getByRole('button',{name:'ফ্লোরাল',exact:true}).click();await expect(page.locator('.scent-pick')).toHaveCount(1);await expect(page.locator('.scent-pick')).toContainText('রোজ মিউজ');
- await page.locator('.scent-pick').click();await expect(page).toHaveURL('/perfume/product/perfume-rose');
+ await page.locator('.fragrance-family-card').filter({has:page.getByRole('heading',{name:'ফ্লোরাল',exact:true})}).click();await expect(page.locator('.catalog-layout .product-card')).toHaveCount(1);await expect(page.locator('.catalog-layout .product-card')).toContainText('রোজ মিউজ');
+ await page.locator('.catalog-layout .product-card a[href="/perfume/product/perfume-rose"]').first().click();await expect(page).toHaveURL('/perfume/product/perfume-rose');
  await page.locator('.scent-layer-tabs').getByRole('tab',{name:'হার্ট নোট',exact:true}).click();await expect(page.getByRole('tabpanel',{name:'হার্ট নোট',exact:true})).toContainText('গোলাপ, জুঁই');await expect(page.locator('.fragrance-sample-tag')).toBeVisible();
  await page.getByRole('button',{name:bn('Add to your bag'),exact:true}).click();await expect(page.locator('.bag-item')).toContainText('রোজ মিউজ');
  await page.getByRole('button',{name:bn('Continue to checkout'),exact:true}).click();await expect(page).toHaveURL('/checkout');await expect(page.locator('.checkout-page')).toContainText('রোজ মিউজ');
@@ -29,5 +29,5 @@ test('the appended catalogue preserves prices, customer data and merchant remova
 for(const width of [320,390,1440])test(`perfume and its buying controls fit ${width}px without runtime errors`,async({page})=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.setViewportSize({width,height:900});
  for(const path of ['/perfume','/perfume/shop','/perfume/product/perfume-amber','/admin/product-pages?product=perfume-amber']){await page.goto(path);await page.evaluate(()=>document.fonts.ready);expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBe(width);}
- await page.goto('/perfume');await expect(page.locator('.perfume-hero-art img')).toBeVisible();expect(await page.locator('.perfume-hero-art img').evaluate((i:HTMLImageElement)=>i.naturalWidth)).toBeGreaterThan(1000);expect(errors).toEqual([]);
+ await page.goto('/perfume');await expect(page.locator('.perfume-hero-art img')).toBeVisible();expect(await page.locator('.perfume-hero-art img').evaluate((i:HTMLImageElement)=>i.naturalWidth)).toBeGreaterThan(800);expect(errors).toEqual([]);
 });

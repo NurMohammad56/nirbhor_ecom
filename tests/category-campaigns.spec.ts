@@ -2,7 +2,7 @@ import {test,expect} from './fixtures';
 import {bn} from '../src/lib/bn';
 
 test('each department has three generated campaign backgrounds, real product picks and working feature links',async({page})=>{
-  for(const slug of ['organic','beauty','fashion','home-living','smart-life','sneakers','watches','tech']){
+  for(const slug of ['organic','beauty','fashion','home-living','smart-life','watches','tech']){
     await page.goto('/'+slug);const hero=page.locator('.category-campaign-hero');
     const photos=await hero.locator('.cinema-scene img').evaluateAll(images=>images.map(image=>(image as HTMLImageElement).getAttribute('src')));
     expect(photos).toHaveLength(3);expect(new Set(photos).size).toBe(3);
@@ -41,7 +41,7 @@ test('each campaign keeps its own editable image, separate from the static categ
 
 for(const width of [320,390])test(`category campaigns fit ${width}px without copy or image overlaps`,async({page})=>{
   await page.setViewportSize({width,height:844});
-  for(const slug of ['organic','beauty','fashion','home-living','smart-life','sneakers','watches','tech']){
+  for(const slug of ['organic','beauty','fashion','home-living','smart-life','watches','tech']){
     await page.goto('/'+slug);const hero=page.locator('.category-campaign-hero');
     await page.evaluate(()=>document.fonts.ready);
     expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBe(width);

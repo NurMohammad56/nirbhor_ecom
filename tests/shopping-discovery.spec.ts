@@ -5,7 +5,7 @@ import {productSales} from '../src/lib/best-selling';
 
 for(const width of [1440,1024,768,390,320])test(`every slide keeps its hero and following content stationary at ${width}px`,async({page})=>{
  test.setTimeout(90000);await page.setViewportSize({width,height:1200});
- for(const route of ['/','/organic','/beauty','/fashion','/home-living','/smart-life','/sneakers','/watches','/tech']){
+ for(const route of ['/','/organic','/beauty','/fashion','/home-living','/smart-life','/watches','/tech']){
   await page.goto(route);await page.evaluate(()=>document.fonts.ready);
   const hero=page.locator('.offer-slider');await expect(hero).toHaveAttribute('data-hero-stable','true');
   const initial=await hero.evaluate(el=>({height:el.getBoundingClientRect().height,bottom:el.getBoundingClientRect().bottom+scrollY}));

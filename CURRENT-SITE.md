@@ -1,3 +1,37 @@
+# নির্ভর - Bold sneaker and aquatic perfume heroes - ৮ নভেম্বর ২০২৬
+
+স্নিকার্সে গাঢ় forest/petrol রঙ, উজ্জ্বল amber/mint accent; গোল outline ও round image crop সরানো হয়েছে। পারফিউমে নতুন aquatic hero: সাতটি unbranded বোতল ত্রিভুজ বিন্যাসে, ফুল, চন্দন, শুকনো ডাল ও পানির আলো। ছবিগুলো ছোট করে মোট সাতটি ঘ্রাণভিত্তিক কালেকশন দেখানো হয়। Admin hero/category uploads, saved notes, pricing ও কেনাকাটার আচরণ বজায় আছে।
+
+- Site: https://nirbhor-store-updated.nm-bdcalling.chatgpt.site
+- Source commit: `20a257486970d1110b3af2944df8532fcbe4590a`
+- Deployment: `appgdep_6af09ccfd98c8191b8b276949bc14e2f` (succeeded)
+- Live smoke check: home, Tech, Sneakers, Perfume and perfume PDP returned HTTP 200 and hydrated without client exceptions.
+- Saved version: `appgprj_6ae04bcedab881918716df4efecbf2b7~appgver_d0178afcbda48191b1b03c106b47aa66`
+- Checks: native production build, source/root TypeScript, 34 native browser tests, 34 exact Worker browser tests passed. 20 responsive states passed without overflow, missing images or browser exceptions.
+- Asset: `public/assets/fragrance/aqua-collection-v3.webp` (1536 x 1024, 348,658 bytes). Built-in image_gen prompt and generation record: [AQUA-HERO.md](design-assets/fragrance-studio/AQUA-HERO.md).
+- Seven bottles are campaign art, not seven newly invented product records. Existing sample products and owner-private access remain unchanged.
+- Root mirror synchronized using captured pre-edit file hashes. The root legacy hosting identity remains untouched.
+
+---
+
+# নির্ভর - Independent boutique stores - ৮ নভেম্বর ২০২৬
+
+স্নিকার্স ও পারফিউমের আলাদা ডিজাইন প্রকাশিত হয়েছে। স্নিকার্সে apricot/terracotta/slate product stage, নির্বাচিত সাইজের দাম ও কুইক অর্ডার। পারফিউমে champagne botanical identity, ফুল/কাঠ দিয়ে ঘ্রাণ খোঁজা এবং বোতলের চারপাশে saved fragrance notes দেখানো হয়। অ্যাডমিনের ছবি/লেখা/section controls বজায় আছে।
+
+- Site: https://nirbhor-store-updated.nm-bdcalling.chatgpt.site
+- Sneakers: https://nirbhor-store-updated.nm-bdcalling.chatgpt.site/sneakers
+- Perfume: https://nirbhor-store-updated.nm-bdcalling.chatgpt.site/perfume
+- Source commit: `25b0ded1d422b76913600367ec3a8c36bf168770`
+- Deployment: `appgdep_6af0947a60508191a01b45bceeb5ad76` (succeeded)
+- Published smoke check: home, Tech, Sneakers, Perfume and perfume PDP returned HTTP 200 and hydrated without client exceptions.
+- Saved version: `appgprj_6ae04bcedab881918716df4efecbf2b7~appgver_a5b6e2afae648191b8d0475b51edc5f8`
+- Native Next production build passed; 167 browser tests passed; 27 exact Worker bundle tests passed. 20 responsive page/viewport states passed without overflow, broken images or client exceptions. Root TypeScript check passed.
+- Implementation and checks: [BOUTIQUE_REDESIGN.md](BOUTIQUE_REDESIGN.md). Image generation records: [PROMPTS.md](design-assets/fragrance-studio/PROMPTS.md).
+- Existing owner-private sharing and browser-local commerce state remain unchanged. Products remain samples; no new production backend or inventory was invented.
+- IDE code synchronized with guarded file hashes. Publish only from `sites/nirbhor-updated`; the root legacy hosting identity remains untouched.
+
+---
+
 # নির্ভর - Commerce redesign - ৮ নভেম্বর ২০২৬
 
 হোমপেজ, নেভিগেশন, ৯টি ডিপার্টমেন্ট, ক্যাটালগ/PDP, কার্ট-চেকআউট, অ্যাকাউন্ট, পাবলিক পেজ ও অ্যাডমিনের শেয়ার করা ডিজাইন আপডেট। নতুন ইন্টার‌্যাকটিভ category gallery, editorial product selection, fragrance keyboard tabs ও responsive WebP variants যুক্ত হয়েছে।

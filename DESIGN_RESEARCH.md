@@ -24,3 +24,7 @@ Nirbhor Atelier: a Bengali department store with a calm ivory canvas, evergreen 
 ## Motion rules
 
 Maintain the existing three-second campaign interval, manual arrows and hover/focus pause. Use image depth only on editorial scenes, stop ambient effects offscreen, support reduced motion and keep checkout/forms still. No WebGL or new animation dependency is required; no valid 3D model or multi-angle spin asset is available, so no full 360-degree experience is claimed.
+
+## Supplied references for the footwear and fragrance refinement
+
+Reviewed both supplied AVIF previews and the attached footwear/product/banner references. Their relevant patterns are centred oversized type behind footwear, isolated angled products, high-contrast collection surfaces, and perfume photography with botanical subjects and spatial note labels. The subsequent user correction replaces muted sneaker colors with forest/amber and removes circular scenery. Perfume now has a deep aquatic campaign with exactly seven unbranded bottles in a triangular composition, flowers, water light and a sparse dry branch. Collection art is smaller and four real note-based discovery links join the three merchant categories. Competitor marks, promotional wording and unsupported performance claims are not copied. The five new fragrance assets and existing footwear images implement the direction. These refinements use the supplied references and explicit user feedback; no claim of additional live competitor browsing is made.

@@ -1,3 +1,21 @@
+# নির্ভর - Readable sneaker hero and eight palette options - ৯ নভেম্বর ২০২৬
+
+Latest local update: replaced the insufficient copy haze with a smaller translucent cream panel, darker description and larger desktop body text. Added five palette proposals (eight total) to `design-assets/color-palettes/index.html`. No new site-wide palette selected. Source copies synchronized; TypeScript and 11 boutique tests passed. Desktop screenshot and 375 px hero/palette overflow checked. Not deployed.
+
+---
+
+# নির্ভর - Simplified sneaker hero and palette proposals - ৯ নভেম্বর ২০২৬
+
+Latest local change: reduced the central white haze and removed the sneaker hero product selector/price/order strip. Collection CTA and offer links remain. Root and nested source synchronized; TypeScript, production build and 11 boutique browser tests passed. Three optional palette previews: `design-assets/color-palettes/index.html`. No overall palette adopted or deployment performed.
+
+---
+
+# নির্ভর - Sneaker showroom and light Smart Life - ৯ নভেম্বর ২০২৬
+
+Latest local update: white/ivory sneaker rack showroom hero, matching default homepage sneaker campaign photo, compact sneaker catalogue cards, light Smart Life hero gradient, and perfume gallery summary moved to the purchase column. Merchant hero overrides and purchase controls preserved. Both source copies synchronized. Production build and TypeScript passed; browser suite 28/29 passed initially with one admin timeout, then that exact case passed on rerun. Additional 25 responsive route states passed. Details and asset prompt: [SHOWROOM-UPDATE.md](design-assets/fragrance-studio/SHOWROOM-UPDATE.md). Not deployed.
+
+---
+
 # নির্ভর - Ivory perfume hero and readable footer - ৯ নভেম্বর ২০২৬
 
 Latest user color correction: perfume landing hero now uses cream/white water-and-glass artwork (`ivory-collection-v4.webp`) and an ivory text panel. Shared dark footer link/heading contrast and Tech/Smart Life coupon contrast fixed. Source is synchronized in root and `sites/nirbhor-updated`; this update is local, not published. Implementation, generated image prompt and QA: [IVORY-HERO.md](design-assets/fragrance-studio/IVORY-HERO.md).

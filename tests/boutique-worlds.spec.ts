@@ -1,20 +1,17 @@
 import {test,expect} from './fixtures';
 
-test('footwear studio switches real products and opens the selected size-aware quick order',async({page})=>{
- await page.goto('/sneakers');const hero=page.locator('.footwear-hero');await expect(hero).toBeVisible();await expect(hero.locator('.footwear-picker button')).toHaveCount(4);
- await hero.getByRole('button',{name:'আরবান স্লেট স্নিকার্স',exact:true}).click();await expect(hero).toHaveClass(/footwear-mood-slate/);await expect(hero.locator('.footwear-product-caption')).toContainText('আরবান স্লেট');
- await expect(hero.locator('.footwear-purchase>a')).toHaveAttribute('href','/sneakers/product/sneaker-urban');await hero.locator('.quick-order-trigger').click();await expect(page.getByRole('dialog')).toContainText('আরবান স্লেট');
- await page.keyboard.press('Escape');await hero.locator('.footwear-purchase>a').click();await expect(page).toHaveURL('/sneakers/product/sneaker-urban');await expect(page.locator('.variant-options')).toBeVisible();
+test('showroom keeps the collection link and removes the hero product strip',async({page})=>{
+ await page.goto('/sneakers');const hero=page.locator('.footwear-showroom');await expect(hero).toBeVisible();await expect(hero.locator('.footwear-picker,.footwear-hero-bottom,.footwear-purchase')).toHaveCount(0);await expect(hero.locator('.footwear-merchant-photo img')).toHaveAttribute('src','/assets/sneakers-studio/showroom-ivory-v1.webp');await hero.locator('.footwear-headline>a').click();await expect(page).toHaveURL('/sneakers/shop');await expect(page.locator('.catalog-results .product-card')).toHaveCount(4);
 });
 
 test('footwear hero retains uploaded campaign images and merchant headlines',async({page})=>{
  await page.goto('/sneakers');await page.evaluate(()=>{const cats=JSON.parse(localStorage.getItem('nirbhor-v1-categories')!);const c=cats.find((c:any)=>c.id==='c-sneakers');c.experience.heroTitle='আমাদের নতুন স্নিকার্স';c.experience.heroImage='/assets/style-sneaker-terra-v1.webp';localStorage.setItem('nirbhor-v1-categories',JSON.stringify(cats));});await page.reload();
  await expect(page.locator('.footwear-headline h1')).toHaveText('আমাদের নতুন স্নিকার্স');await expect(page.locator('.footwear-merchant-photo img')).toHaveAttribute('src','/assets/style-sneaker-terra-v1.webp');
- await page.locator('.footwear-picker button').first().click();await expect(page.locator('.footwear-shoe')).toBeVisible();
+
 });
 
 test('boutique feature prices follow the shown default variant after merchant edits',async({page})=>{
- await page.goto('/sneakers');await page.evaluate(()=>{const p=JSON.parse(localStorage.getItem('nirbhor-v1-products')!);const shoe=p.find((p:any)=>p.id==='sneaker-court');shoe.variants.find((v:any)=>v.label===shoe.weight).price=3333;const scent=p.find((p:any)=>p.id==='perfume-amber');scent.variants[0].price=4444;localStorage.setItem('nirbhor-v1-products',JSON.stringify(p));});await page.reload();await expect(page.locator('.footwear-product-caption b')).toContainText('৩,৩৩৩');await page.goto('/perfume');await expect(page.locator('.fragrance-hero-product>b')).toContainText('৪,৪৪৪');
+ await page.goto('/sneakers');await page.evaluate(()=>{const p=JSON.parse(localStorage.getItem('nirbhor-v1-products')!);const shoe=p.find((p:any)=>p.id==='sneaker-court');shoe.variants.find((v:any)=>v.label===shoe.weight).price=3333;const scent=p.find((p:any)=>p.id==='perfume-amber');scent.variants[0].price=4444;localStorage.setItem('nirbhor-v1-products',JSON.stringify(p));});await page.reload();await page.goto('/perfume');await expect(page.locator('.fragrance-hero-product>b')).toContainText('৪,৪৪৪');
 });
 
 test('perfume categories use botanical pictures and jasmine discovery uses saved notes',async({page})=>{
@@ -39,5 +36,5 @@ test('disabled fragrance profiles stay hidden on product details and custom cate
 
 for(const width of [320,375,768,1440])test(`the two boutique worlds and their discovery controls fit ${width}px`,async({page})=>{
  await page.setViewportSize({width,height:1000});const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));for(const path of ['/sneakers','/perfume','/perfume/product/perfume-amber']){await page.goto(path);await page.evaluate(()=>document.fonts.ready);expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBe(width);}
- await page.goto('/sneakers');const first=await page.locator('.footwear-hero').boundingBox();await page.locator('.footwear-picker button').nth(1).click();const next=await page.locator('.footwear-hero').boundingBox();expect(Math.abs(next!.height-first!.height)).toBeLessThan(2);expect(errors).toEqual([]);
+ await page.goto('/sneakers');const first=await page.locator('.footwear-hero').boundingBox();await page.evaluate(()=>document.fonts.ready);const next=await page.locator('.footwear-hero').boundingBox();expect(Math.abs(next!.height-first!.height)).toBeLessThan(2);expect(errors).toEqual([]);
 });

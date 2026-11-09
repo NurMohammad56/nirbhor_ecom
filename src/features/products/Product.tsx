@@ -631,7 +631,7 @@ export default function ProductPage({
                 ))}
               </div>
               {!campaign && <FragranceNotes product={p}/>}
-              {!campaign && <ProductGallerySummary product={p} variant={variant.label}/>}
+              {!campaign && departmentForProduct(p,s.categories)?.slug!=='perfume' && <ProductGallerySummary product={p} variant={variant.label}/>}
             </div>
             <div className="product-purchase">
               <div className="pdp-topline">
@@ -784,6 +784,7 @@ export default function ProductPage({
                 <p className="small muted">{bnNode("SKU: ")}{bnNode(variant.sku)}{bnNode(" · Brand: ")}{bnNode(p.brand)}
                 </p>
               ))}
+              {!campaign && departmentForProduct(p,s.categories)?.slug==='perfume' && <ProductGallerySummary product={p} variant={variant.label}/>}
             </div>
           </div>
         </div>

@@ -9,4 +9,4 @@ export const categoryCampaigns: Record<string, {title:string; text:string; edit:
   watches: {title:"সময়ের সঙ্গে,\nস্টাইলও থাকুক।",text:"নারী ও পুরুষের ঘড়ি - ডায়াল, স্ট্র্যাপ ও মডেলের তথ্য দেখে পছন্দ করুন।",edit:"ছোট্ট অনুষঙ্গে নিজের পরিচয়",color:"watches",secondary:"কবজিতে থাকুক\nপছন্দের ছোঁয়া"},
   tech: {title:"আপনার সেটআপ,\nআপনার মতো।",text:"কীবোর্ড, মাউস, অডিও ও ডেস্ক অ্যাকসেসরিজ - কাজ ও অবসরের পছন্দ।",edit:"ডেস্ক থেকে আপনার প্রতিদিন",color:"tech",secondary:"কাজ আর অবসরে\nসেটআপ হোক সম্পূর্ণ"},
 };
-export const campaignPhoto=(slug:string,secondary=false)=>`/assets/campaign-${slug}-${secondary?"edit":"offer"}-v1.webp`;
+export const campaignPhoto=(slug:string,secondary=false)=>slug==='sneakers'?'/assets/sneakers-studio/showroom-ivory-v1.webp':`/assets/campaign-${slug}-${secondary?"edit":"offer"}-v1.webp`;

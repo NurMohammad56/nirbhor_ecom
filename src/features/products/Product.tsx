@@ -10,6 +10,7 @@ import AmbientBackdrop from "@/components/AmbientBackdrop";
 import { departmentForProduct } from "@/lib/departments";
 import { productPageContent, reviewSummary, reviewSourceLabel, reviewIsVideo } from "@/lib/product-page-content";
 import FragranceNotes from "@/features/products/FragranceNotes";
+import {fragranceArt} from '@/lib/fragrance-discovery';
 import { bnNode, latinDigits, searchText } from "@/lib/bn";
 import { DiscountHint } from "@/features/offers/OfferCards";
 import { useEffect, useRef, useState } from "react";
@@ -559,7 +560,7 @@ export default function ProductPage({
   );
   const variant = variants.find((v) => v.label === selected) || variants[0],
     price = variant?.price || p.price;
-  const gallery = [...new Set([p.image, ...p.images])].filter(Boolean);
+  const gallery = [...new Set([p.image, ...p.images])].filter(Boolean).map(src=>departmentForProduct(p,s.categories)?.slug==='perfume'&&src===p.image?fragranceArt(p):src);
   const page = productPageContent(p), stats = reviewSummary(p.id, s.reviews);
   const buy = () => {
     s.addToCart(p.id, quantity, variant.label);

@@ -18,13 +18,13 @@ test('boutique feature prices follow the shown default variant after merchant ed
 });
 
 test('perfume categories use botanical pictures and jasmine discovery uses saved notes',async({page})=>{
- await page.goto('/perfume');await expect(page.locator('.fragrance-family-card')).toHaveCount(7);await expect(page.locator('.fragrance-family-card>img')).toHaveCount(0);await expect(page.locator('.fragrance-family-card .botanical-sprite')).toHaveCount(7);await expect(page.locator('.perfume-hero-art img')).toHaveAttribute('src','/assets/fragrance/aqua-collection-v3.webp');
+ await page.goto('/perfume');await expect(page.locator('.fragrance-family-card')).toHaveCount(7);await expect(page.locator('.fragrance-family-card>img')).toHaveCount(0);await expect(page.locator('.fragrance-family-card .botanical-sprite')).toHaveCount(7);await expect(page.locator('.perfume-hero-art img')).toHaveAttribute('src','/assets/fragrance/ivory-collection-v4.webp');
  await page.locator('.fragrance-ingredient-links').getByRole('link',{name:'জুঁই',exact:false}).click();await expect(page).toHaveURL(/note=jasmine/);await expect(page.locator('.catalog-layout .product-card')).toHaveCount(2);
  await page.evaluate(()=>{const items=JSON.parse(localStorage.getItem('nirbhor-v1-products')!);items.find((p:any)=>p.id==='perfume-amber').page.fragranceHeartNotes='মসলা';localStorage.setItem('nirbhor-v1-products',JSON.stringify(items));});await page.reload();await expect(page.locator('.catalog-layout .product-card')).toHaveCount(1);await expect(page.locator('.catalog-layout .product-card')).toContainText('রোজ মিউজ');
 });
 
 test('perfume removes the anatomy section while collection links and product note diagrams remain usable',async({page})=>{
- await page.goto('/perfume');await expect(page.getByText('THE ANATOMY OF A SCENT',{exact:true})).toHaveCount(0);await expect(page.locator('.department-section-slot[data-block="story"]')).toHaveCount(0);await expect(page.locator('.perfume-edge-botanicals img')).toHaveCount(2);
+ await page.goto('/perfume');await expect(page.getByText('THE ANATOMY OF A SCENT',{exact:true})).toHaveCount(0);await expect(page.locator('.department-section-slot[data-block="story"]')).toHaveCount(0);await expect(page.locator('.perfume-edge-botanicals img')).toHaveCount(0);
  await page.locator('.perfume-text-link').click();await expect(page).toHaveURL(/#department-collections$/);await expect(page.locator('.fragrance-families')).toBeInViewport();
  await page.goto('/perfume/product/perfume-rose');await expect(page.locator('.fragrance-notes [role="tab"]')).toHaveCount(3);await page.getByRole('tab',{name:'হার্ট নোট',exact:true}).click();await expect(page.getByRole('tabpanel',{name:'হার্ট নোট',exact:true})).toContainText('গোলাপ, জুঁই');await expect(page.locator('.fragrance-context')).toContainText('নমুনা');
 });

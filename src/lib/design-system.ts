@@ -10,7 +10,7 @@ export const worldThemes:Record<string,WorldTheme>={
  sneakers:{accent:'#b34726',surface:'#f6eee6',ink:'#272624',label:'স্নিকার্স / পরের পদক্ষেপ',title:'আপনার স্টাইল। আপনার পরের জোড়া।',description:'সিলুয়েট থেকে সাইজ - পছন্দের জুতাটি আরও কাছ থেকে দেখুন।',layout:'atelier'},
  watches:{accent:'#745a35',surface:'#f5f1e8',ink:'#332d25',label:'ঘড়ি / ছোট অনুষঙ্গে পরিচয়',title:'সময়ের সঙ্গে, নিজের স্টাইল।',description:'ডায়াল, স্ট্র্যাপ ও মডেলের তথ্য মিলিয়ে খুঁজে নিন নিজের ঘড়ি।',layout:'atelier'},
  tech:{accent:'#4944a4',surface:'#efeff9',ink:'#292943',label:'টেক / কাজ / নিজের সেটআপ',title:'আপনার সেটআপ, নতুনভাবে।',description:'অডিও, কাজ আর গেমিংয়ের জন্য পণ্যের প্রয়োজনীয় তথ্য এক জায়গায়।',layout:'workbench'},
- perfume:{accent:'#84603b',surface:'#f7f1e8',ink:'#30251d',label:'পারফিউম / সুগন্ধের গল্প',title:'আপনার উপস্থিতি। আপনার সুগন্ধ।',description:'ঘ্রাণের নোট বুঝে খুঁজে নিন নিজের পছন্দ।',layout:'origin'}
+ perfume:{accent:'#242424',surface:'#ffffff',ink:'#222222',label:'পারফিউম / সুগন্ধের গল্প',title:'আপনার উপস্থিতি। আপনার সুগন্ধ।',description:'ঘ্রাণের নোট বুঝে খুঁজে নিন নিজের পছন্দ।',layout:'origin'}
 };
 export function visualTheme(slug='main',merchantAccent?:string){
  const theme=worldThemes[slug]||worldThemes.main;

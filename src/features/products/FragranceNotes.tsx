@@ -6,6 +6,7 @@ import {fragranceLayers} from '@/lib/fragrance-profile';
 import {fragranceNotes} from '@/lib/fragrance-discovery';
 import {bnNode} from '@/lib/bn';
 import type {Product} from '@/data/catalog';
+import FragranceAccords from '@/features/products/FragranceAccords';
 
 export default function FragranceNotes({product}:{product:Product}){
  const profile=productPageContent(product),[active,setActive]=useState(0),id=useId();
@@ -25,6 +26,8 @@ export default function FragranceNotes({product}:{product:Product}){
    {(profile.fragranceFamily||product.subcategory)&&<span>ঘ্রাণের ধরন<b>{profile.fragranceFamily||product.subcategory}</b></span>}
    {profile.fragranceConcentration&&<span>ঘনত্ব<b>{profile.fragranceConcentration}</b></span>}
   </div>
+  <FragranceAccords profile={profile}/>
+  <h3 className="fragrance-pyramid-title">ঘ্রাণের নোট</h3>
   <div className="scent-layer-tabs" role="tablist" aria-label="সুগন্ধের স্তর" onKeyDown={e=>{
    const i=available.indexOf(selected);let next=i;
    if(e.key==='ArrowRight')next=(i+1)%available.length;
@@ -32,7 +35,7 @@ export default function FragranceNotes({product}:{product:Product}){
    else if(e.key==='Home')next=0;else if(e.key==='End')next=available.length-1;else return;
    e.preventDefault();setActive(available[next]);document.getElementById(id+'-tab-'+available[next])?.focus();
   }}>
-   {fragranceLayers.map((item,i)=><button key={item.id} type="button" id={id+'-tab-'+i} role="tab" aria-label={item.label} tabIndex={selected===i?0:-1} aria-selected={selected===i} aria-controls={id+'-panel'} disabled={!profile[item.notes].trim()} onClick={()=>setActive(i)}><span aria-hidden="true">{bnNode(String(i+1).padStart(2,'0'))}</span><b>{item.label}</b></button>)}
+   {fragranceLayers.map((item,i)=><button key={item.id} type="button" id={id+'-tab-'+i} role="tab" aria-label={item.label} tabIndex={selected===i?0:-1} aria-selected={selected===i} aria-controls={id+'-panel'} disabled={!profile[item.notes].trim()} onClick={()=>setActive(i)}><span aria-hidden="true">{bnNode(String(i+1).padStart(2,'0'))}</span><b>{item.label}</b><small>{profile[item.notes]||'তথ্য নেই'}</small></button>)}
   </div>
   <div id={id+'-panel'} role="tabpanel" aria-labelledby={id+'-tab-'+selected} tabIndex={0} className={'scent-layer-panel layer-'+layer.id+(hasPicture?' has-note-art':'')}>
    {hasPicture&&<div className="scent-note-art">{image?<img src={image} alt={layer.label+' - '+notes} loading="lazy"/>:botanical&&<BotanicalSprite position={botanical.position} label={botanical.name}/>}</div>}

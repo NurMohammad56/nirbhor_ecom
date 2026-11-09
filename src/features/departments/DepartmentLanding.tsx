@@ -254,7 +254,6 @@ export default function DepartmentLanding({ slug }: { slug?: string }) {
         </Link>
       </div>
       <div className="ambient-surface department-atmosphere"><AmbientBackdrop kind={d.slug}/>
-      {d.slug==='perfume'&&<div className="perfume-edge-botanicals" aria-hidden="true"><Botanical kind="dry" className="perfume-edge-left"/><Botanical kind="dry" className="perfume-edge-right"/></div>}
       {categorySections(category).filter(block => block.enabled && !(d.slug==='perfume'&&block.kind!=='collection'&&block.id==='story')).map(block => <div className="department-section-slot" data-block={block.id} key={block.id}>{block.kind === "collection" ? <CategoryCollectionSection block={block}/> : builtIn[block.id as BuiltInSectionId]}</div>)}
       </div>
     </main>

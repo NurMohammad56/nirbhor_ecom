@@ -4,7 +4,7 @@ import {bn} from '../src/lib/bn';
 test('perfume discovery, scent filtering and the shared purchase flow work',async({page})=>{
  await page.goto('/');await expect(page.locator('.perfume-invitation')).toBeVisible();
  await page.locator('.perfume-invitation a').click();await expect(page).toHaveURL('/perfume');
- await expect(page.locator('.perfume-hero h1')).toContainText('আপনার উপস্থিতি');
+ await expect(page.locator('.perfume-hero h1')).toContainText('নিজের পছন্দের');
  await page.locator('.fragrance-family-card').filter({has:page.getByRole('heading',{name:'ফ্লোরাল',exact:true})}).click();await expect(page.locator('.catalog-layout .product-card')).toHaveCount(1);await expect(page.locator('.catalog-layout .product-card')).toContainText('রোজ মিউজ');
  await page.locator('.catalog-layout .product-card a[href="/perfume/product/perfume-rose"]').first().click();await expect(page).toHaveURL('/perfume/product/perfume-rose');
  await page.locator('.scent-layer-tabs').getByRole('tab',{name:'হার্ট নোট',exact:true}).click();await expect(page.getByRole('tabpanel',{name:'হার্ট নোট',exact:true})).toContainText('গোলাপ, জুঁই');await expect(page.locator('.fragrance-sample-tag')).toBeVisible();

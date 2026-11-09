@@ -1,11 +1,15 @@
-# Aquatic seven-bottle collection campaign
+# Perfume hero - aquatic collection artwork
 
-Generated with the built-in image_gen tool on 8 November 2026. No API/CLI fallback was used. This is an unbranded campaign visual, not seven new inventory records or a claim that the sample products have these exact bottles.
+The requested seven-bottle image already exists at `public/assets/fragrance/aqua-collection-v3.webp` (1536 x 1024). Reused that exact asset rather than regenerating it. The perfume landing hero now uses a deep aquatic surface, warm ivory action, white Bengali headline, and the full collection image. The rest of the neutral perfume storefront and product details remain unchanged.
 
-Final asset: `public/assets/fragrance/aqua-collection-v3.webp`, 1536 x 1024, WebP quality 88. The original is retained at `C:/Users/bdcalling/.codex/generated_images/01a1769e-dd5c-7583-9d6e-5750846c30ec/exec-dfd2273b-b1f1-4dea-bfbe-72882a1fd49d.png`.
+The artwork keeps its 3:2 aspect ratio without cropping the bottles. On mobile it follows the text in a separate full-width image area. Explicit image dimensions reserve space before loading. A restrained light sweep runs only while the section is visible, the document is active and reduced motion is off. It does not zoom or move the product image.
 
-The seven bottles, triangular arrangement, flowers, dry branch and water lighting were visually inspected. Only encoding/size optimization was performed after generation. No competitor mark or fictitious product certification was added.
+The existing admin category hero image, headline and description controls still work; custom images override this default. The actual featured product, variant price and destination are preserved. The collection artwork is illustrative and does not add inventory or claims about the pictured bottles.
 
-## Exact prompt
+Changed files: `FragranceBoutique.tsx`, `fragrance-discovery.ts`, `fragrance-boutique.css`, and the two existing test expectations for the hero image/background. Both root IDE source and `sites/nirbhor-updated` were synchronized.
 
-Use case: ads-marketing. Asset type: premium perfume ecommerce hero photography, wide landscape 3:2, highest detail. Create a genuinely premium editorial still life with EXACTLY SEVEN elegant unbranded glass perfume bottles arranged as a clear triangular pyramid composition: one taller central bottle at the apex toward back, two medium bottles in middle row, four bottles subtly staggered in the broad foreground base. All seven clearly visible and distinct, not stacked physically. Mix amber square glass, blush pink oval glass, emerald glass, transparent pale blue glass, small champagne and dark sapphire bottles with refined silver or gold caps, blank discreet labels, absolutely no text or logos. Scene: translucent aqua water and deep petrol-blue reflections on a wet glass plinth, rippled water caustic light. Tasteful small real jasmine blossoms and a pale rose at the base, bergamot half, a few sandalwood pieces and an elegant sparse dry branch on one side. Restrained botanical styling, don't obscure bottles. Cool luminous ice-blue highlights, rich teal shadows, warm amber liquid contrast. Studio perfume campaign, photoreal glass refraction and water, precise sharp edges, no illustration. Composition fills the image attractively with generous breathing space around the triangle and no clipped caps, front view slightly elevated. Background seamless watery teal-blue, brighter pale aqua around bottle silhouettes, not beige, not pastel peach. No lettering, no claims, no badges, no UI, no shop, no people, no extra bottles, no circular disk behind them.
+Validation: root `npm run typecheck` passed; the 14 tests in `boutique-worlds.spec.ts` and `fragrance-accords.spec.ts` passed. Additional browser inspection at 320, 375, 768, 1024 and 1440 px verified no horizontal overflow or client errors, correct image proportions and stable hero height. Custom admin image/headline, collection anchor and reduced motion were checked. Desktop and mobile screenshots were inspected. Results are in root `artifacts/aqua-hero-qa.json`.
+
+This change is local; no deployment was requested or performed for this update.
+
+Production validation: npm run build passed in sites/nirbhor-updated (Next.js webpack production build, all 40 static pages generated).

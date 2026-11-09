@@ -1,3 +1,30 @@
+# নির্ভর - Ivory perfume hero and readable footer - ৯ নভেম্বর ২০২৬
+
+Latest user color correction: perfume landing hero now uses cream/white water-and-glass artwork (`ivory-collection-v4.webp`) and an ivory text panel. Shared dark footer link/heading contrast and Tech/Smart Life coupon contrast fixed. Source is synchronized in root and `sites/nirbhor-updated`; this update is local, not published. Implementation, generated image prompt and QA: [IVORY-HERO.md](design-assets/fragrance-studio/IVORY-HERO.md).
+
+---
+
+# নির্ভর - Perfume hero updated locally - ৯ নভেম্বর ২০২৬
+
+User-requested aquatic seven-bottle collection artwork restored to the perfume landing hero, with a deep aquatic text panel, warm ivory CTA and subtle reduced-motion-aware light animation. Product pages/catalog retain their clean neutral styling. Root IDE and authoritative checkout are synchronized. Details: [AQUA-HERO.md](design-assets/fragrance-studio/AQUA-HERO.md). This latest hero update is local and has not been published.
+
+---
+
+# নির্ভর - Clean perfume redesign ready, publication pending - ৯ নভেম্বর ২০২৬
+
+পারফিউম landing/catalog/PDP-তে white/charcoal design, isolated product photos, compact collection cards, detailed notes এবং admin-controlled accord bars তৈরি হয়েছে। Root code baseline hash checks দিয়ে synchronized; Next production build, root TypeScript, 178 full native tests, 43 final Worker tests এবং 30 responsive states পাস করেছে।
+
+**এই সংস্করণ এখনও প্রকাশিত হয়নি।** বর্তমান Sites সংযোগে project `appgprj_6ae04bcedab881918716df4efecbf2b7` এর `get_site` ও source credential request দুটিই `project_not_found`/404 দিয়েছে; `list_sites` খালি এসেছে। একই সাইটের অ্যাকাউন্ট/ওয়ার্কস্পেস পুনরায় নির্বাচন প্রয়োজন। আগের hosting identity/access policy বদলানো হয়নি, নতুন সাইট তৈরি করা হয়নি।
+
+- Authoritative checkout: `sites/nirbhor-updated` (uncommitted validated changes retained).
+- Last pushed/live source remains `eb2f31d42b3692753a0ae48253a0d625e15cb3fa` until the source helper can package and publish the new state.
+- Source opening completed before edits with that exact project/checkout/commit result. Resume with fresh credentials for the same project; do not open a different site or publish the root legacy manifest.
+- Final build: `artifacts/clean-final-build.state.json`; exact Worker: `artifacts/clean-worker-build.state.json`; QA: `artifacts/clean-full-tests.stdout.log`, `clean-worker-tests.stdout.log`, `clean-visual.json` inside the authoritative checkout.
+- Reference access limits, asset path and exact generation prompt: [CLEAN-STORE.md](design-assets/fragrance-studio/CLEAN-STORE.md). Full implementation and QA details: [BOUTIQUE_REDESIGN.md](BOUTIQUE_REDESIGN.md).
+- Previous successful live publication is recorded below; its URL currently serves that previous version.
+
+---
+
 # নির্ভর - Editable fragrance profile cards - ৯ নভেম্বর ২০২৬
 
 পারফিউমের বিস্তারিত পেজে পুরোনো floating-bottle diagram সরিয়ে নতুন তথ্যভিত্তিক কার্ড: editable শিরোনাম/পরিচিতি, তিনটি নোট ট্যাব, নোটের ছবি ও বিস্তারিত ব্যাখ্যা, ঘ্রাণের ধরন/ঘনত্ব এবং optional ব্যবহার/উপযোগিতার তথ্য।

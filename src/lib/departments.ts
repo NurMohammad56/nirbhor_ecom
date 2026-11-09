@@ -172,10 +172,18 @@ export function categoryForDepartment(d: Department, categories: Category[]) {
   );
 }
 export function experienceForDepartment(d: Department, categories: Category[]) {
-  return {
+  const experience = {
     ...d.experience,
     ...categoryForDepartment(d, categories)?.experience,
   };
+  if(d.slug==='perfume'){
+    if(experience.accent==='#84603b')experience.accent=d.experience.accent;
+    if(experience.background==='#f7f1e8')experience.background=d.experience.background;
+    if(experience.ink==='#30251d')experience.ink=d.experience.ink;
+    if(experience.heroTitle==='আপনার উপস্থিতি।\nআপনার সুগন্ধ।')experience.heroTitle=d.experience.heroTitle;
+    if(experience.description.startsWith('কিছু পছন্দ চোখে পড়ে। কিছু থেকে যায় অনুভবে।'))experience.description=d.experience.description;
+  }
+  return experience;
 }
 export function departmentForProduct(p: Product, categories: Category[] = []) {
   return departments.find(

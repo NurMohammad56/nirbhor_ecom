@@ -6,7 +6,8 @@ import { CouponPrice } from "@/features/offers/OfferPrice";
 import BrandLogo from "@/components/BrandLogo";
 import { ComboCartGroups } from "@/features/offers/OfferCards";
 import { bnNode } from "@/lib/bn";
-import { productHref } from "@/lib/departments";
+import { productHref,departmentForProduct } from "@/lib/departments";
+import {fragranceArt} from '@/lib/fragrance-discovery';
 import { descendants } from "@/lib/category-tree";
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
@@ -244,13 +245,15 @@ export function ProductCard({
   const variant = savedView
     ? notes["wish-variant-" + p.id] || p.weight
     : p.weight;
-  const displayPrice = savedView ? itemPrice(p, variant) : p.price;
+  const perfume=departmentForProduct(p,categories)?.slug==='perfume';
+  const displayImage=perfume?fragranceArt(p):p.image;
+  const displayPrice = savedView||perfume ? itemPrice(p, variant) : p.price;
   const offerCode = new URLSearchParams(location.search).get("coupon"), href = productHref(p, categories) + (offerCode ? "?coupon=" + encodeURIComponent(offerCode) : "");
   return (
     <article className={`product-card ${compact ? "compact" : ""}`}>
       <div className="product-photo">
         <Link to={href} aria-label={bnNode(`View ${p.name}`)}>
-          <img {...imageVariants(p.image)} src={p.image} alt={bnNode(p.name)} loading="lazy" decoding="async" width="640" height="640" />
+          <img {...imageVariants(displayImage)} src={displayImage} alt={bnNode(p.name)} loading="lazy" decoding="async" width="640" height="640" />
         </Link>
         {p.stock>0&&p.oldPrice>displayPrice ? <Badge tone="warm actual-discount">{bnNode(Math.floor((p.oldPrice-displayPrice)/p.oldPrice*100)+"% ছাড়")}</Badge> : bnNode(p.badge && <Badge tone="">{bnNode(p.badge)}</Badge>)}
         <button

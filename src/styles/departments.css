@@ -25,12 +25,6 @@ html[data-department="fashion"] .variant-options > button > svg {
 html:not([data-department="main"]) .site-footer {
   background: color-mix(in srgb, var(--department-bg) 32%, #fbfaf7);
 }
-html:not([data-department="main"]) .footer-grid h4 {
-  color: var(--department-ink);
-}
-html:not([data-department="main"]) .footer-grid > div > a:not(.wordmark) {
-  color: color-mix(in srgb, var(--department-ink) 60%, #aca99e);
-}
 html:not([data-department="main"]) .newsletter button {
   color: var(--department-accent);
 }

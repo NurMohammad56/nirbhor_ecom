@@ -49,7 +49,7 @@ export default function ApplicationShell({children}:{children:ReactNode}) {
     root.style.setProperty("--world-ink",theme.ink);
     root.style.setProperty("--green", experience?.accent || s.settings.color);
     root.style.setProperty("--ink", experience?.ink || "#142D2A");
-    root.style.setProperty("--paper", "#f7f6f2");
+    root.style.setProperty("--paper", department?.slug==='perfume'?'#fff':"#f7f6f2");
     root.style.setProperty(
       "--department-bg",
       experience?.background || "#f0ede5",
